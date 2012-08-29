@@ -27,7 +27,11 @@ public class Turn {
 	}
 
 	public Marks getLeadMark() {
-		return cards.size() == 0 ? null : cards.get(0).getMark();
+		return isLeadMarkDefined() ? cards.get(0).getMark() : null;
+	}
+
+	public boolean isLeadMarkDefined() {
+		return 0 < cards.size();
 	}
 	
 }

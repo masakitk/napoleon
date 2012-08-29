@@ -25,11 +25,13 @@ public class Player {
 	}
 
 	public Card openCard(Turn turn) {
-		Collection<Card> cardsToOpen = findSameMark(cards, turn.getLeadMark());
-		if(cardsToOpen.size() == 0){
-			cardsToOpen = cards;
-		}
-		
+		Collection<Card> cardsToOpen = turn.isLeadMarkDefined()
+				? findSameMark(cards, turn.getLeadMark())
+						: (Collection<Card>)cards;
+
+		if(cardsToOpen.size() == 0)
+			cardsToOpen.addAll(cards);
+				
 		Card toOpen = (Card)CollectionUtils.get(cardsToOpen, 0);
 		cards.remove(toOpen);
 		return toOpen;
