@@ -19,5 +19,4 @@ public class NapoleonSelector {
 	public void determineNapoleon() {
 		gameContext.setNapoleon(gameContext.getPlayer(0));
 	}
-
 }

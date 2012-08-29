@@ -23,7 +23,7 @@ public class GameContext {
 		return table;
 	}
 
-	public Boolean napoleonDetermined() {
+	public Boolean isNapoleonDetermined() {
 		return  null != napoleon;
 	}
 
@@ -33,6 +33,10 @@ public class GameContext {
 
 	public void setNapoleon(Player player) {
 		napoleon = player;
+	}
+
+	public Player getNapoleon() {
+		return napoleon;
 	}
 
 }

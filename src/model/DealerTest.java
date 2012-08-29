@@ -2,13 +2,8 @@ package model;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
-import static org.junit.matchers.JUnitMatchers.everyItem;
-import static org.hamcrest.collection.IsIn.*;
-
 import java.util.List;
 
-import org.hamcrest.Matcher;
-import org.hamcrest.collection.IsIn;
 import org.hamcrest.core.IsEqual;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,6 +18,13 @@ public class DealerTest {
 	public void SetUp(){
 		prepare();
 	}
+	
+	private void prepare() {
+		table = Table.New();
+		players = new Player[]{new Player(), new Player(), new Player(), new Player()};
+		dealer = Dealer.New(GameContext.New(table, players));
+	}
+	
 	@Test
 	public void T01_ディーラーは53枚カードを持っている() {
 
@@ -37,12 +39,6 @@ public class DealerTest {
 		assertThat(players[0].cardCount(), equalTo(12));
 	}
 
-	private void prepare() {
-		table = Table.New();
-		players = new Player[]{new Player(), new Player(), new Player(), new Player()};
-		dealer = Dealer.New(GameContext.New(table, players));
-	}
-	
 	@Test
 	public void T03_毎回違うカードがテーブルに5枚残る(){
 		dealer.Serve();
@@ -51,6 +47,5 @@ public class DealerTest {
 		dealer.Serve();
 		List<Card> second = table.cards;
 		assertThat(first.containsAll(second), IsEqual.equalTo(false));
-		
 	}
 }

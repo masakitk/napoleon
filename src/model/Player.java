@@ -1,20 +1,50 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-public class Player implements IPlayer {
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 
-	public List<Card> cards = new ArrayList<Card>();
+public class Player {
 
+	private List<Card> cards = new ArrayList<Card>();
+	
 	public int cardCount() {
 		return cards.size();
 	}
 
-	@Override
 	public Manifesto replyForDeclare() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public void takeCard(Card card) {
+		cards.add(card);
+	}
+
+	public Card openCard(Turn turn) {
+		Collection<Card> cardsToOpen = findSameMark(cards, turn.getLeadMark());
+		if(cardsToOpen.size() == 0){
+			cardsToOpen = cards;
+		}
+		
+		Card toOpen = (Card)CollectionUtils.get(cardsToOpen, 0);
+		cards.remove(toOpen);
+		return toOpen;
+	}
+
+	@SuppressWarnings("unchecked")
+	private Collection<Card> findSameMark(Collection<Card> cards, final Marks mark) {
+		return CollectionUtils.select(cards, new Predicate(){
+
+			@Override
+			public boolean evaluate(Object card) {
+				return ((Card)card).getMark() == mark;
+			}
+			
+		});
 	}
 
 }

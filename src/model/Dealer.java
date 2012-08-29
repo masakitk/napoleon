@@ -16,10 +16,10 @@ public class Dealer {
 	public void Serve() {
 		Player[] players = gameContext.getPlayers();
 		for (int i = 0; i < Rounds; i++) {
-			players[0].cards.add(getRandomCard());
-			players[1].cards.add(getRandomCard());
-			players[2].cards.add(getRandomCard());
-			players[3].cards.add(getRandomCard());
+			players[0].takeCard(getRandomCard());
+			players[1].takeCard(getRandomCard());
+			players[2].takeCard(getRandomCard());
+			players[3].takeCard(getRandomCard());
 		}
 		gameContext.getTable().cards.addAll(cards);
 	}
