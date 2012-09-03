@@ -18,7 +18,9 @@ public class DirectorTest {
 	@Mocked Player player3;
 	@Mocked Player player4;
 	private Director director;
-	Declaration firstDeclaration;
+	private Declaration firstDeclaration;
+	private Declaration secondDeclaration;
+	private Declaration thirdDeclaration;
 	
 	@Before
 	public void setUp() {
@@ -58,6 +60,34 @@ public class DirectorTest {
 		assertThat(director.getNapoleon(), IsEqual.equalTo(player1));
 		assertThat(director.getDeclaration(), IsEqual.equalTo(firstDeclaration));
 	}
+	
+	@Test
+	public void T02a_ナポレオンを決める_3人が宣言しほか3人がパスしたら決定(){
+		 firstDeclaration = Declaration.New(Suit.Club, 13);
+		 secondDeclaration = Declaration.New(Suit.Spade, 13);
+		 thirdDeclaration = Declaration.New(Suit.Heart, 14);
+		 new Expectations() {
+			{
+				dealer.hasServed(); returns(true); 
+				player1.AskForDeclare(null); returns(firstDeclaration);
+				player2.AskForDeclare(firstDeclaration); returns(Declaration.Pass);
+				player3.AskForDeclare(firstDeclaration); returns(Declaration.Pass);
+				player4.AskForDeclare(firstDeclaration); returns(secondDeclaration);
+				player1.AskForDeclare(secondDeclaration); returns(Declaration.Pass);
+				player2.AskForDeclare(secondDeclaration); returns(Declaration.Pass);
+				player3.AskForDeclare(secondDeclaration); returns(thirdDeclaration);
+				player4.AskForDeclare(thirdDeclaration); returns(Declaration.Pass);
+				player1.AskForDeclare(thirdDeclaration); returns(Declaration.Pass);
+				player2.AskForDeclare(thirdDeclaration); returns(Declaration.Pass);
+				dealer.hasServed(); returns(true); 
+			}
+		};
+		assertThat(director.getGameState(), IsEqual.equalTo(Status.CardServed));
+		director.defineNapoleon();
+		assertThat(director.getGameState(), IsEqual.equalTo(Status.NapoleonDefined));
+		assertThat(director.getNapoleon(), IsEqual.equalTo(player3));
+		assertThat(director.getDeclaration(), IsEqual.equalTo(thirdDeclaration));
+	}
 
 	@Test
 	public void T03_ナポレオンを決める_全員パスしたら流れる(){
@@ -75,4 +105,5 @@ public class DirectorTest {
 		director.defineNapoleon();
 		assertThat(director.getGameState(), IsEqual.equalTo(Status.GameEnded));
 	}
+	
 }
