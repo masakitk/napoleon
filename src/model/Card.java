@@ -4,15 +4,15 @@ public class Card {
 	
 	public static Card Jorker = Card.GetJorker();
 	
-	private final Marks mark;
+	private final Suit mark;
 	private final int number;
 	private final boolean isJorker;
 	
-	public Card(Marks mark, int number) {
+	public Card(Suit mark, int number) {
 		this(mark, number, false);
 	}
 
-	public Card(Marks mark, int number, boolean isJorker) {
+	public Card(Suit mark, int number, boolean isJorker) {
 		super();
 		this.mark = mark;
 		this.number = number;
@@ -24,7 +24,7 @@ public class Card {
 		return card;
 	}
 
-	public Marks getMark() {
+	public Suit getMark() {
 		return mark;
 	}
 

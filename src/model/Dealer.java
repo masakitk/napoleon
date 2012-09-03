@@ -5,6 +5,7 @@ import java.util.List;
 public class Dealer {
 
 	private static final int Rounds = 12;
+	private static final int RestOfCardsAfterServe = 5;
 	private List<Card> cards;
 	private final GameContext gameContext;
 
@@ -36,5 +37,9 @@ public class Dealer {
 
 	public static Dealer New(GameContext gameContext) {
 		return new Dealer(gameContext);
+	}
+
+	public boolean hasServed() {
+		return cards.size() == RestOfCardsAfterServe;
 	}
 }

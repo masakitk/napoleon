@@ -15,11 +15,6 @@ public class Player {
 		return cards.size();
 	}
 
-	public Manifesto replyForDeclare() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public void takeCard(Card card) {
 		cards.add(card);
 	}
@@ -38,7 +33,7 @@ public class Player {
 	}
 
 	@SuppressWarnings("unchecked")
-	private Collection<Card> findSameMark(Collection<Card> cards, final Marks mark) {
+	private Collection<Card> findSameMark(Collection<Card> cards, final Suit mark) {
 		return CollectionUtils.select(cards, new Predicate(){
 
 			@Override
@@ -47,6 +42,21 @@ public class Player {
 			}
 			
 		});
+	}
+
+	public Declaration AskForDeclare(Declaration currentDeclaration) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Declaration getLastDeclaration() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

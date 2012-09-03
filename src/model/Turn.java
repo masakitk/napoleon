@@ -26,7 +26,7 @@ public class Turn {
 		return new Turn(list, no);
 	}
 
-	public Marks getLeadMark() {
+	public Suit getLeadMark() {
 		return isLeadMarkDefined() ? cards.get(0).getMark() : null;
 	}
 

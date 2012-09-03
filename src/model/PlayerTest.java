@@ -12,19 +12,19 @@ import org.junit.Test;
 public class PlayerTest {
 
 	@Test
-	public void test1枚カードを出したらそのカードは手元からなくなること(){
+	public void T01_1枚カードを出したらそのカードは手元からなくなること(){
 		Player player = new Player();
-		player.takeCard(new Card(Marks.Heart, 12));
+		player.takeCard(new Card(Suit.Heart, 12));
 		assertThat(player.cardCount(), IsEqual.equalTo(1));
 		
 		@SuppressWarnings("serial")
-		List<Card> cardsOfTurn = new ArrayList<Card>(){{add(new Card(Marks.Heart, 2));}};
+		List<Card> cardsOfTurn = new ArrayList<Card>(){{add(new Card(Suit.Heart, 2));}};
 		player.openCard(Turn.New(cardsOfTurn, 1));
 		assertThat(player.cardCount(), IsEqual.equalTo(0));
 	}
 	
 	@Test
-	public void test台札が設定されていて台札があるときは台札を出すこと() {
+	public void T02_台札が設定されていて台札があるときは台札を出すこと() {
 //		new Expectations() {
 //			{
 //				Turn.New(new ArrayList<Card>(), 0); returns(turnMock); 
@@ -32,19 +32,19 @@ public class PlayerTest {
 //		};
 		
 		Player player = new Player();
-		player.takeCard(new Card(Marks.Spade, 3));
+		player.takeCard(new Card(Suit.Spade, 3));
 		@SuppressWarnings("serial")
-		Turn turn = Turn.New(new ArrayList<Card>(){{add(new Card(Marks.Spade, 1));}}, 1);
-		assertThat(player.openCard(turn).getMark(), IsEqual.equalTo(Marks.Spade));
+		Turn turn = Turn.New(new ArrayList<Card>(){{add(new Card(Suit.Spade, 1));}}, 1);
+		assertThat(player.openCard(turn).getMark(), IsEqual.equalTo(Suit.Spade));
 	}
 
 	@Test
-	public void test台札が設定されていて台札がないときはなんでもいいので1枚カードを出すこと() {
+	public void T03_台札が設定されていて台札がないときはなんでもいいので1枚カードを出すこと() {
 		Player player = new Player();
-		player.takeCard(new Card(Marks.Spade, 3));
+		player.takeCard(new Card(Suit.Spade, 3));
 		assertThat(player.cardCount(), IsEqual.equalTo(1));
 		@SuppressWarnings("serial")
-		Turn turn = Turn.New(new ArrayList<Card>(){{add(new Card(Marks.Heart, 1));}}, 1);
+		Turn turn = Turn.New(new ArrayList<Card>(){{add(new Card(Suit.Heart, 1));}}, 1);
 		player.openCard(turn);
 		assertThat(player.cardCount(), IsEqual.equalTo(0));
 	}

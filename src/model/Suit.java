@@ -1,6 +1,6 @@
 package model;
 
-public enum Marks {
+public enum Suit {
 	Spade,
 	Heart,
 	Dia,

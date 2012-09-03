@@ -19,15 +19,15 @@ public class CardSet {
 	private static List<Card> GetFullCardSet() {
 		
 		List<Card> result = new ArrayList<Card>();
-		result.addAll(get13CardByMark(Marks.Spade));
-		result.addAll(get13CardByMark(Marks.Heart));
-		result.addAll(get13CardByMark(Marks.Dia));
-		result.addAll(get13CardByMark(Marks.Club));
+		result.addAll(get13CardByMark(Suit.Spade));
+		result.addAll(get13CardByMark(Suit.Heart));
+		result.addAll(get13CardByMark(Suit.Dia));
+		result.addAll(get13CardByMark(Suit.Club));
 		result.add(Card.Jorker);
 		return result;
 	}
 	
-	private static List<Card> get13CardByMark(Marks marks) {
+	private static List<Card> get13CardByMark(Suit marks) {
 		return Arrays.asList(new Card[]{
 					new Card(marks, 1),
 					new Card(marks, 2),

@@ -1,6 +1,6 @@
 package model;
 
 public enum Status {
-	NotPrepared, CardServed, GameStarted, GameEnded
+	Initial, CardServed, NapoleonDefined, ExtraCardsChanged, GameStarted, GameEnded
 
 }
