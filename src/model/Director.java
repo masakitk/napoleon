@@ -66,6 +66,10 @@ public class Director {
 	private Declaration askForDeclare(Declaration currentDeclaration,
 			HashMap<Player, Declaration> lastDeclarationsOfPlayer, Player player) {
 		Declaration declaration = player.AskForDeclare(currentDeclaration);
+		while(Declaration.Pass != declaration && !declaration.isStrongerDecralation(currentDeclaration)) {
+			declaration = player.AskForDeclare(currentDeclaration);
+		}
+		
 		lastDeclarationsOfPlayer.put(player, declaration);
 		System.out.print(player);
 		System.out.println(declaration);

@@ -33,4 +33,16 @@ public class Declaration {
 		return new Declaration(suit, cardsToCollect);
 	}
 
+	public boolean strongerThan(Declaration currentDeclaration) {
+		return currentDeclaration.cardsToCollect < cardsToCollect ||
+				(	suit.strongerThan(currentDeclaration.suit) && 
+						currentDeclaration.cardsToCollect <= cardsToCollect);
+	}
+
+	public boolean isStrongerDecralation(Declaration currentDeclaration) {
+		if(Declaration.Pass == this) return false;
+		if(null == currentDeclaration) return true;
+		
+		return strongerThan(currentDeclaration);
+	}
 }
