@@ -26,12 +26,16 @@ public class Turn {
 		return new Turn(list, no);
 	}
 
-	public Suit getLeadMark() {
-		return isLeadMarkDefined() ? cards.get(0).getMark() : null;
+	public boolean isLeadSuitDefined() {
+		return 0 < cards.size();
 	}
 
-	public boolean isLeadMarkDefined() {
-		return 0 < cards.size();
+	public void addCard(Card card) {
+		cards.add(card);
+	}
+
+	public Suit getLeadSuit() {
+		return isLeadSuitDefined() ? cards.get(0).getSuit() : null;
 	}
 	
 }

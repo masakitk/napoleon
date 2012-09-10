@@ -14,11 +14,11 @@ public class PlayerTest {
 	@Test
 	public void T01_1枚カードを出したらそのカードは手元からなくなること(){
 		Player player = new Player();
-		player.takeCard(new Card(Suit.Heart, 12));
+		player.takeCard(Card.New(Suit.Heart, 12));
 		assertThat(player.cardCount(), IsEqual.equalTo(1));
 		
 		@SuppressWarnings("serial")
-		List<Card> cardsOfTurn = new ArrayList<Card>(){{add(new Card(Suit.Heart, 2));}};
+		List<Card> cardsOfTurn = new ArrayList<Card>(){{add(Card.New(Suit.Heart, 2));}};
 		player.openCard(Turn.New(cardsOfTurn, 1));
 		assertThat(player.cardCount(), IsEqual.equalTo(0));
 	}
@@ -27,19 +27,19 @@ public class PlayerTest {
 	public void T02_台札が設定されていて台札があるときは台札を出すこと() {
 	
 		Player player = new Player();
-		player.takeCard(new Card(Suit.Spade, 3));
+		player.takeCard(Card.New(Suit.Spade, 3));
 		@SuppressWarnings("serial")
-		Turn turn = Turn.New(new ArrayList<Card>(){{add(new Card(Suit.Spade, 1));}}, 1);
-		assertThat(player.openCard(turn).getMark(), IsEqual.equalTo(Suit.Spade));
+		Turn turn = Turn.New(new ArrayList<Card>(){{add(Card.New(Suit.Spade, 1));}}, 1);
+		assertThat(player.openCard(turn).getSuit(), IsEqual.equalTo(Suit.Spade));
 	}
 
 	@Test
 	public void T03_台札が設定されていて台札がないときはなんでもいいので1枚カードを出すこと() {
 		Player player = new Player();
-		player.takeCard(new Card(Suit.Spade, 3));
+		player.takeCard(Card.New(Suit.Spade, 3));
 		assertThat(player.cardCount(), IsEqual.equalTo(1));
 		@SuppressWarnings("serial")
-		Turn turn = Turn.New(new ArrayList<Card>(){{add(new Card(Suit.Heart, 1));}}, 1);
+		Turn turn = Turn.New(new ArrayList<Card>(){{add(Card.New(Suit.Heart, 1));}}, 1);
 		player.openCard(turn);
 		assertThat(player.cardCount(), IsEqual.equalTo(0));
 	}

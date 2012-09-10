@@ -4,17 +4,17 @@ public class Card {
 	
 	public static Card Jorker = Card.GetJorker();
 	
-	private final Suit mark;
+	private final Suit suit;
 	private final int number;
 	private final boolean isJorker;
 	
-	public Card(Suit mark, int number) {
+	private Card(Suit mark, int number) {
 		this(mark, number, false);
 	}
 
-	public Card(Suit mark, int number, boolean isJorker) {
+	private Card(Suit suit, int number, boolean isJorker) {
 		super();
-		this.mark = mark;
+		this.suit = suit;
 		this.number = number;
 		this.isJorker = isJorker;
 	}
@@ -24,8 +24,8 @@ public class Card {
 		return card;
 	}
 
-	public Suit getMark() {
-		return mark;
+	public Suit getSuit() {
+		return suit;
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class Card {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + (isJorker ? 1231 : 1237);
-		result = prime * result + ((mark == null) ? 0 : mark.hashCode());
+		result = prime * result + ((suit == null) ? 0 : suit.hashCode());
 		result = prime * result + number;
 		return result;
 	}
@@ -49,7 +49,7 @@ public class Card {
 		Card other = (Card) obj;
 		if (isJorker != other.isJorker)
 			return false;
-		if (mark != other.mark)
+		if (suit != other.suit)
 			return false;
 		if (number != other.number)
 			return false;
@@ -58,6 +58,10 @@ public class Card {
 
 	public int getNumber() {
 		return number;
+	}
+
+	public static Card New(Suit suit, int no) {
+		return new Card(suit, no);
 	}
 	
 }

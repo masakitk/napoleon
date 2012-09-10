@@ -20,8 +20,8 @@ public class Player {
 	}
 
 	public Card openCard(Turn turn) {
-		Collection<Card> cardsToOpen = turn.isLeadMarkDefined()
-				? findSameMark(cards, turn.getLeadMark())
+		Collection<Card> cardsToOpen = turn.isLeadSuitDefined()
+				? findSameMark(cards, turn.getLeadSuit())
 						: (Collection<Card>)cards;
 
 		if(cardsToOpen.size() == 0)
@@ -38,7 +38,7 @@ public class Player {
 
 			@Override
 			public boolean evaluate(Object card) {
-				return ((Card)card).getMark() == mark;
+				return ((Card)card).getSuit() == mark;
 			}
 			
 		});
