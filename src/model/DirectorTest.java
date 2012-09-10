@@ -1,5 +1,6 @@
 package model;
 
+import static org.hamcrest.core.IsEqual.*;
 import static org.junit.Assert.assertThat;
 
 import mockit.Expectations;
@@ -17,14 +18,16 @@ public class DirectorTest {
 	@Mocked Player player2;
 	@Mocked Player player3;
 	@Mocked Player player4;
-	private Director director;
+	@Mocked Napoleon napoleon;
+	@Mocked Adjutant adjutant;
+	private DirectorEx director;
 	private Declaration declarationOfClub13 = Declaration.New(Suit.Club, 13);
 	private Declaration declarationOfSpade13 = Declaration.New(Suit.Spade, 13);
 	private Declaration declarationOfHeart14 = Declaration.New(Suit.Heart, 14);
 	
 	@Before
 	public void setUp() {
-		director = Director.New(table, dealer, new Player[]{player1, player2, player3, player4});
+		director = (DirectorEx)DirectorEx.NewEx(table, dealer, new Player[]{player1, player2, player3, player4});
 	}
 	
 	@Test
@@ -42,11 +45,6 @@ public class DirectorTest {
 	}
 	
 	@Test
-	public void T02_カード配る前に宣言確認はできない() {
-		
-	}
-	
-	@Test
 	public void T02_ナポレオンを決める_一人が宣言しほか3人がパスしたら決定(){
 		 new Expectations() {
 			{
@@ -56,12 +54,13 @@ public class DirectorTest {
 				player3.AskForDeclare(declarationOfClub13); returns(Declaration.Pass);
 				player4.AskForDeclare(declarationOfClub13); returns(Declaration.Pass);
 				dealer.hasServed(); returns(true); 
+				player1.asNapoleon(); returns(napoleon);
 			}
 		};
 		assertThat(director.getGameState(), IsEqual.equalTo(Status.CardServed));
 		director.defineNapoleon();
 		assertThat(director.getGameState(), IsEqual.equalTo(Status.NapoleonDefined));
-		assertThat(director.getNapoleon(), IsEqual.equalTo(player1));
+		assertThat(director.getNapoleon(), IsEqual.equalTo(napoleon));
 		assertThat(director.getDeclaration(), IsEqual.equalTo(declarationOfClub13));
 	}
 	
@@ -81,12 +80,13 @@ public class DirectorTest {
 				player1.AskForDeclare(declarationOfHeart14); returns(Declaration.Pass);
 				player2.AskForDeclare(declarationOfHeart14); returns(Declaration.Pass);
 				dealer.hasServed(); returns(true); 
+				player3.asNapoleon(); returns(napoleon);
 			}
 		};
 		assertThat(director.getGameState(), IsEqual.equalTo(Status.CardServed));
 		director.defineNapoleon();
 		assertThat(director.getGameState(), IsEqual.equalTo(Status.NapoleonDefined));
-		assertThat(director.getNapoleon(), IsEqual.equalTo(player3));
+		assertThat(director.getNapoleon(), IsEqual.equalTo(napoleon));
 		assertThat(director.getDeclaration(), IsEqual.equalTo(declarationOfHeart14));
 	}
 
@@ -117,11 +117,32 @@ public class DirectorTest {
 				player3.AskForDeclare(declarationOfSpade13); returns(Declaration.Pass);
 				player4.AskForDeclare(declarationOfSpade13); returns(Declaration.Pass);
 				dealer.hasServed(); returns(true); 
+				player1.asNapoleon(); returns(napoleon);
 			}
 		 };
 		 director.defineNapoleon();
-		 assertThat(director.getGameState(), IsEqual.equalTo(Status.NapoleonDefined));
-		 assertThat(director.getNapoleon(), IsEqual.equalTo(player1));
-		 assertThat(director.getDeclaration(), IsEqual.equalTo(declarationOfSpade13));
+		 assertThat(director.getGameState(), equalTo(Status.NapoleonDefined));
+		 assertThat(director.getNapoleon(), equalTo(napoleon));
+		 assertThat(director.getDeclaration(), equalTo(declarationOfSpade13));
+	}
+	
+	@Test
+	public void T05_ナポレオンが場に残った5枚のカードをとって交換する(){
+		new Expectations() {
+			{
+				 dealer.hasServed(); returns(true);
+				 napoleon.asNapoleon(); returns (napoleon);
+				 napoleon.tellTheAdjutant(); returns (adjutant);
+				 napoleon.asNapoleon(); returns (napoleon);
+				 napoleon.changeExtraCards();
+				 dealer.hasServed(); returns(true);
+			 }
+		};
+		director.setNapoleon(napoleon);
+		director.setIsNobodyDeclared(false);
+		assertThat(director.getGameState(), equalTo(Status.NapoleonDefined));
+		director.askForAdjutant();
+		director.letNapoleonChangeExtraCards();
+		assertThat(director.getGameState(), equalTo(Status.ExtraCardsChanged));
 	}
 }

@@ -10,13 +10,14 @@ import org.apache.commons.collections.Predicate;
 
 public class Director {
 
-	private static final int NUMBER_OF_MEMBERS = 4;
-	private Table table;
-	private Dealer dealer;
-	private Player[] players;
-	private Declaration fixedDeclaration;
-	private Player napoleon;
-	private boolean isNobodyDeclared;
+	protected static final int NUMBER_OF_MEMBERS = 4;
+	protected Table table;
+	protected Dealer dealer;
+	protected Player[] players;
+	protected Declaration fixedDeclaration;
+	protected Player napoleon;
+	protected boolean isNobodyDeclared;
+	private boolean extraCardChanged;
 
 	public static Director New(Table table, Dealer dealer, Player[] players) {
 		Director instance = new Director();
@@ -29,8 +30,9 @@ public class Director {
 	public Status getGameState() {
 		return !dealer.hasServed() ? Status.Initial 
 				: isNobodyDeclared ? Status.GameEnded 
-				: null != napoleon ? Status.NapoleonDefined
-				: Status.CardServed;
+				: null == napoleon ? Status.CardServed
+				: extraCardChanged ? Status.ExtraCardsChanged
+				: Status.NapoleonDefined;
 	}
 
 	public void serveCards() {
@@ -99,8 +101,17 @@ public class Director {
 		return fixedDeclaration;
 	}
 
-	public Player getNapoleon() {
-		return napoleon;
+	public Napoleon getNapoleon() {
+		return napoleon.asNapoleon();
+	}
+
+	public void letNapoleonChangeExtraCards() {
+		getNapoleon().changeExtraCards();
+		extraCardChanged = true;
+	}
+
+	public void askForAdjutant() {
+		getNapoleon().tellTheAdjutant();
 	}
 
 }

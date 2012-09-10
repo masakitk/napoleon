@@ -25,12 +25,7 @@ public class PlayerTest {
 	
 	@Test
 	public void T02_‘äD‚ªİ’è‚³‚ê‚Ä‚¢‚Ä‘äD‚ª‚ ‚é‚Æ‚«‚Í‘äD‚ğo‚·‚±‚Æ() {
-//		new Expectations() {
-//			{
-//				Turn.New(new ArrayList<Card>(), 0); returns(turnMock); 
-//			}
-//		};
-		
+	
 		Player player = new Player();
 		player.takeCard(new Card(Suit.Spade, 3));
 		@SuppressWarnings("serial")
@@ -48,4 +43,6 @@ public class PlayerTest {
 		player.openCard(turn);
 		assertThat(player.cardCount(), IsEqual.equalTo(0));
 	}
+	
+	
 }
