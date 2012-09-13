@@ -21,7 +21,7 @@ public class DealerTest {
 	
 	private void prepare() {
 		table = Table.New();
-		players = new Player[]{new Player(), new Player(), new Player(), new Player()};
+		players = new Player[]{Player.New("1"), Player.New("2"), Player.New("3"), Player.New("4")};
 		dealer = Dealer.New(GameContext.New(table, players));
 	}
 	

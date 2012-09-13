@@ -13,7 +13,7 @@ public class PlayerTest {
 
 	@Test
 	public void T01_1枚カードを出したらそのカードは手元からなくなること(){
-		Player player = new Player();
+		Player player = Player.New("hoge");
 		player.takeCard(Card.New(Suit.Heart, 12));
 		assertThat(player.cardCount(), IsEqual.equalTo(1));
 		
@@ -26,7 +26,7 @@ public class PlayerTest {
 	@Test
 	public void T02_台札が設定されていて台札があるときは台札を出すこと() {
 	
-		Player player = new Player();
+		Player player = Player.New("hoge");
 		player.takeCard(Card.New(Suit.Spade, 3));
 		@SuppressWarnings("serial")
 		Turn turn = Turn.New(new ArrayList<Card>(){{add(Card.New(Suit.Spade, 1));}}, 1);
@@ -35,7 +35,7 @@ public class PlayerTest {
 
 	@Test
 	public void T03_台札が設定されていて台札がないときはなんでもいいので1枚カードを出すこと() {
-		Player player = new Player();
+		Player player = Player.New("hoge");
 		player.takeCard(Card.New(Suit.Spade, 3));
 		assertThat(player.cardCount(), IsEqual.equalTo(1));
 		@SuppressWarnings("serial")
@@ -44,5 +44,9 @@ public class PlayerTest {
 		assertThat(player.cardCount(), IsEqual.equalTo(0));
 	}
 	
-	
+	@Test
+	public void T04_とりあえず誰も宣言してなかったらクラブの13で宣言する(){
+		Player player = Player.New("hoge");
+		assertThat(player.AskForDeclare(null), IsEqual.equalTo(Declaration.New(Suit.Club, 13)));
+	}
 }

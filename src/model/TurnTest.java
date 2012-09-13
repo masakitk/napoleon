@@ -33,4 +33,5 @@ public class TurnTest {
 		turn.addCard(Card.New(Suit.Spade, 2));
 		assertThat(turn.getLeadSuit(), equalTo(Suit.Spade));	
 	}
+	
 }

@@ -1,5 +1,7 @@
 package model;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 public class Card {
 	
 	public static Card Jorker = Card.GetJorker();
@@ -64,4 +66,19 @@ public class Card {
 		return new Card(suit, no);
 	}
 	
+	@Override
+	public String toString() {
+		return "[" + suit + ":" + number + (isJorker ? "Jorker" : "") + "]";
+	}
+
+	public boolean strongerThan(Card card2, CompareContexts contexts) {
+		if(CompareContexts.IgnoreSpecial != contexts) {
+			throw new NotImplementedException();
+		}
+		return card2.isJorker ||
+				!isJorker && (
+					card2.getNumber() < number ||
+					!(number < card2.getNumber()) ||
+					suit.strongerThan(card2.getSuit()));
+	}
 }

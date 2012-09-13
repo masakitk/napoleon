@@ -8,6 +8,8 @@ import javax.sql.RowSet;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 
+import view.ConsoleView;
+
 public class Director {
 
 	protected static final int NUMBER_OF_MEMBERS = 4;
@@ -18,11 +20,13 @@ public class Director {
 	protected Player napoleon;
 	protected boolean isNobodyDeclared;
 	private boolean extraCardChanged;
+	
+	protected Director(){}
 
-	public static Director New(Table table, Dealer dealer, Player[] players) {
+	public static Director New(Table table, Player[] players) {
 		Director instance = new Director();
 		instance.table = table;
-		instance.dealer = dealer;
+		instance.dealer = Dealer.New(GameContext.New(table, players));
 		instance.players = players;
 		return instance;
 	}
@@ -114,4 +118,7 @@ public class Director {
 		getNapoleon().tellTheAdjutant();
 	}
 
+	public void showSituationToConsole() {
+		ConsoleView.GetInstance().Show(players);
+	}
 }

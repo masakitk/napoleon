@@ -10,6 +10,16 @@ import org.apache.commons.collections.Predicate;
 public class Player {
 
 	private List<Card> cards = new ArrayList<Card>();
+	private String name;
+	private List<Card> _cardsGained = new ArrayList<Card>();
+	
+	public Player(String name) {
+		this.name = name;
+	}
+
+	public static Player New(String name) {
+		return new Player(name);
+	}
 	
 	public int cardCount() {
 		return cards.size();
@@ -45,8 +55,7 @@ public class Player {
 	}
 
 	public Declaration AskForDeclare(Declaration currentDeclaration) {
-		// TODO Auto-generated method stub
-		return null;
+		return null == currentDeclaration ? Declaration.New(Suit.Club, 13) : Declaration.Pass;
 	}
 
 	public Declaration getLastDeclaration() {
@@ -55,13 +64,20 @@ public class Player {
 	}
 
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return name;
 	}
 
 	public Napoleon asNapoleon() {
 		// TODO Auto-generated method stub
 		return (Napoleon) this;
+	}
+
+	public List<Card> cardsGained() {
+		return _cardsGained;
+	}
+
+	public List<Card> cardsHaving() {
+		return cards;
 	}
 
 }
