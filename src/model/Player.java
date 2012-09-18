@@ -68,7 +68,6 @@ public class Player {
 	}
 
 	public Napoleon asNapoleon() {
-		// TODO Auto-generated method stub
 		return (Napoleon) this;
 	}
 

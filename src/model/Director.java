@@ -121,4 +121,25 @@ public class Director {
 	public void showSituationToConsole() {
 		ConsoleView.GetInstance().Show(players);
 	}
+	
+	public Integer getCurrentTurnNo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public TurnStatus getCurrentTurnStatus() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void beginTurn(int turnNo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Player getTurnWinner(int turnNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

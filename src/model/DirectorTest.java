@@ -145,4 +145,15 @@ public class DirectorTest {
 		director.letNapoleonChangeExtraCards();
 		assertThat(director.getGameState(), equalTo(Status.ExtraCardsChanged));
 	}
+	
+	@Test
+	public void T06_1ターン目の進行を行う(){
+		assertThat(director.getGameState(), equalTo(Status.ExtraCardsChanged));
+		assertThat(director.getCurrentTurnNo(), equalTo(1));
+		assertThat(director.getCurrentTurnStatus(), equalTo(TurnStatus.HasNotYetBegan));
+		director.beginTurn(1);
+		assertThat(director.getTurnWinner(1), equalTo(player4));
+		assertThat(director.getCurrentTurnNo(), equalTo(2));
+		assertThat(director.getCurrentTurnStatus(), equalTo(TurnStatus.HasNotYetBegan));
+	}
 }
