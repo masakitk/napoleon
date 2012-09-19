@@ -43,7 +43,7 @@ public class ConsoleView {
 		Collections.sort(sorted, new Comparator<Card>(){
 			@Override
 			public int compare(Card c1, Card c2) {
-				return c1.strongerThan(c2, CompareContexts.IgnoreSpecial) ? 1 : -1;
+				return c1.isUpperOrderByMarkAndStrength(c2) ? 1 : -1;
 			}
 		});
 		return sorted;

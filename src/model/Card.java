@@ -58,17 +58,13 @@ public class Card {
 		return true;
 	}
 
-	public int getNumber() {
-		return number;
-	}
-
 	public static Card New(Suit suit, int no) {
 		return new Card(suit, no);
 	}
 	
 	@Override
 	public String toString() {
-		return "[" + suit + ":" + number + (isJorker ? "Jorker" : "") + "]";
+		return isJorker ? "[Jorker]" : String.format("[%s:%d]", suit, number);
 	}
 
 	public boolean strongerThan(Card card2, CompareContexts contexts) {
@@ -76,9 +72,24 @@ public class Card {
 			throw new NotImplementedException();
 		}
 		return card2.isJorker ||
-				!isJorker && (
-					card2.getNumber() < number ||
-					!(number < card2.getNumber()) ||
-					suit.strongerThan(card2.getSuit()));
+				(	strongerThanAsNumber(card2) ||
+					(getStrengthOfNumber() == card2.getStrengthOfNumber()
+						&& suit.strongerThan(card2.getSuit())));
+	}
+
+	private boolean strongerThanAsNumber(Card card2) {
+		return card2.getStrengthOfNumber() < getStrengthOfNumber();
+	}
+
+	private int getStrengthOfNumber() {
+		return isJorker ? 0 : number == 1 ? 14 : number;
+	}
+
+	public boolean isUpperOrderByMarkAndStrength(Card c2) {
+		return isJorker ? false
+				: c2.isJorker ? true
+				: (suit.strongerThan(c2.getSuit())
+					|| (suit == c2.getSuit()
+						&& strongerThanAsNumber(c2)));
 	}
 }
