@@ -1,9 +1,6 @@
 package model;
 
-import java.sql.SQLException;
 import java.util.HashMap;
-
-import javax.sql.RowSet;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
