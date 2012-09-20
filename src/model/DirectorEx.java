@@ -18,6 +18,10 @@ public class DirectorEx extends Director {
 		return instance;
 	}
 
+	public void SetExtraCardChanged(boolean b) {
+		extraCardChanged = b;
+	}
+
 
 }
 

@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Comparator;
+
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Card {
@@ -9,6 +11,13 @@ public class Card {
 	private final Suit suit;
 	private final int number;
 	private final boolean isJorker;
+	public static Comparator<Card> CardNormalComparator;
+	public static Comparator<Card> CardIgnoreSpecialComparator;
+	static {
+		CardNormalComparator = new CardStrengthComparator();
+		CardIgnoreSpecialComparator = new CardIgnoreSpecialStrengthComparator();
+	}
+	
 	
 	private Card(Suit mark, int number) {
 		this(mark, number, false);
@@ -91,5 +100,19 @@ public class Card {
 				: (suit.strongerThan(c2.getSuit())
 					|| (suit == c2.getSuit()
 						&& strongerThanAsNumber(c2)));
+	}
+	
+	private static class CardStrengthComparator implements Comparator<Card>{
+		@Override
+		public int compare(Card left, Card right) {
+			return left.strongerThan(right, CompareContexts.Normal) ? 1 : -1;
+			}
+	}
+	
+	private static class CardIgnoreSpecialStrengthComparator implements Comparator<Card>{
+		@Override
+		public int compare(Card left, Card right) {
+			return left.strongerThan(right, CompareContexts.IgnoreSpecial) ? 1 : -1;
+			}
 	}
 }

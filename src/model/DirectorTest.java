@@ -140,6 +140,7 @@ public class DirectorTest {
 		};
 		director.setNapoleon(napoleon);
 		director.setIsNobodyDeclared(false);
+		
 		assertThat(director.getGameState(), equalTo(Status.NapoleonDefined));
 		director.askForAdjutant();
 		director.letNapoleonChangeExtraCards();
@@ -148,6 +149,20 @@ public class DirectorTest {
 	
 	@Test
 	public void T06_1ターン目の進行を行う(){
+		new Expectations() {
+			{
+				 dealer.hasServed(); returns(true);
+				 napoleon.asNapoleon(); returns (napoleon);
+				 napoleon.tellTheAdjutant(); returns (adjutant);
+				 napoleon.asNapoleon(); returns (napoleon);
+				 napoleon.changeExtraCards();
+				 dealer.hasServed(); returns(true);
+			 }
+		};
+		director.SetExtraCardChanged(true);
+		director.setNapoleon(napoleon);
+		director.setIsNobodyDeclared(false);
+		
 		assertThat(director.getGameState(), equalTo(Status.ExtraCardsChanged));
 		assertThat(director.getCurrentTurnNo(), equalTo(1));
 		assertThat(director.getCurrentTurnStatus(), equalTo(TurnStatus.HasNotYetBegan));

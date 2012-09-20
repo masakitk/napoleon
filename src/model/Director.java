@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Collection;
 import java.util.HashMap;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -16,7 +17,8 @@ public class Director {
 	protected Declaration fixedDeclaration;
 	protected Player napoleon;
 	protected boolean isNobodyDeclared;
-	private boolean extraCardChanged;
+	protected boolean extraCardChanged;
+	private Turn[] turns;
 	
 	protected Director(){}
 
@@ -130,13 +132,19 @@ public class Director {
 	}
 
 	public void beginTurn(int turnNo) {
-		// TODO Auto-generated method stub
-		
+		for (Player p : getPlayersForTurn(turnNo)){
+			
+		}
+	}
+
+	private Collection<Player> getPlayersForTurn(int turnNo) {
+		Player first = turnNo == 1 ? players[0] : getTurnWinner(turnNo - 1);
+		//TODO
+		return null;
 	}
 
 	public Player getTurnWinner(int turnNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return turns[turnNo].getWinner();
 	}
 
 }
