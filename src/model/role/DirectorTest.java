@@ -1,10 +1,18 @@
-package model;
+package model.role;
 
 import static org.hamcrest.core.IsEqual.*;
 import static org.junit.Assert.assertThat;
 
 import mockit.Expectations;
 import mockit.Mocked;
+import model.Declaration;
+import model.Status;
+import model.Table;
+import model.TurnStatus;
+import model.card.Suit;
+import model.player.Adjutant;
+import model.player.Napoleon;
+import model.player.Player;
 
 import org.hamcrest.core.IsEqual;
 import org.junit.Before;
@@ -147,28 +155,28 @@ public class DirectorTest {
 		assertThat(director.getGameState(), equalTo(Status.ExtraCardsChanged));
 	}
 	
-	@Test
-	public void T06_1ターン目の進行を行う(){
-		new Expectations() {
-			{
-				 dealer.hasServed(); returns(true);
-				 napoleon.asNapoleon(); returns (napoleon);
-				 napoleon.tellTheAdjutant(); returns (adjutant);
-				 napoleon.asNapoleon(); returns (napoleon);
-				 napoleon.changeExtraCards();
-				 dealer.hasServed(); returns(true);
-			 }
-		};
-		director.SetExtraCardChanged(true);
-		director.setNapoleon(napoleon);
-		director.setIsNobodyDeclared(false);
-		
-		assertThat(director.getGameState(), equalTo(Status.ExtraCardsChanged));
-		assertThat(director.getCurrentTurnNo(), equalTo(1));
-		assertThat(director.getCurrentTurnStatus(), equalTo(TurnStatus.HasNotYetBegan));
-		director.beginTurn(1);
-		assertThat(director.getTurnWinner(1), equalTo(player4));
-		assertThat(director.getCurrentTurnNo(), equalTo(2));
-		assertThat(director.getCurrentTurnStatus(), equalTo(TurnStatus.HasNotYetBegan));
-	}
+//	@Test
+//	public void T06_1ターン目の進行を行う(){
+//		new Expectations() {
+//			{
+//				 dealer.hasServed(); returns(true);
+//				 napoleon.asNapoleon(); returns (napoleon);
+//				 napoleon.tellTheAdjutant(); returns (adjutant);
+//				 napoleon.asNapoleon(); returns (napoleon);
+//				 napoleon.changeExtraCards();
+//				 dealer.hasServed(); returns(true);
+//			 }
+//		};
+//		director.SetExtraCardChanged(true);
+//		director.setNapoleon(napoleon);
+//		director.setIsNobodyDeclared(false);
+//		
+//		assertThat(director.getGameState(), equalTo(Status.ExtraCardsChanged));
+//		assertThat(director.getCurrentTurnNo(), equalTo(1));
+//		assertThat(director.getCurrentTurnStatus(), equalTo(TurnStatus.HasNotYetBegan));
+//		director.beginTurn(1);
+//		assertThat(director.getTurnWinner(1), equalTo(player4));
+//		assertThat(director.getCurrentTurnNo(), equalTo(2));
+//		assertThat(director.getCurrentTurnStatus(), equalTo(TurnStatus.HasNotYetBegan));
+//	}
 }

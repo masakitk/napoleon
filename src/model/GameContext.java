@@ -1,5 +1,10 @@
 package model;
 
+import java.util.List;
+
+import model.card.Card;
+import model.player.Player;
+
 public class GameContext {
 
 	private final Table table;
@@ -37,6 +42,10 @@ public class GameContext {
 
 	public Player getNapoleon() {
 		return napoleon;
+	}
+
+	public void addClosedCardsOnTable(List<Card> cards) {
+		getTable().cards.addAll(cards);
 	}
 
 }

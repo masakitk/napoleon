@@ -1,6 +1,8 @@
-package model;
+package model.card;
 
 import java.util.Comparator;
+
+import model.CompareContexts;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 

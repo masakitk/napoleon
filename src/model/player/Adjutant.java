@@ -1,4 +1,4 @@
-package model;
+package model.player;
 
 public class Adjutant extends Player {
 

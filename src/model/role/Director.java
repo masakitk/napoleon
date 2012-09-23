@@ -1,7 +1,16 @@
-package model;
+package model.role;
 
 import java.util.Collection;
 import java.util.HashMap;
+
+import model.Declaration;
+import model.GameContext;
+import model.Status;
+import model.Table;
+import model.Turn;
+import model.TurnStatus;
+import model.player.Napoleon;
+import model.player.Player;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;

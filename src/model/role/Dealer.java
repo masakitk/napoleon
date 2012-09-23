@@ -1,6 +1,11 @@
-package model;
+package model.role;
 
 import java.util.List;
+
+import model.GameContext;
+import model.card.Card;
+import model.card.CardSet;
+import model.player.Player;
 
 public class Dealer {
 
@@ -22,7 +27,7 @@ public class Dealer {
 			players[2].takeCard(getRandomCard());
 			players[3].takeCard(getRandomCard());
 		}
-		gameContext.getTable().cards.addAll(cards);
+		gameContext.addClosedCardsOnTable(cards);
 	}
 
 	private Card getRandomCard() {

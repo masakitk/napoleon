@@ -1,4 +1,8 @@
-package model;
+package model.role;
+
+import model.Table;
+import model.player.Napoleon;
+import model.player.Player;
 
 public class DirectorEx extends Director {
 

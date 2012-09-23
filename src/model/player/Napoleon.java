@@ -1,4 +1,4 @@
-package model;
+package model.player;
 
 public class Napoleon extends Player{
 	public Napoleon(String name) {

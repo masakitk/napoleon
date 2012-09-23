@@ -3,10 +3,16 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.card.Card;
+
 public class Table {
 
 	private Status state;
 	List<Card> cards = new ArrayList<Card>();
+	public List<Card> getCards() {
+		return cards;
+	}
+
 	List<Card> noUseCards = new ArrayList<Card>();
 
 	private Table() {}

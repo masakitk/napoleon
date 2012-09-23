@@ -1,8 +1,13 @@
-package model;
+package model.player;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import model.Declaration;
+import model.Turn;
+import model.card.Card;
+import model.card.Suit;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;

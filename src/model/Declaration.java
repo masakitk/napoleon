@@ -1,5 +1,7 @@
 package model;
 
+import model.card.Suit;
+
 public class Declaration {
 
 	@Override
@@ -36,7 +38,7 @@ public class Declaration {
 				+ suit + ", cardsToCollect=" + cardsToCollect + "]";
 	}
 
-	final static Declaration Pass = new Declaration(false);
+	public final static Declaration Pass = new Declaration(false);
 	private boolean runForNapoleon;
 	private final Suit suit;
 	private final int cardsToCollect;

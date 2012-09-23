@@ -1,9 +1,9 @@
 import view.ConsoleView;
-import model.Dealer;
-import model.Director;
 import model.GameContext;
-import model.Player;
 import model.Table;
+import model.player.Player;
+import model.role.Dealer;
+import model.role.Director;
 
 
 public class Runner {

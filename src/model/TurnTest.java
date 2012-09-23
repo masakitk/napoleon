@@ -4,12 +4,19 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import mockit.Mocked;
+import model.card.Card;
+import model.card.Suit;
+import model.player.Player;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 public class TurnTest {
 	@Mocked Player player1;
@@ -37,4 +44,11 @@ public class TurnTest {
 		assertThat(turn.getLeadSuit(), equalTo(Suit.Spade));	
 	}
 	
+	@Test
+	public void T04_カードが4枚出されている場合に特殊カード考慮抜きで勝者を判断できる() {
+		Turn turn = Turn.New(1);
+		
+	}
+	
 }
+

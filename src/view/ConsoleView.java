@@ -9,10 +9,10 @@ import java.util.List;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 
-import model.Card;
 import model.CompareContexts;
-import model.Player;
 import model.Table;
+import model.card.Card;
+import model.player.Player;
 
 public class ConsoleView {
 	private static final ConsoleView CONSOLE_VIEW = new ConsoleView();

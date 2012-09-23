@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import java.util.Arrays;
 import java.util.Collection;
 
+import model.card.Suit;
+
 import org.hamcrest.core.Is;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -7,14 +7,22 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import model.card.Card;
+import model.card.Suit;
+import model.player.Player;
+
 import org.apache.commons.collections.CollectionUtils;
 
 public class Turn {
 	private HashMap<Player, Card> cardHash = new LinkedHashMap();
 	private int no;
+	private boolean ignoreSpecial;
 	
 	private Turn(int no) {
 		super();
+		if(no == 1 || no == 12) {
+			ignoreSpecial = true;
+		}
 		this.no = no;
 	}
 	
@@ -48,12 +56,20 @@ public class Turn {
 		return null;
 	}
 
-	private Card getWinnerCard() {
+	public Card getWinnerCard() {
 		if(4 != cardHash.size())
 			throw new IllegalStateException("全員カードを出していません");
 		List<Card> list = new ArrayList<Card>(cardHash.values());
-		Collections.sort(list, Card.CardNormalComparator);
-		return list.get(0);
+		if(ignoreSpecial) {
+			Collections.sort(list, Card.CardIgnoreSpecialComparator);
+		}else {
+			Collections.sort(list, Card.CardNormalComparator);
+		}
+		return list.get(getMaxCardIndex());
+	}
+
+	private int getMaxCardIndex() {
+		return cardHash.size() - 1;
 	}
 	
 }

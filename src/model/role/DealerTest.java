@@ -1,8 +1,13 @@
-package model;
+package model.role;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 import java.util.List;
+
+import model.GameContext;
+import model.Table;
+import model.card.Card;
+import model.player.Player;
 
 import org.hamcrest.core.IsEqual;
 import org.junit.Before;
@@ -42,10 +47,10 @@ public class DealerTest {
 	@Test
 	public void T03_毎回違うカードがテーブルに5枚残る(){
 		dealer.Serve();
-		List<Card> first = table.cards;
+		List<Card> first = table.getCards();
 		prepare();
 		dealer.Serve();
-		List<Card> second = table.cards;
+		List<Card> second = table.getCards();
 		assertThat(first.containsAll(second), IsEqual.equalTo(false));
 	}
 }
