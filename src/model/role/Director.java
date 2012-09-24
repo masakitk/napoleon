@@ -1,5 +1,7 @@
 package model.role;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -15,6 +17,9 @@ import model.rule.TurnStatus;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
+import org.omg.CORBA._PolicyStub;
+
+import com.sun.net.ssl.internal.ssl.Debug;
 
 import view.ConsoleView;
 
@@ -137,24 +142,34 @@ public class Director {
 	}
 	
 	public TurnStatus getCurrentTurnStatus() {
-		return turns[currentTurnNo].getStatus();
+		return getTurn(currentTurnNo).getStatus();
 	}
 
 	public void beginTurn(int turnNo) {
 		for (Player p : getPlayersForTurn(turnNo)){
-			turns[turnNo].addCard(p, p.openCard(turns[turnNo]));
+			getTurn(turnNo).addCard(p, p.openCard(getTurn(turnNo)));
 		}
 		currentTurnNo++;
 	}
 
+	private Turn getTurn(int turnNo) {
+		return turns[turnNo -1];
+	}
+
 	private Collection<Player> getPlayersForTurn(int turnNo) {
-		Player first = turnNo == 1 ? players[0] : getTurnWinner(turnNo - 1);
-		//TODO
-		return null;
+		ArrayList<Player> list = new ArrayList<Player>(); 
+		int leadPlayerIndex = turnNo == 1 ? 0 : Arrays.asList(players).indexOf(getTurnWinner(turnNo - 1));
+		System.out.println(String.format("leadPlayerIndex:%d", leadPlayerIndex));
+		for(int i = 0; i < Table._PLAYERS_COUNT; i++){
+			Player p = players[(leadPlayerIndex + i) % Table._PLAYERS_COUNT];
+			System.out.println(p);
+			list.add(p);
+		}
+		return list;
 	}
 
 	public Player getTurnWinner(int turnNo) {
-		return turns[turnNo].getWinner();
+		return getTurn(turnNo).getWinner();
 	}
 
 }

@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import model.card.Card;
 import model.card.Suit;
@@ -14,7 +15,6 @@ import model.player.Player;
 import org.apache.commons.collections.CollectionUtils;
 
 public class Turn {
-	private static final int _PLAYERS_COUNT = 4;
 	private HashMap<Player, Card> cardHash = new LinkedHashMap();
 	private int no;
 	private boolean ignoreSpecial;
@@ -53,12 +53,16 @@ public class Turn {
 		return whoOpened(getWinnerCard());
 	}
 
-	private Player whoOpened(Object winnerCard) {
+	private Player whoOpened(Card winnerCard) {
+		for(Map.Entry<Player, Card> entry : cardHash.entrySet()) {
+			if (entry.getValue() == winnerCard)
+				return entry.getKey();
+		}
 		return null;
 	}
 
 	public Card getWinnerCard() {
-		if(_PLAYERS_COUNT != cardHash.size())
+		if(Table._PLAYERS_COUNT != cardHash.size())
 			throw new IllegalStateException("全員カードを出していません");
 		List<Card> list = new ArrayList<Card>(cardHash.values());
 		if(ignoreSpecial) {
@@ -66,6 +70,7 @@ public class Turn {
 		}else {
 			Collections.sort(list, Card.CardNormalComparator);
 		}
+		System.out.println(list.get(getMaxCardIndex()));
 		return list.get(getMaxCardIndex());
 	}
 
@@ -75,7 +80,7 @@ public class Turn {
 
 	public TurnStatus getStatus() {
 		return cardHash.isEmpty() ? TurnStatus.HasNotYetBegan
-				: cardHash.size() < _PLAYERS_COUNT ? TurnStatus.Processing
+				: cardHash.size() < Table._PLAYERS_COUNT ? TurnStatus.Processing
 				: TurnStatus.Finished;
 	}
 	

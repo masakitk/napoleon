@@ -18,6 +18,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 public class TurnTest {
 	@Mocked Player player1;
 
@@ -47,7 +49,7 @@ public class TurnTest {
 	@Test
 	public void T04_カードが4枚出されている場合に特殊カード考慮抜きで勝者を判断できる() {
 		Turn turn = Turn.New(1);
-		
+		throw new NotImplementedException();
 	}
 	
 }
