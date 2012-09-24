@@ -1,4 +1,4 @@
-package model;
+package model.rule;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;

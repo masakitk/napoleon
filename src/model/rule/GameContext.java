@@ -1,4 +1,4 @@
-package model;
+package model.rule;
 
 import java.util.List;
 

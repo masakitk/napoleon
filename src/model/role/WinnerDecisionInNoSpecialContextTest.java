@@ -8,10 +8,10 @@ import java.util.Collection;
 import java.util.Map;
 
 import mockit.Mocked;
-import model.Turn;
 import model.card.Card;
 import model.card.Suit;
 import model.player.Player;
+import model.rule.Turn;
 
 import org.hamcrest.core.Is;
 import org.junit.Test;

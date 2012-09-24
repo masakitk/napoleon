@@ -2,7 +2,7 @@ package model.card;
 
 import java.util.Comparator;
 
-import model.CompareContexts;
+import model.rule.CompareContexts;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 

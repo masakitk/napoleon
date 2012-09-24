@@ -4,10 +4,10 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 import java.util.List;
 
-import model.GameContext;
-import model.Table;
 import model.card.Card;
 import model.player.Player;
+import model.rule.GameContext;
+import model.rule.Table;
 
 import org.hamcrest.core.IsEqual;
 import org.junit.Before;

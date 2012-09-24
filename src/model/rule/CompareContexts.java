@@ -1,4 +1,4 @@
-package model;
+package model.rule;
 
 public enum CompareContexts {
 	Normal,

@@ -3,14 +3,15 @@ package model.role;
 import java.util.Collection;
 import java.util.HashMap;
 
-import model.Declaration;
-import model.GameContext;
-import model.Status;
-import model.Table;
-import model.Turn;
-import model.TurnStatus;
 import model.player.Napoleon;
 import model.player.Player;
+import model.rule.Declaration;
+import model.rule.GameContext;
+import model.rule.Status;
+import model.rule.Table;
+import model.rule.Turn;
+import model.rule.TurnFactory;
+import model.rule.TurnStatus;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -27,7 +28,8 @@ public class Director {
 	protected Player napoleon;
 	protected boolean isNobodyDeclared;
 	protected boolean extraCardChanged;
-	private Turn[] turns;
+	private Turn[] turns = TurnFactory.Get12Turns();
+	private Integer currentTurnNo = 1;
 	
 	protected Director(){}
 
@@ -131,19 +133,18 @@ public class Director {
 	}
 	
 	public Integer getCurrentTurnNo() {
-		// TODO Auto-generated method stub
-		return null;
+		return currentTurnNo;
 	}
 	
 	public TurnStatus getCurrentTurnStatus() {
-		// TODO Auto-generated method stub
-		return null;
+		return turns[currentTurnNo].getStatus();
 	}
 
 	public void beginTurn(int turnNo) {
 		for (Player p : getPlayersForTurn(turnNo)){
-			
+			turns[turnNo].addCard(p, p.openCard(turns[turnNo]));
 		}
+		currentTurnNo++;
 	}
 
 	private Collection<Player> getPlayersForTurn(int turnNo) {

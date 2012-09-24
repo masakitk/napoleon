@@ -2,10 +2,10 @@ package model.role;
 
 import java.util.List;
 
-import model.GameContext;
 import model.card.Card;
 import model.card.CardSet;
 import model.player.Player;
+import model.rule.GameContext;
 
 public class Dealer {
 

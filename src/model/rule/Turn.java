@@ -1,4 +1,4 @@
-package model;
+package model.rule;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,6 +14,7 @@ import model.player.Player;
 import org.apache.commons.collections.CollectionUtils;
 
 public class Turn {
+	private static final int _PLAYERS_COUNT = 4;
 	private HashMap<Player, Card> cardHash = new LinkedHashMap();
 	private int no;
 	private boolean ignoreSpecial;
@@ -57,7 +58,7 @@ public class Turn {
 	}
 
 	public Card getWinnerCard() {
-		if(4 != cardHash.size())
+		if(_PLAYERS_COUNT != cardHash.size())
 			throw new IllegalStateException("全員カードを出していません");
 		List<Card> list = new ArrayList<Card>(cardHash.values());
 		if(ignoreSpecial) {
@@ -70,6 +71,12 @@ public class Turn {
 
 	private int getMaxCardIndex() {
 		return cardHash.size() - 1;
+	}
+
+	public TurnStatus getStatus() {
+		return cardHash.isEmpty() ? TurnStatus.HasNotYetBegan
+				: cardHash.size() < _PLAYERS_COUNT ? TurnStatus.Processing
+				: TurnStatus.Finished;
 	}
 	
 }

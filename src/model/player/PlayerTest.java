@@ -9,10 +9,10 @@ import java.util.List;
 
 import mockit.Expectations;
 import mockit.Mocked;
-import model.Declaration;
-import model.Turn;
 import model.card.Card;
 import model.card.Suit;
+import model.rule.Declaration;
+import model.rule.Turn;
 
 import org.hamcrest.core.IsEqual;
 import org.junit.Test;
