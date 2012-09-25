@@ -2,7 +2,6 @@ package model.rule;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -12,10 +11,8 @@ import model.card.Card;
 import model.card.Suit;
 import model.player.Player;
 
-import org.apache.commons.collections.CollectionUtils;
-
 public class Turn {
-	private HashMap<Player, Card> cardHash = new LinkedHashMap();
+	private HashMap<Player, Card> cardHash = new LinkedHashMap<Player, Card>();
 	private int no;
 	private boolean ignoreSpecial;
 	

@@ -2,11 +2,6 @@ package model.player;
 
 
 import static org.junit.Assert.*;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import mockit.Expectations;
 import mockit.Mocked;
 import model.card.Card;

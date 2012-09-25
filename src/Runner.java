@@ -1,8 +1,5 @@
-import view.ConsoleView;
 import model.player.Player;
-import model.role.Dealer;
 import model.role.Director;
-import model.rule.GameContext;
 import model.rule.Table;
 
 

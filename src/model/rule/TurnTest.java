@@ -2,10 +2,6 @@ package model.rule;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
-
-import java.util.ArrayList;
-import java.util.Collection;
-
 import mockit.Mocked;
 import model.card.Card;
 import model.card.Suit;
@@ -14,9 +10,6 @@ import model.player.Player;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -48,7 +41,7 @@ public class TurnTest {
 	
 	@Test
 	public void T04_カードが4枚出されている場合に特殊カード考慮抜きで勝者を判断できる() {
-		Turn turn = Turn.New(1);
+//		Turn turn = Turn.New(1);
 		throw new NotImplementedException();
 	}
 	

@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 
-import mockit.Mocked;
 import model.card.Card;
 import model.card.Suit;
 import model.player.Player;

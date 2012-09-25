@@ -17,9 +17,6 @@ import model.rule.TurnStatus;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
-import org.omg.CORBA._PolicyStub;
-
-import com.sun.net.ssl.internal.ssl.Debug;
 
 import view.ConsoleView;
 
