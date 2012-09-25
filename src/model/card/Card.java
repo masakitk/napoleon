@@ -112,9 +112,20 @@ public class Card {
 	}
 	
 	private static class CardIgnoreSpecialStrengthComparator implements Comparator<Card>{
+		static Suit leadSuit;
+		public static void setLeadSuit(Suit suit) {
+			leadSuit = suit;
+		}
 		@Override
 		public int compare(Card left, Card right) {
-			return left.strongerThan(right, CompareContexts.IgnoreSpecial) ? 1 : -1;
+			return left.suit == leadSuit && right.suit != leadSuit ? 1
+					: left.suit != leadSuit && right.suit == leadSuit ? -1
+					:left.suit == leadSuit && right.suit == leadSuit && left.strongerThan(right, CompareContexts.IgnoreSpecial) ? 1 : -1;
 			}
+	}
+
+	public static Comparator<? super Card> GetCardIgnoreSpecialComparator(Suit leadSuit) {
+		CardIgnoreSpecialStrengthComparator.setLeadSuit(leadSuit);
+		return CardIgnoreSpecialComparator;
 	}
 }

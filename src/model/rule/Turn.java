@@ -63,7 +63,7 @@ public class Turn {
 			throw new IllegalStateException("全員カードを出していません");
 		List<Card> list = new ArrayList<Card>(cardHash.values());
 		if(ignoreSpecial) {
-			Collections.sort(list, Card.CardIgnoreSpecialComparator);
+			Collections.sort(list, Card.GetCardIgnoreSpecialComparator(getLeadSuit()));
 		}else {
 			Collections.sort(list, Card.CardNormalComparator);
 		}
