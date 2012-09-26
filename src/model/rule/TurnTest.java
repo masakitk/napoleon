@@ -2,17 +2,19 @@ package model.rule;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
-import mockit.Expectations;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import mockit.Mocked;
 import model.card.Card;
 import model.card.Suit;
 import model.player.Player;
+import model.rule.TurnTest.Parameters;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class TurnTest {
 	@Mocked Player player1;
@@ -45,14 +47,90 @@ public class TurnTest {
 	
 	@Test
 	public void T04_カードが4枚出されている場合に特殊カード考慮抜きで勝者を判断できる() {
-		Turn turn = Turn.New(1);
-		turn.addCard(player2, Card.New(Suit.Dia, 8));
-		turn.addCard(player3, Card.New(Suit.Dia, 4));
-		turn.addCard(player4, Card.New(Suit.Dia, 12));
-		turn.addCard(player1, Card.New(Suit.Heart, 13));
+		Parameters param = new Parameters(
+				player2, Card.New(Suit.Dia, 8), 
+				player3, Card.New(Suit.Dia, 4), 
+				player4, Card.New(Suit.Dia, 12), 
+				player1, Card.New(Suit.Heart, 13), 
+				player4, Card.New(Suit.Dia, 12));
 		
-		assertThat(turn.getWinnerCard(), equalTo(Card.New(Suit.Dia, 12)));
-		assertThat(turn.getWinner(), equalTo(player4));
+		ターンを回して勝者を確認(param);
+	}
+
+	@Test
+	public void T05_カードが4枚出されている場合に特殊カード考慮抜きで勝者を判断できる_セイム2の無視() {
+		Parameters param = new Parameters(
+				player2, Card.New(Suit.Dia, 8), 
+				player3, Card.New(Suit.Dia, 2), 
+				player4, Card.New(Suit.Dia, 12), 
+				player1, Card.New(Suit.Dia, 13), 
+				player1, Card.New(Suit.Dia, 13));
+		
+		ターンを回して勝者を確認(param);
+	}
+	
+	@Test
+	public void T06_カードが4枚出されている場合に特殊カード考慮抜きで勝者を判断できる_よろめきの無視() {
+		Parameters param = new Parameters(
+				player2, Card.New(Suit.Spade, 1), 
+				player3, Card.New(Suit.Heart, 12), 
+				player4, Card.New(Suit.Dia, 12), 
+				player1, Card.New(Suit.Dia, 13), 
+				player2, Card.New(Suit.Spade, 1));
+		
+		ターンを回して勝者を確認(param);
+	}
+
+	@Test
+	public void T07_カードが4枚出されている場合に特殊カード考慮抜きで勝者を判断できる_マイティの無視() {
+		Parameters param = new Parameters(
+				player2, Card.New(Suit.Heart, 1), 
+				player3, Card.New(Suit.Heart, 12), 
+				player4, Card.New(Suit.Spade, 1), 
+				player1, Card.New(Suit.Dia, 13), 
+				player2, Card.New(Suit.Heart, 1));
+		
+		ターンを回して勝者を確認(param);
+	}
+
+	private void ターンを回して勝者を確認(Parameters param) {
+		Turn turn = Turn.New(1);
+		
+		turn.addCard(param.player1, param.card1);
+		turn.addCard(param.player2, param.card2);
+		turn.addCard(param.player3, param.card3);
+		turn.addCard(param.player4, param.card4);
+		
+		assertThat(turn.getWinnerCard(), equalTo(param.winnerCard));
+		assertThat(turn.getWinner(), equalTo(param.winner));
+	}
+
+	class Parameters {
+		public Parameters(Player player1, Card card1, Player player2,
+				Card card2, Player player3, Card card3, Player player4,
+				Card card4, Player winner, Card winnerCard) {
+			super();
+			this.player1 = player1;
+			this.card1 = card1;
+			this.player2 = player2;
+			this.card2 = card2;
+			this.player3 = player3;
+			this.card3 = card3;
+			this.player4 = player4;
+			this.card4 = card4;
+			this.winner = winner;
+			this.winnerCard = winnerCard;
+		}
+		Player player1;
+		Card card1;
+		Player player2;
+		Card card2;
+		Player player3;
+		Card card3;
+		Player player4;
+		Card card4;
+		Player winner;
+		Card winnerCard;
 	}
 	
 }
