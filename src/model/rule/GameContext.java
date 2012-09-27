@@ -11,6 +11,8 @@ public class GameContext {
 	private final Player[] players;
 	private Player napoleon;
 	private Declaration declaration;
+	private Card rightBower;
+	private Card leftBower;
 
 	public Declaration getDeclaration() {
 		return declaration;
@@ -52,6 +54,14 @@ public class GameContext {
 
 	public void addClosedCardsOnTable(List<Card> cards) {
 		getTable().cards.addAll(cards);
+	}
+
+	public Card getRightBower() {
+		return rightBower;
+	}
+
+	public Card getLeftBower() {
+		return leftBower;
 	}
 
 }

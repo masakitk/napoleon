@@ -90,6 +90,7 @@ public class Turn {
 		getWinner().takeCards(getPictureCards());
 	}
 
+	@SuppressWarnings("unchecked")
 	private Collection<? extends Card> getPictureCards() {
 		return CollectionUtils.select(cardHash.values(), new Predicate() {
 			
