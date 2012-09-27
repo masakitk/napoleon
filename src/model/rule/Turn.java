@@ -1,11 +1,16 @@
 package model.rule;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 
 import model.card.Card;
 import model.card.Suit;
@@ -79,6 +84,27 @@ public class Turn {
 		return cardHash.isEmpty() ? TurnStatus.HasNotYetBegan
 				: cardHash.size() < Table._PLAYERS_COUNT ? TurnStatus.Processing
 				: TurnStatus.Finished;
+	}
+
+	public void close() {
+		getWinner().takeCards(getPictureCards());
+	}
+
+	private Collection<? extends Card> getPictureCards() {
+		return CollectionUtils.select(cardHash.values(), new Predicate() {
+			
+			@Override
+			public boolean evaluate(Object arg0) {
+				return isPictureCard((Card) arg0);
+			}
+		});
+	}
+
+	protected boolean isPictureCard(Card card) {
+		return card == null ? false
+				: card.getNumber() == 1 ? true
+				: 10 <= card.getNumber() ? true
+				: false;
 	}
 	
 }

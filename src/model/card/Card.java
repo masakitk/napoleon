@@ -47,7 +47,7 @@ public class Card {
 		int result = 1;
 		result = prime * result + (isJorker ? 1231 : 1237);
 		result = prime * result + ((suit == null) ? 0 : suit.hashCode());
-		result = prime * result + number;
+		result = prime * result + getNumber();
 		return result;
 	}
 
@@ -64,7 +64,7 @@ public class Card {
 			return false;
 		if (suit != other.suit)
 			return false;
-		if (number != other.number)
+		if (getNumber() != other.getNumber())
 			return false;
 		return true;
 	}
@@ -75,7 +75,7 @@ public class Card {
 	
 	@Override
 	public String toString() {
-		return isJorker ? "[Jorker]" : String.format("[%s:%d]", suit, number);
+		return isJorker ? "[Jorker]" : String.format("[%s:%d]", suit, getNumber());
 	}
 
 	public boolean strongerThan(Card card2, CompareContexts contexts) {
@@ -93,7 +93,7 @@ public class Card {
 	}
 
 	private int getStrengthOfNumber() {
-		return isJorker ? 0 : number == 1 ? 14 : number;
+		return isJorker ? 0 : getNumber() == 1 ? 14 : getNumber();
 	}
 
 	public boolean isUpperOrderByMarkAndStrength(Card c2) {
@@ -127,5 +127,9 @@ public class Card {
 	public static Comparator<? super Card> GetCardIgnoreSpecialComparator(Suit leadSuit) {
 		CardIgnoreSpecialStrengthComparator.setLeadSuit(leadSuit);
 		return CardIgnoreSpecialComparator;
+	}
+
+	public int getNumber() {
+		return number;
 	}
 }
