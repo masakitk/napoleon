@@ -10,6 +10,11 @@ public class GameContext {
 	private final Table table;
 	private final Player[] players;
 	private Player napoleon;
+	private Declaration declaration;
+
+	public Declaration getDeclaration() {
+		return declaration;
+	}
 
 	public GameContext(Table table, Player[] players) {
 		this.table = table;
@@ -36,8 +41,9 @@ public class GameContext {
 		return players[i];
 	}
 
-	public void setNapoleon(Player player) {
+	public void setNapoleon(Player player, Declaration declaration) {
 		napoleon = player;
+		this.declaration = declaration;
 	}
 
 	public Player getNapoleon() {
