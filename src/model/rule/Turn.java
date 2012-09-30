@@ -70,7 +70,7 @@ public class Turn {
 		if(ignoreSpecial) {
 			Collections.sort(list, Card.GetCardIgnoreSpecialComparator(getLeadSuit()));
 		}else {
-			Collections.sort(list, Card.CardNormalComparator);
+			Collections.sort(list, Card.getCardNormalComparator(getLeadSuit(), cardHash.values()));
 		}
 		System.out.println(list.get(getMaxCardIndex()));
 		return list.get(getMaxCardIndex());

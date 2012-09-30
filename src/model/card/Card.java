@@ -1,6 +1,9 @@
 package model.card;
 
+import java.util.Collection;
 import java.util.Comparator;
+
+import org.apache.commons.collections.CollectionUtils;
 
 import model.rule.CompareContexts;
 
@@ -14,7 +17,15 @@ public class Card {
 	private final int number;
 	private final boolean isJorker;
 	public static Comparator<Card> CardNormalComparator;
+	public static Comparator<Card> getCardNormalComparator() {
+		return CardNormalComparator;
+	}
+
 	public static Comparator<Card> CardIgnoreSpecialComparator;
+
+	public static Card Yoromeki = Card.New(Suit.Heart, 12);
+	public static Card Mighty = Card.New(Suit.Spade, 1);
+	
 	static {
 		CardNormalComparator = new CardStrengthComparator();
 		CardIgnoreSpecialComparator = new CardIgnoreSpecialStrengthComparator();
@@ -131,5 +142,38 @@ public class Card {
 
 	public int getNumber() {
 		return number;
+	}
+
+	public static Comparator<? super Card> getCardNormalComparator(Suit leadSuit, Collection<Card> cards) {
+		CardNormalStrengthComparator.setLeadSuit(leadSuit);
+		CardNormalStrengthComparator.setCards(cards);
+		return CardNormalComparator;
+	}
+	
+	private static class CardNormalStrengthComparator implements Comparator<Card>{
+		static Suit leadSuit;
+		private static Collection<Card> cards;
+		public static void setLeadSuit(Suit suit) {
+			leadSuit = suit;
+		}
+		public static void setCards(Collection<Card> cards) {
+			CardNormalStrengthComparator.cards = cards;
+			
+		}
+		@Override
+		public int compare(Card left, Card right) {
+			return contains(Card.Mighty) ? getMightyWinner()
+					: left.suit == leadSuit && right.suit != leadSuit ? 1
+					: left.suit != leadSuit && right.suit == leadSuit ? -1
+					:left.suit == leadSuit && right.suit == leadSuit && left.strongerThan(right, CompareContexts.IgnoreSpecial) ? 1 : -1;
+			}
+		private boolean contains(Card mighty) {
+			CollectionUtils.exists(cards, arg1)
+			return false;
+		}
+		private int getMightyWinner() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
 	}
 }

@@ -6,7 +6,6 @@ import static org.junit.Assert.*;
 import java.util.Arrays;
 import java.util.Collection;
 
-import mockit.Expectations;
 import mockit.Mocked;
 import mockit.Tested;
 import mockit.Verifications;
@@ -54,6 +53,7 @@ public class TurnTest {
 	public void T04_カードが4枚出されている場合に特殊カード考慮抜きで勝者を判断できる() {
 		
 		final Parameters param = new Parameters(
+				Turn.New(1),
 				Suit.Club,
 				player2, Card.New(Suit.Dia, 8), 
 				player3, Card.New(Suit.Dia, 4), 
@@ -66,8 +66,24 @@ public class TurnTest {
 	}
 
 	@Test
+	public void T05_カードが4枚出されている場合に特殊カード考慮ありで勝者を判断できる_セイム2() {
+		Parameters param = new Parameters(
+				Turn.New(1),
+				Suit.Club,
+				player2, Card.New(Suit.Dia, 8), 
+				player3, Card.New(Suit.Dia, 2), 
+				player4, Card.New(Suit.Dia, 12), 
+				player1, Card.New(Suit.Dia, 13), 
+				player3, Card.New(Suit.Dia, 2),
+				new Card[]{Card.New(Suit.Dia, 12), Card.New(Suit.Dia, 13)});
+		
+		ターンを回して勝者を確認(param);
+	}
+	
+	@Test
 	public void T05_カードが4枚出されている場合に特殊カード考慮抜きで勝者を判断できる_セイム2の無視() {
 		Parameters param = new Parameters(
+				Turn.New(1),
 				Suit.Club,
 				player2, Card.New(Suit.Dia, 8), 
 				player3, Card.New(Suit.Dia, 2), 
@@ -82,6 +98,7 @@ public class TurnTest {
 	@Test
 	public void T06_カードが4枚出されている場合に特殊カード考慮抜きで勝者を判断できる_よろめきの無視() {
 		Parameters param = new Parameters(
+				Turn.New(1),
 				Suit.Club,
 				player2, Card.New(Suit.Spade, 1), 
 				player3, Card.New(Suit.Heart, 12), 
@@ -96,6 +113,7 @@ public class TurnTest {
 	@Test
 	public void T07_カードが4枚出されている場合に特殊カード考慮抜きで勝者を判断できる_マイティの無視() {
 		Parameters param = new Parameters(
+				Turn.New(1),
 				Suit.Club,
 				player2, Card.New(Suit.Heart, 1), 
 				player3, Card.New(Suit.Heart, 12), 
@@ -108,8 +126,24 @@ public class TurnTest {
 	}
 
 	@Test
+	public void T07_カードが4枚出されている場合に特殊カード考慮ありで勝者を判断できる_マイティ() {
+		Parameters param = new Parameters(
+				Turn.New(1),
+				Suit.Club,
+				player2, Card.New(Suit.Heart, 1), 
+				player3, Card.New(Suit.Heart, 12), 
+				player4, Card.New(Suit.Spade, 1), 
+				player1, Card.New(Suit.Dia, 13), 
+				player4, Card.New(Suit.Spade, 1),
+				new Card[]{Card.New(Suit.Heart, 12), Card.New(Suit.Dia, 13), Card.New(Suit.Heart, 1), Card.New(Suit.Spade, 1),});
+		
+		ターンを回して勝者を確認(param);
+	}
+
+	@Test
 	public void T08_カードが4枚出されている場合に特殊カード考慮抜きで勝者を判断できる_切り札の無視() {
 		Parameters param = new Parameters(
+				Turn.New(1),
 				Suit.Club,
 				player2, Card.New(Suit.Heart, 1), 
 				player3, Card.New(Suit.Heart, 12), 
@@ -124,6 +158,7 @@ public class TurnTest {
 	@Test
 	public void T09_カードが4枚出されている場合に特殊カード考慮抜きで勝者を判断できる_裏Jの無視() {
 		Parameters param = new Parameters(
+				Turn.New(1),
 				Suit.Club,
 				player2, Card.New(Suit.Club, 1), 
 				player3, Card.New(Suit.Club, 12), 
@@ -138,6 +173,7 @@ public class TurnTest {
 	@Test
 	public void T10_カードが4枚出されている場合に特殊カード考慮抜きで勝者を判断できる_正Jの無視() {
 		Parameters param = new Parameters(
+				Turn.New(1),
 				Suit.Club,
 				player2, Card.New(Suit.Spade, 12), 
 				player3, Card.New(Suit.Heart, 1), 
@@ -169,10 +205,11 @@ public class TurnTest {
 	}
 
 	class Parameters {
-		public Parameters(Suit trunp, Player player1, Card card1, Player player2,
+		public Parameters(Turn turn, Suit trunp, Player player1, Card card1, Player player2,
 				Card card2, Player player3, Card card3, Player player4,
 				Card card4, Player winner, Card winnerCard, Card[] winnerWillGet) {
 			super();
+			this.turn = turn;
 			this.trump = trunp;
 			this.player1 = player1;
 			this.card1 = card1;
@@ -186,6 +223,7 @@ public class TurnTest {
 			this.winnerCard = winnerCard;
 			this.winnerWillGet = winnerWillGet;
 		}
+		Turn turn;
 		Suit trump;
 		Player player1;
 		Card card1;
@@ -199,6 +237,7 @@ public class TurnTest {
 		Card winnerCard;
 		Card[] winnerWillGet;
 	}
+
 	
 }
 
