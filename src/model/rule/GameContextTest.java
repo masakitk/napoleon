@@ -26,11 +26,41 @@ public class GameContextTest {
 	}
 
 	@Test
-	public void T01_宣言に対して特殊カードが設定されること() {
+	public void T_宣言に対して特殊カードが設定されること_Spade() {
 		Parameters params = new Parameters(
 				Declaration.New(Suit.Spade, 13),
 				Card.New(Suit.Spade, 11),
 				Card.New(Suit.Club, 11)); 
+		
+		GameContextに対して宣言をセットして特殊カードを確認する(params);
+	}
+
+	@Test
+	public void T_宣言に対して特殊カードが設定されること_Heart() {
+		Parameters params = new Parameters(
+				Declaration.New(Suit.Heart, 13),
+				Card.New(Suit.Heart, 11),
+				Card.New(Suit.Dia, 11)); 
+		
+		GameContextに対して宣言をセットして特殊カードを確認する(params);
+	}
+
+	@Test
+	public void T_宣言に対して特殊カードが設定されること_Dia() {
+		Parameters params = new Parameters(
+				Declaration.New(Suit.Dia, 13),
+				Card.New(Suit.Dia, 11),
+				Card.New(Suit.Heart, 11)); 
+		
+		GameContextに対して宣言をセットして特殊カードを確認する(params);
+	}
+
+	@Test
+	public void T_宣言に対して特殊カードが設定されること_Club() {
+		Parameters params = new Parameters(
+				Declaration.New(Suit.Club, 13),
+				Card.New(Suit.Club, 11),
+				Card.New(Suit.Spade, 11)); 
 		
 		GameContextに対して宣言をセットして特殊カードを確認する(params);
 	}

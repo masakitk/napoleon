@@ -3,6 +3,7 @@ package model.rule;
 import java.util.List;
 
 import model.card.Card;
+import model.card.Suit;
 import model.player.Player;
 
 public class GameContext {
@@ -46,6 +47,27 @@ public class GameContext {
 	public void setNapoleon(Player player, Declaration declaration) {
 		napoleon = player;
 		this.declaration = declaration;
+		setSpecialCards(declaration);
+	}
+
+	private void setSpecialCards(Declaration declaration) {
+		rightBower = Card.New(declaration.getSuit(), 11);
+		leftBower = Card.New(getSameColorSuit(declaration.getSuit()), 11);
+	}
+
+	private Suit getSameColorSuit(Suit suit) {
+		switch (suit) {
+		case Spade:
+			return Suit.Club;
+		case Heart:
+			return Suit.Dia;
+		case Dia:
+			return Suit.Heart;
+		case Club:
+			return Suit.Spade;
+		default:
+			throw new IllegalArgumentException(String.format("%s:‚Í–¢‘Î‰ž‚Å‚·", suit));
+		}
 	}
 
 	public Player getNapoleon() {
