@@ -51,11 +51,19 @@ public class GameContext {
 	}
 
 	private void setSpecialCards(Declaration declaration) {
-		rightBower = Card.New(declaration.getSuit(), 11);
-		leftBower = Card.New(getSameColorSuit(declaration.getSuit()), 11);
+		rightBower = getRightBower(declaration.getSuit());
+		leftBower = getLeftBower(declaration.getSuit());
 	}
 
-	private Suit getSameColorSuit(Suit suit) {
+	public static Card getLeftBower(Suit leadSuit) {
+		return Card.New(getSameColorAnotherSuit(leadSuit), 11);
+	}
+
+	public static Card getRightBower(Suit leadSuit) {
+		return Card.New(leadSuit, 11);
+	}
+
+	private static Suit getSameColorAnotherSuit(Suit suit) {
 		switch (suit) {
 		case Spade:
 			return Suit.Club;

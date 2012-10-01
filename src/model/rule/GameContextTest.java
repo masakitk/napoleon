@@ -18,7 +18,6 @@ public class GameContextTest {
 
 		public Parameters(Declaration declaration, Card rightBower, Card leftBower) {
 			this.declaration = declaration;
-			// TODO Auto-generated constructor stub
 			this.rightBower = rightBower;
 			this.leftBower = leftBower;
 		}

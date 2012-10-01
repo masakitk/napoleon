@@ -4,8 +4,10 @@ import java.util.Collection;
 import java.util.Comparator;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 
 import model.rule.CompareContexts;
+import model.rule.GameContext;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -27,10 +29,9 @@ public class Card {
 	public static Card Mighty = Card.New(Suit.Spade, 1);
 	
 	static {
-		CardNormalComparator = new CardStrengthComparator();
+		CardNormalComparator = new CardNormalStrengthComparator();
 		CardIgnoreSpecialComparator = new CardIgnoreSpecialStrengthComparator();
 	}
-	
 	
 	private Card(Suit mark, int number) {
 		this(mark, number, false);
@@ -89,10 +90,7 @@ public class Card {
 		return isJorker ? "[Jorker]" : String.format("[%s:%d]", suit, getNumber());
 	}
 
-	public boolean strongerThan(Card card2, CompareContexts contexts) {
-		if(CompareContexts.IgnoreSpecial != contexts) {
-			throw new NotImplementedException();
-		}
+	public boolean strongerThanAsSuitAndNumber(Card card2) {
 		return card2.isJorker ||
 				(	strongerThanAsNumber(card2) ||
 					(getStrengthOfNumber() == card2.getStrengthOfNumber()
@@ -115,13 +113,6 @@ public class Card {
 						&& strongerThanAsNumber(c2)));
 	}
 	
-	private static class CardStrengthComparator implements Comparator<Card>{
-		@Override
-		public int compare(Card left, Card right) {
-			return left.strongerThan(right, CompareContexts.Normal) ? 1 : -1;
-			}
-	}
-	
 	private static class CardIgnoreSpecialStrengthComparator implements Comparator<Card>{
 		static Suit leadSuit;
 		public static void setLeadSuit(Suit suit) {
@@ -131,7 +122,7 @@ public class Card {
 		public int compare(Card left, Card right) {
 			return left.suit == leadSuit && right.suit != leadSuit ? 1
 					: left.suit != leadSuit && right.suit == leadSuit ? -1
-					:left.suit == leadSuit && right.suit == leadSuit && left.strongerThan(right, CompareContexts.IgnoreSpecial) ? 1 : -1;
+					:left.suit == leadSuit && right.suit == leadSuit && left.strongerThanAsNumber(right) ? 1 : -1;
 			}
 	}
 
@@ -144,7 +135,8 @@ public class Card {
 		return number;
 	}
 
-	public static Comparator<? super Card> getCardNormalComparator(Suit leadSuit, Collection<Card> cards) {
+	public static Comparator<? super Card> getCardNormalComparator(Suit trump, Suit leadSuit, Collection<Card> cards) {
+		CardNormalStrengthComparator.setTrump(trump);
 		CardNormalStrengthComparator.setLeadSuit(leadSuit);
 		CardNormalStrengthComparator.setCards(cards);
 		return CardNormalComparator;
@@ -153,27 +145,68 @@ public class Card {
 	private static class CardNormalStrengthComparator implements Comparator<Card>{
 		static Suit leadSuit;
 		private static Collection<Card> cards;
+		private static Card rightBower;
+		private static Card leftBower;
+		private static Suit trump;
 		public static void setLeadSuit(Suit suit) {
 			leadSuit = suit;
 		}
+		
+		public static void setTrump(Suit trump) {
+			CardNormalStrengthComparator.trump = trump;
+			rightBower = GameContext.getRightBower(trump);
+			leftBower = GameContext.getLeftBower(trump);
+		}
+		
 		public static void setCards(Collection<Card> cards) {
 			CardNormalStrengthComparator.cards = cards;
-			
 		}
+		
 		@Override
 		public int compare(Card left, Card right) {
-			return contains(Card.Mighty) ? getMightyWinner()
+			return contains(Card.Mighty) && !contains(Card.Yoromeki) ? getOrderOfTargetCardWin(Card.Mighty, left, right)
+					: contains(Card.Mighty) && contains(Card.Yoromeki) ? getOrderOfTargetCardWin(Card.Yoromeki, left, right)
+					: contains(rightBower) ? getOrderOfTargetCardWin(rightBower, left, right)
+					: contains(leftBower) ? getOrderOfTargetCardWin(leftBower, left, right)
+					: isAllSameSuit() ? getOrderOfTargetCardWin(getSame2(leadSuit), left, right)
+					: left.suit == trump && right.suit != trump ? 1
+					: left.suit != trump && right.suit == trump ? -1
+					: left.suit == trump && right.suit == trump && left.strongerThanAsNumber(right) ? 1
 					: left.suit == leadSuit && right.suit != leadSuit ? 1
 					: left.suit != leadSuit && right.suit == leadSuit ? -1
-					:left.suit == leadSuit && right.suit == leadSuit && left.strongerThan(right, CompareContexts.IgnoreSpecial) ? 1 : -1;
+					:left.suit == leadSuit && right.suit == leadSuit && left.strongerThanAsNumber(right) ? 1 : -1;
 			}
-		private boolean contains(Card mighty) {
-			CollectionUtils.exists(cards, arg1)
-			return false;
+		private static Card getSame2(Suit leadSuit) {
+			return Card.New(leadSuit, 2);
 		}
-		private int getMightyWinner() {
-			// TODO Auto-generated method stub
-			return 0;
+
+		private boolean isAllSameSuit() {
+			return CollectionUtils.select(cards, new Predicate() {
+				
+				@Override
+				public boolean evaluate(Object o) {
+					return !((Card)o).getSuit().equals(getLeadSuit());
+				}
+			}).isEmpty();
+		}
+
+		protected Suit getLeadSuit() {
+			return leadSuit;
+		}
+
+		private int getOrderOfTargetCardWin(Card cardToWin, Card left, Card right) {
+			return left.equals(cardToWin) ? 1
+					: right.equals(cardToWin) ? -1
+					: CardIgnoreSpecialComparator.compare(left, right);
+		}
+		private boolean contains(final Card card) {
+			return CollectionUtils.exists(cards, new Predicate() {
+				
+				@Override
+				public boolean evaluate(Object o) {
+					return card.equals((Card)o);
+				}
+			});
 		}
 	}
 }

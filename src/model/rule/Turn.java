@@ -1,7 +1,6 @@
 package model.rule;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -9,20 +8,22 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
-
 import model.card.Card;
 import model.card.Suit;
 import model.player.Player;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 
 public class Turn {
 	private HashMap<Player, Card> cardHash = new LinkedHashMap<Player, Card>();
 	private int no;
 	private boolean ignoreSpecial;
+	private final Suit trump;
 	
-	private Turn(int no) {
+	private Turn(int no, Suit trump) {
 		super();
+		this.trump = trump;
 		if(no == 1 || no == 12) {
 			ignoreSpecial = true;
 		}
@@ -33,10 +34,10 @@ public class Turn {
 		return no;
 	}
 
-	public static Turn New(int no) {
+	public static Turn New(int no, Suit leadSuit) {
 		if(no < 1 || 12 < no) throw new IllegalArgumentException("ターン番号は1以上12以下である必要があります");
 		
-		return new Turn(no);
+		return new Turn(no, leadSuit);
 	}
 
 	public boolean isLeadSuitDefined() {
@@ -70,10 +71,14 @@ public class Turn {
 		if(ignoreSpecial) {
 			Collections.sort(list, Card.GetCardIgnoreSpecialComparator(getLeadSuit()));
 		}else {
-			Collections.sort(list, Card.getCardNormalComparator(getLeadSuit(), cardHash.values()));
+			Collections.sort(list, Card.getCardNormalComparator(getTrump(), getLeadSuit(), cardHash.values()));
 		}
 		System.out.println(list.get(getMaxCardIndex()));
 		return list.get(getMaxCardIndex());
+	}
+
+	private Suit getTrump() {
+		return trump;
 	}
 
 	private int getMaxCardIndex() {
