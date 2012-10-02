@@ -55,12 +55,17 @@ public class Turn {
 	}
 
 	private Suit getLeadSuitWhenJorkerFirst() {
-		return ignoreSpecial ? null
+		return ignoreSpecial ? (
+				cardHash.size() == 2 ? getCardAt(2).getSuit() : null)
 		: trump;
 	}
 
 	private Card getFirstCard() {
-		return (Card)cardHash.values().toArray()[0];
+		return getCardAt(0);
+	}
+
+	private Card getCardAt(int index) {
+		return (Card) CollectionUtils.get(cardHash.values(), index);
 	}
 
 	public Player getWinner() {

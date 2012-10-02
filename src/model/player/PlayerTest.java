@@ -12,6 +12,8 @@ import model.rule.Turn;
 import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 public class PlayerTest {
 
 	@Mocked
@@ -40,6 +42,12 @@ public class PlayerTest {
 		player.takeCard(Card.New(Suit.Spade, 3));
 		player.takeCard(Card.New(Suit.Heart, 3));
 		assertThat(player.openCard(turn).getSuit(), IsEqual.equalTo(Suit.Spade));
+	}
+	
+	@Test
+	public void T02_最初にジョーカー出されたら切り札かなければ一番大きい絵札を出すこと() {
+		throw new NotImplementedException();
+		//TODO
 	}
 
 	@Test

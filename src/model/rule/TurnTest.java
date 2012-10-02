@@ -262,6 +262,48 @@ public class TurnTest {
 		ターンを回して勝者を確認(param);
 	}
 
+	@Test
+	public void T11_カードが4枚出されている場合に特殊カード考慮抜きで勝者を判断できる_Jorkerの無視() {
+		Parameters param = new Parameters(
+				Turn.New(1, Suit.Club),
+				player2, Card.Jorker, 
+				player3, Card.New(Suit.Club, 1), 
+				player4, Card.New(Suit.Club, 11), 
+				player1, Card.New(Suit.Dia, 13), 
+				player4, Card.New(Suit.Club, 11),
+				new Card[]{Card.New(Suit.Dia, 13), Card.New(Suit.Club, 1), Card.New(Suit.Club, 11),});
+		
+		ターンを回して勝者を確認(param);
+	}
+
+	@Test
+	public void T11_カードが4枚出されている場合に特殊カード考慮ありで勝者を判断できる_最初にJorker() {
+		Parameters param = new Parameters(
+				Turn.New(2, Suit.Club),
+				player2, Card.Jorker, 
+				player3, Card.New(Suit.Club, 1), 
+				player4, Card.New(Suit.Spade, 11), 
+				player1, Card.New(Suit.Dia, 13), 
+				player2, Card.Jorker,
+				new Card[]{Card.New(Suit.Dia, 13), Card.New(Suit.Club, 1), Card.New(Suit.Spade, 11),});
+		
+		ターンを回して勝者を確認(param);
+	}
+
+	@Test
+	public void T11_カードが4枚出されている場合に特殊カード考慮ありで勝者を判断できる_途中にJorker() {
+		Parameters param = new Parameters(
+				Turn.New(2, Suit.Club),
+				player2, Card.New(Suit.Club, 1), 
+				player3, Card.Jorker, 
+				player4, Card.New(Suit.Spade, 11), 
+				player1, Card.New(Suit.Dia, 13), 
+				player4, Card.New(Suit.Spade, 11),
+				new Card[]{Card.New(Suit.Dia, 13), Card.New(Suit.Club, 1), Card.New(Suit.Spade, 11),});
+		
+		ターンを回して勝者を確認(param);
+	}
+	
 	private void ターンを回して勝者を確認(Parameters param) {
 		turn = param.turn;
 		turn.addCard(param.player1, param.card1);

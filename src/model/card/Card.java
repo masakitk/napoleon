@@ -122,7 +122,9 @@ public class Card {
 		public int compare(Card left, Card right) {
 			return left.suit == leadSuit && right.suit != leadSuit ? 1
 					: left.suit != leadSuit && right.suit == leadSuit ? -1
-					:left.suit == leadSuit && right.suit == leadSuit && left.strongerThanAsNumber(right) ? 1 : -1;
+					: left.suit == leadSuit && right.suit == leadSuit ?
+							(left.strongerThanAsNumber(right) ? 1 : -1)
+					: left == Card.Jorker ? -1 : 1;
 			}
 	}
 
@@ -167,6 +169,7 @@ public class Card {
 			return contains(Card.Mighty) && !contains(Card.Yoromeki) ? getOrderOfTargetCardWin(Card.Mighty, left, right)
 					: contains(Card.Mighty) && contains(Card.Yoromeki) ? getOrderOfTargetCardWin(Card.Yoromeki, left, right)
 					: contains(rightBower) ? getOrderOfTargetCardWin(rightBower, left, right)
+					: isJorkerFirst() ? (left == Card.Jorker ? 1 : -1)
 					: contains(leftBower) ? getOrderOfTargetCardWin(leftBower, left, right)
 					: isAllSameSuit() ? getOrderOfTargetCardWin(getSame2(leadSuit), left, right)
 					: left.suit == trump && right.suit != trump ? 1
@@ -176,6 +179,10 @@ public class Card {
 					: left.suit != leadSuit && right.suit == leadSuit ? -1
 					:left.suit == leadSuit && right.suit == leadSuit && left.strongerThanAsNumber(right) ? 1 : -1;
 			}
+		private boolean isJorkerFirst() {
+			return CollectionUtils.get(cards, 0) == Card.Jorker;
+		}
+
 		private static Card getSame2(Suit leadSuit) {
 			return Card.New(leadSuit, 2);
 		}
