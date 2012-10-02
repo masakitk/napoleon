@@ -50,6 +50,22 @@ public class TurnTest {
 	}
 	
 	@Test
+	public void T03_最初にジョーカーが出されたら切り札が台札になること() {
+		Turn turn = Turn.New(2, Suit.Spade);
+		assertThat(turn.getLeadSuit(), equalTo(null));	
+		turn.addCard(player1, Card.Jorker);
+		assertThat(turn.getLeadSuit(), equalTo(Suit.Spade));	
+	}
+
+	@Test
+	public void T03_特殊カード無効のターンで最初にジョーカーが出されたら台札未定で2人目にまわること() {
+		Turn turn = Turn.New(1, Suit.Spade);
+		assertThat(turn.getLeadSuit(), equalTo(null));	
+		turn.addCard(player1, Card.Jorker);
+		assertThat(turn.getLeadSuit(), equalTo(null));	
+	}
+	
+	@Test
 	public void T04_カードが4枚出されている場合に特殊カード考慮抜きで勝者を判断できる() {
 		
 		final Parameters param = new Parameters(
@@ -65,6 +81,20 @@ public class TurnTest {
 	}
 
 	@Test
+	public void T05_カードが4枚出されている場合に特殊カード考慮抜きで勝者を判断できる_セイム2の無視() {
+		Parameters param = new Parameters(
+				Turn.New(1, Suit.Spade),
+				player2, Card.New(Suit.Dia, 8), 
+				player3, Card.New(Suit.Dia, 2), 
+				player4, Card.New(Suit.Dia, 12), 
+				player1, Card.New(Suit.Dia, 13), 
+				player1, Card.New(Suit.Dia, 13),
+				new Card[]{Card.New(Suit.Dia, 12), Card.New(Suit.Dia, 13)});
+		
+		ターンを回して勝者を確認(param);
+	}
+	
+	@Test
 	public void T05_カードが4枚出されている場合に特殊カード考慮ありで勝者を判断できる_セイム2() {
 		Parameters param = new Parameters(
 				Turn.New(2, Suit.Spade),
@@ -79,7 +109,7 @@ public class TurnTest {
 	}
 	
 	@Test
-	public void T05_カードが4枚出されている場合に特殊カード考慮ありで勝者を判断できる_セイム2無効_別のSuitあり() {
+	public void T05_カードが4枚出されている場合に特殊カード考慮ありで勝者を判断できる_セイム2無効_別のスートあり() {
 		Parameters param = new Parameters(
 				Turn.New(2, Suit.Spade),
 				player2, Card.New(Suit.Dia, 8), 
@@ -88,20 +118,6 @@ public class TurnTest {
 				player1, Card.New(Suit.Heart, 13), 
 				player4, Card.New(Suit.Dia, 12),
 				new Card[]{Card.New(Suit.Dia, 12), Card.New(Suit.Heart, 13)});
-		
-		ターンを回して勝者を確認(param);
-	}
-	
-	@Test
-	public void T05_カードが4枚出されている場合に特殊カード考慮抜きで勝者を判断できる_セイム2の無視() {
-		Parameters param = new Parameters(
-				Turn.New(1, Suit.Spade),
-				player2, Card.New(Suit.Dia, 8), 
-				player3, Card.New(Suit.Dia, 2), 
-				player4, Card.New(Suit.Dia, 12), 
-				player1, Card.New(Suit.Dia, 13), 
-				player1, Card.New(Suit.Dia, 13),
-				new Card[]{Card.New(Suit.Dia, 12), Card.New(Suit.Dia, 13)});
 		
 		ターンを回して勝者を確認(param);
 	}

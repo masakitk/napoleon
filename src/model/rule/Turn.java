@@ -34,10 +34,10 @@ public class Turn {
 		return no;
 	}
 
-	public static Turn New(int no, Suit leadSuit) {
+	public static Turn New(int no, Suit trump) {
 		if(no < 1 || 12 < no) throw new IllegalArgumentException("ターン番号は1以上12以下である必要があります");
 		
-		return new Turn(no, leadSuit);
+		return new Turn(no, trump);
 	}
 
 	public boolean isLeadSuitDefined() {
@@ -49,7 +49,18 @@ public class Turn {
 	}
 
 	public Suit getLeadSuit() {
-		return isLeadSuitDefined() ? ((Card)cardHash.values().toArray()[0]).getSuit() : null;
+		return !isLeadSuitDefined() ? null
+				: getFirstCard() == Card.Jorker ? getLeadSuitWhenJorkerFirst()
+				: getFirstCard().getSuit();
+	}
+
+	private Suit getLeadSuitWhenJorkerFirst() {
+		return ignoreSpecial ? null
+		: trump;
+	}
+
+	private Card getFirstCard() {
+		return (Card)cardHash.values().toArray()[0];
 	}
 
 	public Player getWinner() {
