@@ -120,11 +120,13 @@ public class Card {
 		}
 		@Override
 		public int compare(Card left, Card right) {
-			return left.suit == leadSuit && right.suit != leadSuit ? 1
+			return left == Card.Jorker ? -1 
+					: right == Card.Jorker ? 1
+					: left.suit == leadSuit && right.suit != leadSuit ? 1
 					: left.suit != leadSuit && right.suit == leadSuit ? -1
 					: left.suit == leadSuit && right.suit == leadSuit ?
 							(left.strongerThanAsNumber(right) ? 1 : -1)
-					: left == Card.Jorker ? -1 : 1;
+					: 0;
 			}
 	}
 

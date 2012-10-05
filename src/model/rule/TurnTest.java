@@ -270,7 +270,7 @@ public class TurnTest {
 				player3, Card.New(Suit.Club, 1), 
 				player4, Card.New(Suit.Club, 11), 
 				player1, Card.New(Suit.Dia, 13), 
-				player4, Card.New(Suit.Club, 11),
+				player3, Card.New(Suit.Club, 1),
 				new Card[]{Card.New(Suit.Dia, 13), Card.New(Suit.Club, 1), Card.New(Suit.Club, 11),});
 		
 		ターンを回して勝者を確認(param);
@@ -286,6 +286,48 @@ public class TurnTest {
 				player1, Card.New(Suit.Dia, 13), 
 				player2, Card.Jorker,
 				new Card[]{Card.New(Suit.Dia, 13), Card.New(Suit.Club, 1), Card.New(Suit.Spade, 11),});
+		
+		ターンを回して勝者を確認(param);
+	}
+
+	@Test
+	public void T11_カードが4枚出されている場合に特殊カード考慮ありで勝者を判断できる_JorkerVS正J() {
+		Parameters param = new Parameters(
+				Turn.New(2, Suit.Club),
+				player2, Card.Jorker, 
+				player3, Card.New(Suit.Club, 1), 
+				player4, Card.New(Suit.Club, 11), 
+				player1, Card.New(Suit.Dia, 13), 
+				player4, Card.New(Suit.Club, 11), 
+				new Card[]{Card.New(Suit.Dia, 13), Card.New(Suit.Club, 1), Card.New(Suit.Club, 11),});
+		
+		ターンを回して勝者を確認(param);
+	}
+
+	@Test
+	public void T11_カードが4枚出されている場合に特殊カード考慮ありで勝者を判断できる_JorkerVSマイティ() {
+		Parameters param = new Parameters(
+				Turn.New(2, Suit.Club),
+				player2, Card.Jorker, 
+				player3, Card.New(Suit.Club, 1), 
+				player4, Card.Mighty, 
+				player1, Card.New(Suit.Dia, 13), 
+				player4, Card.Mighty, 
+				new Card[]{Card.New(Suit.Dia, 13), Card.New(Suit.Club, 1), Card.Mighty,});
+		
+		ターンを回して勝者を確認(param);
+	}
+
+	@Test
+	public void T11_カードが4枚出されている場合に特殊カード考慮ありで勝者を判断できる_JorkerVSよろめき() {
+		Parameters param = new Parameters(
+				Turn.New(2, Suit.Club),
+				player2, Card.Jorker, 
+				player3, Card.New(Suit.Club, 1), 
+				player4, Card.Mighty, 
+				player1, Card.Yoromeki, 
+				player1, Card.Yoromeki, 
+				new Card[]{Card.Yoromeki, Card.New(Suit.Club, 1), Card.Mighty,});
 		
 		ターンを回して勝者を確認(param);
 	}

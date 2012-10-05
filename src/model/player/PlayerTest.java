@@ -46,8 +46,22 @@ public class PlayerTest {
 	
 	@Test
 	public void T02_最初にジョーカー出されたら切り札かなければ一番大きい絵札を出すこと() {
-		throw new NotImplementedException();
-		//TODO
+		new Expectations() {
+			{
+				turn.isLeadSuitDefined(); returns(false);
+				turn.isLeadSuitDefined(); returns(false);
+			}
+		};
+		Player player2 = Player.New("fuga");
+		player2.takeCard(Card.Jorker);
+		Card jorker = player2.openCard(turn);
+		assertThat(jorker, IsEqual.equalTo(Card.Jorker));
+		
+		Player player = Player.New("hoge");
+		player.takeCard(Card.New(Suit.Club, 1));
+		player.takeCard(Card.New(Suit.Spade, 12));
+		player.takeCard(Card.New(Suit.Heart, 13));
+		assertThat(player.openCard(turn).getNumber(), IsEqual.equalTo(1));
 	}
 
 	@Test
