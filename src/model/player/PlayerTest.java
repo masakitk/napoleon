@@ -46,13 +46,37 @@ public class PlayerTest {
 	}
 	
 	@Test
-	public void T02_最初にジョーカー出されたら切り札かなければ一番大きい絵札を出すこと() {
+	public void T02_最初にジョーカー出されたら切り札を出すこと() {
 		new Expectations() {
 			{
 				turn.isLeadSuitDefined(); returns(false);
 				turn.isJorkerOpenedFirst(); returns(false);
 				turn.isLeadSuitDefined(); returns(false);
 				turn.isJorkerOpenedFirst(); returns(true);
+				turn.getTrump(); returns(Suit.Spade);
+			}
+		};
+		Player player2 = Player.New("fuga");
+		player2.takeCard(Card.Jorker);
+		Card jorker = player2.openCard(turn);
+		assertThat(jorker, IsEqual.equalTo(Card.Jorker));
+		
+		Player player = Player.New("hoge");
+		player.takeCard(Card.New(Suit.Club, 13));
+		player.takeCard(Card.New(Suit.Spade, 12));
+		player.takeCard(Card.New(Suit.Heart, 1));
+		assertThat(player.openCard(turn), IsEqual.equalTo(Card.New(Suit.Spade, 12)));
+	}
+
+	@Test
+	public void T02_最初にジョーカー出されたら切り札がなければ一番大きい絵札を出すこと() {
+		new Expectations() {
+			{
+				turn.isLeadSuitDefined(); returns(false);
+				turn.isJorkerOpenedFirst(); returns(false);
+				turn.isLeadSuitDefined(); returns(false);
+				turn.isJorkerOpenedFirst(); returns(true);
+				turn.getTrump(); returns(Suit.Dia);
 			}
 		};
 		Player player2 = Player.New("fuga");

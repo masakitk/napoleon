@@ -93,7 +93,7 @@ public class Turn {
 		return list.get(getMaxCardIndex());
 	}
 
-	private Suit getTrump() {
+	public Suit getTrump() {
 		return trump;
 	}
 

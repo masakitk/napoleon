@@ -41,7 +41,7 @@ public class Player {
 				: (Collection<Card>)cards;
 
 		if(turn.isJorkerOpenedFirst())
-			return findTrumpOrMaxNumber(turn.trump);
+			return findTrumpOrMaxNumber(turn.getTrump());
 		if(cardsToOpen.size() == 0)
 			cardsToOpen.addAll(cards);
 				
