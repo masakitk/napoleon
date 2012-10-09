@@ -35,6 +35,7 @@ public class PlayerTest {
 			{
 				turn.isLeadSuitDefined(); returns(true);
 				turn.getLeadSuit(); returns(Suit.Spade);
+				turn.isJorkerOpenedFirst(); returns(false);
 			}
 		};
 		
@@ -49,7 +50,9 @@ public class PlayerTest {
 		new Expectations() {
 			{
 				turn.isLeadSuitDefined(); returns(false);
+				turn.isJorkerOpenedFirst(); returns(false);
 				turn.isLeadSuitDefined(); returns(false);
+				turn.isJorkerOpenedFirst(); returns(true);
 			}
 		};
 		Player player2 = Player.New("fuga");
@@ -58,9 +61,9 @@ public class PlayerTest {
 		assertThat(jorker, IsEqual.equalTo(Card.Jorker));
 		
 		Player player = Player.New("hoge");
-		player.takeCard(Card.New(Suit.Club, 1));
+		player.takeCard(Card.New(Suit.Club, 13));
 		player.takeCard(Card.New(Suit.Spade, 12));
-		player.takeCard(Card.New(Suit.Heart, 13));
+		player.takeCard(Card.New(Suit.Heart, 1));
 		assertThat(player.openCard(turn).getNumber(), IsEqual.equalTo(1));
 	}
 
@@ -69,6 +72,7 @@ public class PlayerTest {
 		new Expectations() {
 			{
 				turn.isLeadSuitDefined(); returns(false);
+				turn.isJorkerOpenedFirst(); returns(false);
 			}
 		};
 		

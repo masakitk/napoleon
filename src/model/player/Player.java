@@ -2,15 +2,17 @@ package model.player;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+
+import org.apache.commons.collections15.CollectionUtils;
+import org.apache.commons.collections15.Predicate;
 
 import model.card.Card;
 import model.card.Suit;
 import model.rule.Declaration;
 import model.rule.Turn;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
 
 public class Player {
 
@@ -35,16 +37,35 @@ public class Player {
 	}
 
 	public Card openCard(Turn turn) {
-		Collection<Card> cardsToOpen = turn.isLeadSuitDefined()
-				? findSameMark(cards, turn.getLeadSuit())
-						: (Collection<Card>)cards;
+		Collection<Card> cardsToOpen = turn.isLeadSuitDefined() ? findSameMark(cards, turn.getLeadSuit())
+				: (Collection<Card>)cards;
 
+		if(turn.isJorkerOpenedFirst())
+			return findTrumpOrMaxNumber(turn.trump);
 		if(cardsToOpen.size() == 0)
 			cardsToOpen.addAll(cards);
 				
 		Card toOpen = (Card)CollectionUtils.get(cardsToOpen, 0);
 		cards.remove(toOpen);
 		return toOpen;
+	}
+
+	private Card findTrumpOrMaxNumber(Suit trump) {
+		Collection<Card> found = findSameMark(cards, trump);
+		if (!found.isEmpty()) return (Card)found.toArray()[0];
+		
+		return findStrongNumber(cards);
+	}
+
+	private Card findStrongNumber(List<Card> cards) {
+		return Collections.max(cards, new Comparator<Card>() {
+
+			@Override
+			public int compare(Card o1, Card o2) {
+				return o1.strongerThanAsNumber(o2) ? 1 : -1;
+			}
+		});
+		
 	}
 
 	@SuppressWarnings("unchecked")

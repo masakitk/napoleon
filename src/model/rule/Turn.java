@@ -19,7 +19,7 @@ public class Turn {
 	private HashMap<Player, Card> cardHash = new LinkedHashMap<Player, Card>();
 	private int no;
 	private boolean ignoreSpecial;
-	private final Suit trump;
+	public final Suit trump;
 	
 	private Turn(int no, Suit trump) {
 		super();
@@ -127,6 +127,10 @@ public class Turn {
 				: card.getNumber() == 1 ? true
 				: 10 <= card.getNumber() ? true
 				: false;
+	}
+
+	public boolean isJorkerOpenedFirst() {
+		return !ignoreSpecial && 0 < cardHash.size() && getFirstCard() == Card.Jorker;
 	}
 	
 }

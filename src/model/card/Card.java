@@ -97,7 +97,7 @@ public class Card {
 						&& suit.strongerThan(card2.getSuit())));
 	}
 
-	private boolean strongerThanAsNumber(Card card2) {
+	public boolean strongerThanAsNumber(Card card2) {
 		return card2.getStrengthOfNumber() < getStrengthOfNumber();
 	}
 
