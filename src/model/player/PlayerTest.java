@@ -33,9 +33,10 @@ public class PlayerTest {
 	public void T02_台札が設定されていて台札があるときは台札を出すこと() {
 		new Expectations() {
 			{
+				turn.isJorkerOpenedFirst(); returns(false);
+				turn.isRequireJorkerOpenedFirst(); returns(false);
 				turn.isLeadSuitDefined(); returns(true);
 				turn.getLeadSuit(); returns(Suit.Spade);
-				turn.isJorkerOpenedFirst(); returns(false);
 			}
 		};
 		
@@ -49,8 +50,8 @@ public class PlayerTest {
 	public void T02_最初にジョーカー出されたら切り札を出すこと() {
 		new Expectations() {
 			{
-				turn.isLeadSuitDefined(); returns(false);
 				turn.isJorkerOpenedFirst(); returns(false);
+				turn.isRequireJorkerOpenedFirst(); returns(false);
 				turn.isLeadSuitDefined(); returns(false);
 				turn.isJorkerOpenedFirst(); returns(true);
 				turn.getTrump(); returns(Suit.Spade);
@@ -72,8 +73,8 @@ public class PlayerTest {
 	public void T02_最初にジョーカー出されたら切り札がなければ一番大きい絵札を出すこと() {
 		new Expectations() {
 			{
-				turn.isLeadSuitDefined(); returns(false);
 				turn.isJorkerOpenedFirst(); returns(false);
+				turn.isRequireJorkerOpenedFirst(); returns(false);
 				turn.isLeadSuitDefined(); returns(false);
 				turn.isJorkerOpenedFirst(); returns(true);
 				turn.getTrump(); returns(Suit.Dia);
@@ -92,11 +93,60 @@ public class PlayerTest {
 	}
 
 	@Test
+	public void T02_最初にジョーカー請求出されたらジョーカーを出すこと() {
+		new Expectations() {
+			{
+				turn.isJorkerOpenedFirst(); returns(false);
+				turn.isRequireJorkerOpenedFirst(); returns(false);
+				turn.isLeadSuitDefined(); returns(false);
+				turn.isJorkerOpenedFirst(); returns(false);
+				turn.isRequireJorkerOpenedFirst(); returns(true);
+			}
+		};
+		Player player2 = Player.New("fuga");
+		player2.takeCard(Card.RequireJorker);
+		Card jorker = player2.openCard(turn);
+		assertThat(jorker, IsEqual.equalTo(Card.RequireJorker));
+		
+		Player player = Player.New("hoge");
+		player.takeCard(Card.New(Suit.Spade, 12));
+		player.takeCard(Card.Jorker);
+		player.takeCard(Card.New(Suit.Club, 1));
+		assertThat(player.openCard(turn), IsEqual.equalTo(Card.Jorker));
+	}
+
+	@Test
+	public void T02_最初にジョーカー請求出されたらジョーカーがない場合は普通に台札を出すこと() {
+		new Expectations() {
+			{
+				turn.isJorkerOpenedFirst(); returns(false);
+				turn.isRequireJorkerOpenedFirst(); returns(false);
+				turn.isLeadSuitDefined(); returns(false);
+				turn.isJorkerOpenedFirst(); returns(false);
+				turn.isRequireJorkerOpenedFirst(); returns(true);
+				turn.isLeadSuitDefined(); returns(true);
+				turn.getLeadSuit(); returns(Suit.Club);
+			}
+		};
+		Player player2 = Player.New("fuga");
+		player2.takeCard(Card.RequireJorker);
+		Card jorker = player2.openCard(turn);
+		assertThat(jorker, IsEqual.equalTo(Card.RequireJorker));
+		
+		Player player = Player.New("hoge");
+		player.takeCard(Card.New(Suit.Spade, 12));
+		player.takeCard(Card.New(Suit.Heart, 8));
+		player.takeCard(Card.New(Suit.Club, 5));
+		assertThat(player.openCard(turn), IsEqual.equalTo(Card.New(Suit.Club, 5)));
+	}
+
+	@Test
 	public void T03_台札が設定されていて台札がないときはなんでもいいので1枚カードを出すこと() {
 		new Expectations() {
 			{
-				turn.isLeadSuitDefined(); returns(false);
 				turn.isJorkerOpenedFirst(); returns(false);
+				turn.isRequireJorkerOpenedFirst(); returns(false);
+				turn.isLeadSuitDefined(); returns(false);
 			}
 		};
 		

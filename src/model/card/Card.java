@@ -13,7 +13,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Card {
 	
-	public static Card Jorker = Card.GetJorker();
+
 	
 	private final Suit suit;
 	private final int number;
@@ -25,8 +25,10 @@ public class Card {
 
 	public static Comparator<Card> CardIgnoreSpecialComparator;
 
-	public static Card Yoromeki = Card.New(Suit.Heart, 12);
-	public static Card Mighty = Card.New(Suit.Spade, 1);
+	public static final Card Yoromeki = Card.New(Suit.Heart, 12);
+	public static final Card Mighty = Card.New(Suit.Spade, 1);
+	public static final Card Jorker = Card.GetJorker();
+	public static final Card RequireJorker = Card.New(Suit.Club, 3);
 	
 	static {
 		CardNormalComparator = new CardNormalStrengthComparator();

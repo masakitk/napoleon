@@ -130,7 +130,15 @@ public class Turn {
 	}
 
 	public boolean isJorkerOpenedFirst() {
-		return !ignoreSpecial && 0 < cardHash.size() && getFirstCard() == Card.Jorker;
+		return isOpenedFirst(Card.Jorker);
+	}
+
+	private boolean isOpenedFirst(Card cardToAssert) {
+		return isOpenedFirst(Card.RequireJorker);
+	}
+
+	public boolean isRequireJorkerOpenedFirst() {
+		return !ignoreSpecial && 0 < cardHash.size() && getFirstCard() == Card.RequireJorker;
 	}
 	
 }

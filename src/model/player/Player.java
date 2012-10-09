@@ -37,17 +37,34 @@ public class Player {
 	}
 
 	public Card openCard(Turn turn) {
-		Collection<Card> cardsToOpen = turn.isLeadSuitDefined() ? findSameMark(cards, turn.getLeadSuit())
-				: (Collection<Card>)cards;
+		Collection<Card> cardsToOpen = new ArrayList<Card>();
 
-		if(turn.isJorkerOpenedFirst())
-			return findTrumpOrMaxNumber(turn.getTrump());
-		if(cardsToOpen.size() == 0)
-			cardsToOpen.addAll(cards);
+		if(turn.isJorkerOpenedFirst()){
+			cardsToOpen.add(findTrumpOrMaxNumber(turn.getTrump()));
+		}
+		else if(turn.isRequireJorkerOpenedFirst() && findJorker() != null){
+			cardsToOpen.add(findJorker());
+		}
+		
+		if(cardsToOpen.size() == 0) {
+			cardsToOpen.addAll(
+					turn.isLeadSuitDefined() ? findSameMark(cards, turn.getLeadSuit()) : cards);
+		}
 				
 		Card toOpen = (Card)CollectionUtils.get(cardsToOpen, 0);
+
 		cards.remove(toOpen);
 		return toOpen;
+	}
+
+	private Card findJorker() {
+		return CollectionUtils.find(cards, new Predicate<Card>() {
+
+			@Override
+			public boolean evaluate(Card card) {
+				return card.equals(Card.Jorker);
+			}
+		});
 	}
 
 	private Card findTrumpOrMaxNumber(Suit trump) {
