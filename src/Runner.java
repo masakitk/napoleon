@@ -11,5 +11,10 @@ public class Runner {
 		director.showSituationToConsole();
 		director.defineNapoleon();
 		
+		director.askForAdjutant();
+		director.letNapoleonChangeExtraCards();
+		
+		director.beginTurn(1);
+		
 	}
 }

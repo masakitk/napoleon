@@ -57,7 +57,6 @@ public class DeclarationTest {
 	}
 	@Test
 	public void T01_éŒ¾‚Ì‹­‚³”äŠrƒeƒXƒg() {
-		System.out.println(String.format("left:{%s}, right:{%s}, expecte:{%s}", dec1, dec2, result));
 		assertThat(dec1.strongerThan(dec2), Is.is(result));
 	}
 

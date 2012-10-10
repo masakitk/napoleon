@@ -1,8 +1,8 @@
 package model.player;
 
 public class Napoleon extends Player{
-	public Napoleon(String name) {
-		super(name);
+	private Napoleon(Player player) {
+		super(player.getName());
 	}
 
 	public void changeExtraCards() {
@@ -13,6 +13,10 @@ public class Napoleon extends Player{
 	public Adjutant tellTheAdjutant() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public static Napoleon New(Player player) {
+		return new Napoleon(player);
 	}
 
 	

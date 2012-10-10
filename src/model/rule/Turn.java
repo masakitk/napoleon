@@ -133,12 +133,12 @@ public class Turn {
 		return isOpenedFirst(Card.Jorker);
 	}
 
-	private boolean isOpenedFirst(Card cardToAssert) {
+	public boolean isRequireJorkerOpenedFirst() {
 		return isOpenedFirst(Card.RequireJorker);
 	}
 
-	public boolean isRequireJorkerOpenedFirst() {
-		return !ignoreSpecial && 0 < cardHash.size() && getFirstCard() == Card.RequireJorker;
+	private boolean isOpenedFirst(Card cardToAssert) {
+		return !ignoreSpecial && 0 < cardHash.size() && getFirstCard() == cardToAssert;
 	}
 	
 }

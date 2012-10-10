@@ -42,7 +42,6 @@ public class CardTest {
 	
 	@Test
 	public void マークと数字で並び替え確認() {
-		System.out.println(String.format("left:{%s}, right:{%s}", card1, card2));
 		assertThat(card1.isUpperOrderByMarkAndStrength(card2), Is.is(result));
 	}
 

@@ -63,8 +63,8 @@ public class DirectorTest {
 				player2.AskForDeclare(declarationOfClub13); returns(Declaration.Pass);
 				player3.AskForDeclare(declarationOfClub13); returns(Declaration.Pass);
 				player4.AskForDeclare(declarationOfClub13); returns(Declaration.Pass);
+				Napoleon.New(player1); returns(napoleon);
 				dealer.hasServed(); returns(true); 
-				player1.asNapoleon(); returns(napoleon);
 			}
 		};
 		assertThat(director.getGameState(), IsEqual.equalTo(Status.CardServed));
@@ -89,8 +89,8 @@ public class DirectorTest {
 				player4.AskForDeclare(declarationOfHeart14); returns(Declaration.Pass);
 				player1.AskForDeclare(declarationOfHeart14); returns(Declaration.Pass);
 				player2.AskForDeclare(declarationOfHeart14); returns(Declaration.Pass);
+				Napoleon.New(player3); returns(napoleon);
 				dealer.hasServed(); returns(true); 
-				player3.asNapoleon(); returns(napoleon);
 			}
 		};
 		assertThat(director.getGameState(), IsEqual.equalTo(Status.CardServed));
@@ -126,8 +126,8 @@ public class DirectorTest {
 				player2.AskForDeclare(declarationOfSpade13); returns(Declaration.Pass);
 				player3.AskForDeclare(declarationOfSpade13); returns(Declaration.Pass);
 				player4.AskForDeclare(declarationOfSpade13); returns(Declaration.Pass);
+				Napoleon.New(player1); returns(napoleon);
 				dealer.hasServed(); returns(true); 
-				player1.asNapoleon(); returns(napoleon);
 			}
 		 };
 		 director.defineNapoleon();
@@ -141,9 +141,7 @@ public class DirectorTest {
 		new Expectations() {
 			{
 				 dealer.hasServed(); returns(true);
-				 napoleon.asNapoleon(); returns (napoleon);
 				 napoleon.tellTheAdjutant(); returns (adjutant);
-				 napoleon.asNapoleon(); returns (napoleon);
 				 napoleon.changeExtraCards();
 				 dealer.hasServed(); returns(true);
 			 }

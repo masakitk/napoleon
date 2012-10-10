@@ -24,10 +24,6 @@ public class Player {
 		this.name = name;
 	}
 
-	public static Player New(String name) {
-		return new Player(name);
-	}
-	
 	public int cardCount() {
 		return cards.size();
 	}
@@ -37,7 +33,7 @@ public class Player {
 	}
 
 	public Card openCard(Turn turn) {
-		Collection<Card> cardsToOpen = new ArrayList<Card>();
+		List<Card> cardsToOpen = new ArrayList<Card>();
 
 		if(turn.isJorkerOpenedFirst()){
 			cardsToOpen.add(findTrumpOrMaxNumber(turn.getTrump()));
@@ -50,8 +46,9 @@ public class Player {
 			cardsToOpen.addAll(
 					turn.isLeadSuitDefined() ? findSameMark(cards, turn.getLeadSuit()) : cards);
 		}
-				
-		Card toOpen = (Card)CollectionUtils.get(cardsToOpen, 0);
+		
+		System.out.println(String.format("cardsToOpne:%s", cardsToOpen));
+		Card toOpen = cardsToOpen.get(0);
 
 		cards.remove(toOpen);
 		return toOpen;
@@ -124,6 +121,15 @@ public class Player {
 
 	public void takeCards(Collection<? extends Card> cards) {
 		_cardsGained.addAll(cards);
+	}
+
+	@Override
+	public String toString() {
+		return "Player [name=" + name + ", \r\t cards=" + cards + ", \r\t _cardsGained=" + _cardsGained + "]";
+	}
+
+	public static Player New(String name) {
+		return new Player(name);
 	}
 
 }

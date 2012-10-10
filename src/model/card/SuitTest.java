@@ -49,7 +49,6 @@ public class SuitTest {
 	
 	@Test
 	public void T01_マークの強さ比較テスト() {
-		System.out.println(String.format("left:{%s}, right:{%s}", suit1, suit2));
 		assertThat(suit1.strongerThan(suit2), Is.is(result));
 	}
 

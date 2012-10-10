@@ -27,7 +27,7 @@ public class Director {
 	protected Dealer dealer;
 	protected Player[] players;
 	protected Declaration fixedDeclaration;
-	protected Player napoleon;
+	protected Napoleon napoleon;
 	protected boolean isNobodyDeclared;
 	protected boolean extraCardChanged;
 	private Turn[] turns = TurnFactory.Get12Turns();
@@ -68,7 +68,8 @@ public class Director {
 		for(Player player : players) {
 			if(lastDeclarationsOfPlayer.containsKey(player) && currentDeclaration == lastDeclarationsOfPlayer.get(player)) {
 				fixedDeclaration = currentDeclaration;
-				napoleon = player;
+				napoleon = Napoleon.New(player);
+				System.out.println(String.format("napoleon fixed:%s, %s", napoleon, fixedDeclaration));
 				return;
 			}
 			currentDeclaration = askForDeclare(currentDeclaration, lastDeclarationsOfPlayer, player);
@@ -76,6 +77,7 @@ public class Director {
 		
 		if(allPlayerPassed(lastDeclarationsOfPlayer)) {
 			isNobodyDeclared = true;
+			System.out.println("all players passed.");
 			return;
 		}
 		defineNapoleon(currentDeclaration, lastDeclarationsOfPlayer);
@@ -89,8 +91,7 @@ public class Director {
 		}
 		
 		lastDeclarationsOfPlayer.put(player, declaration);
-		System.out.print(player);
-		System.out.println(declaration);
+		System.out.println(String.format("%s\t%s", player, declaration));
 		if(declaration != Declaration.Pass) {
 			currentDeclaration = declaration;
 		}
@@ -118,7 +119,7 @@ public class Director {
 	}
 
 	public Napoleon getNapoleon() {
-		return napoleon.asNapoleon();
+		return napoleon;
 	}
 
 	public void letNapoleonChangeExtraCards() {
@@ -156,10 +157,10 @@ public class Director {
 	private Collection<Player> getPlayersForTurn(int turnNo) {
 		ArrayList<Player> list = new ArrayList<Player>(); 
 		int leadPlayerIndex = turnNo == 1 ? 0 : Arrays.asList(players).indexOf(getTurnWinner(turnNo - 1));
-		System.out.println(String.format("leadPlayerIndex:%d", leadPlayerIndex));
+//		System.out.println(String.format("leadPlayerIndex:%d", leadPlayerIndex));
 		for(int i = 0; i < Table._PLAYERS_COUNT; i++){
 			Player p = players[(leadPlayerIndex + i) % Table._PLAYERS_COUNT];
-			System.out.println(p);
+//			System.out.println(p);
 			list.add(p);
 		}
 		return list;
