@@ -352,7 +352,7 @@ public class TurnTest {
 		turn.addCard(param.player2, param.card2);
 		turn.addCard(param.player3, param.card3);
 		turn.addCard(param.player4, param.card4);
-		turn.close();
+		turn.winnerGainCards();
 		
 		assertThat(turn.getWinnerCard(), equalTo(param.winnerCard));
 		assertThat(turn.getWinner(), equalTo(param.winner));

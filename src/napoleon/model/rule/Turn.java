@@ -89,7 +89,7 @@ public class Turn {
 		}else {
 			Collections.sort(list, Card.getCardNormalComparator(getTrump(), getLeadSuit(), cardHash.values()));
 		}
-		System.out.println(list.get(getMaxCardIndex()));
+//		System.out.println(list.get(getMaxCardIndex()));
 		return list.get(getMaxCardIndex());
 	}
 
@@ -107,7 +107,7 @@ public class Turn {
 				: TurnStatus.Finished;
 	}
 
-	public void close() {
+	public void winnerGainCards() {
 		getWinner().takeCards(getPictureCards());
 	}
 

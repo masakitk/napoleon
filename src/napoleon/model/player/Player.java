@@ -51,6 +51,7 @@ public class Player {
 //		System.out.println(String.format("cardsToOpne:%s", cardsToOpen));
 		Card toOpen = cardsToOpen.get(0);
 
+		System.out.println(String.format("player:%s / Open:%s", this, toOpen));
 		cards.remove(toOpen);
 		return toOpen;
 	}

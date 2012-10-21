@@ -24,6 +24,8 @@ public class Runner {
 		
 		for(int i = 1; i <= 12; i++ ) {
 			director.beginTurn(i);
+			logger.debug(String.format("turn[%d], winner[%s]", i, director.getTurnWinner(i)));
+			System.out.println(String.format("turn[%d], winner[%s]", i, director.getTurnWinner(i)));
 		}
 		
 	}

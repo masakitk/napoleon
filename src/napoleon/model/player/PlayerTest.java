@@ -47,6 +47,24 @@ public class PlayerTest {
 	}
 	
 	@Test
+	public void T02_台札が設定されていて台札がないときでもなにか1枚だすこと() {
+		new Expectations() {
+			{
+				turn.isJorkerOpenedFirst(); returns(false);
+				turn.isRequireJorkerOpenedFirst(); returns(false);
+				turn.isLeadSuitDefined(); returns(true);
+				turn.getLeadSuit(); returns(Suit.Spade);
+			}
+		};
+		
+		Player player = Player.New("hoge");
+		player.takeCard(Card.New(Suit.Dia, 3));
+		player.takeCard(Card.New(Suit.Heart, 3));
+		player.openCard(turn).getSuit();
+		assertThat(player.cardCount(), IsEqual.equalTo(1));
+	}
+	
+	@Test
 	public void T02_最初にジョーカー出されたら切り札を出すこと() {
 		new Expectations() {
 			{

@@ -36,14 +36,15 @@ public class Director {
 	private Integer currentTurnNo = 1;
 	private Logger logger;
 	
-	protected Director(){}
+	protected Director(){
+		logger = LogManager.getLogger(Director.class.getName());
+	}
 
 	public static Director New(Table table, Player[] players) {
 		Director instance = new Director();
 		instance.table = table;
 		instance.dealer = Dealer.New(GameContext.New(table, players));
 		instance.players = players;
-		instance.logger = LogManager.getLogger(Director.class.getName());
 		return instance;
 	}
 
@@ -148,11 +149,13 @@ public class Director {
 	}
 
 	public void beginTurn(int turnNo) {
+		Turn turn = getTurn(turnNo);
 		for (Player p : getPlayersForTurn(turnNo)){
-			getTurn(turnNo).addCard(p, p.openCard(getTurn(turnNo)));
+			turn.addCard(p, p.openCard(turn));
 			logger.debug(p);
 		}
 		
+		turn.winnerGainCards();
 		currentTurnNo++;
 	}
 
