@@ -43,10 +43,14 @@ public class Player {
 			cardsToOpen.add(findJorker());
 		}
 		
-		if(cardsToOpen.size() == 0) {
+		if(cardsToOpen.isEmpty()) {
 			cardsToOpen.addAll(
 					turn.isLeadSuitDefined() ? findSameMark(cards, turn.getLeadSuit()) : cards);
 		}
+		
+		if(cardsToOpen.isEmpty()) {
+			cardsToOpen.addAll(cards);
+		}		
 		
 //		System.out.println(String.format("cardsToOpne:%s", cardsToOpen));
 		Card toOpen = cardsToOpen.get(0);

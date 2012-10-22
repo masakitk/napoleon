@@ -3,6 +3,8 @@ package napoleon.model.role;
 import static org.hamcrest.core.IsEqual.*;
 import static org.junit.Assert.assertThat;
 
+import java.util.Collection;
+
 import mockit.Expectations;
 import mockit.Mocked;
 import napoleon.model.card.Card;
@@ -164,6 +166,7 @@ public class DirectorTest {
 				 player2.openCard((Turn) any); returns(Card.New(Suit.Spade, 8));
 				 player3.openCard((Turn) any); returns(Card.New(Suit.Heart, 9));
 				 player4.openCard((Turn) any); returns(Card.New(Suit.Spade, 5));
+				 player2.takeCards((Collection<Card>) any);
 			 }
 		};
 		director.SetExtraCardChanged(true);
