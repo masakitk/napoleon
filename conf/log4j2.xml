@@ -6,8 +6,7 @@
     </Console>
   </appenders>
   <loggers>
-	<logger name="napoleon" level="TRACE"/>
-    <root level="error">
+    <root level="trace">
       <appender-ref ref="Console"/>
     </root>
   </loggers>

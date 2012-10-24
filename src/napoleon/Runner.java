@@ -12,7 +12,7 @@ public class Runner {
 	public static void main(String[] args) {
 		Logger logger = LogManager.getLogger(Runner.class);
 		logger.error("err..");
-		logger.trace("begin..");
+		logger.debug("begin..");
 		Player[] players = new Player[]{Player.New("1"), Player.New("2"), Player.New("3"), Player.New("4")};
 		Director director = Director.New(Table.New(), players);
 		director.serveCards();

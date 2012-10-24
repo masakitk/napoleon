@@ -178,5 +178,9 @@ public class Director {
 	public Player getTurnWinner(int turnNo) {
 		return getTurn(turnNo).getWinner();
 	}
+	
+	public Team JudgeWinnerTeam(){
+		return null;
+	}
 
 }

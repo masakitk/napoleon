@@ -181,4 +181,10 @@ public class DirectorTest {
 		assertThat(director.getCurrentTurnNo(), equalTo(2));
 		assertThat(director.getCurrentTurnStatus(), equalTo(TurnStatus.HasNotYetBegan));
 	}
+
+	@Test
+	public void T07_ƒQ[ƒ€‚ÌŸÒ‚ğ”»’è‚Å‚«‚é(){
+		
+		assertThat(director.JudgeWinnerTeam(), equalTo(Team.NapoleonTeam));
+	}
 }
