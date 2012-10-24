@@ -63,6 +63,8 @@ public class TurnTest {
 		assertThat(turn.getLeadSuit(), equalTo(null));	
 		turn.addCard(player1, Card.Jorker);
 		assertThat(turn.getLeadSuit(), equalTo(null));	
+		turn.addCard(player2, Card.New(Suit.Dia, 5));
+		assertThat(turn.getLeadSuit(), equalTo(Suit.Dia));	
 	}
 	
 	@Test

@@ -56,7 +56,7 @@ public class Turn {
 
 	private Suit getLeadSuitWhenJorkerFirst() {
 		return ignoreSpecial ? (
-				2 <= cardHash.size() ? getCardAt(2).getSuit() : null)
+				2 <= cardHash.size() ? getCardAt(1).getSuit() : null)
 		: trump;
 	}
 
