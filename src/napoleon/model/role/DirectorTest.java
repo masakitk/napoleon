@@ -143,8 +143,8 @@ public class DirectorTest {
 		new Expectations() {
 			{
 				 dealer.hasServed(); returns(true);
-				 napoleon.tellTheAdjutant(); returns (adjutant);
-				 napoleon.changeExtraCards();
+				 napoleon.tellTheAdjutant((Declaration)any); returns ((Card)any);
+				 napoleon.changeExtraCards((Declaration)any, (Table)any);
 				 dealer.hasServed(); returns(true);
 			 }
 		};
@@ -184,7 +184,7 @@ public class DirectorTest {
 
 	@Test
 	public void T07_ƒQ[ƒ€‚ÌŸÒ‚ğ”»’è‚Å‚«‚é(){
-		
 		assertThat(director.JudgeWinnerTeam(), equalTo(Team.NapoleonTeam));
+		
 	}
 }

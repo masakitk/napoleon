@@ -60,11 +60,11 @@ public class GameContext {
 		return Card.New(getSameColorAnotherSuit(leadSuit), 11);
 	}
 
-	public static Card getRightBower(Suit leadSuit) {
-		return Card.New(leadSuit, 11);
+	public static Card getRightBower(Suit trump) {
+		return Card.New(trump, 11);
 	}
 
-	private static Suit getSameColorAnotherSuit(Suit suit) {
+	public static Suit getSameColorAnotherSuit(Suit suit) {
 		switch (suit) {
 		case Spade:
 			return Suit.Club;

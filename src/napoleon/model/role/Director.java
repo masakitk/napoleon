@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 
+import napoleon.model.card.Card;
 import napoleon.model.player.Napoleon;
 import napoleon.model.player.Player;
 import napoleon.model.rule.Declaration;
@@ -35,6 +36,7 @@ public class Director {
 	private Turn[] turns = TurnFactory.Get12Turns();
 	private Integer currentTurnNo = 1;
 	private Logger logger;
+	private Card cardOfAdjutant;
 	
 	protected Director(){
 		logger = LogManager.getLogger(Director.class.getName());
@@ -128,12 +130,12 @@ public class Director {
 	}
 
 	public void letNapoleonChangeExtraCards() {
-		getNapoleon().changeExtraCards();
+		getNapoleon().changeExtraCards(fixedDeclaration, table);
 		extraCardChanged = true;
 	}
 
 	public void askForAdjutant() {
-		getNapoleon().tellTheAdjutant();
+		cardOfAdjutant = getNapoleon().tellTheAdjutant(fixedDeclaration);
 	}
 
 	public void showSituationToConsole() {

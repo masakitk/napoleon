@@ -17,7 +17,7 @@ import org.apache.commons.collections15.Predicate;
 
 public class Player {
 
-	private List<Card> cards = new ArrayList<Card>();
+	protected List<Card> cards = new ArrayList<Card>();
 	private String name;
 	private List<Card> _cardsGained = new ArrayList<Card>();
 	

@@ -17,6 +17,10 @@ public class Table {
 
 	List<Card> noUseCards = new ArrayList<Card>();
 
+	public List<Card> getNoUseCards() {
+		return noUseCards;
+	}
+
 	private Table() {}
 	
 	public static Table New() {

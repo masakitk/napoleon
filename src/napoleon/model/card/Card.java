@@ -197,7 +197,8 @@ public class Card {
 				
 				@Override
 				public boolean evaluate(Object o) {
-					return !((Card)o).getSuit().equals(getLeadSuit());
+					Card card = (Card)o;
+					return !(card.isJorker || card.getSuit().equals(getLeadSuit()));
 				}
 			}).isEmpty();
 		}
