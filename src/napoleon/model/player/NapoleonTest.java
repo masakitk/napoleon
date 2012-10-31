@@ -38,7 +38,7 @@ public class NapoleonTest {
 	}
 	
 	@Test
-	public void T03_副官指定正J() {
+	public void T03_マイティがあれば副官指定は正J() {
 		Player player = Player.New("hoge");
 		player.takeCard(Card.Mighty);
 		Napoleon napoleon = Napoleon.New(player);
@@ -48,7 +48,7 @@ public class NapoleonTest {
 	}
 
 	@Test
-	public void T04_副官指定裏J() {
+	public void T04_マイティ正Jがあれば副官指定は裏J() {
 		Player player = Player.New("hoge");
 		player.takeCard(Card.Mighty);
 		player.takeCard(GameContext.getRightBower(Suit.Club));
@@ -59,7 +59,7 @@ public class NapoleonTest {
 	}
 
 	@Test
-	public void T05_副官指定よろめき() {
+	public void T05_マイティ正J裏Jがあれば副官指定よろめき() {
 		Player player = Player.New("hoge");
 		player.takeCard(Card.Mighty);
 		player.takeCard(GameContext.getRightBower(Suit.Club));
@@ -69,4 +69,62 @@ public class NapoleonTest {
 		Declaration declaration = Declaration.New(Suit.Club, 14);
 		assertThat(napoleon.tellTheAdjutant(declaration), equalTo(Card.Yoromeki));
 	}
+
+	@Test
+	public void T06_マイティ正J裏Jよろめきがあれば副官指定うらセイム２() {
+		Player player = Player.New("hoge");
+		player.takeCard(Card.Mighty);
+		player.takeCard(GameContext.getRightBower(Suit.Club));
+		player.takeCard(GameContext.getLeftBower(Suit.Club));
+		player.takeCard(Card.Yoromeki);
+		Napoleon napoleon = Napoleon.New(player);
+		
+		Declaration declaration = Declaration.New(Suit.Club, 14);
+		assertThat(napoleon.tellTheAdjutant(declaration), equalTo(Card.New(Suit.Spade, 2)));
+	}
+	
+	@Test
+	public void T07_マイティ正J裏Jよろめき裏セイム２あってジョーカーあれば副官指定ジョーカー請求() {
+		Player player = Player.New("hoge");
+		player.takeCard(Card.Mighty);
+		player.takeCard(GameContext.getRightBower(Suit.Club));
+		player.takeCard(GameContext.getLeftBower(Suit.Club));
+		player.takeCard(Card.Yoromeki);
+		player.takeCard(Card.New(Suit.Spade, 2));
+		player.takeCard(Card.Jorker);
+		Napoleon napoleon = Napoleon.New(player);
+		
+		Declaration declaration = Declaration.New(Suit.Club, 14);
+		assertThat(napoleon.tellTheAdjutant(declaration), equalTo(Card.RequireJorker));
+	}
+
+	@Test
+	public void T08_マイティ正J裏Jよろめき裏セイム２あってジョーカーなければ副官指定切り札A() {
+		Player player = Player.New("hoge");
+		player.takeCard(Card.Mighty);
+		player.takeCard(GameContext.getRightBower(Suit.Club));
+		player.takeCard(GameContext.getLeftBower(Suit.Club));
+		player.takeCard(Card.Yoromeki);
+		player.takeCard(Card.New(Suit.Spade, 2));
+		Napoleon napoleon = Napoleon.New(player);
+		
+		Declaration declaration = Declaration.New(Suit.Club, 14);
+		assertThat(napoleon.tellTheAdjutant(declaration), equalTo(Card.New(Suit.Club, 1)));
+	}
+
+	@Test
+	public void T09_マイティ正J裏Jよろめき裏セイム２切り札Aあってジョーカーなければ副官指定切り札13() {
+		Player player = Player.New("hoge");
+		player.takeCard(Card.Mighty);
+		player.takeCard(GameContext.getRightBower(Suit.Club));
+		player.takeCard(GameContext.getLeftBower(Suit.Club));
+		player.takeCard(Card.Yoromeki);
+		player.takeCard(Card.New(Suit.Spade, 2));
+		player.takeCard(Card.New(Suit.Club, 1));
+		Napoleon napoleon = Napoleon.New(player);
+		
+		Declaration declaration = Declaration.New(Suit.Club, 14);
+		assertThat(napoleon.tellTheAdjutant(declaration), equalTo(Card.New(Suit.Club, 13)));
+	}
+
 }

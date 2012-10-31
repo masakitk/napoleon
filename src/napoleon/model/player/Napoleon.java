@@ -26,6 +26,7 @@ public class Napoleon extends Player{
 		if(!cards.contains(Card.Yoromeki)) return Card.Yoromeki;
 		Card uraSame2 = Card.New(GameContext.getSameColorAnotherSuit(trump), 2);
 		if(!cards.contains(uraSame2)) return uraSame2;
+		if(cards.contains(Card.Jorker) && !cards.contains(Card.RequireJorker)) return Card.RequireJorker;
 		return SomeTrumpCard(fixedDeclaration);
 	}
 
