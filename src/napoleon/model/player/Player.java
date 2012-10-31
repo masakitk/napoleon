@@ -20,6 +20,7 @@ public class Player {
 	protected List<Card> cards = new ArrayList<Card>();
 	private String name;
 	private List<Card> _cardsGained = new ArrayList<Card>();
+	private boolean _isAdjutant;
 	
 	public Player(String name) {
 		this.name = name;
@@ -121,6 +122,10 @@ public class Player {
 		return _cardsGained;
 	}
 
+	public int getGainedCardCount() {
+		return _cardsGained.size();
+	}
+
 	public List<Card> cardsHaving() {
 		return cards;
 	}
@@ -136,6 +141,14 @@ public class Player {
 
 	public static Player New(String name) {
 		return new Player(name);
+	}
+
+	public boolean isAdjutant() {
+		return _isAdjutant;
+	}
+
+	public void setIsAdjutant(boolean b) {
+		_isAdjutant = b;
 	}
 
 }

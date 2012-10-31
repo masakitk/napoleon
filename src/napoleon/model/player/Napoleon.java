@@ -43,6 +43,4 @@ public class Napoleon extends Player{
 	public static Napoleon New(Player player) {
 		return new Napoleon(player);
 	}
-
-	
 }

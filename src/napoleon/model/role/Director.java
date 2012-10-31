@@ -136,6 +136,7 @@ public class Director {
 
 	public void askForAdjutant() {
 		cardOfAdjutant = getNapoleon().tellTheAdjutant(fixedDeclaration);
+		findAdjutant(cardOfAdjutant).setIsAdjutant(true);
 	}
 
 	public void showSituationToConsole() {
@@ -182,7 +183,37 @@ public class Director {
 	}
 	
 	public Team JudgeWinnerTeam(){
-		return null;
+		if(fixedDeclaration.getCardsToCollect() <= getCardCountNapleonTeamGained()){
+			return Team.NapoleonTeam;
+		} else {
+			return Team.AlliedForcesTeam;
+		}
+	}
+
+	private int getCardCountNapleonTeamGained() {
+		return napoleon.getGainedCardCount() + getAdjutant().getGainedCardCount();
+	}
+
+	private Player getAdjutant() {
+		return org.apache.commons.collections15.CollectionUtils.find(
+				Arrays.asList(players), new org.apache.commons.collections15.Predicate<Player>() {
+
+			@Override
+			public boolean evaluate(Player player) {
+				return player.isAdjutant();
+			}
+		});
+	}
+
+	private Player findAdjutant(final Card cardOfAdjutant) {
+		return org.apache.commons.collections15.CollectionUtils.find(
+				Arrays.asList(players), new org.apache.commons.collections15.Predicate<Player>() {
+
+			@Override
+			public boolean evaluate(Player player) {
+				return player.cardsHaving().contains(cardOfAdjutant);
+			}
+		});
 	}
 
 }

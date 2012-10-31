@@ -79,4 +79,8 @@ public class Declaration {
 		return "Declaration [runForNapoleon=" + runForNapoleon + ", suit="
 				+ suit + ", cardsToCollect=" + cardsToCollect + "]";
 	}
+
+	public int getCardsToCollect() {
+		return cardsToCollect;
+	}
 }

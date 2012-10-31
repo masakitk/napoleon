@@ -3,6 +3,7 @@ package napoleon.model.role;
 import static org.hamcrest.core.IsEqual.*;
 import static org.junit.Assert.assertThat;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import mockit.Expectations;
@@ -157,6 +158,7 @@ public class DirectorTest {
 		assertThat(director.getGameState(), equalTo(Status.ExtraCardsChanged));
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	public void T06_1ターン目の進行を行う(){
 		new Expectations() {
@@ -183,8 +185,30 @@ public class DirectorTest {
 	}
 
 	@Test
-	public void T07_ゲームの勝者を判定できる(){
+	public void T07_ナポレオン軍が絵札を宣言枚数取得したらナポレオン軍の勝ち(){
+		new Expectations() {
+			{
+				napoleon.getGainedCardCount(); returns(10);
+				player1.isAdjutant(); returns(true);
+				player1.getGainedCardCount(); returns(5);
+			 }
+		};
+		director.napoleon = napoleon;
+		director.fixedDeclaration = Declaration.New(Suit.Heart, 15);
 		assertThat(director.JudgeWinnerTeam(), equalTo(Team.NapoleonTeam));
-		
+	}
+
+	@Test
+	public void T08_ナポレオン軍が絵札を宣言枚数取得できなかったら連合軍の勝ち(){
+		new Expectations() {
+			{
+				napoleon.getGainedCardCount(); returns(10);
+				player1.isAdjutant(); returns(true);
+				player1.getGainedCardCount(); returns(5);
+			 }
+		};
+		director.napoleon = napoleon;
+		director.fixedDeclaration = Declaration.New(Suit.Heart, 16);
+		assertThat(director.JudgeWinnerTeam(), equalTo(Team.AlliedForcesTeam));
 	}
 }
