@@ -17,8 +17,7 @@ import napoleon.model.rule.TurnFactory;
 import napoleon.model.rule.TurnStatus;
 import napoleon.view.ConsoleView;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
+import org.apache.commons.collections15.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -76,6 +75,7 @@ public class Director {
 			if(lastDeclarationsOfPlayer.containsKey(player) && currentDeclaration == lastDeclarationsOfPlayer.get(player)) {
 				fixedDeclaration = currentDeclaration;
 				napoleon = Napoleon.New(player);
+				players[Arrays.asList(players).indexOf(player)] = napoleon;
 				System.out.println(String.format("napoleon fixed:%s, %s", napoleon, fixedDeclaration));
 				return;
 			}
@@ -136,7 +136,10 @@ public class Director {
 
 	public void askForAdjutant() {
 		cardOfAdjutant = getNapoleon().tellTheAdjutant(fixedDeclaration);
-		findAdjutant(cardOfAdjutant).setIsAdjutant(true);
+		logger.info(String.format("adjutant card is %s", cardOfAdjutant));
+		Player adjutant = findAdjutant(cardOfAdjutant);
+		if(null == adjutant) return;
+		adjutant.setIsAdjutant(true);
 	}
 
 	public void showSituationToConsole() {
@@ -191,10 +194,14 @@ public class Director {
 	}
 
 	private int getCardCountNapleonTeamGained() {
-		return napoleon.getGainedCardCount() + getAdjutant().getGainedCardCount();
+		Player adjutant = getAdjutant();
+		int napoleonTeamGained = napoleon.getGainedCardCount() 
+				+ ((null == adjutant) ? 0 : adjutant.getGainedCardCount());
+		logger.debug(String.format("napoleon team gained %d", napoleonTeamGained));
+		return napoleonTeamGained;
 	}
 
-	private Player getAdjutant() {
+	public Player getAdjutant() {
 		return org.apache.commons.collections15.CollectionUtils.find(
 				Arrays.asList(players), new org.apache.commons.collections15.Predicate<Player>() {
 
@@ -214,6 +221,11 @@ public class Director {
 				return player.cardsHaving().contains(cardOfAdjutant);
 			}
 		});
+	}
+
+	public String getAdjutantName() {
+		Player adjutant = getAdjutant();
+		return null == adjutant ? "nobady: only napoleon;" : adjutant.getName();
 	}
 
 }

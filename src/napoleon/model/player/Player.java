@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import napoleon.Runner;
 import napoleon.model.card.Card;
 import napoleon.model.card.Suit;
 import napoleon.model.rule.Declaration;
@@ -13,6 +14,8 @@ import napoleon.model.rule.Turn;
 
 import org.apache.commons.collections15.CollectionUtils;
 import org.apache.commons.collections15.Predicate;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 public class Player {
@@ -21,8 +24,10 @@ public class Player {
 	private String name;
 	private List<Card> _cardsGained = new ArrayList<Card>();
 	private boolean _isAdjutant;
+	private Logger _logger;
 	
 	public Player(String name) {
+		_logger = LogManager.getLogger(Runner.class);
 		this.name = name;
 	}
 
@@ -86,7 +91,6 @@ public class Player {
 				return o1.strongerThanAsNumber(o2) ? 1 : -1;
 			}
 		});
-		
 	}
 
 	@SuppressWarnings("unchecked")
@@ -103,11 +107,6 @@ public class Player {
 
 	public Declaration AskForDeclare(Declaration currentDeclaration) {
 		return null == currentDeclaration ? Declaration.New(Suit.Club, 13) : Declaration.Pass;
-	}
-
-	public Declaration getLastDeclaration() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public String getName() {
@@ -148,7 +147,7 @@ public class Player {
 	}
 
 	public void setIsAdjutant(boolean b) {
+		_logger.info(String.format("adjutant is %s", name));
 		_isAdjutant = b;
 	}
-
 }

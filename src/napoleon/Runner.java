@@ -1,6 +1,7 @@
 package napoleon;
 import napoleon.model.player.Player;
 import napoleon.model.role.Director;
+import napoleon.model.role.Team;
 import napoleon.model.rule.Table;
 
 import org.apache.logging.log4j.LogManager;
@@ -27,6 +28,14 @@ public class Runner {
 			logger.debug(String.format("turn[%d], winner[%s]", i, director.getTurnWinner(i)));
 			System.out.println(String.format("turn[%d], winner[%s]", i, director.getTurnWinner(i)));
 		}
-		
+
+		logger.debug(String.format("napoleon gained %s", director.getNapoleon().cardsGained()));
+		for (Player p : players) {
+			logger.debug(String.format("player %s gained %s", p.getName(), p.cardsGained()));
+		}
+
+		Team winner = director.JudgeWinnerTeam();
+		logger.info(String.format("adjutant is %s", director.getAdjutantName()));
+		logger.info(String.format("winner is %s", winner));
 	}
 }
