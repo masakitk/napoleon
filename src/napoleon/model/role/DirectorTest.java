@@ -190,8 +190,8 @@ public class DirectorTest {
 	public void T07_ƒiƒ|ƒŒƒIƒ“ŒR‚ªŠGD‚ğéŒ¾–‡”æ“¾‚µ‚½‚çƒiƒ|ƒŒƒIƒ“ŒR‚ÌŸ‚¿(){
 		new Expectations() {
 			{
-				napoleon.getGainedCardCount(); returns(10);
 				player1.isAdjutant(); returns(true);
+				napoleon.getGainedCardCount(); returns(10);
 				player1.getGainedCardCount(); returns(5);
 			 }
 		};
@@ -204,8 +204,8 @@ public class DirectorTest {
 	public void T08_ƒiƒ|ƒŒƒIƒ“ŒR‚ªŠGD‚ğéŒ¾–‡”æ“¾‚Å‚«‚È‚©‚Á‚½‚ç˜A‡ŒR‚ÌŸ‚¿(){
 		new Expectations() {
 			{
-				napoleon.getGainedCardCount(); returns(10);
 				player1.isAdjutant(); returns(true);
+				napoleon.getGainedCardCount(); returns(10);
 				player1.getGainedCardCount(); returns(5);
 			 }
 		};
