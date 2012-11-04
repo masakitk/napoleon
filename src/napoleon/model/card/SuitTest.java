@@ -49,7 +49,7 @@ public class SuitTest {
 	
 	@Test
 	public void T01_マークの強さ比較テスト() {
-		assertThat(suit1.strongerThan(suit2), Is.is(result));
+		assertThat(String.format("is %s stronger than %s ?, [%s]", suit1, suit2, result), suit1.strongerThan(suit2), Is.is(result));
 	}
 
 }
