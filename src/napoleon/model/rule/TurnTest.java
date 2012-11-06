@@ -13,7 +13,7 @@ import napoleon.model.card.Card;
 import napoleon.model.card.Suit;
 import napoleon.model.player.Player;
 
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections15.CollectionUtils;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;

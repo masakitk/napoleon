@@ -3,14 +3,10 @@ package napoleon.model.card;
 import java.util.Collection;
 import java.util.Comparator;
 
-import napoleon.model.rule.CompareContexts;
 import napoleon.model.rule.GameContext;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
-
-
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import org.apache.commons.collections15.CollectionUtils;
+import org.apache.commons.collections15.Predicate;
 
 public class Card {
 	
@@ -193,11 +189,10 @@ public class Card {
 		}
 
 		private boolean isAllSameSuit() {
-			return CollectionUtils.select(cards, new Predicate() {
+			return CollectionUtils.select(cards, new Predicate<Card>() {
 				
 				@Override
-				public boolean evaluate(Object o) {
-					Card card = (Card)o;
+				public boolean evaluate(Card card) {
 					return !(card.isJorker || card.getSuit().equals(getLeadSuit()));
 				}
 			}).isEmpty();
@@ -213,11 +208,11 @@ public class Card {
 					: CardIgnoreSpecialComparator.compare(left, right);
 		}
 		private boolean contains(final Card card) {
-			return CollectionUtils.exists(cards, new Predicate() {
+			return CollectionUtils.exists(cards, new Predicate<Card>() {
 				
 				@Override
-				public boolean evaluate(Object o) {
-					return card.equals((Card)o);
+				public boolean evaluate(Card c) {
+					return card.equals(c);
 				}
 			});
 		}

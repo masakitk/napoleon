@@ -8,12 +8,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections15.CollectionUtils;
+import org.apache.commons.collections15.Predicate;
+
 import napoleon.model.card.Card;
 import napoleon.model.card.Suit;
 import napoleon.model.player.Player;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
 
 public class Turn {
 	private HashMap<Player, Card> cardHash = new LinkedHashMap<Player, Card>();
@@ -111,13 +111,12 @@ public class Turn {
 		getWinner().takeCards(getPictureCards());
 	}
 
-	@SuppressWarnings("unchecked")
 	private Collection<? extends Card> getPictureCards() {
-		return CollectionUtils.select(cardHash.values(), new Predicate() {
+		return CollectionUtils.select(cardHash.values(), new Predicate<Card>() {
 			
 			@Override
-			public boolean evaluate(Object arg0) {
-				return isPictureCard((Card) arg0);
+			public boolean evaluate(Card card) {
+				return isPictureCard(card);
 			}
 		});
 	}
