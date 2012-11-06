@@ -22,9 +22,9 @@ public class Player {
 
 	protected List<Card> cards = new ArrayList<Card>();
 	private String name;
-	private List<Card> _cardsGained = new ArrayList<Card>();
-	private boolean _isAdjutant;
-	private Logger _logger;
+	protected List<Card> _cardsGained = new ArrayList<Card>();
+	protected boolean _isAdjutant;
+	protected Logger _logger;
 	
 	public Player(String name) {
 		_logger = LogManager.getLogger(Runner.class);
@@ -40,6 +40,14 @@ public class Player {
 	}
 
 	public Card openCard(Turn turn) {
+		Card toOpen = chooseCardToOpen(turn);
+
+		System.out.println(String.format("player:%s / Open:%s", this, toOpen));
+		cards.remove(toOpen);
+		return toOpen;
+	}
+
+	protected Card chooseCardToOpen(Turn turn) {
 		List<Card> cardsToOpen = new ArrayList<Card>();
 
 		if(turn.isJorkerOpenedFirst()){
@@ -60,9 +68,6 @@ public class Player {
 		
 //		System.out.println(String.format("cardsToOpne:%s", cardsToOpen));
 		Card toOpen = cardsToOpen.get(0);
-
-		System.out.println(String.format("player:%s / Open:%s", this, toOpen));
-		cards.remove(toOpen);
 		return toOpen;
 	}
 
@@ -93,16 +98,14 @@ public class Player {
 		});
 	}
 
-	@SuppressWarnings("unchecked")
 	private Collection<Card> findSameMark(Collection<Card> cards, final Suit mark) {
-		return CollectionUtils.select(cards, new Predicate(){
+		return CollectionUtils.select(cards, new Predicate<Card>() {
 
 			@Override
-			public boolean evaluate(Object card) {
-				return ((Card)card).getSuit() == mark;
+			public boolean evaluate(Card card) {
+					return card.getSuit() == mark;
 			}
-			
-		});
+		} );
 	}
 
 	public Declaration AskForDeclare(Declaration currentDeclaration) {

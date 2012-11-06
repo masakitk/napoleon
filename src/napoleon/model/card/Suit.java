@@ -17,7 +17,19 @@ public enum Suit {
 		case Club:
 			return false;
 		default:
-			throw new IllegalStateException(String.format("–¢‘Î‰‚Ìƒ}[ƒN‚Å‚·:%s", this));
+			throw new IllegalStateException(String.format("æœªå¯¾å¿œã®ãƒãƒ¼ã‚¯ã§ã™:%s", this));
 		}
+	}
+	
+	public String toShortString(){
+		return shortStringHash(this);
+	}
+
+	private String shortStringHash(Suit suit) {
+		return suit == Suit.Spade ? "â™ "
+				: suit == Suit.Heart ? "â™¥"
+				: suit == Suit.Dia ? "â—†"
+				: suit == Suit.Club ? "â™£"
+				: "";
 	}
 }

@@ -3,6 +3,7 @@ import napoleon.model.player.Player;
 import napoleon.model.role.Director;
 import napoleon.model.role.Team;
 import napoleon.model.rule.Table;
+import napoleon.player.ManualPlayer;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

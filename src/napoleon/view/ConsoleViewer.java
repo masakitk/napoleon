@@ -6,26 +6,26 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.apache.commons.collections15.Closure;
+import org.apache.commons.collections15.CollectionUtils;
+
 import napoleon.model.card.Card;
 import napoleon.model.player.Player;
 
-import org.apache.commons.collections.Closure;
-import org.apache.commons.collections.CollectionUtils;
+public class ConsoleViewer implements Viewer {
+	private static final ConsoleViewer CONSOLE_VIEWER = new ConsoleViewer();
 
-public class ConsoleView {
-	private static final ConsoleView CONSOLE_VIEW = new ConsoleView();
-
-	public static ConsoleView GetInstance() {
-		return CONSOLE_VIEW;
+	public static ConsoleViewer GetInstance() {
+		return CONSOLE_VIEWER;
 	}
 
 	public void Show(Player[] players) {
 
-		CollectionUtils.forAllDo(Arrays.asList(players), new Closure(){
+		CollectionUtils.forAllDo(Arrays.asList(players), new Closure<Player>(){
 
 			@Override
-			public void execute(Object player) {
-				printPlayerCards((Player) player);
+			public void execute(Player player) {
+				printPlayerCards(player);
 			}
 		});
 	}

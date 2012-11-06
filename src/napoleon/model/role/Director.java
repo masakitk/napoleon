@@ -1,5 +1,6 @@
 package napoleon.model.role;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -15,15 +16,21 @@ import napoleon.model.rule.Table;
 import napoleon.model.rule.Turn;
 import napoleon.model.rule.TurnFactory;
 import napoleon.model.rule.TurnStatus;
-import napoleon.view.ConsoleView;
+import napoleon.view.ConsoleViewer;
+import napoleon.view.Viewer;
 
 import org.apache.commons.collections15.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
-public class Director {
+public class Director implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3142206610755761773L;
+	
 	protected static final int NUMBER_OF_MEMBERS = 4;
 	protected Table table;
 	protected Dealer dealer;
@@ -36,6 +43,7 @@ public class Director {
 	private Integer currentTurnNo = 1;
 	private Logger logger;
 	private Card cardOfAdjutant;
+	private Viewer viewer;
 	
 	protected Director(){
 		logger = LogManager.getLogger(Director.class.getName());
@@ -46,6 +54,7 @@ public class Director {
 		instance.table = table;
 		instance.dealer = Dealer.New(GameContext.New(table, players));
 		instance.players = players;
+		instance.viewer = ConsoleViewer.GetInstance();
 		return instance;
 	}
 
@@ -112,10 +121,10 @@ public class Director {
 
 	private boolean existsAnyDeclarations(
 			HashMap<Player, Declaration> lastDeclarationsOfPlayer) {
-		return CollectionUtils.exists(lastDeclarationsOfPlayer.values(), new Predicate() {
+		return CollectionUtils.exists(lastDeclarationsOfPlayer.values(), new Predicate<Declaration>() {
 			
 			@Override
-			public boolean evaluate(Object lastDeclaration) {
+			public boolean evaluate(Declaration lastDeclaration) {
 				return ((Declaration)lastDeclaration).isDeclared();
 			};
 		});
@@ -143,7 +152,7 @@ public class Director {
 	}
 
 	public void showSituationToConsole() {
-		ConsoleView.GetInstance().Show(players);
+		viewer.Show(players);
 	}
 	
 	public Integer getCurrentTurnNo() {
