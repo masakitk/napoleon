@@ -10,8 +10,6 @@ import org.apache.commons.collections15.Predicate;
 
 public class Card {
 	
-
-	
 	private final Suit suit;
 	private final int number;
 	private final boolean isJorker;

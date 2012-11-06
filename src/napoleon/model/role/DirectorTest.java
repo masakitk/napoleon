@@ -18,6 +18,7 @@ import napoleon.model.rule.Status;
 import napoleon.model.rule.Table;
 import napoleon.model.rule.Turn;
 import napoleon.model.rule.TurnStatus;
+import napoleon.view.Viewer;
 
 import org.hamcrest.core.IsEqual;
 import org.junit.Before;
@@ -166,10 +167,10 @@ public class DirectorTest {
 		new Expectations() {
 			{
 				 dealer.hasServed(); returns(true);
-				 player1.openCard((Turn) any); returns(Card.New(Suit.Spade, 3));
-				 player2.openCard((Turn) any); returns(Card.New(Suit.Spade, 8));
-				 player3.openCard((Turn) any); returns(Card.New(Suit.Heart, 9));
-				 player4.openCard((Turn) any); returns(Card.New(Suit.Spade, 5));
+				 player1.openCard((Turn) any, (Viewer) any); returns(Card.New(Suit.Spade, 3));
+				 player2.openCard((Turn) any, (Viewer) any); returns(Card.New(Suit.Spade, 8));
+				 player3.openCard((Turn) any, (Viewer) any); returns(Card.New(Suit.Heart, 9));
+				 player4.openCard((Turn) any, (Viewer) any); returns(Card.New(Suit.Spade, 5));
 				 player2.takeCards((Collection<Card>) any);
 			 }
 		};

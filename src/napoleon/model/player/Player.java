@@ -11,6 +11,7 @@ import napoleon.model.card.Card;
 import napoleon.model.card.Suit;
 import napoleon.model.rule.Declaration;
 import napoleon.model.rule.Turn;
+import napoleon.view.Viewer;
 
 import org.apache.commons.collections15.CollectionUtils;
 import org.apache.commons.collections15.Predicate;
@@ -39,15 +40,15 @@ public class Player {
 		cards.add(card);
 	}
 
-	public Card openCard(Turn turn) {
-		Card toOpen = chooseCardToOpen(turn);
+	public Card openCard(Turn turn, Viewer viewer) {
+		Card toOpen = chooseCardToOpen(turn, viewer);
 
 		System.out.println(String.format("player:%s / Open:%s", this, toOpen));
 		cards.remove(toOpen);
 		return toOpen;
 	}
 
-	protected Card chooseCardToOpen(Turn turn) {
+	protected Card chooseCardToOpen(Turn turn, Viewer viewer) {
 		List<Card> cardsToOpen = new ArrayList<Card>();
 
 		if(turn.isJorkerOpenedFirst()){
@@ -66,7 +67,6 @@ public class Player {
 			cardsToOpen.addAll(cards);
 		}		
 		
-//		System.out.println(String.format("cardsToOpne:%s", cardsToOpen));
 		Card toOpen = cardsToOpen.get(0);
 		return toOpen;
 	}

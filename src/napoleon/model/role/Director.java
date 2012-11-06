@@ -152,7 +152,7 @@ public class Director implements Serializable {
 	}
 
 	public void showSituationToConsole() {
-		viewer.Show(players);
+		viewer.show(players);
 	}
 	
 	public Integer getCurrentTurnNo() {
@@ -166,7 +166,7 @@ public class Director implements Serializable {
 	public void beginTurn(int turnNo) {
 		Turn turn = getTurn(turnNo);
 		for (Player p : getPlayersForTurn(turnNo)){
-			turn.addCard(p, p.openCard(turn));
+			turn.addCard(p, p.openCard(turn, viewer));
 			logger.debug(p);
 		}
 		

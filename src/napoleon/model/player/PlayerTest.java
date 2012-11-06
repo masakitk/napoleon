@@ -8,6 +8,7 @@ import napoleon.model.card.Card;
 import napoleon.model.card.Suit;
 import napoleon.model.rule.Declaration;
 import napoleon.model.rule.Turn;
+import napoleon.view.Viewer;
 
 import org.hamcrest.core.IsEqual;
 import org.junit.Test;
@@ -18,6 +19,8 @@ public class PlayerTest {
 
 	@Mocked
 	Turn turn;
+	@Mocked
+	Viewer viewer;
 	
 	@Test
 	public void T01_1枚カードを出したらそのカードは手元からなくなること(){
@@ -25,7 +28,7 @@ public class PlayerTest {
 		player.takeCard(Card.New(Suit.Heart, 12));
 		assertThat(player.cardCount(), IsEqual.equalTo(1));
 		
-		player.openCard(turn);
+		player.openCard(turn, viewer);
 		assertThat(player.cardCount(), IsEqual.equalTo(0));
 	}
 	
@@ -43,7 +46,7 @@ public class PlayerTest {
 		Player player = Player.New("hoge");
 		player.takeCard(Card.New(Suit.Spade, 3));
 		player.takeCard(Card.New(Suit.Heart, 3));
-		assertThat(player.openCard(turn).getSuit(), IsEqual.equalTo(Suit.Spade));
+		assertThat(player.openCard(turn, viewer).getSuit(), IsEqual.equalTo(Suit.Spade));
 	}
 	
 	@Test
@@ -60,7 +63,7 @@ public class PlayerTest {
 		Player player = Player.New("hoge");
 		player.takeCard(Card.New(Suit.Dia, 3));
 		player.takeCard(Card.New(Suit.Heart, 3));
-		player.openCard(turn).getSuit();
+		player.openCard(turn, viewer).getSuit();
 		assertThat(player.cardCount(), IsEqual.equalTo(1));
 	}
 	
@@ -77,14 +80,14 @@ public class PlayerTest {
 		};
 		Player player2 = Player.New("fuga");
 		player2.takeCard(Card.Jorker);
-		Card jorker = player2.openCard(turn);
+		Card jorker = player2.openCard(turn, viewer);
 		assertThat(jorker, IsEqual.equalTo(Card.Jorker));
 		
 		Player player = Player.New("hoge");
 		player.takeCard(Card.New(Suit.Club, 13));
 		player.takeCard(Card.New(Suit.Spade, 12));
 		player.takeCard(Card.New(Suit.Heart, 1));
-		assertThat(player.openCard(turn), IsEqual.equalTo(Card.New(Suit.Spade, 12)));
+		assertThat(player.openCard(turn, viewer), IsEqual.equalTo(Card.New(Suit.Spade, 12)));
 	}
 
 	@Test
@@ -100,14 +103,14 @@ public class PlayerTest {
 		};
 		Player player2 = Player.New("fuga");
 		player2.takeCard(Card.Jorker);
-		Card jorker = player2.openCard(turn);
+		Card jorker = player2.openCard(turn, viewer);
 		assertThat(jorker, IsEqual.equalTo(Card.Jorker));
 		
 		Player player = Player.New("hoge");
 		player.takeCard(Card.New(Suit.Club, 13));
 		player.takeCard(Card.New(Suit.Spade, 12));
 		player.takeCard(Card.New(Suit.Heart, 1));
-		assertThat(player.openCard(turn).getNumber(), IsEqual.equalTo(1));
+		assertThat(player.openCard(turn, viewer).getNumber(), IsEqual.equalTo(1));
 	}
 
 	@Test
@@ -123,14 +126,14 @@ public class PlayerTest {
 		};
 		Player player2 = Player.New("fuga");
 		player2.takeCard(Card.RequireJorker);
-		Card jorker = player2.openCard(turn);
+		Card jorker = player2.openCard(turn, viewer);
 		assertThat(jorker, IsEqual.equalTo(Card.RequireJorker));
 		
 		Player player = Player.New("hoge");
 		player.takeCard(Card.New(Suit.Spade, 12));
 		player.takeCard(Card.Jorker);
 		player.takeCard(Card.New(Suit.Club, 1));
-		assertThat(player.openCard(turn), IsEqual.equalTo(Card.Jorker));
+		assertThat(player.openCard(turn, viewer), IsEqual.equalTo(Card.Jorker));
 	}
 
 	@Test
@@ -148,14 +151,14 @@ public class PlayerTest {
 		};
 		Player player2 = Player.New("fuga");
 		player2.takeCard(Card.RequireJorker);
-		Card jorker = player2.openCard(turn);
+		Card jorker = player2.openCard(turn, viewer);
 		assertThat(jorker, IsEqual.equalTo(Card.RequireJorker));
 		
 		Player player = Player.New("hoge");
 		player.takeCard(Card.New(Suit.Spade, 12));
 		player.takeCard(Card.New(Suit.Heart, 8));
 		player.takeCard(Card.New(Suit.Club, 5));
-		assertThat(player.openCard(turn), IsEqual.equalTo(Card.New(Suit.Club, 5)));
+		assertThat(player.openCard(turn, viewer), IsEqual.equalTo(Card.New(Suit.Club, 5)));
 	}
 
 	@Test
@@ -171,7 +174,7 @@ public class PlayerTest {
 		Player player = Player.New("hoge");
 		player.takeCard(Card.New(Suit.Spade, 3));
 		assertThat(player.cardCount(), IsEqual.equalTo(1));
-		player.openCard(turn);
+		player.openCard(turn, viewer);
 		assertThat(player.cardCount(), IsEqual.equalTo(0));
 	}
 	

@@ -15,7 +15,7 @@ public class Runner {
 		Logger logger = LogManager.getLogger(Runner.class);
 		logger.error("err..");
 		logger.debug("begin..");
-		Player[] players = new Player[]{Player.New("1"), Player.New("2"), Player.New("3"), Player.New("4")};
+		Player[] players = new Player[]{Player.New("1"), Player.New("2"), Player.New("3"), ManualPlayer.New("4")};
 		Director director = Director.New(Table.New(), players);
 		director.serveCards();
 		director.showSituationToConsole();

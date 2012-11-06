@@ -4,12 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
-import napoleon.model.*;
 import napoleon.model.card.Card;
 import napoleon.model.card.Suit;
+import napoleon.model.player.Player;
 import napoleon.model.rule.Turn;
+import napoleon.view.Viewer;
 
 public class ManualPlayer extends napoleon.model.player.Player {
 
@@ -17,8 +16,12 @@ public class ManualPlayer extends napoleon.model.player.Player {
 		super(name);
 	}
 	
+	public static Player New(String name) {
+		return new ManualPlayer(name);
+	}
+	
 	@Override
-	protected Card chooseCardToOpen(Turn turn) {
+	protected Card chooseCardToOpen(Turn turn, Viewer viewer) {
 		String input = getInputString("input card(Ex. S1:SpadeAAH13:Heart13 etc..");
 		String suitPart = input.substring(0, 1);
 		String numberPart = input.substring(1);
@@ -27,17 +30,25 @@ public class ManualPlayer extends napoleon.model.player.Player {
 			int number = convertToNumber(numberPart);
 			return Card.New(suit, number);
 		} catch (Exception e) {
-			return chooseCardToOpen(turn);
+			viewer.showMessage(e.getMessage());
+			return chooseCardToOpen(turn, viewer);
 		}
 	}
 
 	private Suit convertToSuit(String suitPart) {
-		// TODO Auto-generated method stub
-		return null;
+		if(suitPart.toUpperCase().equals("S")) return Suit.Spade;
+		if(suitPart.toUpperCase().equals("H")) return Suit.Heart;
+		if(suitPart.toUpperCase().equals("D")) return Suit.Dia;
+		if(suitPart.toUpperCase().equals("C")) return Suit.Club;
+		throw new IllegalArgumentException("1•¶š–Ú‚ÍS,H,D,C‚Ì‚¢‚¸‚ê‚©‚É‚µ‚Ä‰º‚³‚¢B");
 	}
 
 	private int convertToNumber(String numberPart) {
-		return Integer.parseInt(numberPart);
+		try{
+			return Integer.parseInt(numberPart);
+		} catch (NumberFormatException e) {
+			throw new IllegalArgumentException("2•¶š–ÚˆÈ~‚Í1`13‚Ì”š‚ğ“ü—Í‚µ‚Ä‰º‚³‚¢B", e);
+		}
 	}
 
 	public static String getInputString(String information) {

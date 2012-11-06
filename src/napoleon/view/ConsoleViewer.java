@@ -19,7 +19,7 @@ public class ConsoleViewer implements Viewer {
 		return CONSOLE_VIEWER;
 	}
 
-	public void Show(Player[] players) {
+	public void show(Player[] players) {
 
 		CollectionUtils.forAllDo(Arrays.asList(players), new Closure<Player>(){
 
@@ -45,5 +45,9 @@ public class ConsoleViewer implements Viewer {
 			}
 		});
 		return sorted;
+	}
+
+	public void showMessage(String message) {
+		System.out.println(message);
 	}
 }
