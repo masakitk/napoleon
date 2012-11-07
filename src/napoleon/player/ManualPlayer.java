@@ -3,6 +3,10 @@ package napoleon.player;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
+
+import com.sun.xml.internal.ws.util.xml.NodeListIterator;
 
 import napoleon.model.card.Card;
 import napoleon.model.card.Suit;
@@ -11,6 +15,8 @@ import napoleon.model.rule.Turn;
 import napoleon.view.Viewer;
 
 public class ManualPlayer extends napoleon.model.player.Player {
+
+	private String INPUT_INFORMATION_TEXT = "1文字目にスート(S,H,D,Cのいずれか)、2文字目以降に1～13の数字を入力して下さい。";
 
 	public ManualPlayer(String name) {
 		super(name);
@@ -22,7 +28,18 @@ public class ManualPlayer extends napoleon.model.player.Player {
 	
 	@Override
 	protected Card chooseCardToOpen(Turn turn, Viewer viewer) {
-		String input = getInputString("input card(Ex. S1:SpadeA、H13:Heart13 etc..");
+		viewer.showMessage(String.format("you have :[%s]", cards));
+		String input;
+		try{
+			input = getInputString("input card(Ex. S1:SpadeA、H13:Heart13 etc..");
+		} catch (NoSuchElementException e) {
+			return showInputInfomationAndReInput(turn, viewer);
+		}
+		
+		if(input.length() < 2) {
+			return showInputInfomationAndReInput(turn, viewer);
+		}
+		
 		String suitPart = input.substring(0, 1);
 		String numberPart = input.substring(1);
 		try{
@@ -33,6 +50,11 @@ public class ManualPlayer extends napoleon.model.player.Player {
 			viewer.showMessage(e.getMessage());
 			return chooseCardToOpen(turn, viewer);
 		}
+	}
+
+	protected Card showInputInfomationAndReInput(Turn turn, Viewer viewer) {
+		viewer.showMessage(INPUT_INFORMATION_TEXT);
+		return chooseCardToOpen(turn, viewer);
 	}
 
 	private Suit convertToSuit(String suitPart) {
@@ -51,23 +73,11 @@ public class ManualPlayer extends napoleon.model.player.Player {
 		}
 	}
 
-	public static String getInputString(String information) {
-		BufferedReader stdReader = new BufferedReader(new InputStreamReader(System.in));
-		try {
-			System.out.print(String.format("%s : ", information));
-			String line;
-			while ((line = stdReader.readLine()) != null) { // ユーザの一行入力を待つ
-			}
-			return line;
-		} catch (IOException e) {
-			e.getStackTrace();
-			throw new RuntimeException("IOException thrown", e);
-		} finally {
-			try {
-				stdReader.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+	public String getInputString(String information) {
+		Scanner stdReader = new Scanner(System.in);
+		System.out.print(String.format("%s : ", information));
+		String line = stdReader.nextLine(); // ユーザの一行入力を待つ
+		System.out.print(String.format("line is [%s]", line));
+		return line;
 	}
 }
