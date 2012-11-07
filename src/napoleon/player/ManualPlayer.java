@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+import org.apache.commons.collections15.CollectionUtils;
+import org.apache.commons.collections15.Predicate;
+
 import com.sun.xml.internal.ws.util.xml.NodeListIterator;
 
 import napoleon.model.card.Card;
@@ -47,7 +50,7 @@ public class ManualPlayer extends napoleon.model.player.Player {
 	
 	@Override
 	protected Card chooseCardToOpen(Turn turn, Viewer viewer) {
-		viewer.showMessage(String.format("you have :[%s]", cards));
+		viewer.showMessage(String.format("You have %s", viewer.sortCardsToView(cards)));
 		String input;
 		input = InputSuitAndNumber(viewer);
 		
@@ -63,6 +66,11 @@ public class ManualPlayer extends napoleon.model.player.Player {
 			return chooseCardToOpen(turn, viewer);
 		}
 		
+		if(!hasCard(card)) {
+			viewer.showMessage("そのカードは持っていません。");
+			return chooseCardToOpen(turn, viewer);
+		}
+		
 		if(turn.isLeadSuitDefined() && findSameMark(cards, turn.getLeadSuit()) != null){
 			if(card.getSuit() != turn.getLeadSuit()){
 				viewer.showMessage("台札がある場合は、台札をださなければなりません。");
@@ -70,6 +78,15 @@ public class ManualPlayer extends napoleon.model.player.Player {
 			}
 		}
 		return card;
+	}
+
+	private boolean hasCard(final Card card) {
+		return CollectionUtils.exists(cards, new Predicate<Card>() {
+			@Override
+			public boolean evaluate(Card c) {
+				return c.equals(card);
+			}
+		});
 	}
 
 	protected String InputSuitAndNumber(Viewer viewer) {
@@ -109,9 +126,9 @@ public class ManualPlayer extends napoleon.model.player.Player {
 
 	public String getInputString(String information) {
 		Scanner stdReader = new Scanner(System.in);
-		System.out.print(String.format("%s : ", information));
+		System.out.println(String.format("%s : ", information));
 		String line = stdReader.nextLine(); // ユーザの一行入力を待つ
-		System.out.print(String.format("line is [%s]", line));
+		System.out.println(String.format("line is [%s]", line));
 		return line;
 	}
 }

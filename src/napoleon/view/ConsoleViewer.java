@@ -36,7 +36,7 @@ public class ConsoleViewer implements Viewer {
 		System.out.println("/ having:" + sortCardsToView(player.cardsHaving()));
 	}
 
-	private List<Card> sortCardsToView(List<Card> cards) {
+	public List<Card> sortCardsToView(List<Card> cards) {
 		List<Card> sorted = new ArrayList<Card>(cards);
 		Collections.sort(sorted, new Comparator<Card>(){
 			@Override
