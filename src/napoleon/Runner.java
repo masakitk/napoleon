@@ -18,7 +18,7 @@ public class Runner {
 		Player[] players = new Player[]{Player.New("1"), Player.New("2"), Player.New("3"), ManualPlayer.New("4")};
 		Director director = Director.New(Table.New(), players);
 		director.serveCards();
-		director.showSituationToConsole();
+		director.showSituation();
 		director.defineNapoleon();
 		
 		director.askForAdjutant();

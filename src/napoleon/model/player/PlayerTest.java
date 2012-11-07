@@ -181,6 +181,6 @@ public class PlayerTest {
 	@Test
 	public void T04_‚Æ‚è‚ ‚¦‚¸’N‚àéŒ¾‚µ‚Ä‚È‚©‚Á‚½‚çƒNƒ‰ƒu‚Ì13‚ÅéŒ¾‚·‚é(){
 		Player player = Player.New("hoge");
-		assertThat(player.AskForDeclare(null), IsEqual.equalTo(Declaration.New(Suit.Club, 13)));
+		assertThat(player.AskForDeclare(null, viewer), IsEqual.equalTo(Declaration.New(Suit.Club, 13)));
 	}
 }

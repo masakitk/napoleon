@@ -63,10 +63,10 @@ public class DirectorTest {
 		 new Expectations() {
 			{
 				dealer.hasServed(); returns(true); 
-				player1.AskForDeclare(null); returns(declarationOfClub13);
-				player2.AskForDeclare(declarationOfClub13); returns(Declaration.Pass);
-				player3.AskForDeclare(declarationOfClub13); returns(Declaration.Pass);
-				player4.AskForDeclare(declarationOfClub13); returns(Declaration.Pass);
+				player1.AskForDeclare(null, (Viewer)any); returns(declarationOfClub13);
+				player2.AskForDeclare(declarationOfClub13, (Viewer)any); returns(Declaration.Pass);
+				player3.AskForDeclare(declarationOfClub13, (Viewer)any); returns(Declaration.Pass);
+				player4.AskForDeclare(declarationOfClub13, (Viewer)any); returns(Declaration.Pass);
 				Napoleon.New(player1); returns(napoleon);
 				dealer.hasServed(); returns(true); 
 			}
@@ -83,16 +83,16 @@ public class DirectorTest {
 		 new Expectations() {
 			{
 				dealer.hasServed(); returns(true); 
-				player1.AskForDeclare(null); returns(declarationOfClub13);
-				player2.AskForDeclare(declarationOfClub13); returns(Declaration.Pass);
-				player3.AskForDeclare(declarationOfClub13); returns(Declaration.Pass);
-				player4.AskForDeclare(declarationOfClub13); returns(declarationOfSpade13);
-				player1.AskForDeclare(declarationOfSpade13); returns(Declaration.Pass);
-				player2.AskForDeclare(declarationOfSpade13); returns(Declaration.Pass);
-				player3.AskForDeclare(declarationOfSpade13); returns(declarationOfHeart14);
-				player4.AskForDeclare(declarationOfHeart14); returns(Declaration.Pass);
-				player1.AskForDeclare(declarationOfHeart14); returns(Declaration.Pass);
-				player2.AskForDeclare(declarationOfHeart14); returns(Declaration.Pass);
+				player1.AskForDeclare(null, (Viewer)any); returns(declarationOfClub13);
+				player2.AskForDeclare(declarationOfClub13, (Viewer)any); returns(Declaration.Pass);
+				player3.AskForDeclare(declarationOfClub13, (Viewer)any); returns(Declaration.Pass);
+				player4.AskForDeclare(declarationOfClub13, (Viewer)any); returns(declarationOfSpade13);
+				player1.AskForDeclare(declarationOfSpade13, (Viewer)any); returns(Declaration.Pass);
+				player2.AskForDeclare(declarationOfSpade13, (Viewer)any); returns(Declaration.Pass);
+				player3.AskForDeclare(declarationOfSpade13, (Viewer)any); returns(declarationOfHeart14);
+				player4.AskForDeclare(declarationOfHeart14, (Viewer)any); returns(Declaration.Pass);
+				player1.AskForDeclare(declarationOfHeart14, (Viewer)any); returns(Declaration.Pass);
+				player2.AskForDeclare(declarationOfHeart14, (Viewer)any); returns(Declaration.Pass);
 				Napoleon.New(player3); returns(napoleon);
 				dealer.hasServed(); returns(true); 
 			}
@@ -109,10 +109,10 @@ public class DirectorTest {
 		 new Expectations() {
 			{
 				dealer.hasServed(); returns(true); 
-				player1.AskForDeclare(null); returns(Declaration.Pass);
-				player2.AskForDeclare(null); returns(Declaration.Pass);
-				player3.AskForDeclare(null); returns(Declaration.Pass);
-				player4.AskForDeclare(null); returns(Declaration.Pass);
+				player1.AskForDeclare(null, (Viewer)any); returns(Declaration.Pass);
+				player2.AskForDeclare(null, (Viewer)any); returns(Declaration.Pass);
+				player3.AskForDeclare(null, (Viewer)any); returns(Declaration.Pass);
+				player4.AskForDeclare(null, (Viewer)any); returns(Declaration.Pass);
 				dealer.hasServed(); returns(true); 
 			}
 		};
@@ -125,11 +125,11 @@ public class DirectorTest {
 	public void T04_ç°ÇÊÇËí·Ç¢êÈåæÇÕîFÇﬂÇ∏çƒìxêÈåæÇ∑ÇÈÇ©ï∑Ç≠(){
 		 new Expectations() {
 			{
-				player1.AskForDeclare(null); returns(declarationOfSpade13);
-				player2.AskForDeclare(declarationOfSpade13); returns(declarationOfClub13);
-				player2.AskForDeclare(declarationOfSpade13); returns(Declaration.Pass);
-				player3.AskForDeclare(declarationOfSpade13); returns(Declaration.Pass);
-				player4.AskForDeclare(declarationOfSpade13); returns(Declaration.Pass);
+				player1.AskForDeclare(null, (Viewer)any); returns(declarationOfSpade13);
+				player2.AskForDeclare(declarationOfSpade13, (Viewer)any); returns(declarationOfClub13);
+				player2.AskForDeclare(declarationOfSpade13, (Viewer)any); returns(Declaration.Pass);
+				player3.AskForDeclare(declarationOfSpade13, (Viewer)any); returns(Declaration.Pass);
+				player4.AskForDeclare(declarationOfSpade13, (Viewer)any); returns(Declaration.Pass);
 				Napoleon.New(player1); returns(napoleon);
 				dealer.hasServed(); returns(true); 
 			}

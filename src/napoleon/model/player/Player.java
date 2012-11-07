@@ -98,7 +98,7 @@ public class Player {
 		});
 	}
 
-	private Collection<Card> findSameMark(Collection<Card> cards, final Suit mark) {
+	protected Collection<Card> findSameMark(Collection<Card> cards, final Suit mark) {
 		return CollectionUtils.select(cards, new Predicate<Card>() {
 
 			@Override
@@ -108,7 +108,7 @@ public class Player {
 		} );
 	}
 
-	public Declaration AskForDeclare(Declaration currentDeclaration) {
+	public Declaration AskForDeclare(Declaration currentDeclaration, Viewer viewer) {
 		return null == currentDeclaration ? Declaration.New(Suit.Club, 13) : Declaration.Pass;
 	}
 

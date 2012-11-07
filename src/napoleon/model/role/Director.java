@@ -101,9 +101,9 @@ public class Director implements Serializable {
 
 	private Declaration askForDeclare(Declaration currentDeclaration,
 			HashMap<Player, Declaration> lastDeclarationsOfPlayer, Player player) {
-		Declaration declaration = player.AskForDeclare(currentDeclaration);
+		Declaration declaration = player.AskForDeclare(currentDeclaration, viewer);
 		while(Declaration.Pass != declaration && !declaration.isStrongerDecralation(currentDeclaration)) {
-			declaration = player.AskForDeclare(currentDeclaration);
+			declaration = player.AskForDeclare(currentDeclaration, viewer);
 		}
 		
 		lastDeclarationsOfPlayer.put(player, declaration);
@@ -151,7 +151,7 @@ public class Director implements Serializable {
 		adjutant.setIsAdjutant(true);
 	}
 
-	public void showSituationToConsole() {
+	public void showSituation() {
 		viewer.show(players);
 	}
 	
