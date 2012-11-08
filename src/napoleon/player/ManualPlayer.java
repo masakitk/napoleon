@@ -57,7 +57,7 @@ public class ManualPlayer extends napoleon.model.player.Player {
 		return toOpen;
 	}
 
-	protected Card rejectInvalidCard(Card card, Turn turn, Viewer viewer) {
+	Card rejectInvalidCard(Card card, Turn turn, Viewer viewer) {
 		if(!hasCard(card)) {
 			viewer.showMessage("そのカードは持っていません。");
 			return null;

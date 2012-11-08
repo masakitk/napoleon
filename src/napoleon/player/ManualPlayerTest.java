@@ -16,6 +16,7 @@ import napoleon.model.rule.Turn;
 import napoleon.view.Viewer;
 
 import org.hamcrest.core.IsEqual;
+import org.hamcrest.core.IsNull;
 import org.junit.Test;
 
 public class ManualPlayerTest {
@@ -79,10 +80,12 @@ public class ManualPlayerTest {
 				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
 				scanner.nextLine(); returns("H0"); 
+				
 				viewer.sortCardsToView(anyCards); returns(anyCards);
 				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
 				scanner.nextLine(); returns("H14"); 
+				
 				viewer.sortCardsToView(anyCards); returns(anyCards);
 				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
@@ -95,18 +98,21 @@ public class ManualPlayerTest {
 		
 		try{
 			player.inputCard(viewer);
+			fail("入力不備をチェックできていない");
 		} catch (IllegalStateException e) {
-			assertThat(e.getMessage(), IsEqual.equalTo("2文字目以降は1～13の数字を入力して下さい。"));
+			assertThat(e.getMessage(), IsEqual.equalTo("数字が1から13の範囲にありません。"));
 		}
 		
 		try{
 			player.inputCard(viewer);
+			fail("入力不備をチェックできていない");
 		} catch (IllegalStateException e) {
-			assertThat(e.getMessage(), IsEqual.equalTo("2文字目以降は1～13の数字を入力して下さい。"));
+			assertThat(e.getMessage(), IsEqual.equalTo("数字が1から13の範囲にありません。"));
 		}
 		
 		try{
 			player.inputCard(viewer);
+			fail("入力不備をチェックできていない");
 		} catch (IllegalStateException e) {
 			assertThat(e.getMessage(), IsEqual.equalTo("2文字目以降は1～13の数字を入力して下さい。"));
 		}
@@ -115,7 +121,7 @@ public class ManualPlayerTest {
 
 
 	@Test
-	public void T02_持ってないカードを指定したらエラー(){
+	public void T02_持ってないカードを指定したら再入力(){
 		new Expectations() {
 			{
 				@SuppressWarnings("serial")
@@ -145,67 +151,39 @@ public class ManualPlayerTest {
 	}
 
 	@Test
-	public void T03_台札がある場合に台札以外を指定したらエラー(){
+	public void T03_台札がある場合に台札を出さなければならない(){
 		new Expectations() {
 			{
-				@SuppressWarnings("serial")
-				final List<Card> anyCards = new ArrayList<Card>(){{add(Card.New(Suit.Heart, 12)); add(Card.New(Suit.Dia, 3)); }};
-				viewer.sortCardsToView(anyCards); returns(anyCards);
-				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
-				new Scanner((BufferedInputStream)any); returns(any);
-				scanner.nextLine(); returns("H12");
 				turn.isJorkerOpenedFirst(); returns(false);
 				turn.isLeadSuitDefined(); returns(true);
 				turn.getLeadSuit(); returns(Suit.Dia);
 				turn.getLeadSuit(); returns(Suit.Dia);
 				viewer.showMessage("台札がある場合は、台札をださなければなりません。");
-				viewer.sortCardsToView(anyCards); returns(anyCards);
-				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
-				new Scanner((BufferedInputStream)any); returns(any);
-				scanner.nextLine(); returns("D3");
-				turn.isJorkerOpenedFirst(); returns(false);
-				turn.isLeadSuitDefined(); returns(true);
-				turn.getLeadSuit(); returns(Suit.Dia);
-				turn.getLeadSuit(); returns(Suit.Dia);
 			}
 		};
 		
-		final Player player = ManualPlayer.New("hoge");
+		final ManualPlayer player = ManualPlayer.New("hoge");
 		player.takeCard(Card.New(Suit.Heart, 12));
 		player.takeCard(Card.New(Suit.Dia, 3));
 		
-		player.openCard(turn, viewer);
-		assertThat(player.cardCount(), IsEqual.equalTo(1));
+		assertThat(player.rejectInvalidCard(Card.New(Suit.Heart, 12), turn, viewer), IsNull.nullValue());
 	}
 
 	@Test
-	public void T04_切り札請求された場合切り札があるなら切り札を出すこと(){
+	public void T03_切り札請求された場合切り札を出さなければならない(){
 		new Expectations() {
 			{
-				@SuppressWarnings("serial")
-				final List<Card> anyCards = new ArrayList<Card>(){{add(Card.New(Suit.Heart, 12)); add(Card.New(Suit.Dia, 3)); }};
-				viewer.sortCardsToView(anyCards); returns(anyCards);
-				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
-				new Scanner((BufferedInputStream)any); returns(any);
-				scanner.nextLine(); returns("H12");
 				turn.isJorkerOpenedFirst(); returns(true);
 				turn.getTrump(); returns(Suit.Dia);
 				viewer.showMessage("切り札請求された場合は、切り札をださなければなりません。");
-				viewer.sortCardsToView(anyCards); returns(anyCards);
-				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
-				new Scanner((BufferedInputStream)any); returns(any);
-				scanner.nextLine(); returns("D3");
-				turn.isJorkerOpenedFirst(); returns(true);
-				turn.getTrump(); returns(Suit.Dia);
 			}
 		};
 		
-		final Player player = ManualPlayer.New("hoge");
+		final ManualPlayer player = ManualPlayer.New("hoge");
 		player.takeCard(Card.New(Suit.Heart, 12));
 		player.takeCard(Card.New(Suit.Dia, 3));
 		
-		player.openCard(turn, viewer);
-		assertThat(player.cardCount(), IsEqual.equalTo(1));
+		assertThat(player.rejectInvalidCard(Card.New(Suit.Heart, 12), turn, viewer), IsNull.nullValue());
 	}
 
 }
