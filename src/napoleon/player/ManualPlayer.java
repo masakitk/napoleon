@@ -71,6 +71,14 @@ public class ManualPlayer extends napoleon.model.player.Player {
 			return card;
 		}
 
+		if(turn.isRequireJorkerOpenedFirst()) {
+			if(!card.equals(Card.Jorker)) {
+				viewer.showMessage("ジョーカー請求された場合は、ジョーカーをださなければなりません。");
+				return null;
+			}
+			return card;
+		}
+		
 		if(turn.isLeadSuitDefined() && findSameMark(cards, turn.getLeadSuit()) != null){
 			if(card.getSuit() != turn.getLeadSuit()){
 				viewer.showMessage("台札がある場合は、台札をださなければなりません。");

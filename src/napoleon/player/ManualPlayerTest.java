@@ -186,4 +186,26 @@ public class ManualPlayerTest {
 		assertThat(player.rejectInvalidCard(Card.New(Suit.Heart, 12), turn, viewer), IsNull.nullValue());
 	}
 
+	@Test
+	public void T03_ジョーカー請求された場合ジョーカーを出さなければならない(){
+		new Expectations() {
+			{
+				turn.isJorkerOpenedFirst(); returns(false);
+				turn.isRequireJorkerOpenedFirst(); returns(true);
+				viewer.showMessage("ジョーカー請求された場合は、ジョーカーをださなければなりません。");
+				turn.isJorkerOpenedFirst(); returns(false);
+				turn.isRequireJorkerOpenedFirst(); returns(true);
+				viewer.showMessage("ジョーカー請求された場合は、ジョーカーをださなければなりません。");
+			}
+		};
+		
+		final ManualPlayer player = ManualPlayer.New("hoge");
+		player.takeCard(Card.New(Suit.Heart, 12));
+		player.takeCard(Card.New(Suit.Dia, 3));
+		player.takeCard(Card.Jorker);
+		
+		assertThat(player.rejectInvalidCard(Card.New(Suit.Heart, 12), turn, viewer), IsNull.nullValue());
+		assertThat(player.rejectInvalidCard(Card.New(Suit.Dia, 3), turn, viewer), IsNull.nullValue());
+	}
+	
 }
