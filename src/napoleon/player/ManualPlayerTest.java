@@ -37,19 +37,83 @@ public class ManualPlayerTest {
 				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
 				scanner.nextLine(); returns("D3");
-				turn.isLeadSuitDefined(); returns(true);
-				turn.getLeadSuit(); returns(Suit.Dia);
-				turn.getLeadSuit(); returns(Suit.Dia);
 			}
 		};
-		final Player player = ManualPlayer.New("hoge");
+		final ManualPlayer player = ManualPlayer.New("hoge");
 		player.takeCard(Card.New(Suit.Heart, 12));
 		player.takeCard(Card.New(Suit.Dia, 3));
 		
-		player.openCard(turn, viewer);
-		assertThat(player.cardCount(), IsEqual.equalTo(1));
+		assertThat(player.inputCard(viewer), IsEqual.equalTo(Card.New(Suit.Dia, 3)));
+	}
+
+	@Test
+	public void T01a_ƒX[ƒg“ü—Í•s”õ‚Í‚¨‚±‚ç‚ê‚é(){
+		new Expectations() {
+			{
+				@SuppressWarnings("serial")
+				final List<Card> anyCards = new ArrayList<Card>(){{add(Card.New(Suit.Heart, 12)); add(Card.New(Suit.Dia, 3)); }};
+				viewer.sortCardsToView(anyCards); returns(anyCards);
+				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
+				new Scanner((BufferedInputStream)any); returns(any);
+				scanner.nextLine(); returns("A3"); 
+			}
+		};
+		final ManualPlayer player = ManualPlayer.New("hoge");
+		player.takeCard(Card.New(Suit.Heart, 12));
+		player.takeCard(Card.New(Suit.Dia, 3));
+		
+		try{
+			player.inputCard(viewer);
+		} catch (IllegalStateException e) {
+			assertThat(e.getMessage(), IsEqual.equalTo("1•¶š–Ú‚ÍS,H,D,C‚Ì‚¢‚¸‚ê‚©‚É‚µ‚Ä‰º‚³‚¢B"));
+		}
+	}
+
+	@Test
+	public void T01b_”’l“ü—Í•s”õ‚Í‚¨‚±‚ç‚ê‚é(){
+		new Expectations() {
+			{
+				@SuppressWarnings("serial")
+				final List<Card> anyCards = new ArrayList<Card>(){{add(Card.New(Suit.Heart, 12)); add(Card.New(Suit.Dia, 3)); }};
+				viewer.sortCardsToView(anyCards); returns(anyCards);
+				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
+				new Scanner((BufferedInputStream)any); returns(any);
+				scanner.nextLine(); returns("H0"); 
+				viewer.sortCardsToView(anyCards); returns(anyCards);
+				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
+				new Scanner((BufferedInputStream)any); returns(any);
+				scanner.nextLine(); returns("H14"); 
+				viewer.sortCardsToView(anyCards); returns(anyCards);
+				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
+				new Scanner((BufferedInputStream)any); returns(any);
+				scanner.nextLine(); returns("Habc"); 
+			}
+		};
+		final ManualPlayer player = ManualPlayer.New("hoge");
+		player.takeCard(Card.New(Suit.Heart, 12));
+		player.takeCard(Card.New(Suit.Dia, 3));
+		
+		try{
+			player.inputCard(viewer);
+		} catch (IllegalStateException e) {
+			assertThat(e.getMessage(), IsEqual.equalTo("2•¶š–ÚˆÈ~‚Í1`13‚Ì”š‚ğ“ü—Í‚µ‚Ä‰º‚³‚¢B"));
+		}
+		
+		try{
+			player.inputCard(viewer);
+		} catch (IllegalStateException e) {
+			assertThat(e.getMessage(), IsEqual.equalTo("2•¶š–ÚˆÈ~‚Í1`13‚Ì”š‚ğ“ü—Í‚µ‚Ä‰º‚³‚¢B"));
+		}
+		
+		try{
+			player.inputCard(viewer);
+		} catch (IllegalStateException e) {
+			assertThat(e.getMessage(), IsEqual.equalTo("2•¶š–ÚˆÈ~‚Í1`13‚Ì”š‚ğ“ü—Í‚µ‚Ä‰º‚³‚¢B"));
+		}
 	}
 	
+
+
 	@Test
 	public void T02_‚Á‚Ä‚È‚¢ƒJ[ƒh‚ğw’è‚µ‚½‚çƒGƒ‰[(){
 		new Expectations() {
@@ -65,6 +129,7 @@ public class ManualPlayerTest {
 				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
 				scanner.nextLine(); returns("D3");
+				turn.isJorkerOpenedFirst(); returns(false);
 				turn.isLeadSuitDefined(); returns(true);
 				turn.getLeadSuit(); returns(Suit.Dia);
 				turn.getLeadSuit(); returns(Suit.Dia);
@@ -89,6 +154,7 @@ public class ManualPlayerTest {
 				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
 				scanner.nextLine(); returns("H12");
+				turn.isJorkerOpenedFirst(); returns(false);
 				turn.isLeadSuitDefined(); returns(true);
 				turn.getLeadSuit(); returns(Suit.Dia);
 				turn.getLeadSuit(); returns(Suit.Dia);
@@ -97,6 +163,7 @@ public class ManualPlayerTest {
 				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
 				scanner.nextLine(); returns("D3");
+				turn.isJorkerOpenedFirst(); returns(false);
 				turn.isLeadSuitDefined(); returns(true);
 				turn.getLeadSuit(); returns(Suit.Dia);
 				turn.getLeadSuit(); returns(Suit.Dia);
@@ -110,5 +177,35 @@ public class ManualPlayerTest {
 		player.openCard(turn, viewer);
 		assertThat(player.cardCount(), IsEqual.equalTo(1));
 	}
-	
+
+	@Test
+	public void T04_Ø‚èD¿‹‚³‚ê‚½ê‡Ø‚èD‚ª‚ ‚é‚È‚çØ‚èD‚ğo‚·‚±‚Æ(){
+		new Expectations() {
+			{
+				@SuppressWarnings("serial")
+				final List<Card> anyCards = new ArrayList<Card>(){{add(Card.New(Suit.Heart, 12)); add(Card.New(Suit.Dia, 3)); }};
+				viewer.sortCardsToView(anyCards); returns(anyCards);
+				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
+				new Scanner((BufferedInputStream)any); returns(any);
+				scanner.nextLine(); returns("H12");
+				turn.isJorkerOpenedFirst(); returns(true);
+				turn.getTrump(); returns(Suit.Dia);
+				viewer.showMessage("Ø‚èD¿‹‚³‚ê‚½ê‡‚ÍAØ‚èD‚ğ‚¾‚³‚È‚¯‚ê‚Î‚È‚è‚Ü‚¹‚ñB");
+				viewer.sortCardsToView(anyCards); returns(anyCards);
+				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
+				new Scanner((BufferedInputStream)any); returns(any);
+				scanner.nextLine(); returns("D3");
+				turn.isJorkerOpenedFirst(); returns(true);
+				turn.getTrump(); returns(Suit.Dia);
+			}
+		};
+		
+		final Player player = ManualPlayer.New("hoge");
+		player.takeCard(Card.New(Suit.Heart, 12));
+		player.takeCard(Card.New(Suit.Dia, 3));
+		
+		player.openCard(turn, viewer);
+		assertThat(player.cardCount(), IsEqual.equalTo(1));
+	}
+
 }

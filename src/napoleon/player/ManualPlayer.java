@@ -25,35 +25,66 @@ public class ManualPlayer extends napoleon.model.player.Player {
 	public ManualPlayer(String name) {
 		super(name);
 	}
-	
-	public static Player New(String name) {
+
+	public static ManualPlayer New(String name) {
 		return new ManualPlayer(name);
 	}
-	
-//	@Override
-//	public Declaration AskForDeclare(Declaration currentDeclaration, Viewer viewer) {
-//		viewer.showMessage(String.format("you have :[%s]", cards));
-//		String input;
-//		input = InputSuitAndNumber(viewer);
-//		
-//		String suitPart = input.substring(0, 1);
-//		String numberPart = input.substring(1);
-//		try{
-//			Suit suit = convertToSuit(suitPart);
-//			int number = convertToNumber(numberPart);
-//			return Card.New(suit, number);
-//		} catch (Exception e) {
-//			viewer.showMessage(e.getMessage());
-//			return chooseCardToOpen(turn, viewer);
-//		}
-//	}
-	
+
+	//	@Override
+	//	public Declaration AskForDeclare(Declaration currentDeclaration, Viewer viewer) {
+	//		viewer.showMessage(String.format("you have :[%s]", cards));
+	//		String input;
+	//		input = InputSuitAndNumber(viewer);
+	//		
+	//		String suitPart = input.substring(0, 1);
+	//		String numberPart = input.substring(1);
+	//		try{
+	//			Suit suit = convertToSuit(suitPart);
+	//			int number = convertToNumber(numberPart);
+	//			return Card.New(suit, number);
+	//		} catch (Exception e) {
+	//			viewer.showMessage(e.getMessage());
+	//			return chooseCardToOpen(turn, viewer);
+	//		}
+	//	}
+
 	@Override
 	protected Card chooseCardToOpen(Turn turn, Viewer viewer) {
+		Card toOpen = null;
+		while(toOpen == null) {
+			toOpen = rejectInvalidCard(inputCard(viewer), turn, viewer);
+		}
+		return toOpen;
+	}
+
+	protected Card rejectInvalidCard(Card card, Turn turn, Viewer viewer) {
+		if(!hasCard(card)) {
+			viewer.showMessage("そのカードは持っていません。");
+			return null;
+		}
+
+		if(turn.isJorkerOpenedFirst()) {
+			if(card.getSuit() != turn.getTrump()) {
+				viewer.showMessage("切り札請求された場合は、切り札をださなければなりません。");
+				return null;
+			}
+			return card;
+		}
+
+		if(turn.isLeadSuitDefined() && findSameMark(cards, turn.getLeadSuit()) != null){
+			if(card.getSuit() != turn.getLeadSuit()){
+				viewer.showMessage("台札がある場合は、台札をださなければなりません。");
+				return null;
+			}
+		}
+		return card;
+	}
+
+	Card inputCard(Viewer viewer) {
 		viewer.showMessage(String.format("You have %s", viewer.sortCardsToView(cards)));
 		String input;
 		input = InputSuitAndNumber(viewer);
-		
+
 		String suitPart = input.substring(0, 1);
 		String numberPart = input.substring(1);
 		final Card card;
@@ -61,21 +92,8 @@ public class ManualPlayer extends napoleon.model.player.Player {
 			Suit suit = convertToSuit(suitPart);
 			int number = convertToNumber(numberPart);
 			card = Card.New(suit, number);
-		} catch (Exception e) {
-			viewer.showMessage(e.getMessage());
-			return chooseCardToOpen(turn, viewer);
-		}
-		
-		if(!hasCard(card)) {
-			viewer.showMessage("そのカードは持っていません。");
-			return chooseCardToOpen(turn, viewer);
-		}
-		
-		if(turn.isLeadSuitDefined() && findSameMark(cards, turn.getLeadSuit()) != null){
-			if(card.getSuit() != turn.getLeadSuit()){
-				viewer.showMessage("台札がある場合は、台札をださなければなりません。");
-				return chooseCardToOpen(turn, viewer);
-			}
+		} catch (IllegalArgumentException e) {
+			throw new IllegalStateException(e.getMessage());
 		}
 		return card;
 	}
@@ -96,7 +114,7 @@ public class ManualPlayer extends napoleon.model.player.Player {
 		} catch (NoSuchElementException e) {
 			return InputSuitAndNumber(viewer);
 		}
-		
+
 		if(input.length() < 2) {
 			return InputSuitAndNumber(viewer);
 		}
