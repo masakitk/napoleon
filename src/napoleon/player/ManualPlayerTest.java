@@ -34,6 +34,7 @@ public class ManualPlayerTest {
 			{
 				@SuppressWarnings("serial")
 				final List<Card> anyCards = new ArrayList<Card>(){{add(Card.New(Suit.Heart, 12)); add(Card.New(Suit.Dia, 3)); }};
+				viewer.showMessage("this turn []");
 				viewer.sortCardsToView(anyCards); returns(anyCards);
 				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
@@ -44,7 +45,7 @@ public class ManualPlayerTest {
 		player.takeCard(Card.New(Suit.Heart, 12));
 		player.takeCard(Card.New(Suit.Dia, 3));
 		
-		assertThat(player.inputCard(viewer), IsEqual.equalTo(Card.New(Suit.Dia, 3)));
+		assertThat(player.inputCard(viewer, turn), IsEqual.equalTo(Card.New(Suit.Dia, 3)));
 	}
 
 	@Test
@@ -53,6 +54,7 @@ public class ManualPlayerTest {
 			{
 				@SuppressWarnings("serial")
 				final List<Card> anyCards = new ArrayList<Card>(){{add(Card.New(Suit.Heart, 12)); add(Card.New(Suit.Dia, 3)); }};
+				viewer.showMessage("this turn []");
 				viewer.sortCardsToView(anyCards); returns(anyCards);
 				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
@@ -64,7 +66,7 @@ public class ManualPlayerTest {
 		player.takeCard(Card.New(Suit.Dia, 3));
 		
 		try{
-			player.inputCard(viewer);
+			player.inputCard(viewer, turn);
 		} catch (IllegalStateException e) {
 			assertThat(e.getMessage(), IsEqual.equalTo("1文字目はS,H,D,Cのいずれかにして下さい。"));
 		}
@@ -76,16 +78,19 @@ public class ManualPlayerTest {
 			{
 				@SuppressWarnings("serial")
 				final List<Card> anyCards = new ArrayList<Card>(){{add(Card.New(Suit.Heart, 12)); add(Card.New(Suit.Dia, 3)); }};
+				viewer.showMessage("this turn []");
 				viewer.sortCardsToView(anyCards); returns(anyCards);
 				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
 				scanner.nextLine(); returns("H0"); 
 				
+				viewer.showMessage("this turn []");
 				viewer.sortCardsToView(anyCards); returns(anyCards);
 				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
 				scanner.nextLine(); returns("H14"); 
 				
+				viewer.showMessage("this turn []");
 				viewer.sortCardsToView(anyCards); returns(anyCards);
 				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
@@ -97,21 +102,21 @@ public class ManualPlayerTest {
 		player.takeCard(Card.New(Suit.Dia, 3));
 		
 		try{
-			player.inputCard(viewer);
+			player.inputCard(viewer, turn);
 			fail("入力不備をチェックできていない");
 		} catch (IllegalStateException e) {
 			assertThat(e.getMessage(), IsEqual.equalTo("数字が1から13の範囲にありません。"));
 		}
 		
 		try{
-			player.inputCard(viewer);
+			player.inputCard(viewer, turn);
 			fail("入力不備をチェックできていない");
 		} catch (IllegalStateException e) {
 			assertThat(e.getMessage(), IsEqual.equalTo("数字が1から13の範囲にありません。"));
 		}
 		
 		try{
-			player.inputCard(viewer);
+			player.inputCard(viewer, turn);
 			fail("入力不備をチェックできていない");
 		} catch (IllegalStateException e) {
 			assertThat(e.getMessage(), IsEqual.equalTo("2文字目以降は1～13の数字を入力して下さい。"));
@@ -126,16 +131,22 @@ public class ManualPlayerTest {
 			{
 				@SuppressWarnings("serial")
 				final List<Card> anyCards = new ArrayList<Card>(){{add(Card.New(Suit.Heart, 12)); add(Card.New(Suit.Dia, 3)); }};
+				turn.getCards(); returns(new ArrayList<Card>());
+				viewer.showMessage("this turn []");
 				viewer.sortCardsToView(anyCards); returns(anyCards);
 				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
 				scanner.nextLine(); returns("S3");
 				viewer.showMessage("そのカードは持っていません。");
+
+				turn.getCards(); returns(new ArrayList<Card>());
+				viewer.showMessage("this turn []");
 				viewer.sortCardsToView(anyCards); returns(anyCards);
 				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
 				scanner.nextLine(); returns("D3");
 				turn.isJorkerOpenedFirst(); returns(false);
+				turn.isRequireJorkerOpenedFirst(); returns(false);
 				turn.isLeadSuitDefined(); returns(true);
 				turn.getLeadSuit(); returns(Suit.Dia);
 				turn.getLeadSuit(); returns(Suit.Dia);
@@ -155,6 +166,7 @@ public class ManualPlayerTest {
 		new Expectations() {
 			{
 				turn.isJorkerOpenedFirst(); returns(false);
+				turn.isRequireJorkerOpenedFirst(); returns(false);
 				turn.isLeadSuitDefined(); returns(true);
 				turn.getLeadSuit(); returns(Suit.Dia);
 				turn.getLeadSuit(); returns(Suit.Dia);

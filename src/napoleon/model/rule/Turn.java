@@ -139,5 +139,9 @@ public class Turn {
 	private boolean isOpenedFirst(Card cardToAssert) {
 		return !ignoreSpecial && 0 < cardHash.size() && getFirstCard() == cardToAssert;
 	}
+
+	public Collection<Card> getCards() {
+		return cardHash.values();
+	}
 	
 }

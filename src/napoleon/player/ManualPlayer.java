@@ -52,7 +52,7 @@ public class ManualPlayer extends napoleon.model.player.Player {
 	protected Card chooseCardToOpen(Turn turn, Viewer viewer) {
 		Card toOpen = null;
 		while(toOpen == null) {
-			toOpen = rejectInvalidCard(inputCard(viewer), turn, viewer);
+			toOpen = rejectInvalidCard(inputCard(viewer, turn), turn, viewer);
 		}
 		return toOpen;
 	}
@@ -88,7 +88,8 @@ public class ManualPlayer extends napoleon.model.player.Player {
 		return card;
 	}
 
-	Card inputCard(Viewer viewer) {
+	Card inputCard(Viewer viewer, Turn turn) {
+		viewer.showMessage(String.format("this turn %s", turn.getCards()));
 		viewer.showMessage(String.format("You have %s", viewer.sortCardsToView(cards)));
 		String input;
 		input = InputSuitAndNumber(viewer);
