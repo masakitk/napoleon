@@ -74,10 +74,25 @@ public class TurnTest {
 				Turn.New(1, Suit.Spade),
 				player2, Card.New(Suit.Dia, 8), 
 				player3, Card.New(Suit.Dia, 4), 
-				player4, Card.New(Suit.Dia, 12), 
+				player4, Card.New(Suit.Dia, 1), 
 				player1, Card.New(Suit.Heart, 13), 
-				player4, Card.New(Suit.Dia, 12),
-				new Card[]{Card.New(Suit.Dia, 12), Card.New(Suit.Heart, 13)});
+				player4, Card.New(Suit.Dia, 1),
+				new Card[]{Card.New(Suit.Dia, 1), Card.New(Suit.Heart, 13)});
+		
+		ターンを回して勝者を確認(param);
+	}
+
+	@Test
+	public void T04_カードが4枚出されている場合に特殊カード考慮ありで勝者を判断できる() {
+		
+		final Parameters param = new Parameters(
+				Turn.New(2, Suit.Dia),
+				player2, Card.New(Suit.Dia, 8), 
+				player3, Card.New(Suit.Dia, 4), 
+				player4, Card.New(Suit.Dia, 1), 
+				player1, Card.New(Suit.Dia, 9), 
+				player4, Card.New(Suit.Dia, 1),
+				new Card[]{Card.New(Suit.Dia, 1)});
 		
 		ターンを回して勝者を確認(param);
 	}

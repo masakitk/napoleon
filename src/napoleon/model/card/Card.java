@@ -3,16 +3,20 @@ package napoleon.model.card;
 import java.util.Collection;
 import java.util.Comparator;
 
+import napoleon.Runner;
 import napoleon.model.rule.GameContext;
 
 import org.apache.commons.collections15.CollectionUtils;
 import org.apache.commons.collections15.Predicate;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Card {
 	
 	private final Suit suit;
 	private final int number;
 	private final boolean isJorker;
+	private Logger logger = LogManager.getLogger(Runner.class);
 	public static Comparator<Card> CardNormalComparator;
 	public static Comparator<Card> getCardNormalComparator() {
 		return CardNormalComparator;
@@ -151,6 +155,7 @@ public class Card {
 		private static Card rightBower;
 		private static Card leftBower;
 		private static Suit trump;
+		private static Logger logger = LogManager.getLogger(Runner.class);
 		public static void setLeadSuit(Suit suit) {
 			leadSuit = suit;
 		}
@@ -167,6 +172,7 @@ public class Card {
 		
 		@Override
 		public int compare(Card left, Card right) {
+			logger.debug(String.format("left[%s] and right[%s]", left, right));
 			return contains(Card.Mighty) && !contains(Card.Yoromeki) ? getOrderOfTargetCardWin(Card.Mighty, left, right)
 					: contains(Card.Mighty) && contains(Card.Yoromeki) ? getOrderOfTargetCardWin(Card.Yoromeki, left, right)
 					: contains(rightBower) ? getOrderOfTargetCardWin(rightBower, left, right)
@@ -178,7 +184,7 @@ public class Card {
 					: left.suit == trump && right.suit == trump && left.strongerThanAsNumber(right) ? 1
 					: left.suit == leadSuit && right.suit != leadSuit ? 1
 					: left.suit != leadSuit && right.suit == leadSuit ? -1
-					:left.suit == leadSuit && right.suit == leadSuit && left.strongerThanAsNumber(right) ? 1 : -1;
+					: left.suit == leadSuit && right.suit == leadSuit && left.strongerThanAsNumber(right) ? 1 : -1;
 			}
 		private boolean isJorkerFirst() {
 			return CollectionUtils.get(cards, 0) == Card.Jorker;
@@ -205,7 +211,7 @@ public class Card {
 		private int getOrderOfTargetCardWin(Card cardToWin, Card left, Card right) {
 			return left.equals(cardToWin) ? 1
 					: right.equals(cardToWin) ? -1
-					: CardIgnoreSpecialComparator.compare(left, right);
+					: GetCardIgnoreSpecialComparator(leadSuit).compare(left, right);
 		}
 		private boolean contains(final Card card) {
 			return CollectionUtils.exists(cards, new Predicate<Card>() {

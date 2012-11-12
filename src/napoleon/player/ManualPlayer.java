@@ -58,6 +58,8 @@ public class ManualPlayer extends napoleon.model.player.Player {
 	}
 
 	Card rejectInvalidCard(Card card, Turn turn, Viewer viewer) {
+		if(card == null) return null;
+		
 		if(!hasCard(card)) {
 			viewer.showMessage("そのカードは持っていません。");
 			return null;
@@ -102,7 +104,8 @@ public class ManualPlayer extends napoleon.model.player.Player {
 			int number = convertToNumber(numberPart);
 			card = Card.New(suit, number);
 		} catch (IllegalArgumentException e) {
-			throw new IllegalStateException(e.getMessage());
+			viewer.showMessage(e.getMessage());
+			return null;
 		}
 		return card;
 	}
