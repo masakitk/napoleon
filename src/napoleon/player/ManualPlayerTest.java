@@ -59,17 +59,14 @@ public class ManualPlayerTest {
 				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
 				scanner.nextLine(); returns("A3"); 
+				viewer.showMessage("1文字目はS,H,D,Cのいずれかにして下さい。");
 			}
 		};
 		final ManualPlayer player = ManualPlayer.New("hoge");
 		player.takeCard(Card.New(Suit.Heart, 12));
 		player.takeCard(Card.New(Suit.Dia, 3));
 		
-		try{
-			player.inputCard(viewer, turn);
-		} catch (IllegalStateException e) {
-			assertThat(e.getMessage(), IsEqual.equalTo("1文字目はS,H,D,Cのいずれかにして下さい。"));
-		}
+		assertThat(player.inputCard(viewer, turn), IsNull.nullValue());
 	}
 
 	@Test
@@ -83,47 +80,31 @@ public class ManualPlayerTest {
 				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
 				scanner.nextLine(); returns("H0"); 
+				viewer.showMessage("数字が1から13の範囲にありません。");
 				
 				viewer.showMessage("this turn []");
 				viewer.sortCardsToView(anyCards); returns(anyCards);
 				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
 				scanner.nextLine(); returns("H14"); 
+				viewer.showMessage("数字が1から13の範囲にありません。");
 				
 				viewer.showMessage("this turn []");
 				viewer.sortCardsToView(anyCards); returns(anyCards);
 				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
 				scanner.nextLine(); returns("Habc"); 
+				viewer.showMessage("2文字目以降は1～13の数字を入力して下さい。");
 			}
 		};
 		final ManualPlayer player = ManualPlayer.New("hoge");
 		player.takeCard(Card.New(Suit.Heart, 12));
 		player.takeCard(Card.New(Suit.Dia, 3));
 		
-		try{
-			player.inputCard(viewer, turn);
-			fail("入力不備をチェックできていない");
-		} catch (IllegalStateException e) {
-			assertThat(e.getMessage(), IsEqual.equalTo("数字が1から13の範囲にありません。"));
-		}
-		
-		try{
-			player.inputCard(viewer, turn);
-			fail("入力不備をチェックできていない");
-		} catch (IllegalStateException e) {
-			assertThat(e.getMessage(), IsEqual.equalTo("数字が1から13の範囲にありません。"));
-		}
-		
-		try{
-			player.inputCard(viewer, turn);
-			fail("入力不備をチェックできていない");
-		} catch (IllegalStateException e) {
-			assertThat(e.getMessage(), IsEqual.equalTo("2文字目以降は1～13の数字を入力して下さい。"));
-		}
+		assertThat(player.inputCard(viewer, turn), IsNull.nullValue());
+		assertThat(player.inputCard(viewer, turn), IsNull.nullValue());
+		assertThat(player.inputCard(viewer, turn), IsNull.nullValue());
 	}
-	
-
 
 	@Test
 	public void T02_持ってないカードを指定したら再入力(){
