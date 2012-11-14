@@ -40,15 +40,15 @@ public class Player {
 		cards.add(card);
 	}
 
-	public Card openCard(Turn turn, Viewer viewer) {
-		Card toOpen = chooseCardToOpen(turn, viewer);
+	public Card openCard(Turn turn, Viewer viewer, Declaration declaration) {
+		Card toOpen = chooseCardToOpen(turn, viewer, declaration);
 
 		System.out.println(String.format("player:%s / Open:%s", this, toOpen));
 		cards.remove(toOpen);
 		return toOpen;
 	}
 
-	protected Card chooseCardToOpen(Turn turn, Viewer viewer) {
+	protected Card chooseCardToOpen(Turn turn, Viewer viewer, Declaration declaration) {
 		List<Card> cardsToOpen = new ArrayList<Card>();
 
 		if(turn.isJorkerOpenedFirst()){

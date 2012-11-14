@@ -166,7 +166,7 @@ public class Director implements Serializable {
 	public void beginTurn(int turnNo) {
 		Turn turn = getTurn(turnNo);
 		for (Player p : getPlayersForTurn(turnNo)){
-			turn.addCard(p, p.openCard(turn, viewer));
+			turn.addCard(p, p.openCard(turn, viewer, fixedDeclaration));
 			logger.debug(p);
 		}
 		

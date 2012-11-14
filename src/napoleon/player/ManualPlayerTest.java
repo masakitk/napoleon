@@ -13,6 +13,7 @@ import mockit.Mocked;
 import napoleon.model.card.Card;
 import napoleon.model.card.Suit;
 import napoleon.model.player.Player;
+import napoleon.model.rule.Declaration;
 import napoleon.model.rule.Turn;
 import napoleon.view.Viewer;
 
@@ -28,13 +29,12 @@ public class ManualPlayerTest {
 	Turn turn;
 	@Mocked
 	Viewer viewer;
+	Declaration declaration = Declaration.New(Suit.Club, 13);
 
 	@Test
 	public void T01_標準入力から入力を受け付けること(){
 		new Expectations() {
 			{
-				@SuppressWarnings("serial")
-				final List<Card> anyCards = new ArrayList<Card>(){{add(Card.New(Suit.Heart, 12)); add(Card.New(Suit.Dia, 3)); }};
 				new Scanner((BufferedInputStream)any); returns(any);
 				scanner.nextLine(); returns("D3");
 			}
@@ -50,8 +50,6 @@ public class ManualPlayerTest {
 	public void T01a_スート入力不備はおこられる(){
 		new Expectations() {
 			{
-				@SuppressWarnings("serial")
-				final List<Card> anyCards = new ArrayList<Card>(){{add(Card.New(Suit.Heart, 12)); add(Card.New(Suit.Dia, 3)); }};
 				new Scanner((BufferedInputStream)any); returns(any);
 				scanner.nextLine(); returns("A3"); 
 				viewer.showMessage("1文字目はS,H,D,Cのいずれかにして下さい。");
@@ -68,8 +66,6 @@ public class ManualPlayerTest {
 	public void T01a_Jorkerは出せる(){
 		new Expectations() {
 			{
-				@SuppressWarnings("serial")
-				final List<Card> anyCards = new ArrayList<Card>(){{add(Card.New(Suit.Heart, 12)); add(Card.Jorker); }};
 				new Scanner((BufferedInputStream)any); returns(any);
 				scanner.nextLine(); returns("Jorker"); 
 			}
@@ -85,8 +81,6 @@ public class ManualPlayerTest {
 	public void T01b_数値入力不備はおこられる(){
 		new Expectations() {
 			{
-				@SuppressWarnings("serial")
-				final List<Card> anyCards = new ArrayList<Card>(){{add(Card.New(Suit.Heart, 12)); add(Card.New(Suit.Dia, 3)); }};
 				new Scanner((BufferedInputStream)any); returns(any);
 				scanner.nextLine(); returns("H0"); 
 				viewer.showMessage("数字が1から13の範囲にありません。");
@@ -143,7 +137,7 @@ public class ManualPlayerTest {
 		player.takeCard(Card.New(Suit.Heart, 12));
 		player.takeCard(Card.New(Suit.Dia, 3));
 		
-		player.openCard(turn, viewer);
+		player.openCard(turn, viewer, declaration);
 		assertThat(player.cardCount(), IsEqual.equalTo(1));
 	}
 
