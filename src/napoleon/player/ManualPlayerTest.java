@@ -1,5 +1,6 @@
 package napoleon.player;
 
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
 import java.io.BufferedInputStream;
@@ -67,6 +68,26 @@ public class ManualPlayerTest {
 		player.takeCard(Card.New(Suit.Dia, 3));
 		
 		assertThat(player.inputCard(viewer, turn), IsNull.nullValue());
+	}
+
+	@Test
+	public void T01a_Jorker‚Ío‚¹‚é(){
+		new Expectations() {
+			{
+				@SuppressWarnings("serial")
+				final List<Card> anyCards = new ArrayList<Card>(){{add(Card.New(Suit.Heart, 12)); add(Card.Jorker); }};
+				viewer.showMessage("this turn []");
+				viewer.sortCardsToView(anyCards); returns(anyCards);
+				viewer.showMessage("You have [[Heart:12], [Jorker]]");
+				new Scanner((BufferedInputStream)any); returns(any);
+				scanner.nextLine(); returns("Jorker"); 
+			}
+		};
+		final ManualPlayer player = ManualPlayer.New("hoge");
+		player.takeCard(Card.New(Suit.Heart, 12));
+		player.takeCard(Card.Jorker);
+		
+		assertThat(player.inputCard(viewer, turn), equalTo(Card.Jorker));
 	}
 
 	@Test

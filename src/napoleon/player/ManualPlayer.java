@@ -93,21 +93,29 @@ public class ManualPlayer extends napoleon.model.player.Player {
 	Card inputCard(Viewer viewer, Turn turn) {
 		viewer.showMessage(String.format("this turn %s", turn.getCards()));
 		viewer.showMessage(String.format("You have %s", viewer.sortCardsToView(cards)));
-		String input;
-		input = InputSuitAndNumber(viewer);
-
-		String suitPart = input.substring(0, 1);
-		String numberPart = input.substring(1);
-		final Card card;
+		
 		try{
-			Suit suit = convertToSuit(suitPart);
-			int number = convertToNumber(numberPart);
-			card = Card.New(suit, number);
+			return convertToCard(InputSuitAndNumber(viewer));
 		} catch (IllegalArgumentException e) {
 			viewer.showMessage(e.getMessage());
 			return null;
 		}
-		return card;
+	}
+
+	protected Card convertToCard(String input) {
+		if("JORKER".equals(input.toUpperCase())) return Card.Jorker;
+		
+		Suit suit = convertToSuit(getSuitPart(input));
+		int number = convertToNumber(getNumberPart(input));
+		return Card.New(suit, number);
+	}
+
+	protected String getNumberPart(String input) {
+		return input.substring(1);
+	}
+
+	protected String getSuitPart(String input) {
+		return input.substring(0, 1);
 	}
 
 	private boolean hasCard(final Card card) {

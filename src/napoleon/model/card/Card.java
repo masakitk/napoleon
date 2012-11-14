@@ -172,7 +172,6 @@ public class Card {
 		
 		@Override
 		public int compare(Card left, Card right) {
-			logger.debug(String.format("left[%s] and right[%s]", left, right));
 			return contains(Card.Mighty) && !contains(Card.Yoromeki) ? getOrderOfTargetCardWin(Card.Mighty, left, right)
 					: contains(Card.Mighty) && contains(Card.Yoromeki) ? getOrderOfTargetCardWin(Card.Yoromeki, left, right)
 					: contains(rightBower) ? getOrderOfTargetCardWin(rightBower, left, right)
