@@ -35,9 +35,6 @@ public class ManualPlayerTest {
 			{
 				@SuppressWarnings("serial")
 				final List<Card> anyCards = new ArrayList<Card>(){{add(Card.New(Suit.Heart, 12)); add(Card.New(Suit.Dia, 3)); }};
-				viewer.showMessage("this turn []");
-				viewer.sortCardsToView(anyCards); returns(anyCards);
-				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
 				scanner.nextLine(); returns("D3");
 			}
@@ -55,9 +52,6 @@ public class ManualPlayerTest {
 			{
 				@SuppressWarnings("serial")
 				final List<Card> anyCards = new ArrayList<Card>(){{add(Card.New(Suit.Heart, 12)); add(Card.New(Suit.Dia, 3)); }};
-				viewer.showMessage("this turn []");
-				viewer.sortCardsToView(anyCards); returns(anyCards);
-				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
 				scanner.nextLine(); returns("A3"); 
 				viewer.showMessage("1文字目はS,H,D,Cのいずれかにして下さい。");
@@ -76,9 +70,6 @@ public class ManualPlayerTest {
 			{
 				@SuppressWarnings("serial")
 				final List<Card> anyCards = new ArrayList<Card>(){{add(Card.New(Suit.Heart, 12)); add(Card.Jorker); }};
-				viewer.showMessage("this turn []");
-				viewer.sortCardsToView(anyCards); returns(anyCards);
-				viewer.showMessage("You have [[Heart:12], [Jorker]]");
 				new Scanner((BufferedInputStream)any); returns(any);
 				scanner.nextLine(); returns("Jorker"); 
 			}
@@ -96,23 +87,14 @@ public class ManualPlayerTest {
 			{
 				@SuppressWarnings("serial")
 				final List<Card> anyCards = new ArrayList<Card>(){{add(Card.New(Suit.Heart, 12)); add(Card.New(Suit.Dia, 3)); }};
-				viewer.showMessage("this turn []");
-				viewer.sortCardsToView(anyCards); returns(anyCards);
-				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
 				scanner.nextLine(); returns("H0"); 
 				viewer.showMessage("数字が1から13の範囲にありません。");
 				
-				viewer.showMessage("this turn []");
-				viewer.sortCardsToView(anyCards); returns(anyCards);
-				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
 				scanner.nextLine(); returns("H14"); 
 				viewer.showMessage("数字が1から13の範囲にありません。");
 				
-				viewer.showMessage("this turn []");
-				viewer.sortCardsToView(anyCards); returns(anyCards);
-				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
 				scanner.nextLine(); returns("Habc"); 
 				viewer.showMessage("2文字目以降は1～13の数字を入力して下さい。");
@@ -134,7 +116,8 @@ public class ManualPlayerTest {
 				@SuppressWarnings("serial")
 				final List<Card> anyCards = new ArrayList<Card>(){{add(Card.New(Suit.Heart, 12)); add(Card.New(Suit.Dia, 3)); }};
 				turn.getCards(); returns(new ArrayList<Card>());
-				viewer.showMessage("this turn []");
+				turn.getTrump(); returns(Suit.Spade);
+				viewer.showMessage("this turn opened [], trump is Spade");
 				viewer.sortCardsToView(anyCards); returns(anyCards);
 				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
@@ -142,7 +125,8 @@ public class ManualPlayerTest {
 				viewer.showMessage("そのカードは持っていません。");
 
 				turn.getCards(); returns(new ArrayList<Card>());
-				viewer.showMessage("this turn []");
+				turn.getTrump(); returns(Suit.Spade);
+				viewer.showMessage("this turn opened [], trump is Spade");
 				viewer.sortCardsToView(anyCards); returns(anyCards);
 				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
