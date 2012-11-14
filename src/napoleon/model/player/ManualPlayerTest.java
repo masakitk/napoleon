@@ -1,4 +1,4 @@
-package napoleon.player;
+package napoleon.model.player;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
@@ -12,7 +12,6 @@ import mockit.Expectations;
 import mockit.Mocked;
 import napoleon.model.card.Card;
 import napoleon.model.card.Suit;
-import napoleon.model.player.Player;
 import napoleon.model.rule.Declaration;
 import napoleon.model.rule.Turn;
 import napoleon.view.Viewer;
@@ -36,14 +35,14 @@ public class ManualPlayerTest {
 		new Expectations() {
 			{
 				new Scanner((BufferedInputStream)any); returns(any);
-				scanner.nextLine(); returns("D3");
+				scanner.nextLine(); returns("S3");
 			}
 		};
 		final ManualPlayer player = ManualPlayer.New("hoge");
 		player.takeCard(Card.New(Suit.Heart, 12));
 		player.takeCard(Card.New(Suit.Dia, 3));
 		
-		assertThat(player.inputCard(viewer, turn), IsEqual.equalTo(Card.New(Suit.Dia, 3)));
+		assertThat(player.inputCard(viewer, turn), IsEqual.equalTo(Card.New(Suit.Spade, 3)));
 	}
 
 	@Test
@@ -110,8 +109,7 @@ public class ManualPlayerTest {
 				@SuppressWarnings("serial")
 				final List<Card> anyCards = new ArrayList<Card>(){{add(Card.New(Suit.Heart, 12)); add(Card.New(Suit.Dia, 3)); }};
 				turn.getCards(); returns(new ArrayList<Card>());
-				turn.getTrump(); returns(Suit.Spade);
-				viewer.showMessage("this turn opened [], trump is Spade");
+				viewer.showMessage("this turn opened [], Declaration [runForNapoleon=true, suit=Club, cardsToCollect=13]");
 				viewer.sortCardsToView(anyCards); returns(anyCards);
 				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
@@ -119,8 +117,7 @@ public class ManualPlayerTest {
 				viewer.showMessage("‚»‚ÌƒJ[ƒh‚Í‚Á‚Ä‚¢‚Ü‚¹‚ñB");
 
 				turn.getCards(); returns(new ArrayList<Card>());
-				turn.getTrump(); returns(Suit.Spade);
-				viewer.showMessage("this turn opened [], trump is Spade");
+				viewer.showMessage("this turn opened [], Declaration [runForNapoleon=true, suit=Club, cardsToCollect=13]");
 				viewer.sortCardsToView(anyCards); returns(anyCards);
 				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
@@ -161,6 +158,25 @@ public class ManualPlayerTest {
 		assertThat(player.rejectInvalidCard(Card.New(Suit.Heart, 12), turn, viewer), IsNull.nullValue());
 	}
 
+	@Test
+	public void T03_‘äD‚ª‚È‚¢ê‡‚Í‚È‚ñ‚Å‚àOK(){
+		new Expectations() {
+			{
+				turn.isJorkerOpenedFirst(); returns(false);
+				turn.isRequireJorkerOpenedFirst(); returns(false);
+				turn.isLeadSuitDefined(); returns(true);
+				turn.getLeadSuit(); returns(Suit.Dia);
+			}
+		};
+		
+		final ManualPlayer player = ManualPlayer.New("hoge");
+		player.takeCard(Card.New(Suit.Heart, 12));
+		final Card club3 = Card.New(Suit.Club, 3);
+		player.takeCard(club3);
+		
+		assertThat(player.rejectInvalidCard(club3, turn, viewer), equalTo(club3));
+	}
+	
 	@Test
 	public void T03_Ø‚èD¿‹‚³‚ê‚½ê‡Ø‚èD‚ğo‚³‚È‚¯‚ê‚Î‚È‚ç‚È‚¢(){
 		new Expectations() {

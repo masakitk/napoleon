@@ -98,12 +98,12 @@ public class Player {
 		});
 	}
 
-	protected Collection<Card> findSameMark(Collection<Card> cards, final Suit mark) {
+	protected Collection<Card> findSameMark(Collection<Card> cards, final Suit suit) {
 		return CollectionUtils.select(cards, new Predicate<Card>() {
 
 			@Override
 			public boolean evaluate(Card card) {
-					return card.getSuit() == mark;
+					return card.getSuit() == suit;
 			}
 		} );
 	}

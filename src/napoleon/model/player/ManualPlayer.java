@@ -1,4 +1,4 @@
-package napoleon.player;
+package napoleon.model.player;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,7 +13,6 @@ import com.sun.xml.internal.ws.util.xml.NodeListIterator;
 
 import napoleon.model.card.Card;
 import napoleon.model.card.Suit;
-import napoleon.model.player.Player;
 import napoleon.model.rule.Declaration;
 import napoleon.model.rule.Turn;
 import napoleon.view.Viewer;
@@ -52,7 +51,7 @@ public class ManualPlayer extends napoleon.model.player.Player {
 	protected Card chooseCardToOpen(Turn turn, Viewer viewer, Declaration declaration) {
 		Card toOpen = null;
 		while(toOpen == null) {
-			viewer.showMessage(String.format("this turn opened %s, trump is %s", turn.getCards(), turn.getTrump()));
+			viewer.showMessage(String.format("this turn opened %s, %s", turn.getCards(), declaration));
 			viewer.showMessage(String.format("You have %s", viewer.sortCardsToView(cards)));
 			toOpen = rejectInvalidCard(inputCard(viewer, turn), turn, viewer);
 		}
@@ -83,7 +82,7 @@ public class ManualPlayer extends napoleon.model.player.Player {
 			return card;
 		}
 		
-		if(turn.isLeadSuitDefined() && findSameMark(cards, turn.getLeadSuit()) != null){
+		if(turn.isLeadSuitDefined() && !findSameMark(cards, turn.getLeadSuit()).isEmpty()){
 			if(card.getSuit() != turn.getLeadSuit()){
 				viewer.showMessage("ë‰éDÇ™Ç†ÇÈèÍçáÇÕÅAë‰éDÇÇæÇ≥Ç»ÇØÇÍÇŒÇ»ÇËÇ‹ÇπÇÒÅB");
 				return null;
