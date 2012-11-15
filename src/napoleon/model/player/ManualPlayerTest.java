@@ -195,6 +195,24 @@ public class ManualPlayerTest {
 	}
 
 	@Test
+	public void T03_切り札請求された場合切り札を出さなければならないけどないときはOK(){
+		new Expectations() {
+			{
+				turn.isJorkerOpenedFirst(); returns(true);
+				turn.getTrump(); returns(Suit.Dia);
+			}
+		};
+		
+		final ManualPlayer player = ManualPlayer.New("hoge");
+		final Card heart13 = Card.New(Suit.Heart, 12);
+		player.takeCard(heart13);
+		player.takeCard(Card.New(Suit.Club, 3));
+		
+		assertThat(player.rejectInvalidCard(heart13, turn, viewer), equalTo(heart13));
+	}
+
+	
+	@Test
 	public void T03_ジョーカー請求された場合ジョーカーを出さなければならない(){
 		new Expectations() {
 			{
@@ -214,6 +232,23 @@ public class ManualPlayerTest {
 		
 		assertThat(player.rejectInvalidCard(Card.New(Suit.Heart, 12), turn, viewer), IsNull.nullValue());
 		assertThat(player.rejectInvalidCard(Card.New(Suit.Dia, 3), turn, viewer), IsNull.nullValue());
+	}
+
+	@Test
+	public void T03_ジョーカー請求された場合ジョーカーを出さなければならないがないときはOK(){
+		new Expectations() {
+			{
+				turn.isJorkerOpenedFirst(); returns(false);
+				turn.isRequireJorkerOpenedFirst(); returns(true);
+			}
+		};
+		
+		final ManualPlayer player = ManualPlayer.New("hoge");
+		final Card heart12 = Card.New(Suit.Heart, 12);
+		player.takeCard(heart12);
+		player.takeCard(Card.New(Suit.Dia, 3));
+		
+		assertThat(player.rejectInvalidCard(heart12, turn, viewer), equalTo(heart12));
 	}
 	
 }

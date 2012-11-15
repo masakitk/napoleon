@@ -67,7 +67,8 @@ public class ManualPlayer extends napoleon.model.player.Player {
 		}
 
 		if(turn.isJorkerOpenedFirst()) {
-			if(card.getSuit() != turn.getTrump()) {
+			final Suit trump = turn.getTrump();
+			if(hasAnyCardOf(trump) && card.getSuit() != trump) {
 				viewer.showMessage("切り札請求された場合は、切り札をださなければなりません。");
 				return null;
 			}
@@ -75,7 +76,7 @@ public class ManualPlayer extends napoleon.model.player.Player {
 		}
 
 		if(turn.isRequireJorkerOpenedFirst()) {
-			if(!card.equals(Card.Jorker)) {
+			if(hasCard(Card.Jorker) && !card.equals(Card.Jorker)) {
 				viewer.showMessage("ジョーカー請求された場合は、ジョーカーをださなければなりません。");
 				return null;
 			}
@@ -89,6 +90,16 @@ public class ManualPlayer extends napoleon.model.player.Player {
 			}
 		}
 		return card;
+	}
+
+	private boolean hasAnyCardOf(final Suit suit) {
+		return CollectionUtils.exists(cards, new Predicate<Card>() {
+
+			@Override
+			public boolean evaluate(Card card) {
+				return card.getSuit() == suit;
+			}
+		});
 	}
 
 	Card inputCard(Viewer viewer, Turn turn) {
