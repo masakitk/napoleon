@@ -3,6 +3,7 @@ package napoleon.model.role;
 import napoleon.model.player.Napoleon;
 import napoleon.model.player.Player;
 import napoleon.model.rule.Table;
+import napoleon.view.ConsoleViewer;
 
 public class DirectorEx extends Director {
 
@@ -19,6 +20,7 @@ public class DirectorEx extends Director {
 		instance.table = table;
 		instance.dealer = dealer;
 		instance.players = players;
+		instance.viewer = ConsoleViewer.GetInstance();
 		return instance;
 	}
 

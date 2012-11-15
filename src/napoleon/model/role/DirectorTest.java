@@ -192,9 +192,20 @@ public class DirectorTest {
 	public void T07_ƒiƒ|ƒŒƒIƒ“ŒR‚ªŠGD‚ğéŒ¾–‡”æ“¾‚µ‚½‚çƒiƒ|ƒŒƒIƒ“ŒR‚ÌŸ‚¿(){
 		new Expectations() {
 			{
+				napoleon.cardsGained(); returns(any);
+				player1.getName(); returns(any);
+				player1.cardsGained(); returns(any);
+				player2.getName(); returns(any);
+				player2.cardsGained(); returns(any);
+				player3.getName(); returns(any);
+				player3.cardsGained(); returns(any);
+				player4.getName(); returns(any);
+				player4.cardsGained(); returns(any);
 				player1.isAdjutant(); returns(true);
 				napoleon.getGainedCardCount(); returns(10);
 				player1.getGainedCardCount(); returns(5);
+				player1.isAdjutant(); returns(true);
+				player1.getName(); returns(any);
 			 }
 		};
 		director.napoleon = napoleon;
@@ -206,9 +217,20 @@ public class DirectorTest {
 	public void T08_ƒiƒ|ƒŒƒIƒ“ŒR‚ªŠGD‚ğéŒ¾–‡”æ“¾‚Å‚«‚È‚©‚Á‚½‚ç˜A‡ŒR‚ÌŸ‚¿(){
 		new Expectations() {
 			{
+				napoleon.cardsGained(); returns(any);
+				player1.getName(); returns(any);
+				player1.cardsGained(); returns(any);
+				player2.getName(); returns(any);
+				player2.cardsGained(); returns(any);
+				player3.getName(); returns(any);
+				player3.cardsGained(); returns(any);
+				player4.getName(); returns(any);
+				player4.cardsGained(); returns(any);
 				player1.isAdjutant(); returns(true);
 				napoleon.getGainedCardCount(); returns(10);
 				player1.getGainedCardCount(); returns(5);
+				player1.isAdjutant(); returns(true);
+				player1.getName(); returns(any);
 			 }
 		};
 		director.napoleon = napoleon;

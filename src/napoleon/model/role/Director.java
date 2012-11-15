@@ -43,18 +43,18 @@ public class Director implements Serializable {
 	private Integer currentTurnNo = 1;
 	private Logger logger;
 	private Card cardOfAdjutant;
-	private Viewer viewer;
+	protected Viewer viewer;
 	
 	protected Director(){
 		logger = LogManager.getLogger(Director.class.getName());
 	}
 
-	public static Director New(Table table, Player[] players) {
+	public static Director New(Table table, Player[] players, ConsoleViewer viewer) {
 		Director instance = new Director();
 		instance.table = table;
 		instance.dealer = Dealer.New(GameContext.New(table, players));
 		instance.players = players;
-		instance.viewer = ConsoleViewer.GetInstance();
+		instance.viewer = viewer;
 		return instance;
 	}
 
@@ -85,7 +85,7 @@ public class Director implements Serializable {
 				fixedDeclaration = currentDeclaration;
 				napoleon = Napoleon.New(player);
 				players[Arrays.asList(players).indexOf(player)] = napoleon;
-				System.out.println(String.format("napoleon fixed:%s, %s", napoleon, fixedDeclaration));
+				logger.info(String.format("Åönapoleon fixed:%s, %s", napoleon, fixedDeclaration));
 				return;
 			}
 			currentDeclaration = askForDeclare(currentDeclaration, lastDeclarationsOfPlayer, player);
@@ -93,7 +93,7 @@ public class Director implements Serializable {
 		
 		if(allPlayerPassed(lastDeclarationsOfPlayer)) {
 			isNobodyDeclared = true;
-			System.out.println("all players passed.");
+			logger.info("Åöall players passed.");
 			return;
 		}
 		defineNapoleon(currentDeclaration, lastDeclarationsOfPlayer);
@@ -107,7 +107,7 @@ public class Director implements Serializable {
 		}
 		
 		lastDeclarationsOfPlayer.put(player, declaration);
-		System.out.println(String.format("%s\t%s", player, declaration));
+		logger.info(String.format("%s\t%s", player, declaration));
 		if(declaration != Declaration.Pass) {
 			currentDeclaration = declaration;
 		}
@@ -167,10 +167,11 @@ public class Director implements Serializable {
 		Turn turn = getTurn(turnNo);
 		for (Player p : getPlayersForTurn(turnNo)){
 			turn.addCard(p, p.openCard(turn, viewer, fixedDeclaration));
-			logger.debug(p);
+//			logger.debug(p);
 		}
 		
 		turn.winnerGainCards();
+		viewer.showMessage(String.format("Åöturn[%d], winner[%s]", currentTurnNo, getTurnWinner(currentTurnNo)));
 		currentTurnNo++;
 	}
 
@@ -184,7 +185,7 @@ public class Director implements Serializable {
 //		System.out.println(String.format("leadPlayerIndex:%d", leadPlayerIndex));
 		for(int i = 0; i < Table._PLAYERS_COUNT; i++){
 			Player p = players[(leadPlayerIndex + i) % Table._PLAYERS_COUNT];
-//			System.out.println(p);
+			logger.info(p);
 			list.add(p);
 		}
 		return list;
@@ -195,6 +196,18 @@ public class Director implements Serializable {
 	}
 	
 	public Team JudgeWinnerTeam(){
+		viewer.showMessage(String.format("napoleon gained %s", getNapoleon().cardsGained()));
+		for (Player p : players) {
+			viewer.showMessage(String.format("player %s gained %s", p.getName(), p.cardsGained()));
+		}
+
+		final Team winnerTeam = getWinnerTeam();
+		viewer.showMessage(String.format("adjutant is %s", getAdjutantName()));
+		viewer.showMessage(String.format("winner is %s", winnerTeam));
+		return winnerTeam;
+	}
+
+	protected Team getWinnerTeam() {
 		if(fixedDeclaration.getCardsToCollect() <= getCardCountNapleonTeamGained()){
 			return Team.NapoleonTeam;
 		} else {

@@ -90,7 +90,7 @@ public class Card {
 	
 	@Override
 	public String toString() {
-		return isJorker ? "[Jorker]" : String.format("[%s:%d]", suit, getNumber());
+		return isJorker ? "[Jorker]" : String.format("[%s:%d]", suit.toShortString(), getNumber());
 	}
 
 	public boolean strongerThanAsSuitAndNumber(Card card2) {

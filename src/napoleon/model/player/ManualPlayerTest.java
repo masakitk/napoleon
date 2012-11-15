@@ -31,7 +31,7 @@ public class ManualPlayerTest {
 	Declaration declaration = Declaration.New(Suit.Club, 13);
 
 	@Test
-	public void T01_•W€“ü—Í‚©‚ç“ü—Í‚ğó‚¯•t‚¯‚é‚±‚Æ(){
+	public void T01_æ¨™æº–å…¥åŠ›ã‹ã‚‰å…¥åŠ›ã‚’å—ã‘ä»˜ã‘ã‚‹ã“ã¨(){
 		new Expectations() {
 			{
 				new Scanner((BufferedInputStream)any); returns(any);
@@ -46,12 +46,12 @@ public class ManualPlayerTest {
 	}
 
 	@Test
-	public void T01a_ƒX[ƒg“ü—Í•s”õ‚Í‚¨‚±‚ç‚ê‚é(){
+	public void T01a_ã‚¹ãƒ¼ãƒˆå…¥åŠ›ä¸å‚™ã¯ãŠã“ã‚‰ã‚Œã‚‹(){
 		new Expectations() {
 			{
 				new Scanner((BufferedInputStream)any); returns(any);
 				scanner.nextLine(); returns("A3"); 
-				viewer.showMessage("1•¶š–Ú‚ÍS,H,D,C‚Ì‚¢‚¸‚ê‚©‚É‚µ‚Ä‰º‚³‚¢B");
+				viewer.showMessage("1æ–‡å­—ç›®ã¯S,H,D,Cã®ã„ãšã‚Œã‹ã«ã—ã¦ä¸‹ã•ã„ã€‚");
 			}
 		};
 		final ManualPlayer player = ManualPlayer.New("hoge");
@@ -62,7 +62,7 @@ public class ManualPlayerTest {
 	}
 
 	@Test
-	public void T01a_Jorker‚Ío‚¹‚é(){
+	public void T01a_Jorkerã¯å‡ºã›ã‚‹(){
 		new Expectations() {
 			{
 				new Scanner((BufferedInputStream)any); returns(any);
@@ -77,20 +77,20 @@ public class ManualPlayerTest {
 	}
 
 	@Test
-	public void T01b_”’l“ü—Í•s”õ‚Í‚¨‚±‚ç‚ê‚é(){
+	public void T01b_æ•°å€¤å…¥åŠ›ä¸å‚™ã¯ãŠã“ã‚‰ã‚Œã‚‹(){
 		new Expectations() {
 			{
 				new Scanner((BufferedInputStream)any); returns(any);
 				scanner.nextLine(); returns("H0"); 
-				viewer.showMessage("”š‚ª1‚©‚ç13‚Ì”ÍˆÍ‚É‚ ‚è‚Ü‚¹‚ñB");
+				viewer.showMessage("æ•°å­—ãŒ1ã‹ã‚‰13ã®ç¯„å›²ã«ã‚ã‚Šã¾ã›ã‚“ã€‚");
 				
 				new Scanner((BufferedInputStream)any); returns(any);
 				scanner.nextLine(); returns("H14"); 
-				viewer.showMessage("”š‚ª1‚©‚ç13‚Ì”ÍˆÍ‚É‚ ‚è‚Ü‚¹‚ñB");
+				viewer.showMessage("æ•°å­—ãŒ1ã‹ã‚‰13ã®ç¯„å›²ã«ã‚ã‚Šã¾ã›ã‚“ã€‚");
 				
 				new Scanner((BufferedInputStream)any); returns(any);
 				scanner.nextLine(); returns("Habc"); 
-				viewer.showMessage("2•¶š–ÚˆÈ~‚Í1`13‚Ì”š‚ğ“ü—Í‚µ‚Ä‰º‚³‚¢B");
+				viewer.showMessage("2æ–‡å­—ç›®ä»¥é™ã¯1ï½13ã®æ•°å­—ã‚’å…¥åŠ›ã—ã¦ä¸‹ã•ã„ã€‚");
 			}
 		};
 		final ManualPlayer player = ManualPlayer.New("hoge");
@@ -103,7 +103,7 @@ public class ManualPlayerTest {
 	}
 
 	@Test
-	public void T02_‚Á‚Ä‚È‚¢ƒJ[ƒh‚ğw’è‚µ‚½‚çÄ“ü—Í(){
+	public void T02_æŒã£ã¦ãªã„ã‚«ãƒ¼ãƒ‰ã‚’æŒ‡å®šã—ãŸã‚‰å†å…¥åŠ›(){
 		new Expectations() {
 			{
 				@SuppressWarnings("serial")
@@ -111,15 +111,15 @@ public class ManualPlayerTest {
 				turn.getCards(); returns(new ArrayList<Card>());
 				viewer.showMessage("this turn opened [], Declaration [runForNapoleon=true, suit=Club, cardsToCollect=13]");
 				viewer.sortCardsToView(anyCards); returns(anyCards);
-				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
+				viewer.showMessage("You have [[â™¥:12], [â—†:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
 				scanner.nextLine(); returns("S3");
-				viewer.showMessage("‚»‚ÌƒJ[ƒh‚Í‚Á‚Ä‚¢‚Ü‚¹‚ñB");
+				viewer.showMessage("ãã®ã‚«ãƒ¼ãƒ‰ã¯æŒã£ã¦ã„ã¾ã›ã‚“ã€‚");
 
 				turn.getCards(); returns(new ArrayList<Card>());
 				viewer.showMessage("this turn opened [], Declaration [runForNapoleon=true, suit=Club, cardsToCollect=13]");
 				viewer.sortCardsToView(anyCards); returns(anyCards);
-				viewer.showMessage("You have [[Heart:12], [Dia:3]]");
+				viewer.showMessage("You have [[â™¥:12], [â—†:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
 				scanner.nextLine(); returns("D3");
 				turn.isJorkerOpenedFirst(); returns(false);
@@ -139,7 +139,7 @@ public class ManualPlayerTest {
 	}
 
 	@Test
-	public void T03_‘äD‚ª‚ ‚éê‡‚É‘äD‚ğo‚³‚È‚¯‚ê‚Î‚È‚ç‚È‚¢(){
+	public void T03_å°æœ­ãŒã‚ã‚‹å ´åˆã«å°æœ­ã‚’å‡ºã•ãªã‘ã‚Œã°ãªã‚‰ãªã„(){
 		new Expectations() {
 			{
 				turn.isJorkerOpenedFirst(); returns(false);
@@ -147,7 +147,7 @@ public class ManualPlayerTest {
 				turn.isLeadSuitDefined(); returns(true);
 				turn.getLeadSuit(); returns(Suit.Dia);
 				turn.getLeadSuit(); returns(Suit.Dia);
-				viewer.showMessage("‘äD‚ª‚ ‚éê‡‚ÍA‘äD‚ğ‚¾‚³‚È‚¯‚ê‚Î‚È‚è‚Ü‚¹‚ñB");
+				viewer.showMessage("å°æœ­ãŒã‚ã‚‹å ´åˆã¯ã€å°æœ­ã‚’ã ã•ãªã‘ã‚Œã°ãªã‚Šã¾ã›ã‚“ã€‚");
 			}
 		};
 		
@@ -159,7 +159,7 @@ public class ManualPlayerTest {
 	}
 
 	@Test
-	public void T03_‘äD‚ª‚È‚¢ê‡‚Í‚È‚ñ‚Å‚àOK(){
+	public void T03_å°æœ­ãŒãªã„å ´åˆã¯ãªã‚“ã§ã‚‚OK(){
 		new Expectations() {
 			{
 				turn.isJorkerOpenedFirst(); returns(false);
@@ -178,12 +178,12 @@ public class ManualPlayerTest {
 	}
 	
 	@Test
-	public void T03_Ø‚èD¿‹‚³‚ê‚½ê‡Ø‚èD‚ğo‚³‚È‚¯‚ê‚Î‚È‚ç‚È‚¢(){
+	public void T03_åˆ‡ã‚Šæœ­è«‹æ±‚ã•ã‚ŒãŸå ´åˆåˆ‡ã‚Šæœ­ã‚’å‡ºã•ãªã‘ã‚Œã°ãªã‚‰ãªã„(){
 		new Expectations() {
 			{
 				turn.isJorkerOpenedFirst(); returns(true);
 				turn.getTrump(); returns(Suit.Dia);
-				viewer.showMessage("Ø‚èD¿‹‚³‚ê‚½ê‡‚ÍAØ‚èD‚ğ‚¾‚³‚È‚¯‚ê‚Î‚È‚è‚Ü‚¹‚ñB");
+				viewer.showMessage("åˆ‡ã‚Šæœ­è«‹æ±‚ã•ã‚ŒãŸå ´åˆã¯ã€åˆ‡ã‚Šæœ­ã‚’ã ã•ãªã‘ã‚Œã°ãªã‚Šã¾ã›ã‚“ã€‚");
 			}
 		};
 		
@@ -195,7 +195,7 @@ public class ManualPlayerTest {
 	}
 
 	@Test
-	public void T03_Ø‚èD¿‹‚³‚ê‚½ê‡Ø‚èD‚ğo‚³‚È‚¯‚ê‚Î‚È‚ç‚È‚¢‚¯‚Ç‚È‚¢‚Æ‚«‚ÍOK(){
+	public void T03_åˆ‡ã‚Šæœ­è«‹æ±‚ã•ã‚ŒãŸå ´åˆåˆ‡ã‚Šæœ­ã‚’å‡ºã•ãªã‘ã‚Œã°ãªã‚‰ãªã„ã‘ã©ãªã„ã¨ãã¯OK(){
 		new Expectations() {
 			{
 				turn.isJorkerOpenedFirst(); returns(true);
@@ -213,15 +213,15 @@ public class ManualPlayerTest {
 
 	
 	@Test
-	public void T03_ƒWƒ‡[ƒJ[¿‹‚³‚ê‚½ê‡ƒWƒ‡[ƒJ[‚ğo‚³‚È‚¯‚ê‚Î‚È‚ç‚È‚¢(){
+	public void T03_ã‚¸ãƒ§ãƒ¼ã‚«ãƒ¼è«‹æ±‚ã•ã‚ŒãŸå ´åˆã‚¸ãƒ§ãƒ¼ã‚«ãƒ¼ã‚’å‡ºã•ãªã‘ã‚Œã°ãªã‚‰ãªã„(){
 		new Expectations() {
 			{
 				turn.isJorkerOpenedFirst(); returns(false);
 				turn.isRequireJorkerOpenedFirst(); returns(true);
-				viewer.showMessage("ƒWƒ‡[ƒJ[¿‹‚³‚ê‚½ê‡‚ÍAƒWƒ‡[ƒJ[‚ğ‚¾‚³‚È‚¯‚ê‚Î‚È‚è‚Ü‚¹‚ñB");
+				viewer.showMessage("ã‚¸ãƒ§ãƒ¼ã‚«ãƒ¼è«‹æ±‚ã•ã‚ŒãŸå ´åˆã¯ã€ã‚¸ãƒ§ãƒ¼ã‚«ãƒ¼ã‚’ã ã•ãªã‘ã‚Œã°ãªã‚Šã¾ã›ã‚“ã€‚");
 				turn.isJorkerOpenedFirst(); returns(false);
 				turn.isRequireJorkerOpenedFirst(); returns(true);
-				viewer.showMessage("ƒWƒ‡[ƒJ[¿‹‚³‚ê‚½ê‡‚ÍAƒWƒ‡[ƒJ[‚ğ‚¾‚³‚È‚¯‚ê‚Î‚È‚è‚Ü‚¹‚ñB");
+				viewer.showMessage("ã‚¸ãƒ§ãƒ¼ã‚«ãƒ¼è«‹æ±‚ã•ã‚ŒãŸå ´åˆã¯ã€ã‚¸ãƒ§ãƒ¼ã‚«ãƒ¼ã‚’ã ã•ãªã‘ã‚Œã°ãªã‚Šã¾ã›ã‚“ã€‚");
 			}
 		};
 		
@@ -235,7 +235,7 @@ public class ManualPlayerTest {
 	}
 
 	@Test
-	public void T03_ƒWƒ‡[ƒJ[¿‹‚³‚ê‚½ê‡ƒWƒ‡[ƒJ[‚ğo‚³‚È‚¯‚ê‚Î‚È‚ç‚È‚¢‚ª‚È‚¢‚Æ‚«‚ÍOK(){
+	public void T03_ã‚¸ãƒ§ãƒ¼ã‚«ãƒ¼è«‹æ±‚ã•ã‚ŒãŸå ´åˆã‚¸ãƒ§ãƒ¼ã‚«ãƒ¼ã‚’å‡ºã•ãªã‘ã‚Œã°ãªã‚‰ãªã„ãŒãªã„ã¨ãã¯OK(){
 		new Expectations() {
 			{
 				turn.isJorkerOpenedFirst(); returns(false);
