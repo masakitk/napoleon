@@ -184,7 +184,7 @@ public class Director implements Serializable {
 
 	private Collection<Player> getPlayersForTurn(int turnNo) {
 		ArrayList<Player> list = new ArrayList<Player>(); 
-		int leadPlayerIndex = turnNo == 1 ? 0 : Arrays.asList(players).indexOf(getTurnWinnerName(turnNo - 1));
+		int leadPlayerIndex = turnNo == 1 ? 0 : Arrays.asList(players).indexOf(getTurnWinner(turnNo - 1));
 //		System.out.println(String.format("leadPlayerIndex:%d", leadPlayerIndex));
 		for(int i = 0; i < Table._PLAYERS_COUNT; i++){
 			Player p = players[(leadPlayerIndex + i) % Table._PLAYERS_COUNT];
@@ -194,8 +194,12 @@ public class Director implements Serializable {
 		return list;
 	}
 
+	private Player getTurnWinner(int turnNo) {
+		return getTurn(turnNo).getWinner();
+	}
+
 	public String getTurnWinnerName(int turnNo) {
-		return getTurn(turnNo).getWinner().getName();
+		return getTurnWinner(turnNo).getName();
 	}
 	
 	public Team JudgeWinnerTeam(){
