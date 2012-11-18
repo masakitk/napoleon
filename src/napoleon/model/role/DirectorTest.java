@@ -68,6 +68,7 @@ public class DirectorTest {
 				player3.AskForDeclare(declarationOfClub13, (Viewer)any); returns(Declaration.Pass);
 				player4.AskForDeclare(declarationOfClub13, (Viewer)any); returns(Declaration.Pass);
 				Napoleon.New(player1); returns(napoleon);
+				napoleon.getName(); returns(any);
 				dealer.hasServed(); returns(true); 
 			}
 		};
@@ -94,6 +95,7 @@ public class DirectorTest {
 				player1.AskForDeclare(declarationOfHeart14, (Viewer)any); returns(Declaration.Pass);
 				player2.AskForDeclare(declarationOfHeart14, (Viewer)any); returns(Declaration.Pass);
 				Napoleon.New(player3); returns(napoleon);
+				napoleon.getName(); returns(any);
 				dealer.hasServed(); returns(true); 
 			}
 		};
@@ -131,6 +133,7 @@ public class DirectorTest {
 				player3.AskForDeclare(declarationOfSpade13, (Viewer)any); returns(Declaration.Pass);
 				player4.AskForDeclare(declarationOfSpade13, (Viewer)any); returns(Declaration.Pass);
 				Napoleon.New(player1); returns(napoleon);
+				napoleon.getName(); returns(any);
 				dealer.hasServed(); returns(true); 
 			}
 		 };
@@ -168,11 +171,20 @@ public class DirectorTest {
 		new Expectations() {
 			{
 				 dealer.hasServed(); returns(true);
+				 player1.getName(); returns("1");
+				 player1.cardsGained(); returns(any);
 				 player1.openCard((Turn) any, (Viewer) any, (Declaration) any); returns(Card.New(Suit.Spade, 3));
+				 player2.getName(); returns("2");
+				 player2.cardsGained(); returns(any);
 				 player2.openCard((Turn) any, (Viewer) any, (Declaration) any); returns(Card.New(Suit.Spade, 8));
+				 player3.getName(); returns("3");
+				 player3.cardsGained(); returns(any);
 				 player3.openCard((Turn) any, (Viewer) any, (Declaration) any); returns(Card.New(Suit.Heart, 9));
+				 player4.getName(); returns("4");
+				 player4.cardsGained(); returns(any);
 				 player4.openCard((Turn) any, (Viewer) any, (Declaration) any); returns(Card.New(Suit.Spade, 5));
 				 player2.takeCards((Collection<Card>) any);
+				 player2.getName(); returns("2");
 			 }
 		};
 		director.SetExtraCardChanged(true);
@@ -183,7 +195,6 @@ public class DirectorTest {
 		assertThat(director.getCurrentTurnNo(), equalTo(1));
 		assertThat(director.getCurrentTurnStatus(), equalTo(TurnStatus.HasNotYetBegan));
 		director.beginTurn(1);
-		assertThat(director.getTurnWinner(1), equalTo(player2));
 		assertThat(director.getCurrentTurnNo(), equalTo(2));
 		assertThat(director.getCurrentTurnStatus(), equalTo(TurnStatus.HasNotYetBegan));
 	}

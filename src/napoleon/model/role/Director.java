@@ -86,6 +86,7 @@ public class Director implements Serializable {
 				napoleon = Napoleon.New(player);
 				players[Arrays.asList(players).indexOf(player)] = napoleon;
 				logger.info(String.format("Åönapoleon fixed:%s, %s", napoleon, fixedDeclaration));
+				viewer.showMessage(String.format("Åönapoleon fixed:%s, %s", napoleon.getName(), fixedDeclaration.toShow()));
 				return;
 			}
 			currentDeclaration = askForDeclare(currentDeclaration, lastDeclarationsOfPlayer, player);
@@ -146,6 +147,7 @@ public class Director implements Serializable {
 	public void askForAdjutant() {
 		cardOfAdjutant = getNapoleon().tellTheAdjutant(fixedDeclaration);
 		logger.info(String.format("adjutant card is %s", cardOfAdjutant));
+		viewer.showMessage(String.format("adjutant is who having %s", cardOfAdjutant));
 		Player adjutant = findAdjutant(cardOfAdjutant);
 		if(null == adjutant) return;
 		adjutant.setIsAdjutant(true);
@@ -166,12 +168,13 @@ public class Director implements Serializable {
 	public void beginTurn(int turnNo) {
 		Turn turn = getTurn(turnNo);
 		for (Player p : getPlayersForTurn(turnNo)){
+			System.out.println(String.format("player:%s / Gained:%s", p.getName(), p.cardsGained()));
 			turn.addCard(p, p.openCard(turn, viewer, fixedDeclaration));
 //			logger.debug(p);
 		}
 		
 		turn.winnerGainCards();
-		viewer.showMessage(String.format("Åöturn[%d], winner[%s]", currentTurnNo, getTurnWinner(currentTurnNo)));
+		viewer.showMessage(String.format("Åöturn[%d], winner[%s]", currentTurnNo, getTurnWinnerName(currentTurnNo)));
 		currentTurnNo++;
 	}
 
@@ -181,7 +184,7 @@ public class Director implements Serializable {
 
 	private Collection<Player> getPlayersForTurn(int turnNo) {
 		ArrayList<Player> list = new ArrayList<Player>(); 
-		int leadPlayerIndex = turnNo == 1 ? 0 : Arrays.asList(players).indexOf(getTurnWinner(turnNo - 1));
+		int leadPlayerIndex = turnNo == 1 ? 0 : Arrays.asList(players).indexOf(getTurnWinnerName(turnNo - 1));
 //		System.out.println(String.format("leadPlayerIndex:%d", leadPlayerIndex));
 		for(int i = 0; i < Table._PLAYERS_COUNT; i++){
 			Player p = players[(leadPlayerIndex + i) % Table._PLAYERS_COUNT];
@@ -191,8 +194,8 @@ public class Director implements Serializable {
 		return list;
 	}
 
-	public Player getTurnWinner(int turnNo) {
-		return getTurn(turnNo).getWinner();
+	public String getTurnWinnerName(int turnNo) {
+		return getTurn(turnNo).getWinner().getName();
 	}
 	
 	public Team JudgeWinnerTeam(){
@@ -200,7 +203,8 @@ public class Director implements Serializable {
 		for (Player p : players) {
 			viewer.showMessage(String.format("player %s gained %s", p.getName(), p.cardsGained()));
 		}
-
+		viewer.showMessage(String.format("table cards are %s", table.getNoUseCards()));
+		
 		final Team winnerTeam = getWinnerTeam();
 		viewer.showMessage(String.format("adjutant is %s", getAdjutantName()));
 		viewer.showMessage(String.format("winner is %s", winnerTeam));

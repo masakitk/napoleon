@@ -143,5 +143,8 @@ public class Turn {
 	public Collection<Card> getCards() {
 		return cardHash.values();
 	}
-	
+
+	public HashMap<Player, Card> getCardHash() {
+		return cardHash;
+	}
 }

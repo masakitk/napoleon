@@ -43,7 +43,6 @@ public class Player {
 	public Card openCard(Turn turn, Viewer viewer, Declaration declaration) {
 		Card toOpen = chooseCardToOpen(turn, viewer, declaration);
 
-		System.out.println(String.format("player:%s / Open:%s", this, toOpen));
 		cards.remove(toOpen);
 		return toOpen;
 	}

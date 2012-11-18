@@ -83,4 +83,8 @@ public class Declaration {
 	public int getCardsToCollect() {
 		return cardsToCollect;
 	}
+
+	public String toShow() {
+		return String.format("%s:%d", suit, cardsToCollect);
+	}
 }

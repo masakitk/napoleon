@@ -3,11 +3,15 @@ package napoleon.model.player;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import org.apache.commons.collections15.CollectionUtils;
 import org.apache.commons.collections15.Predicate;
+import org.apache.commons.collections15.Transformer;
 
 import com.sun.xml.internal.ws.util.xml.NodeListIterator;
 
@@ -19,7 +23,7 @@ import napoleon.view.Viewer;
 
 public class ManualPlayer extends napoleon.model.player.Player {
 
-	private String INPUT_INFORMATION_TEXT = "1•¶š–Ú‚ÉƒX[ƒg(S,H,D,C‚Ì‚¢‚¸‚ê‚©)A2•¶š–ÚˆÈ~‚É1`13‚Ì”š‚ğ“ü—Í‚µ‚Ä‰º‚³‚¢B";
+	private String INPUT_INFORMATION_TEXT = "1æ–‡å­—ç›®ã«ã‚¹ãƒ¼ãƒˆ(S,H,D,Cã®ã„ãšã‚Œã‹)ã€2æ–‡å­—ç›®ä»¥é™ã«1ï½13ã®æ•°å­—ã‚’å…¥åŠ›ã—ã¦ä¸‹ã•ã„ã€‚";
 
 	public ManualPlayer(String name) {
 		super(name);
@@ -51,25 +55,36 @@ public class ManualPlayer extends napoleon.model.player.Player {
 	protected Card chooseCardToOpen(Turn turn, Viewer viewer, Declaration declaration) {
 		Card toOpen = null;
 		while(toOpen == null) {
-			viewer.showMessage(String.format("this turn opened %s, %s", turn.getCards(), declaration));
+			viewer.showMessage(String.format("this turn opened %s, declaration is %s", convertNamesAndCards((Collection<Entry<Player, Card>>)turn.getCardHash().entrySet()), declaration.toShow()));
 			viewer.showMessage(String.format("You have %s", viewer.sortCardsToView(cards)));
 			toOpen = rejectInvalidCard(inputCard(viewer, turn), turn, viewer);
 		}
 		return toOpen;
 	}
 
+	private Collection<String> convertNamesAndCards(Collection<Entry<Player, Card>> cardHash) {
+		
+		return CollectionUtils.collect(cardHash, new Transformer<Entry<Player, Card>, String>() {
+
+			@Override
+			public String transform(Entry<Player, Card> entry) {
+				return String.format("%s:%s", entry.getKey().getName(), entry.getValue());
+			}
+		});
+	}
+
 	Card rejectInvalidCard(Card card, Turn turn, Viewer viewer) {
 		if(card == null) return null;
 		
 		if(!hasCard(card)) {
-			viewer.showMessage("‚»‚ÌƒJ[ƒh‚Í‚Á‚Ä‚¢‚Ü‚¹‚ñB");
+			viewer.showMessage("ãã®ã‚«ãƒ¼ãƒ‰ã¯æŒã£ã¦ã„ã¾ã›ã‚“ã€‚");
 			return null;
 		}
 
 		if(turn.isJorkerOpenedFirst()) {
 			final Suit trump = turn.getTrump();
 			if(hasAnyCardOf(trump) && card.getSuit() != trump) {
-				viewer.showMessage("Ø‚èD¿‹‚³‚ê‚½ê‡‚ÍAØ‚èD‚ğ‚¾‚³‚È‚¯‚ê‚Î‚È‚è‚Ü‚¹‚ñB");
+				viewer.showMessage("åˆ‡ã‚Šæœ­è«‹æ±‚ã•ã‚ŒãŸå ´åˆã¯ã€åˆ‡ã‚Šæœ­ã‚’ã ã•ãªã‘ã‚Œã°ãªã‚Šã¾ã›ã‚“ã€‚");
 				return null;
 			}
 			return card;
@@ -77,7 +92,7 @@ public class ManualPlayer extends napoleon.model.player.Player {
 
 		if(turn.isRequireJorkerOpenedFirst()) {
 			if(hasCard(Card.Jorker) && !card.equals(Card.Jorker)) {
-				viewer.showMessage("ƒWƒ‡[ƒJ[¿‹‚³‚ê‚½ê‡‚ÍAƒWƒ‡[ƒJ[‚ğ‚¾‚³‚È‚¯‚ê‚Î‚È‚è‚Ü‚¹‚ñB");
+				viewer.showMessage("ã‚¸ãƒ§ãƒ¼ã‚«ãƒ¼è«‹æ±‚ã•ã‚ŒãŸå ´åˆã¯ã€ã‚¸ãƒ§ãƒ¼ã‚«ãƒ¼ã‚’ã ã•ãªã‘ã‚Œã°ãªã‚Šã¾ã›ã‚“ã€‚");
 				return null;
 			}
 			return card;
@@ -85,7 +100,7 @@ public class ManualPlayer extends napoleon.model.player.Player {
 		
 		if(turn.isLeadSuitDefined() && !findSameMark(cards, turn.getLeadSuit()).isEmpty()){
 			if(card.getSuit() != turn.getLeadSuit()){
-				viewer.showMessage("‘äD‚ª‚ ‚éê‡‚ÍA‘äD‚ğ‚¾‚³‚È‚¯‚ê‚Î‚È‚è‚Ü‚¹‚ñB");
+				viewer.showMessage("å°æœ­ãŒã‚ã‚‹å ´åˆã¯ã€å°æœ­ã‚’ã ã•ãªã‘ã‚Œã°ãªã‚Šã¾ã›ã‚“ã€‚");
 				return null;
 			}
 		}
@@ -139,7 +154,7 @@ public class ManualPlayer extends napoleon.model.player.Player {
 	protected String InputSuitAndNumber(Viewer viewer) {
 		String input;
 		try{
-			input = getInputString("input card(Ex. S1:SpadeAAH13:Heart13 etc..");
+			input = getInputString("input card(Ex. S1:â™ Aã€H13:â™¥13 etc..");
 		} catch (NoSuchElementException e) {
 			return InputSuitAndNumber(viewer);
 		}
@@ -155,21 +170,21 @@ public class ManualPlayer extends napoleon.model.player.Player {
 		if(suitPart.toUpperCase().equals("H")) return Suit.Heart;
 		if(suitPart.toUpperCase().equals("D")) return Suit.Dia;
 		if(suitPart.toUpperCase().equals("C")) return Suit.Club;
-		throw new IllegalArgumentException("1•¶š–Ú‚ÍS,H,D,C‚Ì‚¢‚¸‚ê‚©‚É‚µ‚Ä‰º‚³‚¢B");
+		throw new IllegalArgumentException("1æ–‡å­—ç›®ã¯S,H,D,Cã®ã„ãšã‚Œã‹ã«ã—ã¦ä¸‹ã•ã„ã€‚");
 	}
 
 	private int convertToNumber(String numberPart) {
 		try{
 			return Integer.parseInt(numberPart);
 		} catch (NumberFormatException e) {
-			throw new IllegalArgumentException("2•¶š–ÚˆÈ~‚Í1`13‚Ì”š‚ğ“ü—Í‚µ‚Ä‰º‚³‚¢B", e);
+			throw new IllegalArgumentException("2æ–‡å­—ç›®ä»¥é™ã¯1ï½13ã®æ•°å­—ã‚’å…¥åŠ›ã—ã¦ä¸‹ã•ã„ã€‚", e);
 		}
 	}
 
 	public String getInputString(String information) {
 		Scanner stdReader = new Scanner(System.in);
 		System.out.println(String.format("%s : ", information));
-		String line = stdReader.nextLine(); // ƒ†[ƒU‚Ìˆês“ü—Í‚ğ‘Ò‚Â
+		String line = stdReader.nextLine(); // ãƒ¦ãƒ¼ã‚¶ã®ä¸€è¡Œå…¥åŠ›ã‚’å¾…ã¤
 		System.out.println(String.format("line is [%s]", line));
 		return line;
 	}

@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 
 import java.io.BufferedInputStream;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -108,16 +109,16 @@ public class ManualPlayerTest {
 			{
 				@SuppressWarnings("serial")
 				final List<Card> anyCards = new ArrayList<Card>(){{add(Card.New(Suit.Heart, 12)); add(Card.New(Suit.Dia, 3)); }};
-				turn.getCards(); returns(new ArrayList<Card>());
-				viewer.showMessage("this turn opened [], Declaration [runForNapoleon=true, suit=Club, cardsToCollect=13]");
+				turn.getCardHash(); returns(new LinkedHashMap<Player, Card>());
+				viewer.showMessage("this turn opened [], declaration is Club:13");
 				viewer.sortCardsToView(anyCards); returns(anyCards);
 				viewer.showMessage("You have [[♥:12], [◆:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
 				scanner.nextLine(); returns("S3");
 				viewer.showMessage("そのカードは持っていません。");
 
-				turn.getCards(); returns(new ArrayList<Card>());
-				viewer.showMessage("this turn opened [], Declaration [runForNapoleon=true, suit=Club, cardsToCollect=13]");
+				turn.getCardHash(); returns(new LinkedHashMap<Player, Card>());
+				viewer.showMessage("this turn opened [], declaration is Club:13");
 				viewer.sortCardsToView(anyCards); returns(anyCards);
 				viewer.showMessage("You have [[♥:12], [◆:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
