@@ -168,14 +168,24 @@ public class Director implements Serializable {
 	public void beginTurn(int turnNo) {
 		Turn turn = getTurn(turnNo);
 		for (Player p : getPlayersForTurn(turnNo)){
-			System.out.println(String.format("player:%s / Gained:%s", p.getName(), p.cardsGained()));
 			turn.addCard(p, p.openCard(turn, viewer, fixedDeclaration));
-//			logger.debug(p);
 		}
 		
 		turn.winnerGainCards();
-		viewer.showMessage(String.format("Åöturn[%d], winner[%s]", currentTurnNo, getTurnWinnerName(currentTurnNo)));
+		viewer.showMessage(
+				String.format("Åöturn[%d], winner[%s]: cards[%s]", 
+						currentTurnNo, 
+						getTurnWinnerName(currentTurnNo),
+						turn.getCardsToShow(viewer)));
+		
+		showPlayersGainedCards();
 		currentTurnNo++;
+	}
+
+	protected void showPlayersGainedCards() {
+		for (Player p : players){
+			System.out.println(String.format("player:%s / Gained:%s", p.getName(), p.cardsGained()));
+		}
 	}
 
 	private Turn getTurn(int turnNo) {

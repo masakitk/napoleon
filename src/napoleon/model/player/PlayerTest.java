@@ -120,18 +120,28 @@ public class PlayerTest {
 				turn.isLeadSuitDefined(); returns(false);
 				turn.isJorkerOpenedFirst(); returns(false);
 				turn.isRequireJorkerOpenedFirst(); returns(true);
+
+				turn.isLeadSuitDefined(); returns(true);
+				turn.getLeadSuit(); returns(any);
+				turn.isJorkerOpenedFirst(); returns(false);
+				turn.isRequireJorkerOpenedFirst(); returns(true);
 			}
 		};
-		Player player2 = Player.New("fuga");
-		player2.takeCard(Card.RequireJorker);
-		Card jorker = player2.openCard(turn, viewer, declaration);
-		assertThat(jorker, IsEqual.equalTo(Card.RequireJorker));
+		Player player1 = Player.New("fuga");
+		player1.takeCard(Card.New(Suit.Club, 3));
+		Card jorker = player1.openCard(turn, viewer, declaration);
+		assertThat(jorker, IsEqual.equalTo(Card.New(Suit.Club, 3)));
 		
-		Player player = Player.New("hoge");
-		player.takeCard(Card.New(Suit.Spade, 12));
-		player.takeCard(Card.Jorker);
-		player.takeCard(Card.New(Suit.Club, 1));
-		assertThat(player.openCard(turn, viewer, declaration), IsEqual.equalTo(Card.Jorker));
+		Player player2 = Player.New("hoge");
+		player2.takeCard(Card.New(Suit.Club, 1));
+		player2.openCard(turn, viewer, declaration);
+
+		Player player3 = Player.New("piyo");
+		player3.takeCard(Card.Jorker);
+		player3.takeCard(Card.New(Suit.Spade, 2));
+		player3.takeCard(Card.New(Suit.Club, 2));
+		
+		assertThat(player3.openCard(turn, viewer, declaration), IsEqual.equalTo(Card.Jorker));
 	}
 
 	@Test

@@ -2,15 +2,19 @@ package napoleon.view;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.apache.commons.collections15.Closure;
 import org.apache.commons.collections15.CollectionUtils;
+import org.apache.commons.collections15.Transformer;
 
 import napoleon.model.card.Card;
 import napoleon.model.player.Player;
+import napoleon.model.rule.Turn;
 
 public class ConsoleViewer implements Viewer {
 	private static final ConsoleViewer CONSOLE_VIEWER = new ConsoleViewer();
@@ -49,5 +53,17 @@ public class ConsoleViewer implements Viewer {
 
 	public void showMessage(String message) {
 		System.out.println(message);
+	}
+
+	@Override
+	public Collection<String> formatTurnCards(Turn turn) {
+		return CollectionUtils.collect(
+				turn.getCardHash().entrySet(), new Transformer<Entry<Player, Card>, String>() {
+
+			@Override
+			public String transform(Entry<Player, Card> entry) {
+				return String.format("%s:%s", entry.getKey().getName(), entry.getValue());
+			}
+		});
 	}
 }

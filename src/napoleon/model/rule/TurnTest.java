@@ -14,6 +14,8 @@ import napoleon.model.card.Suit;
 import napoleon.model.player.Player;
 
 import org.apache.commons.collections15.CollectionUtils;
+import org.hamcrest.core.Is;
+import org.hamcrest.core.IsEqual;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -65,6 +67,14 @@ public class TurnTest {
 		assertThat(turn.getLeadSuit(), equalTo(null));	
 		turn.addCard(player2, Card.New(Suit.Dia, 5));
 		assertThat(turn.getLeadSuit(), equalTo(Suit.Dia));	
+	}
+	
+	@Test
+	public void T03_最初にジョーカー請求が出されたことを判定できること() {
+		Turn turn = Turn.New(2, Suit.Spade);
+		assertThat(turn.getLeadSuit(), equalTo(null));	
+		turn.addCard(player1, Card.New(Suit.Club, 3));
+		assertThat(turn.isRequireJorkerOpenedFirst(), equalTo(true));
 	}
 	
 	@Test

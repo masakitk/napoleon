@@ -10,16 +10,21 @@ import java.util.Map;
 
 import org.apache.commons.collections15.CollectionUtils;
 import org.apache.commons.collections15.Predicate;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import napoleon.Runner;
 import napoleon.model.card.Card;
 import napoleon.model.card.Suit;
 import napoleon.model.player.Player;
+import napoleon.view.Viewer;
 
 public class Turn {
 	private HashMap<Player, Card> cardHash = new LinkedHashMap<Player, Card>();
 	private int no;
 	private boolean ignoreSpecial;
 	public final Suit trump;
+	private Logger _logger = LogManager.getLogger(Runner.class);
 	
 	private Turn(int no, Suit trump) {
 		super();
@@ -55,7 +60,7 @@ public class Turn {
 	}
 
 	private Suit getLeadSuitWhenJorkerFirst() {
-		return ignoreSpecial ? (
+		return isIgnoreSpecial() ? (
 				2 <= cardHash.size() ? getCardAt(1).getSuit() : null)
 		: trump;
 	}
@@ -84,7 +89,7 @@ public class Turn {
 		if(Table._PLAYERS_COUNT != cardHash.size())
 			throw new IllegalStateException("全員カードを出していません");
 		List<Card> list = new ArrayList<Card>(cardHash.values());
-		if(ignoreSpecial) {
+		if(isIgnoreSpecial()) {
 			Collections.sort(list, Card.GetCardIgnoreSpecialComparator(getLeadSuit()));
 		}else {
 			Collections.sort(list, Card.getCardNormalComparator(getTrump(), getLeadSuit(), cardHash.values()));
@@ -137,7 +142,11 @@ public class Turn {
 	}
 
 	private boolean isOpenedFirst(Card cardToAssert) {
-		return !ignoreSpecial && 0 < cardHash.size() && getFirstCard() == cardToAssert;
+		return !isIgnoreSpecial() && 0 < cardHash.size() && getFirstCard().equals(cardToAssert);
+	}
+
+	protected boolean isIgnoreSpecial() {
+		return ignoreSpecial;
 	}
 
 	public Collection<Card> getCards() {
@@ -146,5 +155,9 @@ public class Turn {
 
 	public HashMap<Player, Card> getCardHash() {
 		return cardHash;
+	}
+
+	public Collection<String> getCardsToShow(Viewer viewer) {
+		return viewer.formatTurnCards(this);
 	}
 }

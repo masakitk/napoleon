@@ -34,6 +34,7 @@ public class DirectorTest {
 	@Mocked Player player4;
 	@Mocked Napoleon napoleon;
 	@Mocked Adjutant adjutant;
+	@Mocked Viewer viewer;
 	private DirectorEx director;
 	private Declaration declarationOfClub13 = Declaration.New(Suit.Club, 13);
 	private Declaration declarationOfSpade13 = Declaration.New(Suit.Spade, 13);
@@ -171,21 +172,25 @@ public class DirectorTest {
 		new Expectations() {
 			{
 				 dealer.hasServed(); returns(true);
-				 player1.getName(); returns("1");
-				 player1.cardsGained(); returns(any);
 				 player1.openCard((Turn) any, (Viewer) any, (Declaration) any); returns(Card.New(Suit.Spade, 3));
-				 player2.getName(); returns("2");
-				 player2.cardsGained(); returns(any);
 				 player2.openCard((Turn) any, (Viewer) any, (Declaration) any); returns(Card.New(Suit.Spade, 8));
-				 player3.getName(); returns("3");
-				 player3.cardsGained(); returns(any);
 				 player3.openCard((Turn) any, (Viewer) any, (Declaration) any); returns(Card.New(Suit.Heart, 9));
-				 player4.getName(); returns("4");
-				 player4.cardsGained(); returns(any);
 				 player4.openCard((Turn) any, (Viewer) any, (Declaration) any); returns(Card.New(Suit.Spade, 5));
 				 player2.takeCards((Collection<Card>) any);
-				 player2.getName(); returns("2");
-			 }
+				 player2.getName(); returns(any);
+				 player1.getName(); returns(any);
+				 player2.getName(); returns(any);
+				 player3.getName(); returns(any);
+				 player4.getName(); returns(any);
+				 player1.getName(); returns(any);
+				 player1.cardsGained(); returns(any);
+				 player2.getName(); returns(any);
+				 player2.cardsGained(); returns(any);
+				 player3.getName(); returns(any);
+				 player3.cardsGained(); returns(any);
+				 player4.getName(); returns(any);
+				 player4.cardsGained(); returns(any);
+				 			 }
 		};
 		director.SetExtraCardChanged(true);
 		director.setNapoleon(napoleon);
