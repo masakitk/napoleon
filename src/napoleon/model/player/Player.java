@@ -22,7 +22,7 @@ import org.apache.logging.log4j.Logger;
 public class Player {
 
 	protected List<Card> cards = new ArrayList<Card>();
-	private String name;
+	protected String name;
 	protected List<Card> _cardsGained = new ArrayList<Card>();
 	protected boolean _isAdjutant;
 	protected Logger _logger;
