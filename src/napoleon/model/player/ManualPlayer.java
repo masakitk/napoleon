@@ -33,23 +33,23 @@ public class ManualPlayer extends napoleon.model.player.Player {
 		return new ManualPlayer(name);
 	}
 
-	//	@Override
-	//	public Declaration AskForDeclare(Declaration currentDeclaration, Viewer viewer) {
-	//		viewer.showMessage(String.format("you have :[%s]", cards));
-	//		String input;
-	//		input = InputSuitAndNumber(viewer);
-	//		
-	//		String suitPart = input.substring(0, 1);
-	//		String numberPart = input.substring(1);
-	//		try{
-	//			Suit suit = convertToSuit(suitPart);
-	//			int number = convertToNumber(numberPart);
-	//			return Card.New(suit, number);
-	//		} catch (Exception e) {
-	//			viewer.showMessage(e.getMessage());
-	//			return chooseCardToOpen(turn, viewer);
-	//		}
-	//	}
+	@Override
+	public Declaration AskForDeclare(Declaration currentDeclaration, Viewer viewer) {
+		viewer.showMessage(String.format("you have :[%s]", cards));
+		String input;
+		input = InputSuitAndNumber(viewer, "input declaration(Ex. S13:♠A、H15:♥15 etc..");
+
+		String suitPart = input.substring(0, 1);
+		String numberPart = input.substring(1);
+		try{
+			Suit suit = convertToSuit(suitPart);
+			int number = convertToNumber(numberPart);
+			return Declaration.New(suit, number);
+		} catch (Exception e) {
+			viewer.showMessage(e.getMessage());
+			return AskForDeclare(currentDeclaration, viewer);
+		}
+	}
 
 	@Override
 	protected Card chooseCardToOpen(Turn turn, Viewer viewer, Declaration declaration) {
@@ -119,7 +119,7 @@ public class ManualPlayer extends napoleon.model.player.Player {
 
 	Card inputCard(Viewer viewer, Turn turn) {
 		try{
-			return convertToCard(InputSuitAndNumber(viewer));
+			return convertToCard(InputSuitAndNumber(viewer, "input card(Ex. S1:♠A、H13:♥13 etc.."));
 		} catch (IllegalArgumentException e) {
 			viewer.showMessage(e.getMessage());
 			return null;
@@ -151,16 +151,16 @@ public class ManualPlayer extends napoleon.model.player.Player {
 		});
 	}
 
-	protected String InputSuitAndNumber(Viewer viewer) {
+	protected String InputSuitAndNumber(Viewer viewer, String information) {
 		String input;
 		try{
-			input = getInputString("input card(Ex. S1:♠A、H13:♥13 etc..");
+			input = getInputString(information);
 		} catch (NoSuchElementException e) {
-			return InputSuitAndNumber(viewer);
+			return InputSuitAndNumber(viewer, information);
 		}
 
 		if(input.length() < 2) {
-			return InputSuitAndNumber(viewer);
+			return InputSuitAndNumber(viewer, information);
 		}
 		return input;
 	}

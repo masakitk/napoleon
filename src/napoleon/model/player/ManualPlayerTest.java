@@ -15,6 +15,7 @@ import napoleon.model.card.Card;
 import napoleon.model.card.Suit;
 import napoleon.model.rule.Declaration;
 import napoleon.model.rule.Turn;
+import napoleon.view.ConsoleViewer;
 import napoleon.view.Viewer;
 
 import org.hamcrest.core.IsEqual;
@@ -32,7 +33,7 @@ public class ManualPlayerTest {
 	Declaration declaration = Declaration.New(Suit.Club, 13);
 
 	@Test
-	public void T01_標準入力から入力を受け付けること(){
+	public void T01_標準入力からカード入力を受け付けること(){
 		new Expectations() {
 			{
 				new Scanner((BufferedInputStream)any); returns(any);
@@ -250,6 +251,21 @@ public class ManualPlayerTest {
 		player.takeCard(Card.New(Suit.Dia, 3));
 		
 		assertThat(player.rejectInvalidCard(heart12, turn, viewer), equalTo(heart12));
+	}
+	
+	@Test
+	public void T11_宣言を標準入力から受け付けること() {
+		new Expectations() {
+			{
+				new Scanner((BufferedInputStream)any); returns(any);
+				scanner.nextLine(); returns("H13");
+			}
+		};
+		
+		final ManualPlayer player = ManualPlayer.New("hoge");
+		assertThat(player.AskForDeclare(null, ConsoleViewer.GetInstance()),
+				equalTo(Declaration.New(Suit.Heart, 13)));
+		
 	}
 	
 }
