@@ -6,14 +6,14 @@ import org.junit.Test;
 
 public class TakahashiPlayerTest {
 
-	@Test
-	public void “¯‚¶ƒX[ƒg‚ğ5–‡‚Æ³J‚©— J‚ğ‚Á‚Ä‚¢‚½‚ç15‚Ü‚ÅéŒ¾‚·‚é() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void “¯‚¶ƒX[ƒg‚ğ5–‡‚Æ³J‚©— J‚ğ‚Á‚Ä‚¢‚Ä‚à”¼’[‚ÈŠGD‚ª3–‡ˆÈã‚ ‚Á‚½‚ç13‚Ü‚ÅéŒ¾‚µ‚È‚¢() {
-		fail("Not yet implemented");
-	}
+//	@Test
+//	public void åŒã˜ã‚¹ãƒ¼ãƒˆã‚’5æšã¨æ­£Jã‹è£Jã‚’æŒã£ã¦ã„ãŸã‚‰15ã¾ã§å®£è¨€ã™ã‚‹() {
+//		fail("Not yet implemented");
+//	}
+//
+//	@Test
+//	public void åŒã˜ã‚¹ãƒ¼ãƒˆã‚’5æšã¨æ­£Jã‹è£Jã‚’æŒã£ã¦ã„ã¦ã‚‚åŠç«¯ãªçµµæœ­ãŒ3æšä»¥ä¸Šã‚ã£ãŸã‚‰13ã¾ã§å®£è¨€ã—ãªã„() {
+//		fail("Not yet implemented");
+//	}
 
 }

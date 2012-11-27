@@ -31,13 +31,13 @@ public class DealerTest {
 	}
 	
 	@Test
-	public void T01_ƒfƒB[ƒ‰[‚Í53–‡ƒJ[ƒh‚ğ‚Á‚Ä‚¢‚é() {
+	public void T01_ãƒ‡ã‚£ãƒ¼ãƒ©ãƒ¼ã¯53æšã‚«ãƒ¼ãƒ‰ã‚’æŒã£ã¦ã„ã‚‹() {
 
 		assertThat(dealer.cardCount(), equalTo(53));
 	}
 	
 	@Test
-	public void T02_”z‚èI‚í‚é‚Æ4l‚ÌƒvƒŒ[ƒ„[‚ª12–‡‚¸‚Â•Û‚µQƒe[ƒuƒ‹‚É5–‡‚Ì‚±‚é() {
+	public void T02_é…ã‚Šçµ‚ã‚ã‚‹ã¨4äººã®ãƒ—ãƒ¬ãƒ¼ãƒ¤ãƒ¼ãŒ12æšãšã¤ä¿æŒã—ï¼¿ãƒ†ãƒ¼ãƒ–ãƒ«ã«5æšã®ã“ã‚‹() {
 		dealer.Serve();
 		
 		assertThat(table.cardCount(), equalTo(5));
@@ -45,7 +45,7 @@ public class DealerTest {
 	}
 
 	@Test
-	public void T03_–ˆ‰ñˆá‚¤ƒJ[ƒh‚ªƒe[ƒuƒ‹‚É5–‡c‚é(){
+	public void T03_æ¯å›é•ã†ã‚«ãƒ¼ãƒ‰ãŒãƒ†ãƒ¼ãƒ–ãƒ«ã«5æšæ®‹ã‚‹(){
 		dealer.Serve();
 		List<Card> first = table.getCards();
 		prepare();

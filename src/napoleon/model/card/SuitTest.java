@@ -48,7 +48,7 @@ public class SuitTest {
 	}	
 	
 	@Test
-	public void T01_ƒ}[ƒN‚Ì‹­‚³”äŠrƒeƒXƒg() {
+	public void T01_ãƒãƒ¼ã‚¯ã®å¼·ã•æ¯”è¼ƒãƒ†ã‚¹ãƒˆ() {
 		assertThat(String.format("is %s stronger than %s ?, [%s]", suit1, suit2, result), suit1.strongerThan(suit2), Is.is(result));
 	}
 

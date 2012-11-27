@@ -44,7 +44,7 @@ public class ManualPlayerTest {
 		player.takeCard(Card.New(Suit.Heart, 12));
 		player.takeCard(Card.New(Suit.Dia, 3));
 		
-		assertThat(player.inputCard(viewer, turn), IsEqual.equalTo(Card.New(Suit.Spade, 3)));
+		assertThat(ManualPlayerUtil.inputCard(viewer, turn), IsEqual.equalTo(Card.New(Suit.Spade, 3)));
 	}
 
 	@Test
@@ -60,7 +60,7 @@ public class ManualPlayerTest {
 		player.takeCard(Card.New(Suit.Heart, 12));
 		player.takeCard(Card.New(Suit.Dia, 3));
 		
-		assertThat(player.inputCard(viewer, turn), IsNull.nullValue());
+		assertThat(ManualPlayerUtil.inputCard(viewer, turn), IsNull.nullValue());
 	}
 
 	@Test
@@ -75,7 +75,7 @@ public class ManualPlayerTest {
 		player.takeCard(Card.New(Suit.Heart, 12));
 		player.takeCard(Card.Jorker);
 		
-		assertThat(player.inputCard(viewer, turn), equalTo(Card.Jorker));
+		assertThat(ManualPlayerUtil.inputCard(viewer, turn), equalTo(Card.Jorker));
 	}
 
 	@Test
@@ -99,9 +99,9 @@ public class ManualPlayerTest {
 		player.takeCard(Card.New(Suit.Heart, 12));
 		player.takeCard(Card.New(Suit.Dia, 3));
 		
-		assertThat(player.inputCard(viewer, turn), IsNull.nullValue());
-		assertThat(player.inputCard(viewer, turn), IsNull.nullValue());
-		assertThat(player.inputCard(viewer, turn), IsNull.nullValue());
+		assertThat(ManualPlayerUtil.inputCard(viewer, turn), IsNull.nullValue());
+		assertThat(ManualPlayerUtil.inputCard(viewer, turn), IsNull.nullValue());
+		assertThat(ManualPlayerUtil.inputCard(viewer, turn), IsNull.nullValue());
 	}
 
 	@Test
@@ -157,7 +157,7 @@ public class ManualPlayerTest {
 		player.takeCard(Card.New(Suit.Heart, 12));
 		player.takeCard(Card.New(Suit.Dia, 3));
 		
-		assertThat(player.rejectInvalidCard(Card.New(Suit.Heart, 12), turn, viewer), IsNull.nullValue());
+		assertThat(ManualPlayerUtil.rejectInvalidCard(Card.New(Suit.Heart, 12), turn, viewer, player.cards), IsNull.nullValue());
 	}
 
 	@Test
@@ -176,7 +176,7 @@ public class ManualPlayerTest {
 		final Card club3 = Card.New(Suit.Club, 3);
 		player.takeCard(club3);
 		
-		assertThat(player.rejectInvalidCard(club3, turn, viewer), equalTo(club3));
+		assertThat(ManualPlayerUtil.rejectInvalidCard(club3, turn, viewer, player.cards), equalTo(club3));
 	}
 	
 	@Test
@@ -193,7 +193,7 @@ public class ManualPlayerTest {
 		player.takeCard(Card.New(Suit.Heart, 12));
 		player.takeCard(Card.New(Suit.Dia, 3));
 		
-		assertThat(player.rejectInvalidCard(Card.New(Suit.Heart, 12), turn, viewer), IsNull.nullValue());
+		assertThat(ManualPlayerUtil.rejectInvalidCard(Card.New(Suit.Heart, 12), turn, viewer, player.cards), IsNull.nullValue());
 	}
 
 	@Test
@@ -210,7 +210,7 @@ public class ManualPlayerTest {
 		player.takeCard(heart13);
 		player.takeCard(Card.New(Suit.Club, 3));
 		
-		assertThat(player.rejectInvalidCard(heart13, turn, viewer), equalTo(heart13));
+		assertThat(ManualPlayerUtil.rejectInvalidCard(heart13, turn, viewer, player.cards), equalTo(heart13));
 	}
 
 	
@@ -232,8 +232,8 @@ public class ManualPlayerTest {
 		player.takeCard(Card.New(Suit.Dia, 3));
 		player.takeCard(Card.Jorker);
 		
-		assertThat(player.rejectInvalidCard(Card.New(Suit.Heart, 12), turn, viewer), IsNull.nullValue());
-		assertThat(player.rejectInvalidCard(Card.New(Suit.Dia, 3), turn, viewer), IsNull.nullValue());
+		assertThat(ManualPlayerUtil.rejectInvalidCard(Card.New(Suit.Heart, 12), turn, viewer, player.cards), IsNull.nullValue());
+		assertThat(ManualPlayerUtil.rejectInvalidCard(Card.New(Suit.Dia, 3), turn, viewer, player.cards), IsNull.nullValue());
 	}
 
 	@Test
@@ -250,7 +250,7 @@ public class ManualPlayerTest {
 		player.takeCard(heart12);
 		player.takeCard(Card.New(Suit.Dia, 3));
 		
-		assertThat(player.rejectInvalidCard(heart12, turn, viewer), equalTo(heart12));
+		assertThat(ManualPlayerUtil.rejectInvalidCard(heart12, turn, viewer, player.cards), equalTo(heart12));
 	}
 	
 	@Test
@@ -267,5 +267,20 @@ public class ManualPlayerTest {
 				equalTo(Declaration.New(Suit.Heart, 13)));
 		
 	}
-	
+
+	@Test
+	public void T12_宣言時にパスができること() {
+		new Expectations() {
+			{
+				new Scanner((BufferedInputStream)any); returns(any);
+				scanner.nextLine(); returns("pass");
+			}
+		};
+		
+		final ManualPlayer player = ManualPlayer.New("hoge");
+		assertThat(player.AskForDeclare(null, ConsoleViewer.GetInstance()),
+				equalTo(Declaration.Pass));
+		
+	}
+
 }

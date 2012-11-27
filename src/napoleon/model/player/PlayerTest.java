@@ -21,7 +21,7 @@ public class PlayerTest {
 	Viewer viewer;
 	Declaration declaration = Declaration.New(Suit.Club, 13);
 	@Test
-	public void T01_1–‡ƒJ[ƒh‚ğo‚µ‚½‚ç‚»‚ÌƒJ[ƒh‚ÍèŒ³‚©‚ç‚È‚­‚È‚é‚±‚Æ(){
+	public void T01_1æšã‚«ãƒ¼ãƒ‰ã‚’å‡ºã—ãŸã‚‰ãã®ã‚«ãƒ¼ãƒ‰ã¯æ‰‹å…ƒã‹ã‚‰ãªããªã‚‹ã“ã¨(){
 		final Player player = Player.New("hoge");
 		player.takeCard(Card.New(Suit.Heart, 12));
 		assertThat(player.cardCount(), IsEqual.equalTo(1));
@@ -31,7 +31,7 @@ public class PlayerTest {
 	}
 	
 	@Test
-	public void T02_‘äD‚ªİ’è‚³‚ê‚Ä‚¢‚Ä‘äD‚ª‚ ‚é‚Æ‚«‚Í‘äD‚ğo‚·‚±‚Æ() {
+	public void T02_å°æœ­ãŒè¨­å®šã•ã‚Œã¦ã„ã¦å°æœ­ãŒã‚ã‚‹ã¨ãã¯å°æœ­ã‚’å‡ºã™ã“ã¨() {
 		new Expectations() {
 			{
 				turn.isJorkerOpenedFirst(); returns(false);
@@ -48,7 +48,7 @@ public class PlayerTest {
 	}
 	
 	@Test
-	public void T02_‘äD‚ªİ’è‚³‚ê‚Ä‚¢‚Ä‘äD‚ª‚È‚¢‚Æ‚«‚Å‚à‚È‚É‚©1–‡‚¾‚·‚±‚Æ() {
+	public void T02_å°æœ­ãŒè¨­å®šã•ã‚Œã¦ã„ã¦å°æœ­ãŒãªã„ã¨ãã§ã‚‚ãªã«ã‹1æšã ã™ã“ã¨() {
 		new Expectations() {
 			{
 				turn.isJorkerOpenedFirst(); returns(false);
@@ -66,7 +66,7 @@ public class PlayerTest {
 	}
 	
 	@Test
-	public void T02_Å‰‚ÉƒWƒ‡[ƒJ[o‚³‚ê‚½‚çØ‚èD‚ğo‚·‚±‚Æ() {
+	public void T02_æœ€åˆã«ã‚¸ãƒ§ãƒ¼ã‚«ãƒ¼å‡ºã•ã‚ŒãŸã‚‰åˆ‡ã‚Šæœ­ã‚’å‡ºã™ã“ã¨() {
 		new Expectations() {
 			{
 				turn.isJorkerOpenedFirst(); returns(false);
@@ -89,7 +89,7 @@ public class PlayerTest {
 	}
 
 	@Test
-	public void T02_Å‰‚ÉƒWƒ‡[ƒJ[o‚³‚ê‚½‚çØ‚èD‚ª‚È‚¯‚ê‚Îˆê”Ô‘å‚«‚¢ŠGD‚ğo‚·‚±‚Æ() {
+	public void T02_æœ€åˆã«ã‚¸ãƒ§ãƒ¼ã‚«ãƒ¼å‡ºã•ã‚ŒãŸã‚‰åˆ‡ã‚Šæœ­ãŒãªã‘ã‚Œã°ä¸€ç•ªå¤§ãã„çµµæœ­ã‚’å‡ºã™ã“ã¨() {
 		new Expectations() {
 			{
 				turn.isJorkerOpenedFirst(); returns(false);
@@ -112,7 +112,7 @@ public class PlayerTest {
 	}
 
 	@Test
-	public void T02_Å‰‚ÉƒWƒ‡[ƒJ[¿‹o‚³‚ê‚½‚çƒWƒ‡[ƒJ[‚ğo‚·‚±‚Æ() {
+	public void T02_æœ€åˆã«ã‚¸ãƒ§ãƒ¼ã‚«ãƒ¼è«‹æ±‚å‡ºã•ã‚ŒãŸã‚‰ã‚¸ãƒ§ãƒ¼ã‚«ãƒ¼ã‚’å‡ºã™ã“ã¨() {
 		new Expectations() {
 			{
 				turn.isJorkerOpenedFirst(); returns(false);
@@ -145,7 +145,7 @@ public class PlayerTest {
 	}
 
 	@Test
-	public void T02_Å‰‚ÉƒWƒ‡[ƒJ[¿‹o‚³‚ê‚½‚çƒWƒ‡[ƒJ[‚ª‚È‚¢ê‡‚Í•’Ê‚É‘äD‚ğo‚·‚±‚Æ() {
+	public void T02_æœ€åˆã«ã‚¸ãƒ§ãƒ¼ã‚«ãƒ¼è«‹æ±‚å‡ºã•ã‚ŒãŸã‚‰ã‚¸ãƒ§ãƒ¼ã‚«ãƒ¼ãŒãªã„å ´åˆã¯æ™®é€šã«å°æœ­ã‚’å‡ºã™ã“ã¨() {
 		new Expectations() {
 			{
 				turn.isJorkerOpenedFirst(); returns(false);
@@ -170,7 +170,7 @@ public class PlayerTest {
 	}
 
 	@Test
-	public void T03_‘äD‚ªİ’è‚³‚ê‚Ä‚¢‚Ä‘äD‚ª‚È‚¢‚Æ‚«‚Í‚È‚ñ‚Å‚à‚¢‚¢‚Ì‚Å1–‡ƒJ[ƒh‚ğo‚·‚±‚Æ() {
+	public void T03_å°æœ­ãŒè¨­å®šã•ã‚Œã¦ã„ã¦å°æœ­ãŒãªã„ã¨ãã¯ãªã‚“ã§ã‚‚ã„ã„ã®ã§1æšã‚«ãƒ¼ãƒ‰ã‚’å‡ºã™ã“ã¨() {
 		new Expectations() {
 			{
 				turn.isJorkerOpenedFirst(); returns(false);
@@ -187,7 +187,7 @@ public class PlayerTest {
 	}
 	
 	@Test
-	public void T04_‚Æ‚è‚ ‚¦‚¸’N‚àéŒ¾‚µ‚Ä‚È‚©‚Á‚½‚çƒNƒ‰ƒu‚Ì13‚ÅéŒ¾‚·‚é(){
+	public void T04_ã¨ã‚Šã‚ãˆãšèª°ã‚‚å®£è¨€ã—ã¦ãªã‹ã£ãŸã‚‰ã‚¯ãƒ©ãƒ–ã®13ã§å®£è¨€ã™ã‚‹(){
 		Player player = Player.New("hoge");
 		assertThat(player.AskForDeclare(null, viewer), IsEqual.equalTo(Declaration.New(Suit.Club, 13)));
 	}

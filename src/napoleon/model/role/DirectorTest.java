@@ -46,7 +46,7 @@ public class DirectorTest {
 	}
 	
 	@Test
-	public void T01_‚Í‚¶‚ß‚ÉƒJ[ƒh‚ğ”z‚é(){
+	public void T01_ã¯ã˜ã‚ã«ã‚«ãƒ¼ãƒ‰ã‚’é…ã‚‹(){
 		new Expectations() {
 			{
 				dealer.hasServed(); returns(false); 
@@ -60,7 +60,7 @@ public class DirectorTest {
 	}
 	
 	@Test
-	public void T02_ƒiƒ|ƒŒƒIƒ“‚ğŒˆ‚ß‚é_ˆêl‚ªéŒ¾‚µ‚Ù‚©3l‚ªƒpƒX‚µ‚½‚çŒˆ’è(){
+	public void T02_ãƒŠãƒãƒ¬ã‚ªãƒ³ã‚’æ±ºã‚ã‚‹_ä¸€äººãŒå®£è¨€ã—ã»ã‹3äººãŒãƒ‘ã‚¹ã—ãŸã‚‰æ±ºå®š(){
 		 new Expectations() {
 			{
 				dealer.hasServed(); returns(true); 
@@ -81,7 +81,7 @@ public class DirectorTest {
 	}
 	
 	@Test
-	public void T02a_ƒiƒ|ƒŒƒIƒ“‚ğŒˆ‚ß‚é_3l‚ªéŒ¾‚µ‚Ù‚©3l‚ªƒpƒX‚µ‚½‚çŒˆ’è(){
+	public void T02a_ãƒŠãƒãƒ¬ã‚ªãƒ³ã‚’æ±ºã‚ã‚‹_3äººãŒå®£è¨€ã—ã»ã‹3äººãŒãƒ‘ã‚¹ã—ãŸã‚‰æ±ºå®š(){
 		 new Expectations() {
 			{
 				dealer.hasServed(); returns(true); 
@@ -108,7 +108,7 @@ public class DirectorTest {
 	}
 
 	@Test
-	public void T03_ƒiƒ|ƒŒƒIƒ“‚ğŒˆ‚ß‚é_‘SˆõƒpƒX‚µ‚½‚ç—¬‚ê‚é(){
+	public void T03_ãƒŠãƒãƒ¬ã‚ªãƒ³ã‚’æ±ºã‚ã‚‹_å…¨å“¡ãƒ‘ã‚¹ã—ãŸã‚‰æµã‚Œã‚‹(){
 		 new Expectations() {
 			{
 				dealer.hasServed(); returns(true); 
@@ -125,7 +125,7 @@ public class DirectorTest {
 	}
 	
 	@Test
-	public void T04_¡‚æ‚è’á‚¢éŒ¾‚Í”F‚ß‚¸Ä“xéŒ¾‚·‚é‚©•·‚­(){
+	public void T04_ä»Šã‚ˆã‚Šä½ã„å®£è¨€ã¯èªã‚ãšå†åº¦å®£è¨€ã™ã‚‹ã‹èã(){
 		 new Expectations() {
 			{
 				player1.AskForDeclare(null, (Viewer)any); returns(declarationOfSpade13);
@@ -146,7 +146,7 @@ public class DirectorTest {
 	
 	@SuppressWarnings("serial")
 	@Test
-	public void T05_ƒiƒ|ƒŒƒIƒ“‚ªê‚Éc‚Á‚½5–‡‚ÌƒJ[ƒh‚ğ‚Æ‚Á‚ÄŒğŠ·‚·‚é(){
+	public void T05_ãƒŠãƒãƒ¬ã‚ªãƒ³ãŒå ´ã«æ®‹ã£ãŸ5æšã®ã‚«ãƒ¼ãƒ‰ã‚’ã¨ã£ã¦äº¤æ›ã™ã‚‹(){
 		new Expectations() {
 			{
 				 dealer.hasServed(); returns(true);
@@ -168,7 +168,7 @@ public class DirectorTest {
 	
 	@SuppressWarnings("unchecked")
 	@Test
-	public void T06_1ƒ^[ƒ“–Ú‚Ìis‚ğs‚¤(){
+	public void T06_1ã‚¿ãƒ¼ãƒ³ç›®ã®é€²è¡Œã‚’è¡Œã†(){
 		new Expectations() {
 			{
 				 dealer.hasServed(); returns(true);
@@ -205,7 +205,7 @@ public class DirectorTest {
 	}
 
 	@Test
-	public void T07_ƒiƒ|ƒŒƒIƒ“ŒR‚ªŠGD‚ğéŒ¾–‡”æ“¾‚µ‚½‚çƒiƒ|ƒŒƒIƒ“ŒR‚ÌŸ‚¿(){
+	public void T07_ãƒŠãƒãƒ¬ã‚ªãƒ³è»ãŒçµµæœ­ã‚’å®£è¨€æšæ•°å–å¾—ã—ãŸã‚‰ãƒŠãƒãƒ¬ã‚ªãƒ³è»ã®å‹ã¡(){
 		new Expectations() {
 			{
 				napoleon.cardsGained(); returns(any);
@@ -230,7 +230,7 @@ public class DirectorTest {
 	}
 
 	@Test
-	public void T08_ƒiƒ|ƒŒƒIƒ“ŒR‚ªŠGD‚ğéŒ¾–‡”æ“¾‚Å‚«‚È‚©‚Á‚½‚ç˜A‡ŒR‚ÌŸ‚¿(){
+	public void T08_ãƒŠãƒãƒ¬ã‚ªãƒ³è»ãŒçµµæœ­ã‚’å®£è¨€æšæ•°å–å¾—ã§ããªã‹ã£ãŸã‚‰é€£åˆè»ã®å‹ã¡(){
 		new Expectations() {
 			{
 				napoleon.cardsGained(); returns(any);

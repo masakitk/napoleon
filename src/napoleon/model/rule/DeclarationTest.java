@@ -56,7 +56,7 @@ public class DeclarationTest {
 	   return Arrays.asList(data);
 	}
 	@Test
-	public void T01_éŒ¾‚Ì‹­‚³”äŠrƒeƒXƒg() {
+	public void T01_å®£è¨€ã®å¼·ã•æ¯”è¼ƒãƒ†ã‚¹ãƒˆ() {
 		assertThat(dec1.strongerThan(dec2), Is.is(result));
 	}
 

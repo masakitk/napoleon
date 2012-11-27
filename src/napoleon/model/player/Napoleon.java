@@ -7,7 +7,7 @@ import napoleon.model.rule.GameContext;
 import napoleon.model.rule.Table;
 
 public class Napoleon extends Player{
-	private Napoleon(Player player) {
+	protected Napoleon(Player player) {
 		super(player.getName());
 		cards.addAll(player.cards);
 	}
@@ -37,10 +37,10 @@ public class Napoleon extends Player{
 			Card some = Card.New(fixedDeclaration.getSuit(), i);
 			if(!cards.contains(some)) return some;
 		}
-		throw new IllegalStateException("è‚¿12–‡‚ÅØ‚èD13–‡Aè‚¿‚É‚È‚¢Ø‚èD‚ª‚È‚¢‚±‚Æ‚Í‚ ‚è‚¦‚È‚¢");
+		throw new IllegalStateException("æ‰‹æŒã¡12æšã§åˆ‡ã‚Šæœ­13æšã€æ‰‹æŒã¡ã«ãªã„åˆ‡ã‚Šæœ­ãŒãªã„ã“ã¨ã¯ã‚ã‚Šãˆãªã„");
 	}
 
 	public static Napoleon New(Player player) {
-		return new Napoleon(player);
+		return player instanceof ManualPlayer ? ManualNapoleon.New((ManualPlayer)player) : new Napoleon(player);
 	}
 }

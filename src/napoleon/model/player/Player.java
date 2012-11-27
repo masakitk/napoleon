@@ -97,7 +97,7 @@ public class Player {
 		});
 	}
 
-	protected Collection<Card> findSameMark(Collection<Card> cards, final Suit suit) {
+	protected static Collection<Card> findSameMark(Collection<Card> cards, final Suit suit) {
 		return CollectionUtils.select(cards, new Predicate<Card>() {
 
 			@Override

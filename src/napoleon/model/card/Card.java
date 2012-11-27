@@ -84,7 +84,7 @@ public class Card {
 
 	public static Card New(Suit suit, int no) {
 		if(no < 1 || 13 < no)
-			throw new IllegalArgumentException("”š‚ª1‚©‚ç13‚Ì”ÍˆÍ‚É‚ ‚è‚Ü‚¹‚ñB");
+			throw new IllegalArgumentException("æ•°å­—ãŒ1ã‹ã‚‰13ã®ç¯„å›²ã«ã‚ã‚Šã¾ã›ã‚“ã€‚");
 		return new Card(suit, no);
 	}
 	

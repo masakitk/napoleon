@@ -40,7 +40,7 @@ public class Turn {
 	}
 
 	public static Turn New(int no, Suit trump) {
-		if(no < 1 || 12 < no) throw new IllegalArgumentException("ƒ^[ƒ“”Ô†‚Í1ˆÈã12ˆÈ‰º‚Å‚ ‚é•K—v‚ª‚ ‚è‚Ü‚·");
+		if(no < 1 || 12 < no) throw new IllegalArgumentException("ã‚¿ãƒ¼ãƒ³ç•ªå·ã¯1ä»¥ä¸Š12ä»¥ä¸‹ã§ã‚ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™");
 		
 		return new Turn(no, trump);
 	}
@@ -87,7 +87,7 @@ public class Turn {
 
 	public Card getWinnerCard() {
 		if(Table._PLAYERS_COUNT != cardHash.size())
-			throw new IllegalStateException("‘SˆõƒJ[ƒh‚ðo‚µ‚Ä‚¢‚Ü‚¹‚ñ");
+			throw new IllegalStateException("å…¨å“¡ã‚«ãƒ¼ãƒ‰ã‚’å‡ºã—ã¦ã„ã¾ã›ã‚“");
 		List<Card> list = new ArrayList<Card>(cardHash.values());
 		if(isIgnoreSpecial()) {
 			Collections.sort(list, Card.GetCardIgnoreSpecialComparator(getLeadSuit()));

@@ -14,7 +14,7 @@ import org.junit.Test;
 public class NapoleonTest {
 
 	@Test
-	public void T01_Ø‚èD‚Å©•ª‚ª‚Á‚Ä‚¢‚È‚¢“ÁêƒJ[ƒhl—¶‚µ‚È‚¢‚Åˆê”Ô‹­‚¢ƒJ[ƒh‚ğ•Ô‚·() {
+	public void T01_åˆ‡ã‚Šæœ­ã§è‡ªåˆ†ãŒæŒã£ã¦ã„ãªã„ç‰¹æ®Šã‚«ãƒ¼ãƒ‰è€ƒæ…®ã—ãªã„ã§ä¸€ç•ªå¼·ã„ã‚«ãƒ¼ãƒ‰ã‚’è¿”ã™() {
 		Player player = Player.New("hoge");
 		player.takeCard(Card.New(Suit.Club, 1));
 		Napoleon napoleon = Napoleon.New(player);
@@ -28,7 +28,7 @@ public class NapoleonTest {
 	}
 	
 	@Test
-	public void T02_•›Š¯w’èƒ}ƒCƒeƒB() {
+	public void T02_å‰¯å®˜æŒ‡å®šãƒã‚¤ãƒ†ã‚£() {
 		Player player = Player.New("hoge");
 		player.takeCard(Card.New(Suit.Club, 1));
 		Napoleon napoleon = Napoleon.New(player);
@@ -38,7 +38,7 @@ public class NapoleonTest {
 	}
 	
 	@Test
-	public void T03_ƒ}ƒCƒeƒB‚ª‚ ‚ê‚Î•›Š¯w’è‚Í³J() {
+	public void T03_ãƒã‚¤ãƒ†ã‚£ãŒã‚ã‚Œã°å‰¯å®˜æŒ‡å®šã¯æ­£J() {
 		Player player = Player.New("hoge");
 		player.takeCard(Card.Mighty);
 		Napoleon napoleon = Napoleon.New(player);
@@ -48,7 +48,7 @@ public class NapoleonTest {
 	}
 
 	@Test
-	public void T04_ƒ}ƒCƒeƒB³J‚ª‚ ‚ê‚Î•›Š¯w’è‚Í— J() {
+	public void T04_ãƒã‚¤ãƒ†ã‚£æ­£JãŒã‚ã‚Œã°å‰¯å®˜æŒ‡å®šã¯è£J() {
 		Player player = Player.New("hoge");
 		player.takeCard(Card.Mighty);
 		player.takeCard(GameContext.getRightBower(Suit.Club));
@@ -59,7 +59,7 @@ public class NapoleonTest {
 	}
 
 	@Test
-	public void T05_ƒ}ƒCƒeƒB³J— J‚ª‚ ‚ê‚Î•›Š¯w’è‚æ‚ë‚ß‚«() {
+	public void T05_ãƒã‚¤ãƒ†ã‚£æ­£Jè£JãŒã‚ã‚Œã°å‰¯å®˜æŒ‡å®šã‚ˆã‚ã‚ã() {
 		Player player = Player.New("hoge");
 		player.takeCard(Card.Mighty);
 		player.takeCard(GameContext.getRightBower(Suit.Club));
@@ -71,7 +71,7 @@ public class NapoleonTest {
 	}
 
 	@Test
-	public void T06_ƒ}ƒCƒeƒB³J— J‚æ‚ë‚ß‚«‚ª‚ ‚ê‚Î•›Š¯w’è‚¤‚çƒZƒCƒ€‚Q() {
+	public void T06_ãƒã‚¤ãƒ†ã‚£æ­£Jè£Jã‚ˆã‚ã‚ããŒã‚ã‚Œã°å‰¯å®˜æŒ‡å®šã†ã‚‰ã‚»ã‚¤ãƒ ï¼’() {
 		Player player = Player.New("hoge");
 		player.takeCard(Card.Mighty);
 		player.takeCard(GameContext.getRightBower(Suit.Club));
@@ -84,7 +84,7 @@ public class NapoleonTest {
 	}
 	
 	@Test
-	public void T07_ƒ}ƒCƒeƒB³J— J‚æ‚ë‚ß‚«— ƒZƒCƒ€‚Q‚ ‚Á‚ÄƒWƒ‡[ƒJ[‚ ‚ê‚Î•›Š¯w’èƒWƒ‡[ƒJ[¿‹() {
+	public void T07_ãƒã‚¤ãƒ†ã‚£æ­£Jè£Jã‚ˆã‚ã‚ãè£ã‚»ã‚¤ãƒ ï¼’ã‚ã£ã¦ã‚¸ãƒ§ãƒ¼ã‚«ãƒ¼ã‚ã‚Œã°å‰¯å®˜æŒ‡å®šã‚¸ãƒ§ãƒ¼ã‚«ãƒ¼è«‹æ±‚() {
 		Player player = Player.New("hoge");
 		player.takeCard(Card.Mighty);
 		player.takeCard(GameContext.getRightBower(Suit.Club));
@@ -99,7 +99,7 @@ public class NapoleonTest {
 	}
 
 	@Test
-	public void T08_ƒ}ƒCƒeƒB³J— J‚æ‚ë‚ß‚«— ƒZƒCƒ€‚Q‚ ‚Á‚ÄƒWƒ‡[ƒJ[‚È‚¯‚ê‚Î•›Š¯w’èØ‚èDA() {
+	public void T08_ãƒã‚¤ãƒ†ã‚£æ­£Jè£Jã‚ˆã‚ã‚ãè£ã‚»ã‚¤ãƒ ï¼’ã‚ã£ã¦ã‚¸ãƒ§ãƒ¼ã‚«ãƒ¼ãªã‘ã‚Œã°å‰¯å®˜æŒ‡å®šåˆ‡ã‚Šæœ­A() {
 		Player player = Player.New("hoge");
 		player.takeCard(Card.Mighty);
 		player.takeCard(GameContext.getRightBower(Suit.Club));
@@ -113,7 +113,7 @@ public class NapoleonTest {
 	}
 
 	@Test
-	public void T09_ƒ}ƒCƒeƒB³J— J‚æ‚ë‚ß‚«— ƒZƒCƒ€‚QØ‚èDA‚ ‚Á‚ÄƒWƒ‡[ƒJ[‚È‚¯‚ê‚Î•›Š¯w’èØ‚èD13() {
+	public void T09_ãƒã‚¤ãƒ†ã‚£æ­£Jè£Jã‚ˆã‚ã‚ãè£ã‚»ã‚¤ãƒ ï¼’åˆ‡ã‚Šæœ­Aã‚ã£ã¦ã‚¸ãƒ§ãƒ¼ã‚«ãƒ¼ãªã‘ã‚Œã°å‰¯å®˜æŒ‡å®šåˆ‡ã‚Šæœ­13() {
 		Player player = Player.New("hoge");
 		player.takeCard(Card.Mighty);
 		player.takeCard(GameContext.getRightBower(Suit.Club));

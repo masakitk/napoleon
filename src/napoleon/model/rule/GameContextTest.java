@@ -25,46 +25,46 @@ public class GameContextTest {
 	}
 
 	@Test
-	public void T_愰尵偵懳偟偰摿庩僇乕僪偑愝掕偝傟傞偙偲_Spade() {
+	public void T_瀹ｈ█銇銇椼仸鐗规畩銈兗銉夈亴瑷畾銇曘倢銈嬨亾銇╛Spade() {
 		Parameters params = new Parameters(
 				Declaration.New(Suit.Spade, 13),
 				Card.New(Suit.Spade, 11),
 				Card.New(Suit.Club, 11)); 
 		
-		GameContext偵懳偟偰愰尵傪僙僢僩偟偰摿庩僇乕僪傪妋擣偡傞(params);
+		GameContext銇銇椼仸瀹ｈ█銈掋偦銉冦儓銇椼仸鐗规畩銈兗銉夈倰纰鸿獚銇欍倠(params);
 	}
 
 	@Test
-	public void T_愰尵偵懳偟偰摿庩僇乕僪偑愝掕偝傟傞偙偲_Heart() {
+	public void T_瀹ｈ█銇銇椼仸鐗规畩銈兗銉夈亴瑷畾銇曘倢銈嬨亾銇╛Heart() {
 		Parameters params = new Parameters(
 				Declaration.New(Suit.Heart, 13),
 				Card.New(Suit.Heart, 11),
 				Card.New(Suit.Dia, 11)); 
 		
-		GameContext偵懳偟偰愰尵傪僙僢僩偟偰摿庩僇乕僪傪妋擣偡傞(params);
+		GameContext銇銇椼仸瀹ｈ█銈掋偦銉冦儓銇椼仸鐗规畩銈兗銉夈倰纰鸿獚銇欍倠(params);
 	}
 
 	@Test
-	public void T_愰尵偵懳偟偰摿庩僇乕僪偑愝掕偝傟傞偙偲_Dia() {
+	public void T_瀹ｈ█銇銇椼仸鐗规畩銈兗銉夈亴瑷畾銇曘倢銈嬨亾銇╛Dia() {
 		Parameters params = new Parameters(
 				Declaration.New(Suit.Dia, 13),
 				Card.New(Suit.Dia, 11),
 				Card.New(Suit.Heart, 11)); 
 		
-		GameContext偵懳偟偰愰尵傪僙僢僩偟偰摿庩僇乕僪傪妋擣偡傞(params);
+		GameContext銇銇椼仸瀹ｈ█銈掋偦銉冦儓銇椼仸鐗规畩銈兗銉夈倰纰鸿獚銇欍倠(params);
 	}
 
 	@Test
-	public void T_愰尵偵懳偟偰摿庩僇乕僪偑愝掕偝傟傞偙偲_Club() {
+	public void T_瀹ｈ█銇銇椼仸鐗规畩銈兗銉夈亴瑷畾銇曘倢銈嬨亾銇╛Club() {
 		Parameters params = new Parameters(
 				Declaration.New(Suit.Club, 13),
 				Card.New(Suit.Club, 11),
 				Card.New(Suit.Spade, 11)); 
 		
-		GameContext偵懳偟偰愰尵傪僙僢僩偟偰摿庩僇乕僪傪妋擣偡傞(params);
+		GameContext銇銇椼仸瀹ｈ█銈掋偦銉冦儓銇椼仸鐗规畩銈兗銉夈倰纰鸿獚銇欍倠(params);
 	}
 
-	private void GameContext偵懳偟偰愰尵傪僙僢僩偟偰摿庩僇乕僪傪妋擣偡傞(Parameters params) {
+	private void GameContext銇銇椼仸瀹ｈ█銈掋偦銉冦儓銇椼仸鐗规畩銈兗銉夈倰纰鸿獚銇欍倠(Parameters params) {
 		Table table = Table.New();
 		Player[] players = new Player[]{Player.New("1"), Player.New("2"), Player.New("3"), Player.New("4")};
 		GameContext context = GameContext.New(table, players);

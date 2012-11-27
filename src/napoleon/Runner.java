@@ -33,6 +33,6 @@ public class Runner {
 	}
 
 	protected static Player[] getPlayers() {
-		return new Player[]{TakahashiPlayer.New("T1"), Player.New("2"), Player.New("3"), ManualPlayer.New("4")};
+		return new Player[]{Player.New("T1"), Player.New("2"), Player.New("3"), ManualPlayer.New("4")};
 	}
 }

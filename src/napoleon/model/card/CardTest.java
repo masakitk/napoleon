@@ -8,22 +8,22 @@ import org.junit.Test;
 public class CardTest {
 
 	@Test
-	public void ƒJ[ƒhì¬”š0‚ÍƒGƒ‰[() {
+	public void ã‚«ãƒ¼ãƒ‰ä½œæˆæ™‚æ•°å­—0ã¯ã‚¨ãƒ©ãƒ¼() {
 		try{
 			Card.New(Suit.Heart, 0);
-			fail("ƒ`ƒFƒbƒN‚Å‚«‚Ä‚È‚¢");
+			fail("ãƒã‚§ãƒƒã‚¯ã§ãã¦ãªã„");
 		}catch(IllegalArgumentException e) {
-			assertThat(e.getMessage(), IsEqual.equalTo("”š‚ª1‚©‚ç13‚Ì”ÍˆÍ‚É‚ ‚è‚Ü‚¹‚ñB"));
+			assertThat(e.getMessage(), IsEqual.equalTo("æ•°å­—ãŒ1ã‹ã‚‰13ã®ç¯„å›²ã«ã‚ã‚Šã¾ã›ã‚“ã€‚"));
 		}
 	}
 
 	@Test
-	public void ƒJ[ƒhì¬”š14‚ÍƒGƒ‰[() {
+	public void ã‚«ãƒ¼ãƒ‰ä½œæˆæ™‚æ•°å­—14ã¯ã‚¨ãƒ©ãƒ¼() {
 		try{
 			Card.New(Suit.Spade, 14);
-			fail("ƒ`ƒFƒbƒN‚Å‚«‚Ä‚È‚¢");
+			fail("ãƒã‚§ãƒƒã‚¯ã§ãã¦ãªã„");
 		}catch(IllegalArgumentException e) {
-			assertThat(e.getMessage(), IsEqual.equalTo("”š‚ª1‚©‚ç13‚Ì”ÍˆÍ‚É‚ ‚è‚Ü‚¹‚ñB"));
+			assertThat(e.getMessage(), IsEqual.equalTo("æ•°å­—ãŒ1ã‹ã‚‰13ã®ç¯„å›²ã«ã‚ã‚Šã¾ã›ã‚“ã€‚"));
 		}
 	}
 

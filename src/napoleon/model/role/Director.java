@@ -85,8 +85,8 @@ public class Director implements Serializable {
 				fixedDeclaration = currentDeclaration;
 				napoleon = Napoleon.New(player);
 				players[Arrays.asList(players).indexOf(player)] = napoleon;
-				logger.info(String.format("Åönapoleon fixed:%s, %s", napoleon, fixedDeclaration));
-				viewer.showMessage(String.format("Åönapoleon fixed:%s, %s", napoleon.getName(), fixedDeclaration.toShow()));
+				logger.info(String.format("‚òÖnapoleon fixed:%s, %s", napoleon, fixedDeclaration));
+				viewer.showMessage(String.format("‚òÖnapoleon fixed:%s, %s", napoleon.getName(), fixedDeclaration.toShow()));
 				return;
 			}
 			currentDeclaration = askForDeclare(currentDeclaration, lastDeclarationsOfPlayer, player);
@@ -94,7 +94,7 @@ public class Director implements Serializable {
 		
 		if(allPlayerPassed(lastDeclarationsOfPlayer)) {
 			isNobodyDeclared = true;
-			logger.info("Åöall players passed.");
+			logger.info("‚òÖall players passed.");
 			return;
 		}
 		defineNapoleon(currentDeclaration, lastDeclarationsOfPlayer);
@@ -173,7 +173,7 @@ public class Director implements Serializable {
 		
 		turn.winnerGainCards();
 		viewer.showMessage(
-				String.format("Åöturn[%d], winner[%s]: cards[%s]", 
+				String.format("‚òÖturn[%d], winner[%s]: cards[%s]", 
 						currentTurnNo, 
 						getTurnWinnerName(currentTurnNo),
 						turn.getCardsToShow(viewer)));

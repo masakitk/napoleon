@@ -32,19 +32,19 @@ public class TurnTest {
 	public ExpectedException exception = ExpectedException.none();
 	
 	@Test(expected = IllegalArgumentException.class)
-	public void T01_ƒCƒ“ƒXƒ^ƒ“ƒX¶¬ƒ^[ƒ“‚ª1‚æ‚è¬‚³‚¢ê‡‚ÍƒGƒ‰[() {
+	public void T01_ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç”Ÿæˆæ™‚ã‚¿ãƒ¼ãƒ³ãŒ1ã‚ˆã‚Šå°ã•ã„å ´åˆã¯ã‚¨ãƒ©ãƒ¼() {
 		Turn.New(0, Suit.Spade);
 	}
 
 	@Test
-	public void T02_ƒCƒ“ƒXƒ^ƒ“ƒX¶¬ƒ^[ƒ“‚ª12‚æ‚è‘å‚«‚¢ê‡‚ÍƒGƒ‰[() {
+	public void T02_ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç”Ÿæˆæ™‚ã‚¿ãƒ¼ãƒ³ãŒ12ã‚ˆã‚Šå¤§ãã„å ´åˆã¯ã‚¨ãƒ©ãƒ¼() {
 		exception.expect(IllegalArgumentException.class);
-		exception.expectMessage("ƒ^[ƒ“”Ô†‚Í1ˆÈã12ˆÈ‰º‚Å‚ ‚é•K—v‚ª‚ ‚è‚Ü‚·");
+		exception.expectMessage("ã‚¿ãƒ¼ãƒ³ç•ªå·ã¯1ä»¥ä¸Š12ä»¥ä¸‹ã§ã‚ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™");
 		Turn.New(13, Suit.Spade);
 	}
 	
 	@Test
-	public void T03_Å‰‚Éo‚³‚ê‚½ƒX[ƒg‚ª‘äD‚É‚È‚é‚±‚Æ() {
+	public void T03_æœ€åˆã«å‡ºã•ã‚ŒãŸã‚¹ãƒ¼ãƒˆãŒå°æœ­ã«ãªã‚‹ã“ã¨() {
 		Turn turn = Turn.New(1, Suit.Spade);
 		assertThat(turn.getLeadSuit(), equalTo(null));	
 		turn.addCard(player1, Card.New(Suit.Spade, 2));
@@ -52,7 +52,7 @@ public class TurnTest {
 	}
 	
 	@Test
-	public void T03_Å‰‚ÉƒWƒ‡[ƒJ[‚ªo‚³‚ê‚½‚çØ‚èD‚ª‘äD‚É‚È‚é‚±‚Æ() {
+	public void T03_æœ€åˆã«ã‚¸ãƒ§ãƒ¼ã‚«ãƒ¼ãŒå‡ºã•ã‚ŒãŸã‚‰åˆ‡ã‚Šæœ­ãŒå°æœ­ã«ãªã‚‹ã“ã¨() {
 		Turn turn = Turn.New(2, Suit.Spade);
 		assertThat(turn.getLeadSuit(), equalTo(null));	
 		turn.addCard(player1, Card.Jorker);
@@ -60,7 +60,7 @@ public class TurnTest {
 	}
 
 	@Test
-	public void T03_“ÁêƒJ[ƒh–³Œø‚Ìƒ^[ƒ“‚ÅÅ‰‚ÉƒWƒ‡[ƒJ[‚ªo‚³‚ê‚½‚ç‘äD–¢’è‚Å2l–Ú‚É‚Ü‚í‚é‚±‚Æ() {
+	public void T03_ç‰¹æ®Šã‚«ãƒ¼ãƒ‰ç„¡åŠ¹ã®ã‚¿ãƒ¼ãƒ³ã§æœ€åˆã«ã‚¸ãƒ§ãƒ¼ã‚«ãƒ¼ãŒå‡ºã•ã‚ŒãŸã‚‰å°æœ­æœªå®šã§2äººç›®ã«ã¾ã‚ã‚‹ã“ã¨() {
 		Turn turn = Turn.New(1, Suit.Spade);
 		assertThat(turn.getLeadSuit(), equalTo(null));	
 		turn.addCard(player1, Card.Jorker);
@@ -70,7 +70,7 @@ public class TurnTest {
 	}
 	
 	@Test
-	public void T03_Å‰‚ÉƒWƒ‡[ƒJ[¿‹‚ªo‚³‚ê‚½‚±‚Æ‚ğ”»’è‚Å‚«‚é‚±‚Æ() {
+	public void T03_æœ€åˆã«ã‚¸ãƒ§ãƒ¼ã‚«ãƒ¼è«‹æ±‚ãŒå‡ºã•ã‚ŒãŸã“ã¨ã‚’åˆ¤å®šã§ãã‚‹ã“ã¨() {
 		Turn turn = Turn.New(2, Suit.Spade);
 		assertThat(turn.getLeadSuit(), equalTo(null));	
 		turn.addCard(player1, Card.New(Suit.Club, 3));
@@ -78,7 +78,7 @@ public class TurnTest {
 	}
 	
 	@Test
-	public void T04_ƒJ[ƒh‚ª4–‡o‚³‚ê‚Ä‚¢‚éê‡‚É“ÁêƒJ[ƒhl—¶”²‚«‚ÅŸÒ‚ğ”»’f‚Å‚«‚é() {
+	public void T04_ã‚«ãƒ¼ãƒ‰ãŒ4æšå‡ºã•ã‚Œã¦ã„ã‚‹å ´åˆã«ç‰¹æ®Šã‚«ãƒ¼ãƒ‰è€ƒæ…®æŠœãã§å‹è€…ã‚’åˆ¤æ–­ã§ãã‚‹() {
 		
 		final Parameters param = new Parameters(
 				Turn.New(1, Suit.Spade),
@@ -89,11 +89,11 @@ public class TurnTest {
 				player4, Card.New(Suit.Dia, 1),
 				new Card[]{Card.New(Suit.Dia, 1), Card.New(Suit.Heart, 13)});
 		
-		ƒ^[ƒ“‚ğ‰ñ‚µ‚ÄŸÒ‚ğŠm”F(param);
+		ã‚¿ãƒ¼ãƒ³ã‚’å›ã—ã¦å‹è€…ã‚’ç¢ºèª(param);
 	}
 
 	@Test
-	public void T04_ƒJ[ƒh‚ª4–‡o‚³‚ê‚Ä‚¢‚éê‡‚É“ÁêƒJ[ƒhl—¶‚ ‚è‚ÅŸÒ‚ğ”»’f‚Å‚«‚é() {
+	public void T04_ã‚«ãƒ¼ãƒ‰ãŒ4æšå‡ºã•ã‚Œã¦ã„ã‚‹å ´åˆã«ç‰¹æ®Šã‚«ãƒ¼ãƒ‰è€ƒæ…®ã‚ã‚Šã§å‹è€…ã‚’åˆ¤æ–­ã§ãã‚‹() {
 		
 		final Parameters param = new Parameters(
 				Turn.New(2, Suit.Dia),
@@ -104,11 +104,11 @@ public class TurnTest {
 				player4, Card.New(Suit.Dia, 1),
 				new Card[]{Card.New(Suit.Dia, 1)});
 		
-		ƒ^[ƒ“‚ğ‰ñ‚µ‚ÄŸÒ‚ğŠm”F(param);
+		ã‚¿ãƒ¼ãƒ³ã‚’å›ã—ã¦å‹è€…ã‚’ç¢ºèª(param);
 	}
 
 	@Test
-	public void T05_ƒJ[ƒh‚ª4–‡o‚³‚ê‚Ä‚¢‚éê‡‚É“ÁêƒJ[ƒhl—¶”²‚«‚ÅŸÒ‚ğ”»’f‚Å‚«‚é_ƒZƒCƒ€2‚Ì–³‹() {
+	public void T05_ã‚«ãƒ¼ãƒ‰ãŒ4æšå‡ºã•ã‚Œã¦ã„ã‚‹å ´åˆã«ç‰¹æ®Šã‚«ãƒ¼ãƒ‰è€ƒæ…®æŠœãã§å‹è€…ã‚’åˆ¤æ–­ã§ãã‚‹_ã‚»ã‚¤ãƒ 2ã®ç„¡è¦–() {
 		Parameters param = new Parameters(
 				Turn.New(1, Suit.Spade),
 				player2, Card.New(Suit.Dia, 8), 
@@ -118,11 +118,11 @@ public class TurnTest {
 				player1, Card.New(Suit.Dia, 13),
 				new Card[]{Card.New(Suit.Dia, 12), Card.New(Suit.Dia, 13)});
 		
-		ƒ^[ƒ“‚ğ‰ñ‚µ‚ÄŸÒ‚ğŠm”F(param);
+		ã‚¿ãƒ¼ãƒ³ã‚’å›ã—ã¦å‹è€…ã‚’ç¢ºèª(param);
 	}
 	
 	@Test
-	public void T05_ƒJ[ƒh‚ª4–‡o‚³‚ê‚Ä‚¢‚éê‡‚É“ÁêƒJ[ƒhl—¶‚ ‚è‚ÅŸÒ‚ğ”»’f‚Å‚«‚é_ƒZƒCƒ€2() {
+	public void T05_ã‚«ãƒ¼ãƒ‰ãŒ4æšå‡ºã•ã‚Œã¦ã„ã‚‹å ´åˆã«ç‰¹æ®Šã‚«ãƒ¼ãƒ‰è€ƒæ…®ã‚ã‚Šã§å‹è€…ã‚’åˆ¤æ–­ã§ãã‚‹_ã‚»ã‚¤ãƒ 2() {
 		Parameters param = new Parameters(
 				Turn.New(2, Suit.Spade),
 				player2, Card.New(Suit.Dia, 8), 
@@ -132,11 +132,11 @@ public class TurnTest {
 				player3, Card.New(Suit.Dia, 2),
 				new Card[]{Card.New(Suit.Dia, 12), Card.New(Suit.Dia, 13)});
 		
-		ƒ^[ƒ“‚ğ‰ñ‚µ‚ÄŸÒ‚ğŠm”F(param);
+		ã‚¿ãƒ¼ãƒ³ã‚’å›ã—ã¦å‹è€…ã‚’ç¢ºèª(param);
 	}
 	
 	@Test
-	public void T05_ƒJ[ƒh‚ª4–‡o‚³‚ê‚Ä‚¢‚éê‡‚É“ÁêƒJ[ƒhl—¶‚ ‚è‚ÅŸÒ‚ğ”»’f‚Å‚«‚é_ƒZƒCƒ€2–³Œø_•Ê‚ÌƒX[ƒg‚ ‚è() {
+	public void T05_ã‚«ãƒ¼ãƒ‰ãŒ4æšå‡ºã•ã‚Œã¦ã„ã‚‹å ´åˆã«ç‰¹æ®Šã‚«ãƒ¼ãƒ‰è€ƒæ…®ã‚ã‚Šã§å‹è€…ã‚’åˆ¤æ–­ã§ãã‚‹_ã‚»ã‚¤ãƒ 2ç„¡åŠ¹_åˆ¥ã®ã‚¹ãƒ¼ãƒˆã‚ã‚Š() {
 		Parameters param = new Parameters(
 				Turn.New(2, Suit.Spade),
 				player2, Card.New(Suit.Dia, 8), 
@@ -146,11 +146,11 @@ public class TurnTest {
 				player4, Card.New(Suit.Dia, 12),
 				new Card[]{Card.New(Suit.Dia, 12), Card.New(Suit.Heart, 13)});
 		
-		ƒ^[ƒ“‚ğ‰ñ‚µ‚ÄŸÒ‚ğŠm”F(param);
+		ã‚¿ãƒ¼ãƒ³ã‚’å›ã—ã¦å‹è€…ã‚’ç¢ºèª(param);
 	}
 	
 	@Test
-	public void T06_ƒJ[ƒh‚ª4–‡o‚³‚ê‚Ä‚¢‚éê‡‚É“ÁêƒJ[ƒhl—¶”²‚«‚ÅŸÒ‚ğ”»’f‚Å‚«‚é_‚æ‚ë‚ß‚«‚Ì–³‹() {
+	public void T06_ã‚«ãƒ¼ãƒ‰ãŒ4æšå‡ºã•ã‚Œã¦ã„ã‚‹å ´åˆã«ç‰¹æ®Šã‚«ãƒ¼ãƒ‰è€ƒæ…®æŠœãã§å‹è€…ã‚’åˆ¤æ–­ã§ãã‚‹_ã‚ˆã‚ã‚ãã®ç„¡è¦–() {
 		Parameters param = new Parameters(
 				Turn.New(1, Suit.Spade),
 				player2, Card.New(Suit.Spade, 1), 
@@ -160,11 +160,11 @@ public class TurnTest {
 				player2, Card.New(Suit.Spade, 1),
 				new Card[]{Card.New(Suit.Dia, 12), Card.New(Suit.Dia, 13), Card.New(Suit.Spade, 1), Card.New(Suit.Heart, 12)});
 		
-		ƒ^[ƒ“‚ğ‰ñ‚µ‚ÄŸÒ‚ğŠm”F(param);
+		ã‚¿ãƒ¼ãƒ³ã‚’å›ã—ã¦å‹è€…ã‚’ç¢ºèª(param);
 	}
 
 	@Test
-	public void T06_ƒJ[ƒh‚ª4–‡o‚³‚ê‚Ä‚¢‚éê‡‚É“ÁêƒJ[ƒhl—¶‚ ‚è‚ÅŸÒ‚ğ”»’f‚Å‚«‚é_‚æ‚ë‚ß‚«() {
+	public void T06_ã‚«ãƒ¼ãƒ‰ãŒ4æšå‡ºã•ã‚Œã¦ã„ã‚‹å ´åˆã«ç‰¹æ®Šã‚«ãƒ¼ãƒ‰è€ƒæ…®ã‚ã‚Šã§å‹è€…ã‚’åˆ¤æ–­ã§ãã‚‹_ã‚ˆã‚ã‚ã() {
 		Parameters param = new Parameters(
 				Turn.New(11, Suit.Spade),
 				player2, Card.New(Suit.Spade, 1), 
@@ -174,11 +174,11 @@ public class TurnTest {
 				player3, Card.New(Suit.Heart, 12),
 				new Card[]{Card.New(Suit.Dia, 12), Card.New(Suit.Dia, 13), Card.New(Suit.Spade, 1), Card.New(Suit.Heart, 12)});
 		
-		ƒ^[ƒ“‚ğ‰ñ‚µ‚ÄŸÒ‚ğŠm”F(param);
+		ã‚¿ãƒ¼ãƒ³ã‚’å›ã—ã¦å‹è€…ã‚’ç¢ºèª(param);
 	}
 
 	@Test
-	public void T07_ƒJ[ƒh‚ª4–‡o‚³‚ê‚Ä‚¢‚éê‡‚É“ÁêƒJ[ƒhl—¶”²‚«‚ÅŸÒ‚ğ”»’f‚Å‚«‚é_ƒ}ƒCƒeƒB‚Ì–³‹() {
+	public void T07_ã‚«ãƒ¼ãƒ‰ãŒ4æšå‡ºã•ã‚Œã¦ã„ã‚‹å ´åˆã«ç‰¹æ®Šã‚«ãƒ¼ãƒ‰è€ƒæ…®æŠœãã§å‹è€…ã‚’åˆ¤æ–­ã§ãã‚‹_ãƒã‚¤ãƒ†ã‚£ã®ç„¡è¦–() {
 		Parameters param = new Parameters(
 				Turn.New(1, Suit.Spade),
 				player2, Card.New(Suit.Heart, 1), 
@@ -188,11 +188,11 @@ public class TurnTest {
 				player2, Card.New(Suit.Heart, 1),
 				new Card[]{Card.New(Suit.Heart, 12), Card.New(Suit.Dia, 13), Card.New(Suit.Heart, 1), Card.New(Suit.Spade, 1),});
 		
-		ƒ^[ƒ“‚ğ‰ñ‚µ‚ÄŸÒ‚ğŠm”F(param);
+		ã‚¿ãƒ¼ãƒ³ã‚’å›ã—ã¦å‹è€…ã‚’ç¢ºèª(param);
 	}
 
 	@Test
-	public void T07_ƒJ[ƒh‚ª4–‡o‚³‚ê‚Ä‚¢‚éê‡‚É“ÁêƒJ[ƒhl—¶‚ ‚è‚ÅŸÒ‚ğ”»’f‚Å‚«‚é_ƒ}ƒCƒeƒB() {
+	public void T07_ã‚«ãƒ¼ãƒ‰ãŒ4æšå‡ºã•ã‚Œã¦ã„ã‚‹å ´åˆã«ç‰¹æ®Šã‚«ãƒ¼ãƒ‰è€ƒæ…®ã‚ã‚Šã§å‹è€…ã‚’åˆ¤æ–­ã§ãã‚‹_ãƒã‚¤ãƒ†ã‚£() {
 		Parameters param = new Parameters(
 				Turn.New(2, Suit.Spade),
 				player2, Card.New(Suit.Heart, 1), 
@@ -202,11 +202,11 @@ public class TurnTest {
 				player4, Card.New(Suit.Spade, 1),
 				new Card[]{Card.New(Suit.Heart, 13), Card.New(Suit.Dia, 13), Card.New(Suit.Heart, 1), Card.New(Suit.Spade, 1),});
 		
-		ƒ^[ƒ“‚ğ‰ñ‚µ‚ÄŸÒ‚ğŠm”F(param);
+		ã‚¿ãƒ¼ãƒ³ã‚’å›ã—ã¦å‹è€…ã‚’ç¢ºèª(param);
 	}
 
 	@Test
-	public void T08_ƒJ[ƒh‚ª4–‡o‚³‚ê‚Ä‚¢‚éê‡‚É“ÁêƒJ[ƒhl—¶”²‚«‚ÅŸÒ‚ğ”»’f‚Å‚«‚é_Ø‚èD‚Ì–³‹() {
+	public void T08_ã‚«ãƒ¼ãƒ‰ãŒ4æšå‡ºã•ã‚Œã¦ã„ã‚‹å ´åˆã«ç‰¹æ®Šã‚«ãƒ¼ãƒ‰è€ƒæ…®æŠœãã§å‹è€…ã‚’åˆ¤æ–­ã§ãã‚‹_åˆ‡ã‚Šæœ­ã®ç„¡è¦–() {
 		Parameters param = new Parameters(
 				Turn.New(1, Suit.Club),
 				player2, Card.New(Suit.Heart, 1), 
@@ -216,11 +216,11 @@ public class TurnTest {
 				player2, Card.New(Suit.Heart, 1),
 				new Card[]{Card.New(Suit.Heart, 12), Card.New(Suit.Dia, 13), Card.New(Suit.Heart, 1)});
 		
-		ƒ^[ƒ“‚ğ‰ñ‚µ‚ÄŸÒ‚ğŠm”F(param);
+		ã‚¿ãƒ¼ãƒ³ã‚’å›ã—ã¦å‹è€…ã‚’ç¢ºèª(param);
 	}
 	
 	@Test
-	public void T08_ƒJ[ƒh‚ª4–‡o‚³‚ê‚Ä‚¢‚éê‡‚É“ÁêƒJ[ƒhl—¶‚ ‚è‚ÅŸÒ‚ğ”»’f‚Å‚«‚é_Ø‚èD() {
+	public void T08_ã‚«ãƒ¼ãƒ‰ãŒ4æšå‡ºã•ã‚Œã¦ã„ã‚‹å ´åˆã«ç‰¹æ®Šã‚«ãƒ¼ãƒ‰è€ƒæ…®ã‚ã‚Šã§å‹è€…ã‚’åˆ¤æ–­ã§ãã‚‹_åˆ‡ã‚Šæœ­() {
 		Parameters param = new Parameters(
 				Turn.New(2, Suit.Club),
 				player2, Card.New(Suit.Heart, 1), 
@@ -230,11 +230,11 @@ public class TurnTest {
 				player4, Card.New(Suit.Club, 3),
 				new Card[]{Card.New(Suit.Heart, 12), Card.New(Suit.Dia, 13), Card.New(Suit.Heart, 1)});
 		
-		ƒ^[ƒ“‚ğ‰ñ‚µ‚ÄŸÒ‚ğŠm”F(param);
+		ã‚¿ãƒ¼ãƒ³ã‚’å›ã—ã¦å‹è€…ã‚’ç¢ºèª(param);
 	}
 	
 	@Test
-	public void T09_ƒJ[ƒh‚ª4–‡o‚³‚ê‚Ä‚¢‚éê‡‚É“ÁêƒJ[ƒhl—¶”²‚«‚ÅŸÒ‚ğ”»’f‚Å‚«‚é_— J‚Ì–³‹() {
+	public void T09_ã‚«ãƒ¼ãƒ‰ãŒ4æšå‡ºã•ã‚Œã¦ã„ã‚‹å ´åˆã«ç‰¹æ®Šã‚«ãƒ¼ãƒ‰è€ƒæ…®æŠœãã§å‹è€…ã‚’åˆ¤æ–­ã§ãã‚‹_è£Jã®ç„¡è¦–() {
 		Parameters param = new Parameters(
 				Turn.New(1, Suit.Club),
 				player2, Card.New(Suit.Club, 1), 
@@ -244,11 +244,11 @@ public class TurnTest {
 				player2, Card.New(Suit.Club, 1),
 				new Card[]{Card.New(Suit.Club, 12), Card.New(Suit.Dia, 13), Card.New(Suit.Club, 1), Card.New(Suit.Spade, 11),});
 		
-		ƒ^[ƒ“‚ğ‰ñ‚µ‚ÄŸÒ‚ğŠm”F(param);
+		ã‚¿ãƒ¼ãƒ³ã‚’å›ã—ã¦å‹è€…ã‚’ç¢ºèª(param);
 	}
 
 	@Test
-	public void T09_ƒJ[ƒh‚ª4–‡o‚³‚ê‚Ä‚¢‚éê‡‚É“ÁêƒJ[ƒhl—¶‚ ‚è‚ÅŸÒ‚ğ”»’f‚Å‚«‚é_— J() {
+	public void T09_ã‚«ãƒ¼ãƒ‰ãŒ4æšå‡ºã•ã‚Œã¦ã„ã‚‹å ´åˆã«ç‰¹æ®Šã‚«ãƒ¼ãƒ‰è€ƒæ…®ã‚ã‚Šã§å‹è€…ã‚’åˆ¤æ–­ã§ãã‚‹_è£J() {
 		Parameters param = new Parameters(
 				Turn.New(2, Suit.Club),
 				player2, Card.New(Suit.Club, 1), 
@@ -258,11 +258,11 @@ public class TurnTest {
 				player4, Card.New(Suit.Spade, 11),
 				new Card[]{Card.New(Suit.Club, 12), Card.New(Suit.Dia, 13), Card.New(Suit.Club, 1), Card.New(Suit.Spade, 11),});
 		
-		ƒ^[ƒ“‚ğ‰ñ‚µ‚ÄŸÒ‚ğŠm”F(param);
+		ã‚¿ãƒ¼ãƒ³ã‚’å›ã—ã¦å‹è€…ã‚’ç¢ºèª(param);
 	}
 
 	@Test
-	public void T10_ƒJ[ƒh‚ª4–‡o‚³‚ê‚Ä‚¢‚éê‡‚É“ÁêƒJ[ƒhl—¶”²‚«‚ÅŸÒ‚ğ”»’f‚Å‚«‚é_³J‚Ì–³‹() {
+	public void T10_ã‚«ãƒ¼ãƒ‰ãŒ4æšå‡ºã•ã‚Œã¦ã„ã‚‹å ´åˆã«ç‰¹æ®Šã‚«ãƒ¼ãƒ‰è€ƒæ…®æŠœãã§å‹è€…ã‚’åˆ¤æ–­ã§ãã‚‹_æ­£Jã®ç„¡è¦–() {
 		Parameters param = new Parameters(
 				Turn.New(1, Suit.Club),
 				player2, Card.New(Suit.Spade, 12), 
@@ -272,11 +272,11 @@ public class TurnTest {
 				player2, Card.New(Suit.Spade, 12),
 				new Card[]{Card.New(Suit.Spade, 12), Card.New(Suit.Dia, 13), Card.New(Suit.Heart, 1), Card.New(Suit.Club, 11),});
 		
-		ƒ^[ƒ“‚ğ‰ñ‚µ‚ÄŸÒ‚ğŠm”F(param);
+		ã‚¿ãƒ¼ãƒ³ã‚’å›ã—ã¦å‹è€…ã‚’ç¢ºèª(param);
 	}
 
 	@Test
-	public void T10_ƒJ[ƒh‚ª4–‡o‚³‚ê‚Ä‚¢‚éê‡‚É“ÁêƒJ[ƒhl—¶‚ ‚è‚ÅŸÒ‚ğ”»’f‚Å‚«‚é_³J() {
+	public void T10_ã‚«ãƒ¼ãƒ‰ãŒ4æšå‡ºã•ã‚Œã¦ã„ã‚‹å ´åˆã«ç‰¹æ®Šã‚«ãƒ¼ãƒ‰è€ƒæ…®ã‚ã‚Šã§å‹è€…ã‚’åˆ¤æ–­ã§ãã‚‹_æ­£J() {
 		Parameters param = new Parameters(
 				Turn.New(2, Suit.Club),
 				player2, Card.New(Suit.Spade, 12), 
@@ -286,11 +286,11 @@ public class TurnTest {
 				player4, Card.New(Suit.Club, 11),
 				new Card[]{Card.New(Suit.Spade, 12), Card.New(Suit.Dia, 13), Card.New(Suit.Heart, 1), Card.New(Suit.Club, 11),});
 		
-		ƒ^[ƒ“‚ğ‰ñ‚µ‚ÄŸÒ‚ğŠm”F(param);
+		ã‚¿ãƒ¼ãƒ³ã‚’å›ã—ã¦å‹è€…ã‚’ç¢ºèª(param);
 	}
 
 	@Test
-	public void T11_ƒJ[ƒh‚ª4–‡o‚³‚ê‚Ä‚¢‚éê‡‚É“ÁêƒJ[ƒhl—¶”²‚«‚ÅŸÒ‚ğ”»’f‚Å‚«‚é_Jorker‚Ì–³‹() {
+	public void T11_ã‚«ãƒ¼ãƒ‰ãŒ4æšå‡ºã•ã‚Œã¦ã„ã‚‹å ´åˆã«ç‰¹æ®Šã‚«ãƒ¼ãƒ‰è€ƒæ…®æŠœãã§å‹è€…ã‚’åˆ¤æ–­ã§ãã‚‹_Jorkerã®ç„¡è¦–() {
 		Parameters param = new Parameters(
 				Turn.New(1, Suit.Club),
 				player2, Card.Jorker, 
@@ -300,11 +300,11 @@ public class TurnTest {
 				player3, Card.New(Suit.Club, 1),
 				new Card[]{Card.New(Suit.Dia, 13), Card.New(Suit.Club, 1), Card.New(Suit.Club, 11),});
 		
-		ƒ^[ƒ“‚ğ‰ñ‚µ‚ÄŸÒ‚ğŠm”F(param);
+		ã‚¿ãƒ¼ãƒ³ã‚’å›ã—ã¦å‹è€…ã‚’ç¢ºèª(param);
 	}
 
 	@Test
-	public void T11_ƒJ[ƒh‚ª4–‡o‚³‚ê‚Ä‚¢‚éê‡‚É“ÁêƒJ[ƒhl—¶‚ ‚è‚ÅŸÒ‚ğ”»’f‚Å‚«‚é_Å‰‚ÉJorker() {
+	public void T11_ã‚«ãƒ¼ãƒ‰ãŒ4æšå‡ºã•ã‚Œã¦ã„ã‚‹å ´åˆã«ç‰¹æ®Šã‚«ãƒ¼ãƒ‰è€ƒæ…®ã‚ã‚Šã§å‹è€…ã‚’åˆ¤æ–­ã§ãã‚‹_æœ€åˆã«Jorker() {
 		Parameters param = new Parameters(
 				Turn.New(2, Suit.Club),
 				player2, Card.Jorker, 
@@ -314,11 +314,11 @@ public class TurnTest {
 				player2, Card.Jorker,
 				new Card[]{Card.New(Suit.Dia, 13), Card.New(Suit.Club, 1), Card.New(Suit.Spade, 11),});
 		
-		ƒ^[ƒ“‚ğ‰ñ‚µ‚ÄŸÒ‚ğŠm”F(param);
+		ã‚¿ãƒ¼ãƒ³ã‚’å›ã—ã¦å‹è€…ã‚’ç¢ºèª(param);
 	}
 
 	@Test
-	public void T11_ƒJ[ƒh‚ª4–‡o‚³‚ê‚Ä‚¢‚éê‡‚É“ÁêƒJ[ƒhl—¶‚ ‚è‚ÅŸÒ‚ğ”»’f‚Å‚«‚é_JorkerVS³J() {
+	public void T11_ã‚«ãƒ¼ãƒ‰ãŒ4æšå‡ºã•ã‚Œã¦ã„ã‚‹å ´åˆã«ç‰¹æ®Šã‚«ãƒ¼ãƒ‰è€ƒæ…®ã‚ã‚Šã§å‹è€…ã‚’åˆ¤æ–­ã§ãã‚‹_JorkerVSæ­£J() {
 		Parameters param = new Parameters(
 				Turn.New(2, Suit.Club),
 				player2, Card.Jorker, 
@@ -328,11 +328,11 @@ public class TurnTest {
 				player4, Card.New(Suit.Club, 11), 
 				new Card[]{Card.New(Suit.Dia, 13), Card.New(Suit.Club, 1), Card.New(Suit.Club, 11),});
 		
-		ƒ^[ƒ“‚ğ‰ñ‚µ‚ÄŸÒ‚ğŠm”F(param);
+		ã‚¿ãƒ¼ãƒ³ã‚’å›ã—ã¦å‹è€…ã‚’ç¢ºèª(param);
 	}
 
 	@Test
-	public void T11_ƒJ[ƒh‚ª4–‡o‚³‚ê‚Ä‚¢‚éê‡‚É“ÁêƒJ[ƒhl—¶‚ ‚è‚ÅŸÒ‚ğ”»’f‚Å‚«‚é_JorkerVSƒ}ƒCƒeƒB() {
+	public void T11_ã‚«ãƒ¼ãƒ‰ãŒ4æšå‡ºã•ã‚Œã¦ã„ã‚‹å ´åˆã«ç‰¹æ®Šã‚«ãƒ¼ãƒ‰è€ƒæ…®ã‚ã‚Šã§å‹è€…ã‚’åˆ¤æ–­ã§ãã‚‹_JorkerVSãƒã‚¤ãƒ†ã‚£() {
 		Parameters param = new Parameters(
 				Turn.New(2, Suit.Club),
 				player2, Card.Jorker, 
@@ -342,11 +342,11 @@ public class TurnTest {
 				player4, Card.Mighty, 
 				new Card[]{Card.New(Suit.Dia, 13), Card.New(Suit.Club, 1), Card.Mighty,});
 		
-		ƒ^[ƒ“‚ğ‰ñ‚µ‚ÄŸÒ‚ğŠm”F(param);
+		ã‚¿ãƒ¼ãƒ³ã‚’å›ã—ã¦å‹è€…ã‚’ç¢ºèª(param);
 	}
 
 	@Test
-	public void T11_ƒJ[ƒh‚ª4–‡o‚³‚ê‚Ä‚¢‚éê‡‚É“ÁêƒJ[ƒhl—¶‚ ‚è‚ÅŸÒ‚ğ”»’f‚Å‚«‚é_JorkerVS‚æ‚ë‚ß‚«() {
+	public void T11_ã‚«ãƒ¼ãƒ‰ãŒ4æšå‡ºã•ã‚Œã¦ã„ã‚‹å ´åˆã«ç‰¹æ®Šã‚«ãƒ¼ãƒ‰è€ƒæ…®ã‚ã‚Šã§å‹è€…ã‚’åˆ¤æ–­ã§ãã‚‹_JorkerVSã‚ˆã‚ã‚ã() {
 		Parameters param = new Parameters(
 				Turn.New(2, Suit.Club),
 				player2, Card.Jorker, 
@@ -356,11 +356,11 @@ public class TurnTest {
 				player1, Card.Yoromeki, 
 				new Card[]{Card.Yoromeki, Card.New(Suit.Club, 1), Card.Mighty,});
 		
-		ƒ^[ƒ“‚ğ‰ñ‚µ‚ÄŸÒ‚ğŠm”F(param);
+		ã‚¿ãƒ¼ãƒ³ã‚’å›ã—ã¦å‹è€…ã‚’ç¢ºèª(param);
 	}
 
 	@Test
-	public void T11_ƒJ[ƒh‚ª4–‡o‚³‚ê‚Ä‚¢‚éê‡‚É“ÁêƒJ[ƒhl—¶‚ ‚è‚ÅŸÒ‚ğ”»’f‚Å‚«‚é_“r’†‚ÉJorker() {
+	public void T11_ã‚«ãƒ¼ãƒ‰ãŒ4æšå‡ºã•ã‚Œã¦ã„ã‚‹å ´åˆã«ç‰¹æ®Šã‚«ãƒ¼ãƒ‰è€ƒæ…®ã‚ã‚Šã§å‹è€…ã‚’åˆ¤æ–­ã§ãã‚‹_é€”ä¸­ã«Jorker() {
 		Parameters param = new Parameters(
 				Turn.New(2, Suit.Club),
 				player2, Card.New(Suit.Club, 1), 
@@ -370,10 +370,10 @@ public class TurnTest {
 				player4, Card.New(Suit.Spade, 11),
 				new Card[]{Card.New(Suit.Dia, 13), Card.New(Suit.Club, 1), Card.New(Suit.Spade, 11),});
 		
-		ƒ^[ƒ“‚ğ‰ñ‚µ‚ÄŸÒ‚ğŠm”F(param);
+		ã‚¿ãƒ¼ãƒ³ã‚’å›ã—ã¦å‹è€…ã‚’ç¢ºèª(param);
 	}
 	
-	private void ƒ^[ƒ“‚ğ‰ñ‚µ‚ÄŸÒ‚ğŠm”F(Parameters param) {
+	private void ã‚¿ãƒ¼ãƒ³ã‚’å›ã—ã¦å‹è€…ã‚’ç¢ºèª(Parameters param) {
 		turn = param.turn;
 		turn.addCard(param.player1, param.card1);
 		turn.addCard(param.player2, param.card2);

@@ -41,7 +41,7 @@ public class CardSortTest {
 	}
 	
 	@Test
-	public void ƒ}[ƒN‚Æ”š‚Å•À‚Ñ‘Ö‚¦Šm”F() {
+	public void ãƒãƒ¼ã‚¯ã¨æ•°å­—ã§ä¸¦ã³æ›¿ãˆç¢ºèª() {
 		assertThat(card1.isUpperOrderByMarkAndStrength(card2), Is.is(result));
 	}
 
