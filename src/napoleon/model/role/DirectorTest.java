@@ -20,6 +20,7 @@ import napoleon.model.rule.Turn;
 import napoleon.model.rule.TurnStatus;
 import napoleon.view.Viewer;
 
+import org.apache.commons.collections15.CollectionUtils;
 import org.hamcrest.core.IsEqual;
 import org.junit.Before;
 import org.junit.Test;
@@ -172,6 +173,8 @@ public class DirectorTest {
 		new Expectations() {
 			{
 				 dealer.hasServed(); returns(true);
+				 napoleon.getName(); returns("1");
+				 player1.getName(); returns("1");
 				 player1.openCard((Turn) any, (Viewer) any, (Declaration) any); returns(Card.New(Suit.Spade, 3));
 				 player2.openCard((Turn) any, (Viewer) any, (Declaration) any); returns(Card.New(Suit.Spade, 8));
 				 player3.openCard((Turn) any, (Viewer) any, (Declaration) any); returns(Card.New(Suit.Heart, 9));
@@ -252,5 +255,23 @@ public class DirectorTest {
 		director.napoleon = napoleon;
 		director.fixedDeclaration = Declaration.New(Suit.Heart, 16);
 		assertThat(director.JudgeWinnerTeam(), equalTo(Team.AlliedForcesTeam));
+	}
+	
+	@Test
+	public void T09_1ターン目はナポレオンから始まること(){
+		new Expectations() {
+			{
+				napoleon.getName(); returns("4");
+				player1.getName(); returns("1");
+				player2.getName(); returns("2");
+				player3.getName(); returns("3");
+				player4.getName(); returns("4");
+			}
+		};
+		
+		director.napoleon = napoleon;
+		director.fixedDeclaration = Declaration.New(Suit.Heart, 15);
+		
+		assertThat((Player)CollectionUtils.get(director.getPlayersForTurn(1), 0), equalTo(player4));
 	}
 }

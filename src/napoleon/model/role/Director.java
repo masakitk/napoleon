@@ -192,16 +192,28 @@ public class Director implements Serializable {
 		return turns[turnNo -1];
 	}
 
-	private Collection<Player> getPlayersForTurn(int turnNo) {
+	Collection<Player> getPlayersForTurn(int turnNo) {
 		ArrayList<Player> list = new ArrayList<Player>(); 
-		int leadPlayerIndex = turnNo == 1 ? 0 : Arrays.asList(players).indexOf(getTurnWinner(turnNo - 1));
-//		System.out.println(String.format("leadPlayerIndex:%d", leadPlayerIndex));
+		int leadPlayerIndex = 
+				turnNo == 1 
+				? Arrays.asList(players).indexOf(findPlayerByName(napoleon.getName()))
+				: Arrays.asList(players).indexOf(getTurnWinner(turnNo - 1));
 		for(int i = 0; i < Table._PLAYERS_COUNT; i++){
 			Player p = players[(leadPlayerIndex + i) % Table._PLAYERS_COUNT];
 			logger.info(p);
 			list.add(p);
 		}
 		return list;
+	}
+
+	private Player findPlayerByName(final String name) {
+		return CollectionUtils.find(Arrays.asList(players), new Predicate<Player>() {
+
+			@Override
+			public boolean evaluate(Player player) {
+				return name.equals(player.getName());
+			}
+		});
 	}
 
 	private Player getTurnWinner(int turnNo) {
