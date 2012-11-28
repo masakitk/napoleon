@@ -23,6 +23,7 @@ public class Card {
 	}
 
 	public static Comparator<Card> CardIgnoreSpecialComparator;
+	public static final int PictureCardCount = 20;
 
 	public static final Card Yoromeki = Card.New(Suit.Heart, 12);
 	public static final Card Mighty = Card.New(Suit.Spade, 1);

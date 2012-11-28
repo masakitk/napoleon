@@ -43,7 +43,8 @@ public class DirectorTest {
 	
 	@Before
 	public void setUp() {
-		director = (DirectorEx)DirectorEx.NewEx(table, dealer, new Player[]{player1, player2, player3, player4});
+		director = (DirectorEx)DirectorEx.NewEx(
+				table, dealer, new Player[]{player1, player2, player3, player4}, viewer);
 	}
 	
 	@Test
@@ -181,19 +182,7 @@ public class DirectorTest {
 				 player4.openCard((Turn) any, (Viewer) any, (Declaration) any); returns(Card.New(Suit.Spade, 5));
 				 player2.takeCards((Collection<Card>) any);
 				 player2.getName(); returns(any);
-				 player1.getName(); returns(any);
-				 player2.getName(); returns(any);
-				 player3.getName(); returns(any);
-				 player4.getName(); returns(any);
-				 player1.getName(); returns(any);
-				 player1.cardsGained(); returns(any);
-				 player2.getName(); returns(any);
-				 player2.cardsGained(); returns(any);
-				 player3.getName(); returns(any);
-				 player3.cardsGained(); returns(any);
-				 player4.getName(); returns(any);
-				 player4.cardsGained(); returns(any);
-				 			 }
+			 			 }
 		};
 		director.SetExtraCardChanged(true);
 		director.setNapoleon(napoleon);
@@ -211,20 +200,15 @@ public class DirectorTest {
 	public void T07_ナポレオン軍が絵札を宣言枚数取得したらナポレオン軍の勝ち(){
 		new Expectations() {
 			{
-				napoleon.cardsGained(); returns(any);
-				player1.getName(); returns(any);
-				player1.cardsGained(); returns(any);
-				player2.getName(); returns(any);
-				player2.cardsGained(); returns(any);
-				player3.getName(); returns(any);
-				player3.cardsGained(); returns(any);
-				player4.getName(); returns(any);
-				player4.cardsGained(); returns(any);
+				viewer.showGainedCardsForEachPlayer(napoleon, director.players);
+				viewer.showExchangedCards(table);
 				player1.isAdjutant(); returns(true);
 				napoleon.getGainedCardCount(); returns(10);
 				player1.getGainedCardCount(); returns(5);
 				player1.isAdjutant(); returns(true);
-				player1.getName(); returns(any);
+				player1.getName(); returns("1");
+				viewer.showMessage("adjutant is 1");
+				viewer.showMessage("winner is NapoleonTeam");
 			 }
 		};
 		director.napoleon = napoleon;
@@ -236,20 +220,35 @@ public class DirectorTest {
 	public void T08_ナポレオン軍が絵札を宣言枚数取得できなかったら連合軍の勝ち(){
 		new Expectations() {
 			{
-				napoleon.cardsGained(); returns(any);
-				player1.getName(); returns(any);
-				player1.cardsGained(); returns(any);
-				player2.getName(); returns(any);
-				player2.cardsGained(); returns(any);
-				player3.getName(); returns(any);
-				player3.cardsGained(); returns(any);
-				player4.getName(); returns(any);
-				player4.cardsGained(); returns(any);
+				viewer.showGainedCardsForEachPlayer(napoleon, director.players);
+				viewer.showExchangedCards(table);
 				player1.isAdjutant(); returns(true);
 				napoleon.getGainedCardCount(); returns(10);
 				player1.getGainedCardCount(); returns(5);
 				player1.isAdjutant(); returns(true);
-				player1.getName(); returns(any);
+				player1.getName(); returns("1");
+				viewer.showMessage("adjutant is 1");
+				viewer.showMessage("winner is AlliedForcesTeam");
+			 }
+		};
+		director.napoleon = napoleon;
+		director.fixedDeclaration = Declaration.New(Suit.Heart, 16);
+		assertThat(director.JudgeWinnerTeam(), equalTo(Team.AlliedForcesTeam));
+	}
+	
+	@Test
+	public void T08_2全とりは連合軍の勝ち() {
+		new Expectations() {
+			{
+				viewer.showGainedCardsForEachPlayer(napoleon, director.players);
+				viewer.showExchangedCards(table);
+				player1.isAdjutant(); returns(true);
+				napoleon.getGainedCardCount(); returns(15);
+				player1.getGainedCardCount(); returns(5);
+				player1.isAdjutant(); returns(true);
+				player1.getName(); returns("1");
+				viewer.showMessage("adjutant is 1");
+				viewer.showMessage("winner is AlliedForcesTeam");
 			 }
 		};
 		director.napoleon = napoleon;

@@ -172,20 +172,10 @@ public class Director implements Serializable {
 		}
 		
 		turn.winnerGainCards();
-		viewer.showMessage(
-				String.format("★turn[%d], winner[%s]: cards[%s]", 
-						currentTurnNo, 
-						getTurnWinnerName(currentTurnNo),
-						turn.getCardsToShow(viewer)));
+		viewer.showTurnResult(currentTurnNo, getTurnWinnerName(currentTurnNo), turn.getCardsToShow(viewer));
 		
-		showPlayersGainedCards();
+		viewer.showPlayersGainedCards(players);
 		currentTurnNo++;
-	}
-
-	protected void showPlayersGainedCards() {
-		for (Player p : players){
-			System.out.println(String.format("player:%s / Gained:%s", p.getName(), p.cardsGained()));
-		}
 	}
 
 	private Turn getTurn(int turnNo) {
@@ -225,11 +215,8 @@ public class Director implements Serializable {
 	}
 	
 	public Team JudgeWinnerTeam(){
-		viewer.showMessage(String.format("napoleon gained %s", getNapoleon().cardsGained()));
-		for (Player p : players) {
-			viewer.showMessage(String.format("player %s gained %s", p.getName(), p.cardsGained()));
-		}
-		viewer.showMessage(String.format("table cards are %s", table.getNoUseCards()));
+		viewer.showGainedCardsForEachPlayer(getNapoleon(), players);
+		viewer.showExchangedCards(table);
 		
 		final Team winnerTeam = getWinnerTeam();
 		viewer.showMessage(String.format("adjutant is %s", getAdjutantName()));
@@ -238,7 +225,11 @@ public class Director implements Serializable {
 	}
 
 	protected Team getWinnerTeam() {
-		if(fixedDeclaration.getCardsToCollect() <= getCardCountNapleonTeamGained()){
+		int napleonTeamGained = getCardCountNapleonTeamGained();
+		if(napleonTeamGained == Card.PictureCardCount)
+			return Team.AlliedForcesTeam;
+		
+		if(fixedDeclaration.getCardsToCollect() <= napleonTeamGained){
 			return Team.NapoleonTeam;
 		} else {
 			return Team.AlliedForcesTeam;

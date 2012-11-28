@@ -4,6 +4,7 @@ import napoleon.model.player.Napoleon;
 import napoleon.model.player.Player;
 import napoleon.model.rule.Table;
 import napoleon.view.ConsoleViewer;
+import napoleon.view.Viewer;
 
 public class DirectorEx extends Director {
 
@@ -15,12 +16,12 @@ public class DirectorEx extends Director {
 		this.isNobodyDeclared = isNobodyDeclared;
 	}
 
-	public static DirectorEx NewEx(Table table, Dealer dealer, Player[] players) {
+	public static DirectorEx NewEx(Table table, Dealer dealer, Player[] players, Viewer viewer) {
 		DirectorEx instance = new DirectorEx();
 		instance.table = table;
 		instance.dealer = dealer;
 		instance.players = players;
-		instance.viewer = ConsoleViewer.GetInstance();
+		instance.viewer = viewer;
 		return instance;
 	}
 

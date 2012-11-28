@@ -30,7 +30,7 @@ public class ManualPlayer extends napoleon.model.player.Player {
 
 	@Override
 	public Declaration AskForDeclare(Declaration currentDeclaration, Viewer viewer) {
-		viewer.showMessage(String.format("you have :[%s]", cards));
+		viewer.showMessage(String.format("you have :[%s]", viewer.sortCardsToView(cards)));
 		String input;
 		input = ManualPlayerUtil.inputSuitAndNumber(viewer, "input declaration(Ex. S13:♠A、H15:♥15、Pass etc..");
 

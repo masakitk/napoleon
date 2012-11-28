@@ -13,7 +13,9 @@ import org.apache.commons.collections15.CollectionUtils;
 import org.apache.commons.collections15.Transformer;
 
 import napoleon.model.card.Card;
+import napoleon.model.player.Napoleon;
 import napoleon.model.player.Player;
+import napoleon.model.rule.Table;
 import napoleon.model.rule.Turn;
 
 public class ConsoleViewer implements Viewer {
@@ -65,5 +67,34 @@ public class ConsoleViewer implements Viewer {
 				return String.format("%s:%s", entry.getKey().getName(), entry.getValue());
 			}
 		});
+	}
+
+	@Override
+	public void showGainedCardsForEachPlayer(Napoleon napoleon, Player[] players) {
+		showMessage(String.format("napoleon gained %s", napoleon.cardsGained()));
+		for (Player p : players) {
+			showMessage(String.format("player %s gained %s", p.getName(), p.cardsGained()));
+		}
+	}
+
+	@Override
+	public void showExchangedCards(Table table) {
+		showMessage(String.format("table cards are %s", table.getNoUseCards()));
+	}
+
+	@Override
+	public void showTurnResult(Integer currentTurnNo, String turnWinnerName,
+			Collection<String> cardsToShow) {
+		showMessage(String.format("★turn[%d], winner[%s]: cards[%s]", 
+						currentTurnNo, 
+						turnWinnerName,
+						cardsToShow));
+	}
+
+	@Override
+	public void showPlayersGainedCards(Player[] players) {
+		for (Player p : players){
+			showMessage(String.format("player:%s / Gained:%s", p.getName(), p.cardsGained()));
+		}
 	}
 }
