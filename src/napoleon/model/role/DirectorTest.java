@@ -217,6 +217,30 @@ public class DirectorTest {
 	}
 
 	@Test
+	public void T07_ナポレオン軍一人立ちでも絵札を宣言枚数取得したら勝ち(){
+		new Expectations() {
+			{
+				viewer.showGainedCardsForEachPlayer(napoleon, director.players);
+				viewer.showExchangedCards(table);
+				player1.isAdjutant(); returns(false);
+				player2.isAdjutant(); returns(false);
+				player3.isAdjutant(); returns(false);
+				player4.isAdjutant(); returns(false);
+				napoleon.getGainedCardCount(); returns(15);
+				player1.isAdjutant(); returns(false);
+				player2.isAdjutant(); returns(false);
+				player3.isAdjutant(); returns(false);
+				player4.isAdjutant(); returns(false);
+				viewer.showMessage("adjutant is nobady: only napoleon;");
+				viewer.showMessage("winner is NapoleonTeam");
+			 }
+		};
+		director.napoleon = napoleon;
+		director.fixedDeclaration = Declaration.New(Suit.Heart, 15);
+		assertThat(director.JudgeWinnerTeam(), equalTo(Team.NapoleonTeam));
+	}
+
+	@Test
 	public void T08_ナポレオン軍が絵札を宣言枚数取得できなかったら連合軍の勝ち(){
 		new Expectations() {
 			{
