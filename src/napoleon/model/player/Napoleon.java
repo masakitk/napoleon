@@ -14,7 +14,7 @@ public class Napoleon extends Player{
 	}
 
 	public void changeExtraCards(Declaration fixedDeclaration, Table table, Viewer viewer) {
-		table.getNoUseCards().addAll(table.getCards());
+		table.getCards().addAll(table.getCards());
 	}
 
 	public Card tellTheAdjutant(Declaration fixedDeclaration) {

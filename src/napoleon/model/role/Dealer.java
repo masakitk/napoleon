@@ -28,7 +28,7 @@ public class Dealer {
 			players[2].takeCard(getRandomCard());
 			players[3].takeCard(getRandomCard());
 		}
-		gameContext.addClosedCardsOnTable(cards);
+		gameContext.addExtraCardsOnTable(cards);
 	}
 
 	private Card getRandomCard() {

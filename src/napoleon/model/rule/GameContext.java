@@ -75,7 +75,7 @@ public class GameContext {
 		case Club:
 			return Suit.Spade;
 		default:
-			throw new IllegalArgumentException(String.format("%s:�͖��Ή��ł�", suit));
+			throw new IllegalArgumentException(String.format("%s:未対応のスートです", suit));
 		}
 	}
 
@@ -83,7 +83,7 @@ public class GameContext {
 		return napoleon;
 	}
 
-	public void addClosedCardsOnTable(List<Card> cards) {
+	public void addExtraCardsOnTable(List<Card> cards) {
 		getTable().cards.addAll(cards);
 	}
 

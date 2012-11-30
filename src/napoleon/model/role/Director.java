@@ -69,7 +69,6 @@ public class Director implements Serializable {
 
 	public void serveCards() {
 		dealer.Serve();
-		
 	}
 	
 	public void defineNapoleon() {
@@ -143,7 +142,7 @@ public class Director implements Serializable {
 
 	public void letNapoleonChangeExtraCards() {
 		if(napoleon instanceof ManualNapoleon)
-			viewer.showExtraCards(table.getNoUseCards());
+			viewer.showExtraCards(table.getCards());
 
 		napoleon.changeExtraCards(fixedDeclaration, table, viewer);
 		extraCardChanged = true;
@@ -225,7 +224,7 @@ public class Director implements Serializable {
 		
 		final Team winnerTeam = getWinnerTeam();
 		viewer.showMessage(String.format("adjutant is %s", getAdjutantName()));
-		viewer.showMessage(String.format("winner is %s", winnerTeam));
+		viewer.showMessage(String.format("NapoleonTeam gained %s, winner is %s", getCardCountNapleonTeamGained(), winnerTeam));
 		return winnerTeam;
 	}
 
