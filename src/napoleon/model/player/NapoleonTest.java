@@ -20,11 +20,11 @@ public class NapoleonTest {
 		Napoleon napoleon = Napoleon.New(player);
 		
 		Declaration declaration = Declaration.New(Suit.Club, 14);
-		assertThat(napoleon.SomeTrumpCard(declaration), equalTo(Card.New(Suit.Club, 13)));
+		assertThat(napoleon.someTrumpCard(declaration), equalTo(Card.New(Suit.Club, 13)));
 
 		napoleon.takeCard(Card.New(Suit.Club, 13));
 		napoleon.takeCard(Card.New(Suit.Club, 11));
-		assertThat(napoleon.SomeTrumpCard(declaration), equalTo(Card.New(Suit.Club, 12)));
+		assertThat(napoleon.someTrumpCard(declaration), equalTo(Card.New(Suit.Club, 12)));
 	}
 	
 	@Test
