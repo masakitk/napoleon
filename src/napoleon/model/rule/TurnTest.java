@@ -232,6 +232,21 @@ public class TurnTest {
 		
 		ターンを回して勝者を確認(param);
 	}
+
+	@Test
+	public void T08_カードが4枚出されている場合に特殊カード考慮ありで勝者を判断できる_Heart切り札() {
+		Parameters param = new Parameters(
+				Turn.New(8, Suit.Heart),
+				player2, Card.New(Suit.Club, 3), 
+				player3, Card.New(Suit.Club , 12), 
+				player4, Card.New(Suit.Heart, 3), 
+				player1, Card.New(Suit.Club, 13), 
+				player4, Card.New(Suit.Heart, 3),
+				new Card[]{Card.New(Suit.Club, 12), Card.New(Suit.Club, 13)});
+		
+		ターンを回して勝者を確認(param);
+	}
+	
 	
 	@Test
 	public void T09_カードが4枚出されている場合に特殊カード考慮抜きで勝者を判断できる_裏Jの無視() {
@@ -387,7 +402,7 @@ public class TurnTest {
 		new Verifications(){
 			{
 				Collection<Card> cardToTake;
-				turn.getWinner().takeCards(cardToTake = withCapture());
+				turn.getWinner().gainCards(cardToTake = withCapture());
 				assertTrue(CollectionUtils.isEqualCollection(cardToTake, Arrays.asList(parameterOfCardsToTake)));
 			}
 		};

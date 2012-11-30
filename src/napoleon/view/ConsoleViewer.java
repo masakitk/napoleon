@@ -97,4 +97,9 @@ public class ConsoleViewer implements Viewer {
 			showMessage(String.format("player:%s / Gained:%s", p.getName(), p.cardsGained()));
 		}
 	}
+
+	@Override
+	public void showExtraCards(List<Card> extraCards) {
+		showMessage(String.format("[%s] remained on the table, you can take them.", extraCards));
+	}
 }

@@ -17,6 +17,7 @@ import napoleon.model.rule.Declaration;
 import napoleon.model.rule.Status;
 import napoleon.model.rule.Table;
 import napoleon.model.rule.Turn;
+import napoleon.model.rule.TurnFactory;
 import napoleon.model.rule.TurnStatus;
 import napoleon.view.Viewer;
 
@@ -97,6 +98,7 @@ public class DirectorTest {
 				player4.AskForDeclare(declarationOfHeart14, (Viewer)any); returns(Declaration.Pass);
 				player1.AskForDeclare(declarationOfHeart14, (Viewer)any); returns(Declaration.Pass);
 				player2.AskForDeclare(declarationOfHeart14, (Viewer)any); returns(Declaration.Pass);
+				TurnFactory.Get12Turns(Suit.Heart); returns(any);
 				Napoleon.New(player3); returns(napoleon);
 				napoleon.getName(); returns(any);
 				dealer.hasServed(); returns(true); 
@@ -155,7 +157,7 @@ public class DirectorTest {
 				 napoleon.tellTheAdjutant((Declaration)any); returns (Card.Mighty);
 				 player1.cardsHaving(); returns(new ArrayList<Card>(){{add(Card.Mighty);}});
 				 player1.setIsAdjutant(true);
-				 napoleon.changeExtraCards((Declaration)any, (Table)any);
+				 napoleon.changeExtraCards((Declaration)any, (Table)any, viewer);
 				 dealer.hasServed(); returns(true);
 			 }
 		};
@@ -180,13 +182,14 @@ public class DirectorTest {
 				 player2.openCard((Turn) any, (Viewer) any, (Declaration) any); returns(Card.New(Suit.Spade, 8));
 				 player3.openCard((Turn) any, (Viewer) any, (Declaration) any); returns(Card.New(Suit.Heart, 9));
 				 player4.openCard((Turn) any, (Viewer) any, (Declaration) any); returns(Card.New(Suit.Spade, 5));
-				 player2.takeCards((Collection<Card>) any);
+				 player2.gainCards((Collection<Card>) any);
 				 player2.getName(); returns(any);
 			 			 }
 		};
 		director.SetExtraCardChanged(true);
 		director.setNapoleon(napoleon);
 		director.setIsNobodyDeclared(false);
+		director.setTurns(TurnFactory.Get12Turns(Suit.Club));
 		
 		assertThat(director.getGameState(), equalTo(Status.ExtraCardsChanged));
 		assertThat(director.getCurrentTurnNo(), equalTo(1));

@@ -19,4 +19,5 @@ public interface Viewer {
 	void showTurnResult(Integer currentTurnNo, String turnWinnerName,
 			Collection<String> cardsToShow);
 	void showPlayersGainedCards(Player[] players);
+	void showExtraCards(List<Card> extraCards);
 }

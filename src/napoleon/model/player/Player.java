@@ -131,7 +131,7 @@ public class Player {
 		return cards;
 	}
 
-	public void takeCards(Collection<? extends Card> cards) {
+	public void gainCards(Collection<? extends Card> cards) {
 		_cardsGained.addAll(cards);
 	}
 

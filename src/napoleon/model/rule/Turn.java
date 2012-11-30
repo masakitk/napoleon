@@ -113,7 +113,7 @@ public class Turn {
 	}
 
 	public void winnerGainCards() {
-		getWinner().takeCards(getPictureCards());
+		getWinner().gainCards(getPictureCards());
 	}
 
 	private Collection<? extends Card> getPictureCards() {

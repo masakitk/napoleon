@@ -5,6 +5,7 @@ import napoleon.model.card.Suit;
 import napoleon.model.rule.Declaration;
 import napoleon.model.rule.GameContext;
 import napoleon.model.rule.Table;
+import napoleon.view.Viewer;
 
 public class Napoleon extends Player{
 	protected Napoleon(Player player) {
@@ -12,7 +13,7 @@ public class Napoleon extends Player{
 		cards.addAll(player.cards);
 	}
 
-	public void changeExtraCards(Declaration fixedDeclaration, Table table) {
+	public void changeExtraCards(Declaration fixedDeclaration, Table table, Viewer viewer) {
 		table.getNoUseCards().addAll(table.getCards());
 	}
 

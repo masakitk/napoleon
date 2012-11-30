@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.HashMap;
 
 import napoleon.model.card.Card;
+import napoleon.model.player.ManualNapoleon;
 import napoleon.model.player.Napoleon;
 import napoleon.model.player.Player;
 import napoleon.model.rule.Declaration;
@@ -39,7 +40,7 @@ public class Director implements Serializable {
 	protected Napoleon napoleon;
 	protected boolean isNobodyDeclared;
 	protected boolean extraCardChanged;
-	private Turn[] turns = TurnFactory.Get12Turns();
+	protected Turn[] turns;
 	private Integer currentTurnNo = 1;
 	private Logger logger;
 	private Card cardOfAdjutant;
@@ -83,6 +84,7 @@ public class Director implements Serializable {
 		for(Player player : players) {
 			if(lastDeclarationsOfPlayer.containsKey(player) && currentDeclaration == lastDeclarationsOfPlayer.get(player)) {
 				fixedDeclaration = currentDeclaration;
+				turns = TurnFactory.Get12Turns(fixedDeclaration.getSuit());
 				napoleon = Napoleon.New(player);
 				players[Arrays.asList(players).indexOf(player)] = napoleon;
 				logger.info(String.format("★napoleon fixed:%s, %s", napoleon, fixedDeclaration));
@@ -140,7 +142,10 @@ public class Director implements Serializable {
 	}
 
 	public void letNapoleonChangeExtraCards() {
-		getNapoleon().changeExtraCards(fixedDeclaration, table);
+		if(napoleon instanceof ManualNapoleon)
+			viewer.showExtraCards(table.getNoUseCards());
+
+		napoleon.changeExtraCards(fixedDeclaration, table, viewer);
 		extraCardChanged = true;
 	}
 

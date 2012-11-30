@@ -120,7 +120,7 @@ public class ManualPlayerUtil {
 	static protected String inputSuitAndNumber(Viewer viewer, String information) {
 		String input;
 		try{
-			input = getInputString(information);
+			input = getInputString(information, viewer);
 		} catch (NoSuchElementException e) {
 			return inputSuitAndNumber(viewer, information);
 		}
@@ -147,12 +147,17 @@ public class ManualPlayerUtil {
 		}
 	}
 
-	static public String getInputString(String information) {
+	static public String getInputString(String information, Viewer viewer) {
 		Scanner stdReader = new Scanner(System.in);
-		System.out.println(String.format("%s : ", information));
+		viewer.showMessage(String.format("%s : ", information));
 		String line = stdReader.nextLine(); // ユーザの一行入力を待つ
-		System.out.println(String.format("line is [%s]", line));
+		viewer.showMessage(String.format("line is [%s]", line));
 		return line;
+	}
+
+	public static Card[] inputUnuseCards(Viewer viewer) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
