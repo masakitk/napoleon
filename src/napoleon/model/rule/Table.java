@@ -1,6 +1,7 @@
 package napoleon.model.rule;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import napoleon.model.card.Card;
@@ -37,6 +38,10 @@ public class Table {
 
 	public void setState(Status napoleondefined) {
 		state = napoleondefined;
+	}
+
+	public void removeCards(Collection<Card> cardsToRemove) {
+		cards.removeAll(cardsToRemove);
 	}
 
 }

@@ -44,11 +44,16 @@ public class ManualNapoleon extends Napoleon {
 						return ManualPlayerUtil.convertToCard(s);
 					}
 				});
-			if(invalidCardCount(unuseCards, table))
-				throw new IllegalStateException();
+			List<Card> extraCards = table.getCards();
+			if(invalidCardCount(unuseCards, extraCards.size())){
+				viewer.showMessage(String.format("select %d unuse cards", extraCards.size()));
+				changeExtraCards(fixedDeclaration, table, viewer);
+				return;
+			}
 			
-			cards.addAll(table.getCards());
+			cards.addAll(extraCards);
 			cards.removeAll(unuseCards);
+			table.removeCards(extraCards);
 			table.getNoUseCards().addAll(unuseCards);
 		} catch (Exception e) {
 			//TODO
@@ -56,9 +61,8 @@ public class ManualNapoleon extends Napoleon {
 		}
 	}
 
-	private boolean invalidCardCount(Collection<Card> unuseCards, Table table) {
-		// TODO Auto-generated method stub
-		return false;
+	private boolean invalidCardCount(Collection<Card> unuseCards, int size) {
+		return size != unuseCards.size();
 	}
 
 	public void takeCards(List<Card> cardsToTake) {

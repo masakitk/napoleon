@@ -151,7 +151,7 @@ public class ManualPlayerUtil {
 		Scanner stdReader = new Scanner(System.in);
 		viewer.showMessage(String.format("%s : ", information));
 		String line = stdReader.nextLine(); // ユーザの一行入力を待つ
-		viewer.showMessage(String.format("line is [%s]", line));
+//		viewer.showMessage(String.format("line is [%s]", line));
 		return line;
 	}
 
