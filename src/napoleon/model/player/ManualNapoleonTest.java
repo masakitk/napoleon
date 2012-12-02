@@ -102,4 +102,27 @@ public class ManualNapoleonTest {
 		napoleon.takeCards(手札);
 		napoleon.changeExtraCards(declaration, table, viewer);
 	}
+
+	@Test
+	public void T03_テーブルに残ったカードを交換する際手持ち担いカードはだめ() {
+		new Expectations() {
+			{
+				new Scanner((BufferedInputStream)any); returns(any);
+				viewer.showMessage("input cards to unuse, as [H3,C4,C5...]");
+				scanner.nextLine(); returns("C3,H2,H1");
+				table.getCards(); returns(テーブル残カード);
+				viewer.showMessage("you don't have [[♥:2], [♥:1]]");
+				new Scanner((BufferedInputStream)any); returns(any);
+				viewer.showMessage("input cards to unuse, as [C3,C4,C5...]");
+				scanner.nextLine(); returns("C3,C4,C5");
+				table.getCards(); returns(テーブル残カード);
+				table.removeCards(テーブル残カード);
+				table.getNoUseCards();returns(new ArrayList<Card>());
+			}
+		};
+		
+		final ManualNapoleon napoleon = ManualNapoleon.New(ManualPlayer.New("hoge"));
+		napoleon.takeCards(手札);
+		napoleon.changeExtraCards(declaration, table, viewer);
+	}
 }

@@ -1,12 +1,15 @@
 package napoleon.model.player;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map.Entry;
 
 import org.apache.commons.collections15.Closure;
 import org.apache.commons.collections15.CollectionUtils;
+import org.apache.commons.collections15.Predicate;
 import org.apache.commons.collections15.Transformer;
 
 import napoleon.model.card.Card;
@@ -50,6 +53,12 @@ public class ManualNapoleon extends Napoleon {
 				changeExtraCards(fixedDeclaration, table, viewer);
 				return;
 			}
+			Collection<Card> wrongCards = getWrongCards(unuseCards, extraCards);
+			if(!wrongCards.isEmpty()){
+				viewer.showMessage(String.format("you don't have %s", wrongCards));
+				changeExtraCards(fixedDeclaration, table, viewer);
+				return;
+			}
 			
 			cards.addAll(extraCards);
 			cards.removeAll(unuseCards);
@@ -59,6 +68,16 @@ public class ManualNapoleon extends Napoleon {
 			//TODO
 			throw new RuntimeException(e);
 		}
+	}
+
+	private Collection<Card> getWrongCards(Collection<Card> unuseCards, final Collection<Card> extraCards) {
+		return CollectionUtils.select(unuseCards, new Predicate<Card>() {
+
+			@Override
+			public boolean evaluate(Card card) {
+				return !cards.contains(card) && !extraCards.contains(card);
+			}
+		});
 	}
 
 	private boolean invalidCardCount(Collection<Card> unuseCards, int size) {
