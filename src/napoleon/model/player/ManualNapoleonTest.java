@@ -104,7 +104,7 @@ public class ManualNapoleonTest {
 	}
 
 	@Test
-	public void T03_テーブルに残ったカードを交換する際手持ち担いカードはだめ() {
+	public void T03_テーブルに残ったカードを交換する際手持ちにないカードはだめ() {
 		new Expectations() {
 			{
 				new Scanner((BufferedInputStream)any); returns(any);
