@@ -224,12 +224,12 @@ public class Director implements Serializable {
 		
 		final Team winnerTeam = getWinnerTeam();
 		viewer.showMessage(String.format("adjutant is %s", getAdjutantName()));
-		viewer.showMessage(String.format("NapoleonTeam gained %s, winner is %s", getCardCountNapleonTeamGained(), winnerTeam));
+		viewer.showMessage(String.format("NapoleonTeam gained %s, winner is %s", getCardCountNapoleonTeamGained(), winnerTeam));
 		return winnerTeam;
 	}
 
 	protected Team getWinnerTeam() {
-		int napleonTeamGained = getCardCountNapleonTeamGained();
+		int napleonTeamGained = getCardCountNapoleonTeamGained();
 		if(napleonTeamGained == Card.PictureCardCount)
 			return Team.AlliedForcesTeam;
 		
@@ -240,7 +240,7 @@ public class Director implements Serializable {
 		}
 	}
 
-	private int getCardCountNapleonTeamGained() {
+	private int getCardCountNapoleonTeamGained() {
 		Player adjutant = getAdjutant();
 		int napoleonTeamGained = napoleon.getGainedCardCount() 
 				+ ((null == adjutant) ? 0 : adjutant.getGainedCardCount());

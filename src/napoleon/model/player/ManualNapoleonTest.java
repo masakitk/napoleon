@@ -42,6 +42,7 @@ public class ManualNapoleonTest {
 		add(Card.New(Suit.Club, 3));
 		add(Card.New(Suit.Club, 4));
 		add(Card.New(Suit.Club, 11));
+		add(Card.Jorker);
 	}};
 	
 	@Test
@@ -71,6 +72,7 @@ public class ManualNapoleonTest {
 			add(Card.New(Suit.Spade, 1));
 			add(Card.New(Suit.Club, 11));
 			add(Card.New(Suit.Spade, 11));
+			add(Card.Jorker);
 		}};
 		assertThat(napoleon.cards, Is.is(Matchers.containsInAnyOrder(手に残すカード.toArray(new Card[0]))));
 	}
@@ -115,6 +117,27 @@ public class ManualNapoleonTest {
 				new Scanner((BufferedInputStream)any); returns(any);
 				viewer.showMessage("input cards to unuse, as [C3,C4,C5...]");
 				scanner.nextLine(); returns("C3,C4,C5");
+				table.getCards(); returns(テーブル残カード);
+				table.removeCards(テーブル残カード);
+				table.getNoUseCards();returns(new ArrayList<Card>());
+			}
+		};
+		
+		final ManualNapoleon napoleon = ManualNapoleon.New(ManualPlayer.New("hoge"));
+		napoleon.takeCards(手札);
+		napoleon.changeExtraCards(declaration, table, viewer);
+	}
+
+	@Test
+	public void T03_テーブルに残ったカードを交換する際カード以外の入力はNG() {
+		new Expectations() {
+			{
+				new Scanner((BufferedInputStream)any); returns(any);
+				viewer.showMessage("input cards to unuse, as [H3,C4,C5...]");
+				scanner.nextLine(); returns("C3,H2,Joker");
+				new Scanner((BufferedInputStream)any); returns(any);
+				viewer.showMessage("input cards to unuse, as [C3,C4,C5...]");
+				scanner.nextLine(); returns("C3,C4,Jorker");
 				table.getCards(); returns(テーブル残カード);
 				table.removeCards(テーブル残カード);
 				table.getNoUseCards();returns(new ArrayList<Card>());

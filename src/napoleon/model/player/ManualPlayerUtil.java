@@ -92,7 +92,7 @@ public class ManualPlayerUtil {
 		}
 	}
 
-	static protected Card convertToCard(String input) {
+	static Card convertToCard(String input) {
 		if("JORKER".equals(input.toUpperCase())) return Card.Jorker;
 		
 		Suit suit = convertToSuit(getSuitPart(input));
@@ -136,7 +136,7 @@ public class ManualPlayerUtil {
 		if(suitPart.toUpperCase().equals("H")) return Suit.Heart;
 		if(suitPart.toUpperCase().equals("D")) return Suit.Dia;
 		if(suitPart.toUpperCase().equals("C")) return Suit.Club;
-		throw new IllegalArgumentException("1文字目はS,H,D,Cのいずれかにして下さい。");
+		throw new IllegalArgumentException("1文字目はS,H,D,Cのいずれかのスートにして下さい。（Jorkerの場合を除く）");
 	}
 
 	static int convertToNumber(String numberPart) {
@@ -158,6 +158,15 @@ public class ManualPlayerUtil {
 	public static Card[] inputUnuseCards(Viewer viewer) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public static boolean canConvertToCard(String inputString) {
+		try{
+			convertToCard(inputString);
+			return true;
+		} catch (IllegalArgumentException e) {
+			return false;
+		}
 	}
 
 }

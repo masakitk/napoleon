@@ -211,7 +211,10 @@ public class DirectorTest {
 				player1.isAdjutant(); returns(true);
 				player1.getName(); returns("1");
 				viewer.showMessage("adjutant is 1");
-				viewer.showMessage("winner is NapoleonTeam");
+				player1.isAdjutant(); returns(true);
+				napoleon.getGainedCardCount(); returns(10);
+				player1.getGainedCardCount(); returns(5);
+				viewer.showMessage("NapoleonTeam gained 15, winner is NapoleonTeam");
 			 }
 		};
 		director.napoleon = napoleon;
@@ -235,7 +238,12 @@ public class DirectorTest {
 				player3.isAdjutant(); returns(false);
 				player4.isAdjutant(); returns(false);
 				viewer.showMessage("adjutant is nobady: only napoleon;");
-				viewer.showMessage("winner is NapoleonTeam");
+				player1.isAdjutant(); returns(false);
+				player2.isAdjutant(); returns(false);
+				player3.isAdjutant(); returns(false);
+				player4.isAdjutant(); returns(false);
+				napoleon.getGainedCardCount(); returns(15);
+				viewer.showMessage("NapoleonTeam gained 15, winner is NapoleonTeam");
 			 }
 		};
 		director.napoleon = napoleon;
@@ -255,7 +263,10 @@ public class DirectorTest {
 				player1.isAdjutant(); returns(true);
 				player1.getName(); returns("1");
 				viewer.showMessage("adjutant is 1");
-				viewer.showMessage("winner is AlliedForcesTeam");
+				player1.isAdjutant(); returns(true);
+				napoleon.getGainedCardCount(); returns(10);
+				player1.getGainedCardCount(); returns(5);
+				viewer.showMessage("NapoleonTeam gained 15, winner is AlliedForcesTeam");
 			 }
 		};
 		director.napoleon = napoleon;
@@ -275,7 +286,10 @@ public class DirectorTest {
 				player1.isAdjutant(); returns(true);
 				player1.getName(); returns("1");
 				viewer.showMessage("adjutant is 1");
-				viewer.showMessage("winner is AlliedForcesTeam");
+				player1.isAdjutant(); returns(true);
+				napoleon.getGainedCardCount(); returns(15);
+				player1.getGainedCardCount(); returns(5);
+				viewer.showMessage("NapoleonTeam gained 20, winner is AlliedForcesTeam");
 			 }
 		};
 		director.napoleon = napoleon;

@@ -35,11 +35,17 @@ public class ManualNapoleon extends Napoleon {
 	
 	@Override
 	public void changeExtraCards(Declaration fixedDeclaration, Table table, Viewer viewer) {
-		String[] cardsEntered = 
-				ManualPlayerUtil.getInputString("input cards to unuse, as [C3,C4,C5...]", viewer).split(",");
+		String[] cardsEntered = null;
+		cardsEntered = 
+			ManualPlayerUtil.getInputString("input cards to unuse, as [C3,C4,C5...]", viewer).split(",");
+		
+		if(!canConvertAllToCard(cardsEntered)) {
+			changeExtraCards(fixedDeclaration, table, viewer);
+			return;
+		}
 		
 		try{
-		Collection<Card> unuseCards = CollectionUtils.collect(
+			Collection<Card> unuseCards = CollectionUtils.collect(
 				Arrays.asList(cardsEntered), 
 				new Transformer<String, Card>(){
 					@Override
@@ -68,6 +74,16 @@ public class ManualNapoleon extends Napoleon {
 			//TODO
 			throw new RuntimeException(e);
 		}
+	}
+
+	private boolean canConvertAllToCard(String[] cardsEntered) {
+		return !CollectionUtils.exists(Arrays.asList(cardsEntered), new Predicate<String>() {
+
+			@Override
+			public boolean evaluate(String inputString) {
+				return !ManualPlayerUtil.canConvertToCard(inputString);
+			}
+		});
 	}
 
 	private Collection<Card> getWrongCards(Collection<Card> unuseCards, final Collection<Card> extraCards) {

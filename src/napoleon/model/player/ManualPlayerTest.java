@@ -52,8 +52,9 @@ public class ManualPlayerTest {
 		new Expectations() {
 			{
 				new Scanner((BufferedInputStream)any); returns(any);
+				viewer.showMessage("input card(Ex. S1:♠A、H13:♥13 etc..");
 				scanner.nextLine(); returns("A3"); 
-				viewer.showMessage("1文字目はS,H,D,Cのいずれかにして下さい。");
+				viewer.showMessage("1文字目はS,H,D,Cのいずれかのスートにして下さい。（Jorkerの場合を除く）");
 			}
 		};
 		final ManualPlayer player = ManualPlayer.New("hoge");
@@ -83,14 +84,17 @@ public class ManualPlayerTest {
 		new Expectations() {
 			{
 				new Scanner((BufferedInputStream)any); returns(any);
+				viewer.showMessage("input card(Ex. S1:♠A、H13:♥13 etc..");
 				scanner.nextLine(); returns("H0"); 
 				viewer.showMessage("数字が1から13の範囲にありません。");
 				
 				new Scanner((BufferedInputStream)any); returns(any);
+				viewer.showMessage("input card(Ex. S1:♠A、H13:♥13 etc..");
 				scanner.nextLine(); returns("H14"); 
 				viewer.showMessage("数字が1から13の範囲にありません。");
 				
 				new Scanner((BufferedInputStream)any); returns(any);
+				viewer.showMessage("input card(Ex. S1:♠A、H13:♥13 etc..");
 				scanner.nextLine(); returns("Habc"); 
 				viewer.showMessage("2文字目以降は1～13の数字を入力して下さい。");
 			}
@@ -115,6 +119,7 @@ public class ManualPlayerTest {
 				viewer.sortCardsToView(anyCards); returns(anyCards);
 				viewer.showMessage("You have [[♥:12], [◆:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
+				viewer.showMessage("input card(Ex. S1:♠A、H13:♥13 etc..");
 				scanner.nextLine(); returns("S3");
 				viewer.showMessage("そのカードは持っていません。");
 
@@ -123,6 +128,7 @@ public class ManualPlayerTest {
 				viewer.sortCardsToView(anyCards); returns(anyCards);
 				viewer.showMessage("You have [[♥:12], [◆:3]]");
 				new Scanner((BufferedInputStream)any); returns(any);
+				viewer.showMessage("input card(Ex. S1:♠A、H13:♥13 etc..");
 				scanner.nextLine(); returns("D3");
 				turn.isJorkerOpenedFirst(); returns(false);
 				turn.isRequireJorkerOpenedFirst(); returns(false);
