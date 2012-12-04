@@ -103,9 +103,9 @@ public class Director implements Serializable {
 
 	private Declaration askForDeclare(Declaration currentDeclaration,
 			HashMap<Player, Declaration> lastDeclarationsOfPlayer, Player player) {
-		Declaration declaration = player.AskForDeclare(currentDeclaration, viewer);
+		Declaration declaration = player.askForDeclare(currentDeclaration, viewer);
 		while(Declaration.Pass != declaration && !declaration.isStrongerDecralation(currentDeclaration)) {
-			declaration = player.AskForDeclare(currentDeclaration, viewer);
+			declaration = player.askForDeclare(currentDeclaration, viewer);
 		}
 		
 		lastDeclarationsOfPlayer.put(player, declaration);

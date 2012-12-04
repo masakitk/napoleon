@@ -107,7 +107,7 @@ public class Player {
 		} );
 	}
 
-	public Declaration AskForDeclare(Declaration currentDeclaration, Viewer viewer) {
+	public Declaration askForDeclare(Declaration currentDeclaration, Viewer viewer) {
 		return null == currentDeclaration ? Declaration.New(Suit.Club, 13) : Declaration.Pass;
 	}
 

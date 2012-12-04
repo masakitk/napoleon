@@ -6,6 +6,7 @@ import java.util.List;
 import napoleon.model.card.Card;
 import napoleon.model.player.Napoleon;
 import napoleon.model.player.Player;
+import napoleon.model.rule.Declaration;
 import napoleon.model.rule.Table;
 import napoleon.model.rule.Turn;
 
@@ -21,4 +22,5 @@ public interface Viewer {
 	void showPlayersGainedCards(Player[] players);
 	void showExtraCards(List<Card> extraCards);
 	Card inputCard(Turn turn);
+	Declaration askForDeclare(Declaration currentDeclaration, List<Card> cards);
 }

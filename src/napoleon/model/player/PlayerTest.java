@@ -189,6 +189,6 @@ public class PlayerTest {
 	@Test
 	public void T04_とりあえず誰も宣言してなかったらクラブの13で宣言する(){
 		Player player = Player.New("hoge");
-		assertThat(player.AskForDeclare(null, viewer), IsEqual.equalTo(Declaration.New(Suit.Club, 13)));
+		assertThat(player.askForDeclare(null, viewer), IsEqual.equalTo(Declaration.New(Suit.Club, 13)));
 	}
 }

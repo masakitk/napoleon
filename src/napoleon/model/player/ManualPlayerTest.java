@@ -271,7 +271,7 @@ public class ManualPlayerTest {
 		};
 		
 		final ManualPlayer player = ManualPlayer.New("hoge");
-		assertThat(player.AskForDeclare(null, ConsoleViewer.GetInstance()),
+		assertThat(player.askForDeclare(null, ConsoleViewer.GetInstance()),
 				equalTo(Declaration.New(Suit.Heart, 13)));
 		
 	}
@@ -286,7 +286,7 @@ public class ManualPlayerTest {
 		};
 		
 		final ManualPlayer player = ManualPlayer.New("hoge");
-		assertThat(player.AskForDeclare(null, ConsoleViewer.GetInstance()),
+		assertThat(player.askForDeclare(null, ConsoleViewer.GetInstance()),
 				equalTo(Declaration.Pass));
 		
 	}

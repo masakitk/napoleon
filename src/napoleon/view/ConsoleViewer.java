@@ -16,8 +16,10 @@ import org.apache.commons.collections15.Transformer;
 
 import napoleon.model.card.Card;
 import napoleon.model.card.Suit;
+import napoleon.model.player.ManualPlayerUtil;
 import napoleon.model.player.Napoleon;
 import napoleon.model.player.Player;
+import napoleon.model.rule.Declaration;
 import napoleon.model.rule.Table;
 import napoleon.model.rule.Turn;
 
@@ -167,6 +169,27 @@ public class ConsoleViewer implements Viewer {
 		showMessage(String.format("%s : ", information));
 		String line = stdReader.nextLine(); // ユーザの一行入力を待つ
 		return line;
+	}
+
+	@Override
+	public Declaration askForDeclare(Declaration currentDeclaration, List<Card> cards) {
+		showMessage(String.format("you have :[%s]", sortCardsToView(cards)));
+		String input;
+		input = inputSuitAndNumber("input declaration(Ex. S13:♠A、H15:♥15、Pass etc..");
+
+		if(input.toUpperCase().equals("PASS"))
+			return Declaration.Pass;
+		
+		String suitPart = input.substring(0, 1);
+		String numberPart = input.substring(1);
+		try{
+			Suit suit = convertToSuit(suitPart);
+			int number = convertToNumber(numberPart);
+			return Declaration.New(suit, number);
+		} catch (Exception e) {
+			showMessage(e.getMessage());
+			return askForDeclare(currentDeclaration, cards);
+		}
 	}
 
 }

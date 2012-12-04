@@ -29,24 +29,8 @@ public class ManualPlayer extends napoleon.model.player.Player {
 	}
 
 	@Override
-	public Declaration AskForDeclare(Declaration currentDeclaration, Viewer viewer) {
-		viewer.showMessage(String.format("you have :[%s]", viewer.sortCardsToView(cards)));
-		String input;
-		input = ManualPlayerUtil.inputSuitAndNumber(viewer, "input declaration(Ex. S13:♠A、H15:♥15、Pass etc..");
-
-		if(input.toUpperCase().equals("PASS"))
-			return Declaration.Pass;
-		
-		String suitPart = input.substring(0, 1);
-		String numberPart = input.substring(1);
-		try{
-			Suit suit = ManualPlayerUtil.convertToSuit(suitPart);
-			int number = ManualPlayerUtil.convertToNumber(numberPart);
-			return Declaration.New(suit, number);
-		} catch (Exception e) {
-			viewer.showMessage(e.getMessage());
-			return AskForDeclare(currentDeclaration, viewer);
-		}
+	public Declaration askForDeclare(Declaration currentDeclaration, Viewer viewer) {
+		return viewer.askForDeclare(currentDeclaration, cards);
 	}
 
 	@Override
