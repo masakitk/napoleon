@@ -1,22 +1,17 @@
 package napoleon.model.player;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map.Entry;
-
-import org.apache.commons.collections15.Closure;
-import org.apache.commons.collections15.CollectionUtils;
-import org.apache.commons.collections15.Predicate;
-import org.apache.commons.collections15.Transformer;
 
 import napoleon.model.card.Card;
 import napoleon.model.rule.Declaration;
 import napoleon.model.rule.Table;
 import napoleon.model.rule.Turn;
 import napoleon.view.Viewer;
+
+import org.apache.commons.collections15.CollectionUtils;
+import org.apache.commons.collections15.Predicate;
 
 public class ManualNapoleon extends Napoleon {
 

@@ -2,13 +2,11 @@ package napoleon.model.player;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
-
 import napoleon.model.card.Card;
 import napoleon.model.card.Suit;
 import napoleon.model.rule.Declaration;
 import napoleon.model.rule.GameContext;
 
-import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 
 public class NapoleonTest {

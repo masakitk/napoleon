@@ -2,7 +2,6 @@ package napoleon.model.player;
 
 import static org.junit.Assert.*;
 
-import java.io.BufferedInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;

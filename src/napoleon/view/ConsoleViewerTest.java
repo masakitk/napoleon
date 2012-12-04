@@ -11,15 +11,12 @@ import mockit.Expectations;
 import mockit.Mocked;
 import napoleon.model.card.Card;
 import napoleon.model.card.Suit;
-import napoleon.model.player.ManualNapoleon;
-import napoleon.model.player.ManualPlayer;
 import napoleon.model.rule.Declaration;
 import napoleon.model.rule.Table;
 import napoleon.model.rule.Turn;
 
 import org.hamcrest.Matchers;
 import org.hamcrest.core.Is;
-import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 
 public class ConsoleViewerTest {

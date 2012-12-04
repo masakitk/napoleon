@@ -1,9 +1,7 @@
 package napoleon;
 import napoleon.model.player.ManualPlayer;
 import napoleon.model.player.Player;
-import napoleon.model.player.TakahashiPlayer;
 import napoleon.model.role.Director;
-import napoleon.model.role.Team;
 import napoleon.model.rule.Table;
 import napoleon.view.ConsoleViewer;
 

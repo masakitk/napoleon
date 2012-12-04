@@ -4,7 +4,6 @@ import napoleon.model.player.Napoleon;
 import napoleon.model.player.Player;
 import napoleon.model.rule.Table;
 import napoleon.model.rule.Turn;
-import napoleon.view.ConsoleViewer;
 import napoleon.view.Viewer;
 
 public class DirectorEx extends Director {

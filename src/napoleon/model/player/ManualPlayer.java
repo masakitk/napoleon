@@ -1,20 +1,9 @@
 package napoleon.model.player;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map.Entry;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
-
 import napoleon.model.card.Card;
-import napoleon.model.card.Suit;
 import napoleon.model.rule.Declaration;
 import napoleon.model.rule.Turn;
 import napoleon.view.Viewer;
-
-import org.apache.commons.collections15.CollectionUtils;
-import org.apache.commons.collections15.Predicate;
-import org.apache.commons.collections15.Transformer;
 
 public class ManualPlayer extends napoleon.model.player.Player {
 

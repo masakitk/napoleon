@@ -1,7 +1,5 @@
 package napoleon.model.rule;
 
-import org.apache.commons.collections15.CollectionUtils;
-
 import napoleon.model.card.Suit;
 
 
