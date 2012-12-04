@@ -23,4 +23,6 @@ public interface Viewer {
 	void showExtraCards(List<Card> extraCards);
 	Card inputCard(Turn turn);
 	Declaration askForDeclare(Declaration currentDeclaration, List<Card> cards);
+	Collection<Card> inputCardsToChange(Declaration fixedDeclaration, Table table,
+			List<Card> cards);
 }

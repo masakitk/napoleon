@@ -12,6 +12,7 @@ import java.util.Map.Entry;
 
 import org.apache.commons.collections15.Closure;
 import org.apache.commons.collections15.CollectionUtils;
+import org.apache.commons.collections15.Predicate;
 import org.apache.commons.collections15.Transformer;
 
 import napoleon.model.card.Card;
@@ -192,4 +193,68 @@ public class ConsoleViewer implements Viewer {
 		}
 	}
 
+	@Override
+	public Collection<Card> inputCardsToChange(Declaration fixedDeclaration,
+			Table table, List<Card> cards) {
+		String[] cardsEntered = getInputString("input cards to unuse, as [C3,C4,C5...]").split(",");
+
+		if(!canConvertAllToCard(cardsEntered)) {
+			return inputCardsToChange(fixedDeclaration, table, cards);
+		}
+
+		Collection<Card> unuseCards = CollectionUtils.collect(
+				Arrays.asList(cardsEntered), 
+				new Transformer<String, Card>(){
+					@Override
+					public Card transform(final String s) {
+						return convertToCard(s);
+					}
+				});
+
+		List<Card> extraCards = table.getCards();
+		if(invalidCardCount(unuseCards, extraCards.size())){
+			showMessage(String.format("select %d unuse cards", extraCards.size()));
+			return inputCardsToChange(fixedDeclaration, table, cards);
+		}
+
+		Collection<Card> wrongCards = getWrongCards(unuseCards, extraCards, cards);
+		if(!wrongCards.isEmpty()){
+			showMessage(String.format("you don't have %s", wrongCards));
+			return inputCardsToChange(fixedDeclaration, table, cards);
+		}
+		return unuseCards;
+	}
+
+	public boolean canConvertToCard(String inputString) {
+		try{
+			convertToCard(inputString);
+			return true;
+		} catch (IllegalArgumentException e) {
+			return false;
+		}
+	}
+
+	private boolean canConvertAllToCard(String[] cardsEntered) {
+		return !CollectionUtils.exists(Arrays.asList(cardsEntered), new Predicate<String>() {
+
+			@Override
+			public boolean evaluate(String inputString) {
+				return !ManualPlayerUtil.canConvertToCard(inputString);
+			}
+		});
+	}
+
+	private boolean invalidCardCount(Collection<Card> unuseCards, int size) {
+		return size != unuseCards.size();
+	}
+
+	private Collection<Card> getWrongCards(Collection<Card> unuseCards, final Collection<Card> extraCards, final Collection<Card> cards) {
+		return CollectionUtils.select(unuseCards, new Predicate<Card>() {
+
+			@Override
+			public boolean evaluate(Card card) {
+				return !cards.contains(card) && !extraCards.contains(card);
+			}
+		});
+	}
 }
