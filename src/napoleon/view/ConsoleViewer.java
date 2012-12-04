@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 import java.util.Map.Entry;
 
 import org.apache.commons.collections15.Closure;
@@ -13,6 +15,7 @@ import org.apache.commons.collections15.CollectionUtils;
 import org.apache.commons.collections15.Transformer;
 
 import napoleon.model.card.Card;
+import napoleon.model.card.Suit;
 import napoleon.model.player.Napoleon;
 import napoleon.model.player.Player;
 import napoleon.model.rule.Table;
@@ -102,4 +105,68 @@ public class ConsoleViewer implements Viewer {
 	public void showExtraCards(List<Card> extraCards) {
 		showMessage(String.format("[%s] remained on the table, you can take them.", extraCards));
 	}
+
+	@Override
+	public Card inputCard(Turn turn) {
+		try{
+			return convertToCard(inputSuitAndNumber("input card(Ex. S1:♠A、H13:♥13 etc.."));
+		} catch (IllegalArgumentException e) {
+			showMessage(e.getMessage());
+			return null;
+		}
+	}
+	
+	protected String inputSuitAndNumber(String information) {
+		String input;
+		try{
+			input = getInputString(information);
+		} catch (NoSuchElementException e) {
+			return inputSuitAndNumber(information);
+		}
+
+		if(input.length() < 2) {
+			return inputSuitAndNumber(information);
+		}
+		return input;
+	}
+	
+	static Card convertToCard(String input) {
+		if("JORKER".equals(input.toUpperCase())) return Card.Jorker;
+		
+		Suit suit = convertToSuit(getSuitPart(input));
+		int number = convertToNumber(getNumberPart(input));
+		return Card.New(suit, number);
+	}
+
+	static Suit convertToSuit(String suitPart) {
+		if(suitPart.toUpperCase().equals("S")) return Suit.Spade;
+		if(suitPart.toUpperCase().equals("H")) return Suit.Heart;
+		if(suitPart.toUpperCase().equals("D")) return Suit.Dia;
+		if(suitPart.toUpperCase().equals("C")) return Suit.Club;
+		throw new IllegalArgumentException("1文字目はS,H,D,Cのいずれかのスートにして下さい。（Jorkerの場合を除く）");
+	}
+
+	static int convertToNumber(String numberPart) {
+		try{
+			return Integer.parseInt(numberPart);
+		} catch (NumberFormatException e) {
+			throw new IllegalArgumentException("2文字目以降は1～13の数字を入力して下さい。", e);
+		}
+	}
+
+	static protected String getNumberPart(String input) {
+		return input.substring(1);
+	}
+
+	static protected String getSuitPart(String input) {
+		return input.substring(0, 1);
+	}
+
+	public String getInputString(String information) {
+		Scanner stdReader = new Scanner(System.in);
+		showMessage(String.format("%s : ", information));
+		String line = stdReader.nextLine(); // ユーザの一行入力を待つ
+		return line;
+	}
+
 }

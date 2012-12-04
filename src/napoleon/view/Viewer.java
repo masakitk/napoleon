@@ -20,4 +20,5 @@ public interface Viewer {
 			Collection<String> cardsToShow);
 	void showPlayersGainedCards(Player[] players);
 	void showExtraCards(List<Card> extraCards);
+	Card inputCard(Turn turn);
 }
