@@ -2,15 +2,20 @@ package napoleon.model.player;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
+import mockit.Mocked;
 import napoleon.model.card.Card;
 import napoleon.model.card.Suit;
 import napoleon.model.rule.Declaration;
 import napoleon.model.rule.GameContext;
+import napoleon.view.Viewer;
 
 import org.junit.Test;
 
 public class NapoleonTest {
 
+	@Mocked
+	Viewer viewer;
+	
 	@Test
 	public void T01_切り札で自分が持っていない特殊カード考慮しないで一番強いカードを返す() {
 		Player player = Player.New("hoge");
@@ -18,11 +23,11 @@ public class NapoleonTest {
 		Napoleon napoleon = Napoleon.New(player);
 		
 		Declaration declaration = Declaration.New(Suit.Club, 14);
-		assertThat(napoleon.someTrumpCard(declaration), equalTo(Card.New(Suit.Club, 13)));
+		assertThat(napoleon.findSomeTrumpCard(declaration), equalTo(Card.New(Suit.Club, 13)));
 
 		napoleon.takeCard(Card.New(Suit.Club, 13));
 		napoleon.takeCard(Card.New(Suit.Club, 11));
-		assertThat(napoleon.someTrumpCard(declaration), equalTo(Card.New(Suit.Club, 12)));
+		assertThat(napoleon.findSomeTrumpCard(declaration), equalTo(Card.New(Suit.Club, 12)));
 	}
 	
 	@Test
@@ -32,7 +37,7 @@ public class NapoleonTest {
 		Napoleon napoleon = Napoleon.New(player);
 		
 		Declaration declaration = Declaration.New(Suit.Club, 14);
-		assertThat(napoleon.tellTheAdjutant(declaration), equalTo(Card.Mighty));
+		assertThat(napoleon.tellTheAdjutant(declaration, viewer), equalTo(Card.Mighty));
 	}
 	
 	@Test
@@ -42,7 +47,7 @@ public class NapoleonTest {
 		Napoleon napoleon = Napoleon.New(player);
 		
 		Declaration declaration = Declaration.New(Suit.Club, 14);
-		assertThat(napoleon.tellTheAdjutant(declaration), equalTo(GameContext.getRightBower(Suit.Club)));
+		assertThat(napoleon.tellTheAdjutant(declaration, viewer), equalTo(GameContext.getRightBower(Suit.Club)));
 	}
 
 	@Test
@@ -53,7 +58,7 @@ public class NapoleonTest {
 		Napoleon napoleon = Napoleon.New(player);
 		
 		Declaration declaration = Declaration.New(Suit.Club, 14);
-		assertThat(napoleon.tellTheAdjutant(declaration), equalTo(GameContext.getLeftBower(Suit.Club)));
+		assertThat(napoleon.tellTheAdjutant(declaration, viewer), equalTo(GameContext.getLeftBower(Suit.Club)));
 	}
 
 	@Test
@@ -65,7 +70,7 @@ public class NapoleonTest {
 		Napoleon napoleon = Napoleon.New(player);
 		
 		Declaration declaration = Declaration.New(Suit.Club, 14);
-		assertThat(napoleon.tellTheAdjutant(declaration), equalTo(Card.Yoromeki));
+		assertThat(napoleon.tellTheAdjutant(declaration, viewer), equalTo(Card.Yoromeki));
 	}
 
 	@Test
@@ -78,7 +83,7 @@ public class NapoleonTest {
 		Napoleon napoleon = Napoleon.New(player);
 		
 		Declaration declaration = Declaration.New(Suit.Club, 14);
-		assertThat(napoleon.tellTheAdjutant(declaration), equalTo(Card.New(Suit.Spade, 2)));
+		assertThat(napoleon.tellTheAdjutant(declaration, viewer), equalTo(Card.New(Suit.Spade, 2)));
 	}
 	
 	@Test
@@ -93,7 +98,7 @@ public class NapoleonTest {
 		Napoleon napoleon = Napoleon.New(player);
 		
 		Declaration declaration = Declaration.New(Suit.Club, 14);
-		assertThat(napoleon.tellTheAdjutant(declaration), equalTo(Card.RequireJorker));
+		assertThat(napoleon.tellTheAdjutant(declaration, viewer), equalTo(Card.RequireJorker));
 	}
 
 	@Test
@@ -107,7 +112,7 @@ public class NapoleonTest {
 		Napoleon napoleon = Napoleon.New(player);
 		
 		Declaration declaration = Declaration.New(Suit.Club, 14);
-		assertThat(napoleon.tellTheAdjutant(declaration), equalTo(Card.New(Suit.Club, 1)));
+		assertThat(napoleon.tellTheAdjutant(declaration, viewer), equalTo(Card.New(Suit.Club, 1)));
 	}
 
 	@Test
@@ -122,7 +127,7 @@ public class NapoleonTest {
 		Napoleon napoleon = Napoleon.New(player);
 		
 		Declaration declaration = Declaration.New(Suit.Club, 14);
-		assertThat(napoleon.tellTheAdjutant(declaration), equalTo(Card.New(Suit.Club, 13)));
+		assertThat(napoleon.tellTheAdjutant(declaration, viewer), equalTo(Card.New(Suit.Club, 13)));
 	}
 
 }

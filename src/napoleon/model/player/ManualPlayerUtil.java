@@ -23,7 +23,7 @@ public class ManualPlayerUtil {
 		while(toOpen == null) {
 			viewer.showMessage(String.format("this turn opened %s, declaration is %s", convertNamesAndCards((Collection<Entry<Player, Card>>)turn.getCardHash().entrySet()), declaration.toShow()));
 			viewer.showMessage(String.format("You have %s", viewer.sortCardsToView(cards)));
-			toOpen = rejectInvalidCard(viewer.inputCard(turn), turn, viewer, cards);
+			toOpen = rejectInvalidCard(viewer.inputCard(), turn, viewer, cards);
 		}
 		return toOpen;
 	}

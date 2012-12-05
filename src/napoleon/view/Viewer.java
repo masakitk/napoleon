@@ -21,8 +21,10 @@ public interface Viewer {
 			Collection<String> cardsToShow);
 	void showPlayersGainedCards(Player[] players);
 	void showExtraCards(List<Card> extraCards);
-	Card inputCard(Turn turn);
+	Card inputCard();
 	Declaration askForDeclare(Declaration currentDeclaration, List<Card> cards);
 	Collection<Card> inputCardsToChange(Declaration fixedDeclaration, Table table,
 			List<Card> cards);
+	Card inputCardToAdjutant();
+	void printPlayerCards(Player player);
 }

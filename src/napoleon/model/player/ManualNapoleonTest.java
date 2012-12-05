@@ -17,6 +17,7 @@ import napoleon.view.Viewer;
 
 import org.hamcrest.Matchers;
 import org.hamcrest.core.Is;
+import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 
 public class ManualNapoleonTest {
@@ -31,6 +32,22 @@ public class ManualNapoleonTest {
 	@Mocked
 	Table table;
 
+	
+	@Test
+	public void T01_副官指定できること() {
+		new Expectations() {
+			{
+				viewer.inputCardToAdjutant(); returns(Card.Yoromeki);
+				viewer.inputCardToAdjutant(); returns(Card.New(Suit.Dia, 3));
+				viewer.inputCardToAdjutant(); returns(Card.Jorker);
+			}
+		};
+		final ManualNapoleon napoleon = ManualNapoleon.New(ManualPlayer.New("hoge"));
+		assertThat(napoleon.tellTheAdjutant(declaration, viewer), IsEqual.equalTo(Card.Yoromeki));
+		assertThat(napoleon.tellTheAdjutant(declaration, viewer), IsEqual.equalTo(Card.New(Suit.Dia, 3)));
+		assertThat(napoleon.tellTheAdjutant(declaration, viewer), IsEqual.equalTo(Card.Jorker));
+	}
+	
 	final List<Card> テーブル残カード = new ArrayList<Card>(){{
 		add(Card.New(Suit.Spade, 1));
 		add(Card.New(Suit.Club, 5));
@@ -45,9 +62,11 @@ public class ManualNapoleonTest {
 	}};
 	
 	@Test
-	public void T01_テーブルに残ったカードをもらって不要な5枚を交換できること() {
+	public void T02_テーブルに残ったカードをもらって不要な5枚を交換できること() {
+		final ManualNapoleon napoleon = ManualNapoleon.New(ManualPlayer.New("hoge"));
 		new Expectations() {
 			{
+				viewer.printPlayerCards(napoleon);
 				viewer.inputCardsToChange(declaration, table, 手札); 
 				returns(new ArrayList<Card>(){{
 					add(Card.New(Suit.Club, 3));
@@ -58,8 +77,6 @@ public class ManualNapoleonTest {
 				table.getNoUseCards();returns(new ArrayList<Card>());
 			}
 		};
-		
-		final ManualNapoleon napoleon = ManualNapoleon.New(ManualPlayer.New("hoge"));
 		
 		napoleon.takeCards(手札);
 		napoleon.changeExtraCards(declaration, table, viewer);

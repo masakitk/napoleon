@@ -42,7 +42,7 @@ public class ConsoleViewer implements Viewer {
 		});
 	}
 
-	protected void printPlayerCards(Player player) {
+	public void printPlayerCards(Player player) {
 		System.out.print(player.getName());
 		System.out.println("/ gained:" + sortCardsToView(player.cardsGained()));
 		System.out.println("/ having:" + sortCardsToView(player.cardsHaving()));
@@ -110,7 +110,7 @@ public class ConsoleViewer implements Viewer {
 	}
 
 	@Override
-	public Card inputCard(Turn turn) {
+	public Card inputCard() {
 		try{
 			return convertToCard(inputSuitAndNumber("input card(Ex. S1:♠A、H13:♥13 etc.."));
 		} catch (IllegalArgumentException e) {
@@ -256,5 +256,11 @@ public class ConsoleViewer implements Viewer {
 				return !cards.contains(card) && !extraCards.contains(card);
 			}
 		});
+	}
+
+	@Override
+	public Card inputCardToAdjutant() {
+		showMessage("input card to adjutant");
+		return inputCard();
 	}
 }

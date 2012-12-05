@@ -118,7 +118,7 @@ public class ManualPlayerTest {
 				viewer.showMessage("this turn opened [], declaration is Club:13");
 				viewer.sortCardsToView(anyCards); returns(anyCards);
 				viewer.showMessage("You have [[♥:12], [◆:3]]");
-				viewer.inputCard((Turn)any);returns(Card.New(Suit.Spade, 3));
+				viewer.inputCard();returns(Card.New(Suit.Spade, 3));
 //				new Scanner((BufferedInputStream)any); returns(any);
 //				viewer.showMessage("input card(Ex. S1:♠A、H13:♥13 etc..");
 //				scanner.nextLine(); returns("S3");
@@ -128,7 +128,7 @@ public class ManualPlayerTest {
 				viewer.showMessage("this turn opened [], declaration is Club:13");
 				viewer.sortCardsToView(anyCards); returns(anyCards);
 				viewer.showMessage("You have [[♥:12], [◆:3]]");
-				viewer.inputCard((Turn)any);returns(Card.New(Suit.Dia, 3));
+				viewer.inputCard();returns(Card.New(Suit.Dia, 3));
 //				new Scanner((BufferedInputStream)any); returns(any);
 //				viewer.showMessage("input card(Ex. S1:♠A、H13:♥13 etc..");
 //				scanner.nextLine(); returns("D3");

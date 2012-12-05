@@ -154,7 +154,7 @@ public class DirectorTest {
 		new Expectations() {
 			{
 				 dealer.hasServed(); returns(true);
-				 napoleon.tellTheAdjutant((Declaration)any); returns (Card.Mighty);
+				 napoleon.tellTheAdjutant((Declaration)any, viewer); returns (Card.Mighty);
 				 player1.cardsHaving(); returns(new ArrayList<Card>(){{add(Card.Mighty);}});
 				 player1.setIsAdjutant(true);
 				 napoleon.changeExtraCards((Declaration)any, (Table)any, viewer);

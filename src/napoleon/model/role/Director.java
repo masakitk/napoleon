@@ -149,7 +149,7 @@ public class Director implements Serializable {
 	}
 
 	public void askForAdjutant() {
-		cardOfAdjutant = getNapoleon().tellTheAdjutant(fixedDeclaration);
+		cardOfAdjutant = getNapoleon().tellTheAdjutant(fixedDeclaration, viewer);
 		logger.info(String.format("adjutant card is %s", cardOfAdjutant));
 		viewer.showMessage(String.format("adjutant is who having %s", cardOfAdjutant));
 		Player adjutant = findAdjutant(cardOfAdjutant);

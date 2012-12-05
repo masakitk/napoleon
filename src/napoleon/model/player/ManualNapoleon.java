@@ -30,6 +30,7 @@ public class ManualNapoleon extends Napoleon {
 	
 	@Override
 	public void changeExtraCards(Declaration fixedDeclaration, Table table, Viewer viewer) {
+		viewer.printPlayerCards(this);
 		Collection<Card> unuseCards = viewer.inputCardsToChange(fixedDeclaration, table, cards);			
 			List<Card> extraCards = table.getCards();
 			cards.addAll(extraCards);
@@ -66,4 +67,8 @@ public class ManualNapoleon extends Napoleon {
 		cards.addAll(cardsToTake);
 	}
 
+	@Override
+	public Card tellTheAdjutant(Declaration fixedDeclaration, Viewer viewer) {
+		return viewer.inputCardToAdjutant();
+	}	
 }

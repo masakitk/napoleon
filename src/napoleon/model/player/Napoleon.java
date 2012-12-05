@@ -17,7 +17,7 @@ public class Napoleon extends Player{
 		table.getCards().addAll(table.getCards());
 	}
 
-	public Card tellTheAdjutant(Declaration fixedDeclaration) {
+	public Card tellTheAdjutant(Declaration fixedDeclaration, Viewer viewer) {
 		if(!cards.contains(Card.Mighty)) return Card.Mighty;
 		Suit trump = fixedDeclaration.getSuit();
 		Card rightBower = GameContext.getRightBower(trump);
@@ -28,10 +28,10 @@ public class Napoleon extends Player{
 		Card uraSame2 = Card.New(GameContext.getSameColorAnotherSuit(trump), 2);
 		if(!cards.contains(uraSame2)) return uraSame2;
 		if(cards.contains(Card.Jorker) && !cards.contains(Card.RequireJorker)) return Card.RequireJorker;
-		return someTrumpCard(fixedDeclaration);
+		return findSomeTrumpCard(fixedDeclaration);
 	}
 
-	Card someTrumpCard(Declaration fixedDeclaration) {
+	Card findSomeTrumpCard(Declaration fixedDeclaration) {
 		Card ace = Card.New(fixedDeclaration.getSuit(), 1);
 		if(!cards.contains(ace)) return ace;
 		for(int i = 13; 1 < i; i--) {
