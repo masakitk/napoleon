@@ -1,10 +1,7 @@
 package napoleon.model.role;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.*;
 
 import napoleon.model.card.Card;
 import napoleon.model.player.ManualNapoleon;
@@ -45,7 +42,7 @@ public class Director implements Serializable {
 	private Logger logger;
 	private Card cardOfAdjutant;
 	protected Viewer viewer;
-	
+
 	protected Director(){
 		logger = LogManager.getLogger(Director.class.getName());
 	}
