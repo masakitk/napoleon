@@ -152,7 +152,7 @@ public class Director implements Serializable {
 	public void askForAdjutant() {
 		cardOfAdjutant = getNapoleon().tellTheAdjutant(fixedDeclaration, viewer);
 		logger.info(String.format("adjutant card is %s", cardOfAdjutant));
-		viewer.showMessage(String.format("adjutant is who having %s", cardOfAdjutant));
+		viewer.showMessage(String.format(Messages.RESOURCE.getString(Messages.CARD_OF_ADJUTANT), cardOfAdjutant));
 		Player adjutant = findAdjutant(cardOfAdjutant);
 		if(null == adjutant) return;
 		adjutant.setIsAdjutant(true);
@@ -224,8 +224,8 @@ public class Director implements Serializable {
 		viewer.showExchangedCards(table);
 		
 		final Team winnerTeam = getWinnerTeam();
-		viewer.showMessage(String.format("adjutant is %s", getAdjutantName()));
-		viewer.showMessage(String.format("NapoleonTeam gained %s, winner is %s", getCardCountNapoleonTeamGained(), winnerTeam));
+		viewer.showMessage(String.format(Messages.RESOURCE.getString(Messages.PLAYER_OF_ADJUTANT), getAdjutantName()));
+		viewer.showMessage(String.format(Messages.RESOURCE.getString(Messages.WINNER_DETAIL), getCardCountNapoleonTeamGained(), winnerTeam));
 		return winnerTeam;
 	}
 

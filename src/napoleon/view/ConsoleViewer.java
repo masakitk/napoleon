@@ -80,21 +80,21 @@ public class ConsoleViewer implements Viewer {
 
 	@Override
 	public void showGainedCardsForEachPlayer(Napoleon napoleon, Player[] players) {
-		showMessage(String.format("napoleon gained %s", napoleon.cardsGained()));
+		showMessage(String.format(RESOURCE.getString(Messages.NAPOLEON_GAINED_CARDS), napoleon.cardsGained()));
 		for (Player p : players) {
-			showMessage(String.format("player %s gained %s", p.getName(), p.cardsGained()));
+			showMessage(String.format(RESOURCE.getString(Messages.PLAYER_GAINED_CARDS), p.getName(), p.cardsGained()));
 		}
 	}
 
 	@Override
 	public void showExchangedCards(Table table) {
-		showMessage(String.format("table cards are %s", table.getNoUseCards()));
+		showMessage(String.format(RESOURCE.getString(Messages.UNUSED_CARDS), table.getNoUseCards()));
 	}
 
 	@Override
 	public void showTurnResult(Integer currentTurnNo, String turnWinnerName,
 			Collection<String> cardsToShow) {
-		showMessage(String.format("★turn[%d], winner[%s]: cards[%s]", 
+		showMessage(String.format(RESOURCE.getString(Messages.TURN_WINNER),
 						currentTurnNo, 
 						turnWinnerName,
 						cardsToShow));
@@ -103,13 +103,13 @@ public class ConsoleViewer implements Viewer {
 	@Override
 	public void showPlayersGainedCards(Player[] players) {
 		for (Player p : players){
-			showMessage(String.format("player:%s / Gained:%s", p.getName(), p.cardsGained()));
+			showMessage(String.format(RESOURCE.getString(Messages.PLAYER_GAINED_CARDS), p.getName(), p.cardsGained()));
 		}
 	}
 
 	@Override
 	public void showExtraCards(List<Card> extraCards) {
-		showMessage(String.format("[%s] remained on the table, you can take them.", extraCards));
+		showMessage(String.format(RESOURCE.getString(INPUT_UNUSED_CARDS_WITH_CONSOLE), extraCards));
 	}
 
 	@Override
@@ -199,7 +199,7 @@ public class ConsoleViewer implements Viewer {
 	@Override
 	public Collection<Card> inputCardsToChange(Declaration fixedDeclaration,
 			Table table, List<Card> cards) {
-		String[] cardsEntered = getInputString("input cards to unuse, as [C3,C4,C5...]").split(",");
+		String[] cardsEntered = getInputString(RESOURCE.getString(Messages.INPUT_UNUSED_CARDS_WITH_CONSOLE)).split(",");
 
 		if(!canConvertAllToCard(cardsEntered)) {
 			return inputCardsToChange(fixedDeclaration, table, cards);
@@ -216,13 +216,13 @@ public class ConsoleViewer implements Viewer {
 
 		List<Card> extraCards = table.getCards();
 		if(invalidCardCount(unuseCards, extraCards.size())){
-			showMessage(String.format("select %d unuse cards", extraCards.size()));
+			showMessage(String.format(RESOURCE.getString(Messages.SELECT_UNUSED_CARDS), extraCards.size()));
 			return inputCardsToChange(fixedDeclaration, table, cards);
 		}
 
 		Collection<Card> wrongCards = getWrongCards(unuseCards, extraCards, cards);
 		if(!wrongCards.isEmpty()){
-			showMessage(String.format("you don't have %s", wrongCards));
+			showMessage(String.format(RESOURCE.getString(Messages.YOU_HAVE_NOT_THE_CARD), wrongCards));
 			return inputCardsToChange(fixedDeclaration, table, cards);
 		}
 		return unuseCards;
@@ -263,7 +263,7 @@ public class ConsoleViewer implements Viewer {
 
 	@Override
 	public Card inputCardToAdjutant() {
-		showMessage("input card to adjutant");
+		showMessage(RESOURCE.getString(Messages.INPUT_ADJUTANT_CARD));
 		return inputCard();
 	}
 }

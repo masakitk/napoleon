@@ -16,6 +16,22 @@ public class Messages extends ListResourceBundle {
     public static final String CARDS_HAVING = "cardsHaving";
     public static final String NAPOLEON_FIXED = "napoleonFixed";
     public static final String YOUR_CARDS = "yourCards";
+    public static final String SELECT_UNUSED_CARDS = "selectUnusedCards";
+    public static final String INPUT_UNUSED_CARDS_WITH_CONSOLE = "inputUnusedCardsWithConsole";
+    public static final String YOU_HAVE_NOT_THE_CARD = "youHaveNotTheCard";
+    public static final String INPUT_ADJUTANT_CARD = "inputAdjutantCard";
+    public static final String UNUSED_CARDS = "unusedCards";
+    public static final String CARDS_LEFT_ON_THE_TABLE = "cardsLeftOnTheTable";
+    public static final String NAPOLEON_GAINED_CARDS = "napoleonGainedCards";
+    public static final String PLAYER_GAINED_CARDS = "playerGainedCards";
+    public static final String TURN_WINNER = "turnWinner";
+    public static final String CARD_OF_ADJUTANT = "adjutantDetail";
+    public static final String PLAYER_OF_ADJUTANT = "playerOfAdjutant";
+    public static final String WINNER_DETAIL = "winnerDetail";
+    public static final String CARDS_OF_THIS_TURN_AND_DECLARATION = "cardsOfThisTurnAndDeclaration";
+    public static final String YOU_MUST_OPEN_TRUMP = "youMustOpenTrump";
+    public static final String YOU_MUST_OPEN_JOKER = "youMustOpenJoker";
+    public static final String YOU_MUST_OPEN_LEAD_SUIT = "youMustOpenLeadSuit";
 
     public static ResourceBundle RESOURCE = ResourceBundle.getBundle("napoleon.model.resource.Messages",
             Locale.JAPANESE,
@@ -30,6 +46,21 @@ public class Messages extends ListResourceBundle {
             {CARDS_HAVING, "/ having:%s%n"},
             {NAPOLEON_FIXED, "★napoleon fixed:%s, %s"},
             {YOUR_CARDS, "you have :[%s]"},
+            {SELECT_UNUSED_CARDS, "select %d unused cards"},
+            {INPUT_UNUSED_CARDS_WITH_CONSOLE, "input cards to be unused, as [C3,C4,C5...]"},
+            {YOU_HAVE_NOT_THE_CARD, "you don't have %s"},
+            {INPUT_ADJUTANT_CARD, "input card to adjutant"},
+            {UNUSED_CARDS, "table cards are %s"},
+            {NAPOLEON_GAINED_CARDS, "napoleon gained %s"},
+            {PLAYER_GAINED_CARDS, "player %s gained %s"},
+            {TURN_WINNER, "★turn[%d], winner[%s]: cards[%s]"},
+            {CARD_OF_ADJUTANT, "Adjutant is who having %s"},
+            {PLAYER_OF_ADJUTANT, "Adjutant is %s"},
+            {WINNER_DETAIL, "NapoleonTeam gained %s, winner is %s"},
+            {CARDS_OF_THIS_TURN_AND_DECLARATION, "This turn opened %s, declaration is %s"},
+            {YOU_MUST_OPEN_TRUMP, "Trump is required, you must open trump (or max number card)."},
+            {YOU_MUST_OPEN_JOKER,"Joker is required, you must open Joker"},
+            {YOU_MUST_OPEN_LEAD_SUIT, "Lead suit is required, you must open lead suit"},
     };
 
     @Override

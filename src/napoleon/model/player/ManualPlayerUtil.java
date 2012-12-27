@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 
 import napoleon.model.card.Card;
 import napoleon.model.card.Suit;
+import napoleon.model.resource.Messages;
 import napoleon.model.rule.Declaration;
 import napoleon.model.rule.Turn;
 import napoleon.view.Viewer;
@@ -16,13 +17,15 @@ import org.apache.commons.collections15.CollectionUtils;
 import org.apache.commons.collections15.Predicate;
 import org.apache.commons.collections15.Transformer;
 
+import static napoleon.model.resource.Messages.*;
+
 public class ManualPlayerUtil {
 	static Card chooseCardToOpenByManual(Turn turn, Viewer viewer,
 			Declaration declaration, List<Card> cards) {
 		Card toOpen = null;
 		while(toOpen == null) {
-			viewer.showMessage(String.format("this turn opened %s, declaration is %s", convertNamesAndCards((Collection<Entry<Player, Card>>)turn.getCardHash().entrySet()), declaration.toShow()));
-			viewer.showMessage(String.format("You have %s", viewer.sortCardsToView(cards)));
+			viewer.showMessage(String.format(RESOURCE.getString(CARDS_OF_THIS_TURN_AND_DECLARATION), convertNamesAndCards((Collection<Entry<Player, Card>>)turn.getCardHash().entrySet()), declaration.toShow()));
+			viewer.showMessage(String.format(RESOURCE.getString(YOUR_CARDS), viewer.sortCardsToView(cards)));
 			toOpen = rejectInvalidCard(viewer.inputCard(), turn, viewer, cards);
 		}
 		return toOpen;
@@ -43,14 +46,14 @@ public class ManualPlayerUtil {
 		if(card == null) return null;
 		
 		if(!hasCard(cards, card)) {
-			viewer.showMessage("そのカードは持っていません。");
+			viewer.showMessage(RESOURCE.getString(Messages.YOU_HAVE_NOT_THE_CARD));
 			return null;
 		}
 
 		if(turn.isJorkerOpenedFirst()) {
 			final Suit trump = turn.getTrump();
 			if(hasAnyCardOf(cards, trump) && card.getSuit() != trump) {
-				viewer.showMessage("切り札請求された場合は、切り札をださなければなりません。");
+				viewer.showMessage(RESOURCE.getString(Messages.YOU_MUST_OPEN_TRUMP));
 				return null;
 			}
 			return card;
@@ -58,7 +61,7 @@ public class ManualPlayerUtil {
 
 		if(turn.isRequireJorkerOpenedFirst()) {
 			if(hasCard(cards, Card.Jorker) && !card.equals(Card.Jorker)) {
-				viewer.showMessage("ジョーカー請求された場合は、ジョーカーをださなければなりません。");
+				viewer.showMessage(RESOURCE.getString(Messages.YOU_MUST_OPEN_JOKER));
 				return null;
 			}
 			return card;
@@ -66,7 +69,7 @@ public class ManualPlayerUtil {
 		
 		if(turn.isLeadSuitDefined() && !Player.findSameMark(cards, turn.getLeadSuit()).isEmpty()){
 			if(card.getSuit() != turn.getLeadSuit()){
-				viewer.showMessage("台札がある場合は、台札をださなければなりません。");
+				viewer.showMessage(RESOURCE.getString(Messages.YOU_MUST_OPEN_LEAD_SUIT));
 				return null;
 			}
 		}
