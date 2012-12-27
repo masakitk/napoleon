@@ -2,6 +2,8 @@ package napoleon.model.resource;
 
 import java.util.ListResourceBundle;
 
+import static napoleon.model.resource.Messages.*;
+
 /**
  * Created with IntelliJ IDEA.
  * User: masakitk
@@ -12,8 +14,12 @@ import java.util.ListResourceBundle;
 public class Messages_ja extends ListResourceBundle {
 
     private final static String[][] resources = {
-            {"cardsGained", "/ 獲得:%s%n"}
-    };
+            {CARDS_GAINED, "/ 獲得済カード:%s%n"},
+            {CARDS_HAVING, "/ 手札:%s%n"},
+            {NAPOLEON_FIXED, "ナポレオンは:%s, %s"},
+            {YOUR_CARDS, "あなたの手札:[%s]"},
+    }
+    ;
 
     @Override
     protected Object[][] getContents() {

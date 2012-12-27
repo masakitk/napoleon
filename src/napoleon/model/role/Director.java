@@ -7,6 +7,7 @@ import napoleon.model.card.Card;
 import napoleon.model.player.ManualNapoleon;
 import napoleon.model.player.Napoleon;
 import napoleon.model.player.Player;
+import napoleon.model.resource.Messages;
 import napoleon.model.rule.Declaration;
 import napoleon.model.rule.GameContext;
 import napoleon.model.rule.Status;
@@ -84,7 +85,10 @@ public class Director implements Serializable {
 				napoleon = Napoleon.New(player);
 				players[Arrays.asList(players).indexOf(player)] = napoleon;
 				logger.info(String.format("★napoleon fixed:%s, %s", napoleon, fixedDeclaration));
-				viewer.showMessage(String.format("★napoleon fixed:%s, %s", napoleon.getName(), fixedDeclaration.toShow()));
+				viewer.showMessage(
+                        String.format(
+                                Messages.RESOURCE.getString(Messages.NAPOLEON_FIXED),
+                                napoleon.getName(), fixedDeclaration.toShow()));
 				return;
 			}
 			currentDeclaration = askForDeclare(currentDeclaration, lastDeclarationsOfPlayer, player);

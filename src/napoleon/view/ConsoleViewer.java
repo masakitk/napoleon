@@ -25,6 +25,8 @@ import napoleon.model.rule.Declaration;
 import napoleon.model.rule.Table;
 import napoleon.model.rule.Turn;
 
+import static napoleon.model.resource.Messages.*;
+
 public class ConsoleViewer implements Viewer {
 	private static final ConsoleViewer CONSOLE_VIEWER = new ConsoleViewer();
 
@@ -45,8 +47,8 @@ public class ConsoleViewer implements Viewer {
 
 	public void printPlayerCards(Player player) {
 		System.out.print(player.getName());
-        System.out.printf(Messages.RESOURCE.getString("cardsGained"), sortCardsToView(player.cardsGained()));
-        System.out.printf("/ having:%s%n", sortCardsToView(player.cardsHaving()));
+        System.out.printf(RESOURCE.getString(CARDS_GAINED), sortCardsToView(player.cardsGained()));
+        System.out.printf(RESOURCE.getString(CARDS_HAVING), sortCardsToView(player.cardsHaving()));
 	}
 
 	public List<Card> sortCardsToView(List<Card> cards) {
@@ -175,7 +177,7 @@ public class ConsoleViewer implements Viewer {
 
 	@Override
 	public Declaration askForDeclare(Declaration currentDeclaration, List<Card> cards) {
-		showMessage(String.format("you have :[%s]", sortCardsToView(cards)));
+		showMessage(String.format(RESOURCE.getString(YOUR_CARDS), sortCardsToView(cards)));
 		String input;
 		input = inputSuitAndNumber("input declaration(Ex. S13:♠A、H15:♥15、Pass etc..");
 
