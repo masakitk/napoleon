@@ -34,6 +34,9 @@ public class Messages extends ListResourceBundle {
     public static final String ALLIED_FORCES_TEAM = "AlliedForcesTeam";
     public static final String NAPOLEON_TEAM = "NapoleonTeam";
     public static final String ADJUTANT_NAME_WHEN_NAPOLEON_ALONE = "AdjutantNameWhenNapoleonAlone";
+    public static final String INPUT_DECLARATION = "inputDeclaration";
+    public static final String INPUT_CARD = "inputCard";
+    public static final String EXTRA_CARDS = "extraCards";
 
     public static ResourceBundle RESOURCE = ResourceBundle.getBundle("napoleon.model.resource.Messages",
             Locale.JAPANESE,
@@ -65,7 +68,10 @@ public class Messages extends ListResourceBundle {
             {YOU_MUST_OPEN_LEAD_SUIT, "Lead suit is required, you must open lead suit"},
             {ALLIED_FORCES_TEAM, "AlliedForcesTeam"},
             {NAPOLEON_TEAM, "NapoleonTeam"},
-            {ADJUTANT_NAME_WHEN_NAPOLEON_ALONE, "nobody: only napoleon;"}
+            {ADJUTANT_NAME_WHEN_NAPOLEON_ALONE, "nobody: only napoleon;"},
+            {INPUT_DECLARATION, "input declaration(Ex. S13:♠13、H15:♥15、Pass etc.."},
+            {INPUT_CARD, "input card(Ex. S1:♠A、H13:♥13 etc.."},
+            {EXTRA_CARDS, "extra cards are %s"},
     };
 
     @Override

@@ -132,8 +132,22 @@ public class TurnTest {
 		
 		ターンを回して勝者を確認(param);
 	}
-	
-	@Test
+
+    @Test
+    public void T05_カードが4枚出されている場合に特殊カード考慮ありで勝者を判断できる_セイム2vs裏J() {
+        Parameters param = new Parameters(
+                Turn.New(2, Suit.Heart),
+                player2, Card.New(Suit.Dia, 8),
+                player3, Card.New(Suit.Dia, 2),
+                player4, Card.New(Suit.Dia, 11),
+                player1, Card.New(Suit.Dia, 13),
+                player3, Card.New(Suit.Dia, 2),
+                new Card[]{Card.New(Suit.Dia, 11), Card.New(Suit.Dia, 13)});
+
+        ターンを回して勝者を確認(param);
+    }
+
+    @Test
 	public void T05_カードが4枚出されている場合に特殊カード考慮ありで勝者を判断できる_セイム2無効_別のスートあり() {
 		Parameters param = new Parameters(
 				Turn.New(2, Suit.Spade),

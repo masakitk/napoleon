@@ -109,13 +109,13 @@ public class ConsoleViewer implements Viewer {
 
 	@Override
 	public void showExtraCards(List<Card> extraCards) {
-		showMessage(String.format(RESOURCE.getString(INPUT_UNUSED_CARDS_WITH_CONSOLE), extraCards));
+		showMessage(String.format(RESOURCE.getString(Messages.EXTRA_CARDS), extraCards));
 	}
 
 	@Override
 	public Card inputCard() {
 		try{
-			return convertToCard(inputSuitAndNumber("input card(Ex. S1:♠A、H13:♥13 etc.."));
+			return convertToCard(inputSuitAndNumber(RESOURCE.getString(Messages.INPUT_CARD)));
 		} catch (IllegalArgumentException e) {
 			showMessage(e.getMessage());
 			return null;
@@ -179,7 +179,7 @@ public class ConsoleViewer implements Viewer {
 	public Declaration askForDeclare(Declaration currentDeclaration, List<Card> cards) {
 		showMessage(String.format(RESOURCE.getString(YOUR_CARDS), sortCardsToView(cards)));
 		String input;
-		input = inputSuitAndNumber("input declaration(Ex. S13:♠A、H15:♥15、Pass etc..");
+		input = inputSuitAndNumber(RESOURCE.getString(Messages.INPUT_DECLARATION));
 
 		if(input.toUpperCase().equals("PASS"))
 			return Declaration.Pass;
