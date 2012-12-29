@@ -55,11 +55,11 @@ public class Turn {
 
 	public Suit getLeadSuit() {
 		return !isLeadSuitDefined() ? null
-				: getFirstCard() == Card.Jorker ? getLeadSuitWhenJorkerFirst()
+				: getFirstCard() == Card.Joker ? getLeadSuitWhenJokerFirst()
 				: getFirstCard().getSuit();
 	}
 
-	private Suit getLeadSuitWhenJorkerFirst() {
+	private Suit getLeadSuitWhenJokerFirst() {
 		return isIgnoreSpecial() ? (
 				2 <= cardHash.size() ? getCardAt(1).getSuit() : null)
 		: trump;
@@ -133,12 +133,12 @@ public class Turn {
 				: false;
 	}
 
-	public boolean isJorkerOpenedFirst() {
-		return isOpenedFirst(Card.Jorker);
+	public boolean isJokerOpenedFirst() {
+		return isOpenedFirst(Card.Joker);
 	}
 
-	public boolean isRequireJorkerOpenedFirst() {
-		return isOpenedFirst(Card.RequireJorker);
+	public boolean isRequireJokerOpenedFirst() {
+		return isOpenedFirst(Card.RequireJoker);
 	}
 
 	private boolean isOpenedFirst(Card cardToAssert) {

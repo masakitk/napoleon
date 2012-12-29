@@ -17,10 +17,10 @@ public class Messages_ja extends ListResourceBundle {
             {CARDS_GAINED, "/ 獲得済カード:%s%n"},
             {CARDS_HAVING, "/ 手札:%s%n"},
             {NAPOLEON_FIXED, "ナポレオンは:%s, %s"},
-            {YOUR_CARDS, "あなたの手札:[%s]"},
+            {YOUR_CARDS, "あなたの手札:%s"},
             {SELECT_UNUSED_CARDS, "不要なカードを%d枚選んで下さい"},
             {INPUT_UNUSED_CARDS_WITH_CONSOLE, "使用しないカードを選んで下さい。Ex.[C3,C4,C5...]"},
-            {YOU_HAVE_NOT_THE_CARD, "%sは持っていません"},
+            {YOU_HAVE_NOT_THE_CARD, "そのカードは持っていません。"},
             {INPUT_ADJUTANT_CARD, "副官のカードを指定して下さい"},
             {UNUSED_CARDS, "テーブルに残されたカードは %s です。"},
             {NAPOLEON_GAINED_CARDS, "ナポレオン獲得カード %s"},
@@ -33,6 +33,9 @@ public class Messages_ja extends ListResourceBundle {
             {YOU_MUST_OPEN_TRUMP, "切り札請求された場合は、切り札をださなければなりません。"},
             {YOU_MUST_OPEN_JOKER,"ジョーカー請求された場合は、ジョーカーをださなければなりません。"},
             {YOU_MUST_OPEN_LEAD_SUIT, "台札がある場合は、台札をださなければなりません。"},
+            {ALLIED_FORCES_TEAM, "連合軍"},
+            {NAPOLEON_TEAM, "ナポレオン軍"},
+            {ADJUTANT_NAME_WHEN_NAPOLEON_ALONE, "いません。独り立ち"}
     }                                                                      ;
 
     @Override

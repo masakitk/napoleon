@@ -94,11 +94,11 @@ public class NapoleonTest {
 		player.takeCard(GameContext.getLeftBower(Suit.Club));
 		player.takeCard(Card.Yoromeki);
 		player.takeCard(Card.New(Suit.Spade, 2));
-		player.takeCard(Card.Jorker);
+		player.takeCard(Card.Joker);
 		Napoleon napoleon = Napoleon.New(player);
 		
 		Declaration declaration = Declaration.New(Suit.Club, 14);
-		assertThat(napoleon.tellTheAdjutant(declaration, viewer), equalTo(Card.RequireJorker));
+		assertThat(napoleon.tellTheAdjutant(declaration, viewer), equalTo(Card.RequireJoker));
 	}
 
 	@Test

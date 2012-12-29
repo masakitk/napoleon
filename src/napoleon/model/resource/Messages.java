@@ -21,7 +21,6 @@ public class Messages extends ListResourceBundle {
     public static final String YOU_HAVE_NOT_THE_CARD = "youHaveNotTheCard";
     public static final String INPUT_ADJUTANT_CARD = "inputAdjutantCard";
     public static final String UNUSED_CARDS = "unusedCards";
-    public static final String CARDS_LEFT_ON_THE_TABLE = "cardsLeftOnTheTable";
     public static final String NAPOLEON_GAINED_CARDS = "napoleonGainedCards";
     public static final String PLAYER_GAINED_CARDS = "playerGainedCards";
     public static final String TURN_WINNER = "turnWinner";
@@ -32,6 +31,9 @@ public class Messages extends ListResourceBundle {
     public static final String YOU_MUST_OPEN_TRUMP = "youMustOpenTrump";
     public static final String YOU_MUST_OPEN_JOKER = "youMustOpenJoker";
     public static final String YOU_MUST_OPEN_LEAD_SUIT = "youMustOpenLeadSuit";
+    public static final String ALLIED_FORCES_TEAM = "AlliedForcesTeam";
+    public static final String NAPOLEON_TEAM = "NapoleonTeam";
+    public static final String ADJUTANT_NAME_WHEN_NAPOLEON_ALONE = "AdjutantNameWhenNapoleonAlone";
 
     public static ResourceBundle RESOURCE = ResourceBundle.getBundle("napoleon.model.resource.Messages",
             Locale.JAPANESE,
@@ -48,7 +50,7 @@ public class Messages extends ListResourceBundle {
             {YOUR_CARDS, "you have :[%s]"},
             {SELECT_UNUSED_CARDS, "select %d unused cards"},
             {INPUT_UNUSED_CARDS_WITH_CONSOLE, "input cards to be unused, as [C3,C4,C5...]"},
-            {YOU_HAVE_NOT_THE_CARD, "you don't have %s"},
+            {YOU_HAVE_NOT_THE_CARD, "you don't have the card."},
             {INPUT_ADJUTANT_CARD, "input card to adjutant"},
             {UNUSED_CARDS, "table cards are %s"},
             {NAPOLEON_GAINED_CARDS, "napoleon gained %s"},
@@ -61,6 +63,9 @@ public class Messages extends ListResourceBundle {
             {YOU_MUST_OPEN_TRUMP, "Trump is required, you must open trump (or max number card)."},
             {YOU_MUST_OPEN_JOKER,"Joker is required, you must open Joker"},
             {YOU_MUST_OPEN_LEAD_SUIT, "Lead suit is required, you must open lead suit"},
+            {ALLIED_FORCES_TEAM, "AlliedForcesTeam"},
+            {NAPOLEON_TEAM, "NapoleonTeam"},
+            {ADJUTANT_NAME_WHEN_NAPOLEON_ALONE, "nobody: only napoleon;"}
     };
 
     @Override

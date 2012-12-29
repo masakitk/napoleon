@@ -22,6 +22,8 @@ import org.apache.commons.collections15.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import static napoleon.model.resource.Messages.*;
+
 
 public class Director implements Serializable {
 
@@ -87,7 +89,7 @@ public class Director implements Serializable {
 				logger.info(String.format("★napoleon fixed:%s, %s", napoleon, fixedDeclaration));
 				viewer.showMessage(
                         String.format(
-                                Messages.RESOURCE.getString(Messages.NAPOLEON_FIXED),
+                                RESOURCE.getString(NAPOLEON_FIXED),
                                 napoleon.getName(), fixedDeclaration.toShow()));
 				return;
 			}
@@ -152,7 +154,7 @@ public class Director implements Serializable {
 	public void askForAdjutant() {
 		cardOfAdjutant = getNapoleon().tellTheAdjutant(fixedDeclaration, viewer);
 		logger.info(String.format("adjutant card is %s", cardOfAdjutant));
-		viewer.showMessage(String.format(Messages.RESOURCE.getString(Messages.CARD_OF_ADJUTANT), cardOfAdjutant));
+		viewer.showMessage(String.format(RESOURCE.getString(CARD_OF_ADJUTANT), cardOfAdjutant));
 		Player adjutant = findAdjutant(cardOfAdjutant);
 		if(null == adjutant) return;
 		adjutant.setIsAdjutant(true);
@@ -224,8 +226,11 @@ public class Director implements Serializable {
 		viewer.showExchangedCards(table);
 		
 		final Team winnerTeam = getWinnerTeam();
-		viewer.showMessage(String.format(Messages.RESOURCE.getString(Messages.PLAYER_OF_ADJUTANT), getAdjutantName()));
-		viewer.showMessage(String.format(Messages.RESOURCE.getString(Messages.WINNER_DETAIL), getCardCountNapoleonTeamGained(), winnerTeam));
+		viewer.showMessage(String.format(RESOURCE.getString(PLAYER_OF_ADJUTANT), getAdjutantName()));
+		viewer.showMessage(String.format(
+                RESOURCE.getString(WINNER_DETAIL),
+                getCardCountNapoleonTeamGained(),
+                RESOURCE.getString(winnerTeam.name())));
 		return winnerTeam;
 	}
 
@@ -273,7 +278,7 @@ public class Director implements Serializable {
 
 	public String getAdjutantName() {
 		Player adjutant = getAdjutant();
-		return null == adjutant ? "nobady: only napoleon;" : adjutant.getName();
+		return null == adjutant ? RESOURCE.getString(Messages.ADJUTANT_NAME_WHEN_NAPOLEON_ALONE) : adjutant.getName();
 	}
 
 }

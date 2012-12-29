@@ -23,11 +23,7 @@ public class ConsoleViewerTest {
 
 	@Mocked
 	Scanner scanner;
-	@Mocked
-	Turn turn;
-	@Mocked
-	Viewer viewer;
-	Declaration declaration = Declaration.New(Suit.Club, 13);
+    Declaration declaration = Declaration.New(Suit.Club, 13);
 	@Mocked
 	Table table;
 
@@ -41,7 +37,7 @@ public class ConsoleViewerTest {
 		add(Card.New(Suit.Club, 3));
 		add(Card.New(Suit.Club, 4));
 		add(Card.New(Suit.Club, 11));
-		add(Card.Jorker);
+		add(Card.Joker);
 	}};
 	
 	@Test
@@ -97,8 +93,9 @@ public class ConsoleViewerTest {
 			{
 				new Scanner((BufferedInputStream)any); returns(any);
 				scanner.nextLine(); returns("C3,H2,Joker");
+                table.getCards(); returns(テーブル残カード);
 				new Scanner((BufferedInputStream)any); returns(any);
-				scanner.nextLine(); returns("C3,C4,Jorker");
+				scanner.nextLine(); returns("C3,C4,Joker");
 				table.getCards(); returns(テーブル残カード);
 			}
 		};
@@ -108,7 +105,7 @@ public class ConsoleViewerTest {
 				new Card[]{
 					Card.New(Suit.Club, 3),
 					Card.New(Suit.Club, 4),
-					Card.Jorker,
+					Card.Joker,
 				})));
 	}
 }

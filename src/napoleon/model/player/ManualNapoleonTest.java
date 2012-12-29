@@ -39,13 +39,13 @@ public class ManualNapoleonTest {
 			{
 				viewer.inputCardToAdjutant(); returns(Card.Yoromeki);
 				viewer.inputCardToAdjutant(); returns(Card.New(Suit.Dia, 3));
-				viewer.inputCardToAdjutant(); returns(Card.Jorker);
+				viewer.inputCardToAdjutant(); returns(Card.Joker);
 			}
 		};
 		final ManualNapoleon napoleon = ManualNapoleon.New(ManualPlayer.New("hoge"));
 		assertThat(napoleon.tellTheAdjutant(declaration, viewer), IsEqual.equalTo(Card.Yoromeki));
 		assertThat(napoleon.tellTheAdjutant(declaration, viewer), IsEqual.equalTo(Card.New(Suit.Dia, 3)));
-		assertThat(napoleon.tellTheAdjutant(declaration, viewer), IsEqual.equalTo(Card.Jorker));
+		assertThat(napoleon.tellTheAdjutant(declaration, viewer), IsEqual.equalTo(Card.Joker));
 	}
 	
 	final List<Card> テーブル残カード = new ArrayList<Card>(){{
@@ -58,7 +58,7 @@ public class ManualNapoleonTest {
 		add(Card.New(Suit.Club, 3));
 		add(Card.New(Suit.Club, 4));
 		add(Card.New(Suit.Club, 11));
-		add(Card.Jorker);
+		add(Card.Joker);
 	}};
 	
 	@Test
@@ -90,7 +90,7 @@ public class ManualNapoleonTest {
 			add(Card.New(Suit.Spade, 1));
 			add(Card.New(Suit.Club, 11));
 			add(Card.New(Suit.Spade, 11));
-			add(Card.Jorker);
+			add(Card.Joker);
 		}};
 		assertThat(napoleon.cards, Is.is(Matchers.containsInAnyOrder(手に残すカード.toArray(new Card[0]))));
 	}

@@ -137,7 +137,7 @@ public class ConsoleViewer implements Viewer {
 	}
 	
 	static Card convertToCard(String input) {
-		if("JORKER".equals(input.toUpperCase())) return Card.Jorker;
+		if("JOKER".equals(input.toUpperCase())) return Card.Joker;
 		
 		Suit suit = convertToSuit(getSuitPart(input));
 		int number = convertToNumber(getNumberPart(input));
@@ -149,7 +149,7 @@ public class ConsoleViewer implements Viewer {
 		if(suitPart.toUpperCase().equals("H")) return Suit.Heart;
 		if(suitPart.toUpperCase().equals("D")) return Suit.Dia;
 		if(suitPart.toUpperCase().equals("C")) return Suit.Club;
-		throw new IllegalArgumentException("1文字目はS,H,D,Cのいずれかのスートにして下さい。（Jorkerの場合を除く）");
+		throw new IllegalArgumentException("1文字目はS,H,D,Cのいずれかのスートにして下さい。（Jokerの場合を除く）");
 	}
 
 	static int convertToNumber(String numberPart) {
@@ -205,7 +205,7 @@ public class ConsoleViewer implements Viewer {
 			return inputCardsToChange(fixedDeclaration, table, cards);
 		}
 
-		Collection<Card> unuseCards = CollectionUtils.collect(
+		Collection<Card> unusedCards = CollectionUtils.collect(
 				Arrays.asList(cardsEntered), 
 				new Transformer<String, Card>(){
 					@Override
@@ -215,17 +215,17 @@ public class ConsoleViewer implements Viewer {
 				});
 
 		List<Card> extraCards = table.getCards();
-		if(invalidCardCount(unuseCards, extraCards.size())){
+		if(invalidCardCount(unusedCards, extraCards.size())){
 			showMessage(String.format(RESOURCE.getString(Messages.SELECT_UNUSED_CARDS), extraCards.size()));
 			return inputCardsToChange(fixedDeclaration, table, cards);
 		}
 
-		Collection<Card> wrongCards = getWrongCards(unuseCards, extraCards, cards);
+		Collection<Card> wrongCards = getWrongCards(unusedCards, extraCards, cards);
 		if(!wrongCards.isEmpty()){
 			showMessage(String.format(RESOURCE.getString(Messages.YOU_HAVE_NOT_THE_CARD), wrongCards));
 			return inputCardsToChange(fixedDeclaration, table, cards);
 		}
-		return unuseCards;
+		return unusedCards;
 	}
 
 	public boolean canConvertToCard(String inputString) {
@@ -247,12 +247,12 @@ public class ConsoleViewer implements Viewer {
 		});
 	}
 
-	private boolean invalidCardCount(Collection<Card> unuseCards, int size) {
-		return size != unuseCards.size();
+	private boolean invalidCardCount(Collection<Card> unusedCards, int size) {
+		return size != unusedCards.size();
 	}
 
-	private Collection<Card> getWrongCards(Collection<Card> unuseCards, final Collection<Card> extraCards, final Collection<Card> cards) {
-		return CollectionUtils.select(unuseCards, new Predicate<Card>() {
+	private Collection<Card> getWrongCards(Collection<Card> unusedCards, final Collection<Card> extraCards, final Collection<Card> cards) {
+		return CollectionUtils.select(unusedCards, new Predicate<Card>() {
 
 			@Override
 			public boolean evaluate(Card card) {

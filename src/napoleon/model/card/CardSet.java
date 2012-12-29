@@ -23,7 +23,7 @@ public class CardSet {
 		result.addAll(get13CardByMark(Suit.Heart));
 		result.addAll(get13CardByMark(Suit.Dia));
 		result.addAll(get13CardByMark(Suit.Club));
-		result.add(Card.Jorker);
+		result.add(Card.Joker);
 		return result;
 	}
 	

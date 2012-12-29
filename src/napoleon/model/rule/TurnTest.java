@@ -53,7 +53,7 @@ public class TurnTest {
 	public void T03_最初にジョーカーが出されたら切り札が台札になること() {
 		Turn turn = Turn.New(2, Suit.Spade);
 		assertThat(turn.getLeadSuit(), equalTo(null));	
-		turn.addCard(player1, Card.Jorker);
+		turn.addCard(player1, Card.Joker);
 		assertThat(turn.getLeadSuit(), equalTo(Suit.Spade));	
 	}
 
@@ -61,7 +61,7 @@ public class TurnTest {
 	public void T03_特殊カード無効のターンで最初にジョーカーが出されたら台札未定で2人目にまわること() {
 		Turn turn = Turn.New(1, Suit.Spade);
 		assertThat(turn.getLeadSuit(), equalTo(null));	
-		turn.addCard(player1, Card.Jorker);
+		turn.addCard(player1, Card.Joker);
 		assertThat(turn.getLeadSuit(), equalTo(null));	
 		turn.addCard(player2, Card.New(Suit.Dia, 5));
 		assertThat(turn.getLeadSuit(), equalTo(Suit.Dia));	
@@ -72,7 +72,7 @@ public class TurnTest {
 		Turn turn = Turn.New(2, Suit.Spade);
 		assertThat(turn.getLeadSuit(), equalTo(null));	
 		turn.addCard(player1, Card.New(Suit.Club, 3));
-		assertThat(turn.isRequireJorkerOpenedFirst(), equalTo(true));
+		assertThat(turn.isRequireJokerOpenedFirst(), equalTo(true));
 	}
 	
 	@Test
@@ -303,10 +303,10 @@ public class TurnTest {
 	}
 
 	@Test
-	public void T11_カードが4枚出されている場合に特殊カード考慮抜きで勝者を判断できる_Jorkerの無視() {
+	public void T11_カードが4枚出されている場合に特殊カード考慮抜きで勝者を判断できる_Jokerの無視() {
 		Parameters param = new Parameters(
 				Turn.New(1, Suit.Club),
-				player2, Card.Jorker, 
+				player2, Card.Joker,
 				player3, Card.New(Suit.Club, 1), 
 				player4, Card.New(Suit.Club, 11), 
 				player1, Card.New(Suit.Dia, 13), 
@@ -317,24 +317,24 @@ public class TurnTest {
 	}
 
 	@Test
-	public void T11_カードが4枚出されている場合に特殊カード考慮ありで勝者を判断できる_最初にJorker() {
+	public void T11_カードが4枚出されている場合に特殊カード考慮ありで勝者を判断できる_最初にJoker() {
 		Parameters param = new Parameters(
 				Turn.New(2, Suit.Club),
-				player2, Card.Jorker, 
+				player2, Card.Joker,
 				player3, Card.New(Suit.Club, 1), 
 				player4, Card.New(Suit.Spade, 11), 
 				player1, Card.New(Suit.Dia, 13), 
-				player2, Card.Jorker,
+				player2, Card.Joker,
 				new Card[]{Card.New(Suit.Dia, 13), Card.New(Suit.Club, 1), Card.New(Suit.Spade, 11),});
 		
 		ターンを回して勝者を確認(param);
 	}
 
 	@Test
-	public void T11_カードが4枚出されている場合に特殊カード考慮ありで勝者を判断できる_JorkerVS正J() {
+	public void T11_カードが4枚出されている場合に特殊カード考慮ありで勝者を判断できる_JokerVS正J() {
 		Parameters param = new Parameters(
 				Turn.New(2, Suit.Club),
-				player2, Card.Jorker, 
+				player2, Card.Joker,
 				player3, Card.New(Suit.Club, 1), 
 				player4, Card.New(Suit.Club, 11), 
 				player1, Card.New(Suit.Dia, 13), 
@@ -345,10 +345,10 @@ public class TurnTest {
 	}
 
 	@Test
-	public void T11_カードが4枚出されている場合に特殊カード考慮ありで勝者を判断できる_JorkerVSマイティ() {
+	public void T11_カードが4枚出されている場合に特殊カード考慮ありで勝者を判断できる_JokerVSマイティ() {
 		Parameters param = new Parameters(
 				Turn.New(2, Suit.Club),
-				player2, Card.Jorker, 
+				player2, Card.Joker,
 				player3, Card.New(Suit.Club, 1), 
 				player4, Card.Mighty, 
 				player1, Card.New(Suit.Dia, 13), 
@@ -359,10 +359,10 @@ public class TurnTest {
 	}
 
 	@Test
-	public void T11_カードが4枚出されている場合に特殊カード考慮ありで勝者を判断できる_JorkerVSよろめき() {
+	public void T11_カードが4枚出されている場合に特殊カード考慮ありで勝者を判断できる_JokerVSよろめき() {
 		Parameters param = new Parameters(
 				Turn.New(2, Suit.Club),
-				player2, Card.Jorker, 
+				player2, Card.Joker,
 				player3, Card.New(Suit.Club, 1), 
 				player4, Card.Mighty, 
 				player1, Card.Yoromeki, 
@@ -373,11 +373,11 @@ public class TurnTest {
 	}
 
 	@Test
-	public void T11_カードが4枚出されている場合に特殊カード考慮ありで勝者を判断できる_途中にJorker() {
+	public void T11_カードが4枚出されている場合に特殊カード考慮ありで勝者を判断できる_途中にJoker() {
 		Parameters param = new Parameters(
 				Turn.New(2, Suit.Club),
 				player2, Card.New(Suit.Club, 1), 
-				player3, Card.Jorker, 
+				player3, Card.Joker,
 				player4, Card.New(Suit.Spade, 11), 
 				player1, Card.New(Suit.Dia, 13), 
 				player4, Card.New(Suit.Spade, 11),

@@ -50,7 +50,7 @@ public class ManualPlayerUtil {
 			return null;
 		}
 
-		if(turn.isJorkerOpenedFirst()) {
+		if(turn.isJokerOpenedFirst()) {
 			final Suit trump = turn.getTrump();
 			if(hasAnyCardOf(cards, trump) && card.getSuit() != trump) {
 				viewer.showMessage(RESOURCE.getString(Messages.YOU_MUST_OPEN_TRUMP));
@@ -59,8 +59,8 @@ public class ManualPlayerUtil {
 			return card;
 		}
 
-		if(turn.isRequireJorkerOpenedFirst()) {
-			if(hasCard(cards, Card.Jorker) && !card.equals(Card.Jorker)) {
+		if(turn.isRequireJokerOpenedFirst()) {
+			if(hasCard(cards, Card.Joker) && !card.equals(Card.Joker)) {
 				viewer.showMessage(RESOURCE.getString(Messages.YOU_MUST_OPEN_JOKER));
 				return null;
 			}
@@ -96,7 +96,7 @@ public class ManualPlayerUtil {
 	}
 
 	static Card convertToCard(String input) {
-		if("JORKER".equals(input.toUpperCase())) return Card.Jorker;
+		if("JOKER".equals(input.toUpperCase())) return Card.Joker;
 		
 		Suit suit = convertToSuit(getSuitPart(input));
 		int number = convertToNumber(getNumberPart(input));

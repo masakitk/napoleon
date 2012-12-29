@@ -50,11 +50,11 @@ public class Player {
 	protected Card chooseCardToOpen(Turn turn, Viewer viewer, Declaration declaration) {
 		List<Card> cardsToOpen = new ArrayList<Card>();
 
-		if(turn.isJorkerOpenedFirst()){
+		if(turn.isJokerOpenedFirst()){
 			cardsToOpen.add(findTrumpOrMaxNumber(turn.getTrump()));
 		}
-		else if(turn.isRequireJorkerOpenedFirst() && findJorker() != null){
-			cardsToOpen.add(findJorker());
+		else if(turn.isRequireJokerOpenedFirst() && findJoker() != null){
+			cardsToOpen.add(findJoker());
 		}
 		
 		if(cardsToOpen.isEmpty()) {
@@ -70,12 +70,12 @@ public class Player {
 		return toOpen;
 	}
 
-	private Card findJorker() {
+	private Card findJoker() {
 		return CollectionUtils.find(cards, new Predicate<Card>() {
 
 			@Override
 			public boolean evaluate(Card card) {
-				return card.equals(Card.Jorker);
+				return card.equals(Card.Joker);
 			}
 		});
 	}

@@ -210,11 +210,11 @@ public class DirectorTest {
 				player1.getGainedCardCount(); returns(5);
 				player1.isAdjutant(); returns(true);
 				player1.getName(); returns("1");
-				viewer.showMessage("adjutant is 1");
+				viewer.showMessage("副官は 1 です");
 				player1.isAdjutant(); returns(true);
 				napoleon.getGainedCardCount(); returns(10);
 				player1.getGainedCardCount(); returns(5);
-				viewer.showMessage("NapoleonTeam gained 15, winner is NapoleonTeam");
+				viewer.showMessage("ナポレオン軍の獲得カード 15, 勝者は ナポレオン軍 です");
 			 }
 		};
 		director.napoleon = napoleon;
@@ -237,13 +237,13 @@ public class DirectorTest {
 				player2.isAdjutant(); returns(false);
 				player3.isAdjutant(); returns(false);
 				player4.isAdjutant(); returns(false);
-				viewer.showMessage("adjutant is nobady: only napoleon;");
+				viewer.showMessage("副官は いません。独り立ち です");
 				player1.isAdjutant(); returns(false);
 				player2.isAdjutant(); returns(false);
 				player3.isAdjutant(); returns(false);
 				player4.isAdjutant(); returns(false);
 				napoleon.getGainedCardCount(); returns(15);
-				viewer.showMessage("NapoleonTeam gained 15, winner is NapoleonTeam");
+				viewer.showMessage("ナポレオン軍の獲得カード 15, 勝者は ナポレオン軍 です");
 			 }
 		};
 		director.napoleon = napoleon;
@@ -262,11 +262,11 @@ public class DirectorTest {
 				player1.getGainedCardCount(); returns(5);
 				player1.isAdjutant(); returns(true);
 				player1.getName(); returns("1");
-				viewer.showMessage("adjutant is 1");
+				viewer.showMessage("副官は 1 です");
 				player1.isAdjutant(); returns(true);
 				napoleon.getGainedCardCount(); returns(10);
 				player1.getGainedCardCount(); returns(5);
-				viewer.showMessage("NapoleonTeam gained 15, winner is AlliedForcesTeam");
+				viewer.showMessage("ナポレオン軍の獲得カード 15, 勝者は 連合軍 です");
 			 }
 		};
 		director.napoleon = napoleon;
@@ -285,11 +285,11 @@ public class DirectorTest {
 				player1.getGainedCardCount(); returns(5);
 				player1.isAdjutant(); returns(true);
 				player1.getName(); returns("1");
-				viewer.showMessage("adjutant is 1");
+				viewer.showMessage("副官は 1 です");
 				player1.isAdjutant(); returns(true);
 				napoleon.getGainedCardCount(); returns(15);
 				player1.getGainedCardCount(); returns(5);
-				viewer.showMessage("NapoleonTeam gained 20, winner is AlliedForcesTeam");
+				viewer.showMessage("ナポレオン軍の獲得カード 20, 勝者は 連合軍 です");
 			 }
 		};
 		director.napoleon = napoleon;

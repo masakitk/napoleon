@@ -28,8 +28,8 @@ public class CardSortTest {
 	@Parameters
 	public static Collection<Object[]> data() {
 	   Object[][] data = new Object[][] { 
-			   new Object[]{ Card.Jorker, Card.New(Suit.Club, 2), false }, 
-			   new Object[]{ Card.New(Suit.Club, 2), Card.Jorker, true }, 
+			   new Object[]{ Card.Joker, Card.New(Suit.Club, 2), false },
+			   new Object[]{ Card.New(Suit.Club, 2), Card.Joker, true },
 			   new Object[]{ Card.New(Suit.Club, 2), Card.New(Suit.Dia, 2), false }, 
 			   new Object[]{ Card.New(Suit.Dia, 2), Card.New(Suit.Club, 2), true}, 
 			   new Object[]{ Card.New(Suit.Club, 2), Card.New(Suit.Club, 3), false }, 

@@ -65,18 +65,18 @@ public class ManualPlayerTest {
 	}
 
 	@Test
-	public void T01a_Jorkerは出せる(){
+	public void T01a_Jokerは出せる(){
 		new Expectations() {
 			{
 				new Scanner((BufferedInputStream)any); returns(any);
-				scanner.nextLine(); returns("Jorker"); 
+				scanner.nextLine(); returns("Joker");
 			}
 		};
 		final ManualPlayer player = ManualPlayer.New("hoge");
 		player.takeCard(Card.New(Suit.Heart, 12));
-		player.takeCard(Card.Jorker);
+		player.takeCard(Card.Joker);
 		
-		assertThat(ManualPlayerUtil.inputCard(viewer, turn), equalTo(Card.Jorker));
+		assertThat(ManualPlayerUtil.inputCard(viewer, turn), equalTo(Card.Joker));
 	}
 
 	@Test
@@ -115,9 +115,9 @@ public class ManualPlayerTest {
 				@SuppressWarnings("serial")
 				final List<Card> anyCards = new ArrayList<Card>(){{add(Card.New(Suit.Heart, 12)); add(Card.New(Suit.Dia, 3)); }};
 				turn.getCardHash(); returns(new LinkedHashMap<Player, Card>());
-				viewer.showMessage("this turn opened [], declaration is Club:13");
+				viewer.showMessage("このターンのカード [], 宣言 Club:13");
 				viewer.sortCardsToView(anyCards); returns(anyCards);
-				viewer.showMessage("You have [[♥:12], [◆:3]]");
+				viewer.showMessage("あなたの手札:[[♥:12], [◆:3]]");
 				viewer.inputCard();returns(Card.New(Suit.Spade, 3));
 //				new Scanner((BufferedInputStream)any); returns(any);
 //				viewer.showMessage("input card(Ex. S1:♠A、H13:♥13 etc..");
@@ -125,15 +125,15 @@ public class ManualPlayerTest {
 				viewer.showMessage("そのカードは持っていません。");
 
 				turn.getCardHash(); returns(new LinkedHashMap<Player, Card>());
-				viewer.showMessage("this turn opened [], declaration is Club:13");
+				viewer.showMessage("このターンのカード [], 宣言 Club:13");
 				viewer.sortCardsToView(anyCards); returns(anyCards);
-				viewer.showMessage("You have [[♥:12], [◆:3]]");
+				viewer.showMessage("あなたの手札:[[♥:12], [◆:3]]");
 				viewer.inputCard();returns(Card.New(Suit.Dia, 3));
 //				new Scanner((BufferedInputStream)any); returns(any);
 //				viewer.showMessage("input card(Ex. S1:♠A、H13:♥13 etc..");
 //				scanner.nextLine(); returns("D3");
-				turn.isJorkerOpenedFirst(); returns(false);
-				turn.isRequireJorkerOpenedFirst(); returns(false);
+				turn.isJokerOpenedFirst(); returns(false);
+				turn.isRequireJokerOpenedFirst(); returns(false);
 				turn.isLeadSuitDefined(); returns(true);
 				turn.getLeadSuit(); returns(Suit.Dia);
 				turn.getLeadSuit(); returns(Suit.Dia);
@@ -152,8 +152,8 @@ public class ManualPlayerTest {
 	public void T03_台札がある場合に台札を出さなければならない(){
 		new Expectations() {
 			{
-				turn.isJorkerOpenedFirst(); returns(false);
-				turn.isRequireJorkerOpenedFirst(); returns(false);
+				turn.isJokerOpenedFirst(); returns(false);
+				turn.isRequireJokerOpenedFirst(); returns(false);
 				turn.isLeadSuitDefined(); returns(true);
 				turn.getLeadSuit(); returns(Suit.Dia);
 				turn.getLeadSuit(); returns(Suit.Dia);
@@ -172,8 +172,8 @@ public class ManualPlayerTest {
 	public void T03_台札がない場合はなんでもOK(){
 		new Expectations() {
 			{
-				turn.isJorkerOpenedFirst(); returns(false);
-				turn.isRequireJorkerOpenedFirst(); returns(false);
+				turn.isJokerOpenedFirst(); returns(false);
+				turn.isRequireJokerOpenedFirst(); returns(false);
 				turn.isLeadSuitDefined(); returns(true);
 				turn.getLeadSuit(); returns(Suit.Dia);
 			}
@@ -191,7 +191,7 @@ public class ManualPlayerTest {
 	public void T03_切り札請求された場合切り札を出さなければならない(){
 		new Expectations() {
 			{
-				turn.isJorkerOpenedFirst(); returns(true);
+				turn.isJokerOpenedFirst(); returns(true);
 				turn.getTrump(); returns(Suit.Dia);
 				viewer.showMessage("切り札請求された場合は、切り札をださなければなりません。");
 			}
@@ -208,7 +208,7 @@ public class ManualPlayerTest {
 	public void T03_切り札請求された場合切り札を出さなければならないけどないときはOK(){
 		new Expectations() {
 			{
-				turn.isJorkerOpenedFirst(); returns(true);
+				turn.isJokerOpenedFirst(); returns(true);
 				turn.getTrump(); returns(Suit.Dia);
 			}
 		};
@@ -226,11 +226,11 @@ public class ManualPlayerTest {
 	public void T03_ジョーカー請求された場合ジョーカーを出さなければならない(){
 		new Expectations() {
 			{
-				turn.isJorkerOpenedFirst(); returns(false);
-				turn.isRequireJorkerOpenedFirst(); returns(true);
+				turn.isJokerOpenedFirst(); returns(false);
+				turn.isRequireJokerOpenedFirst(); returns(true);
 				viewer.showMessage("ジョーカー請求された場合は、ジョーカーをださなければなりません。");
-				turn.isJorkerOpenedFirst(); returns(false);
-				turn.isRequireJorkerOpenedFirst(); returns(true);
+				turn.isJokerOpenedFirst(); returns(false);
+				turn.isRequireJokerOpenedFirst(); returns(true);
 				viewer.showMessage("ジョーカー請求された場合は、ジョーカーをださなければなりません。");
 			}
 		};
@@ -238,7 +238,7 @@ public class ManualPlayerTest {
 		final ManualPlayer player = ManualPlayer.New("hoge");
 		player.takeCard(Card.New(Suit.Heart, 12));
 		player.takeCard(Card.New(Suit.Dia, 3));
-		player.takeCard(Card.Jorker);
+		player.takeCard(Card.Joker);
 		
 		assertThat(ManualPlayerUtil.rejectInvalidCard(Card.New(Suit.Heart, 12), turn, viewer, player.cards), IsNull.nullValue());
 		assertThat(ManualPlayerUtil.rejectInvalidCard(Card.New(Suit.Dia, 3), turn, viewer, player.cards), IsNull.nullValue());
@@ -248,8 +248,8 @@ public class ManualPlayerTest {
 	public void T03_ジョーカー請求された場合ジョーカーを出さなければならないがないときはOK(){
 		new Expectations() {
 			{
-				turn.isJorkerOpenedFirst(); returns(false);
-				turn.isRequireJorkerOpenedFirst(); returns(true);
+				turn.isJokerOpenedFirst(); returns(false);
+				turn.isRequireJokerOpenedFirst(); returns(true);
 			}
 		};
 		

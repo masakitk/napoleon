@@ -1,34 +1,26 @@
 package napoleon.model.card;
 
-import java.util.Collection;
-import java.util.Comparator;
-
-import napoleon.Runner;
 import napoleon.model.rule.GameContext;
-
 import org.apache.commons.collections15.CollectionUtils;
 import org.apache.commons.collections15.Predicate;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
+import java.util.Collection;
+import java.util.Comparator;
 
 public class Card {
 	
 	private final Suit suit;
 	private final int number;
-	private final boolean isJorker;
-	private Logger logger = LogManager.getLogger(Runner.class);
-	public static Comparator<Card> CardNormalComparator;
-	public static Comparator<Card> getCardNormalComparator() {
-		return CardNormalComparator;
-	}
+	private final boolean isJoker;
+    public static Comparator<Card> CardNormalComparator;
 
-	public static Comparator<Card> CardIgnoreSpecialComparator;
+    public static Comparator<Card> CardIgnoreSpecialComparator;
 	public static final int PictureCardCount = 20;
 
 	public static final Card Yoromeki = Card.New(Suit.Heart, 12);
 	public static final Card Mighty = Card.New(Suit.Spade, 1);
-	public static final Card Jorker = Card.GetJorker();
-	public static final Card RequireJorker = Card.New(Suit.Club, 3);
+	public static final Card Joker = Card.GetJoker();
+	public static final Card RequireJoker = Card.New(Suit.Club, 3);
 	
 	static {
 		CardNormalComparator = new CardNormalStrengthComparator();
@@ -39,16 +31,15 @@ public class Card {
 		this(mark, number, false);
 	}
 
-	private Card(Suit suit, int number, boolean isJorker) {
+	private Card(Suit suit, int number, boolean isJoker) {
 		super();
 		this.suit = suit;
 		this.number = number;
-		this.isJorker = isJorker;
+		this.isJoker = isJoker;
 	}
 
-	private static Card GetJorker() {
-		Card card = new Card(null, 0, true);
-		return card;
+	private static Card GetJoker() {
+        return new Card(null, 0, true);
 	}
 
 	public Suit getSuit() {
@@ -59,7 +50,7 @@ public class Card {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (isJorker ? 1231 : 1237);
+		result = prime * result + (isJoker ? 1231 : 1237);
 		result = prime * result + ((suit == null) ? 0 : suit.hashCode());
 		result = prime * result + getNumber();
 		return result;
@@ -74,14 +65,8 @@ public class Card {
 		if (getClass() != obj.getClass())
 			return false;
 		Card other = (Card) obj;
-		if (isJorker != other.isJorker)
-			return false;
-		if (suit != other.suit)
-			return false;
-		if (getNumber() != other.getNumber())
-			return false;
-		return true;
-	}
+        return isJoker == other.isJoker && suit == other.suit && getNumber() == other.getNumber();
+    }
 
 	public static Card New(Suit suit, int no) {
 		if(no < 1 || 13 < no)
@@ -91,27 +76,20 @@ public class Card {
 	
 	@Override
 	public String toString() {
-		return isJorker ? "[Jorker]" : String.format("[%s:%d]", suit.toShortString(), getNumber());
+		return isJoker ? "[Joker]" : String.format("[%s:%d]", suit.toShortString(), getNumber());
 	}
 
-	public boolean strongerThanAsSuitAndNumber(Card card2) {
-		return card2.isJorker ||
-				(	strongerThanAsNumber(card2) ||
-					(getStrengthOfNumber() == card2.getStrengthOfNumber()
-						&& suit.strongerThan(card2.getSuit())));
-	}
-
-	public boolean strongerThanAsNumber(Card card2) {
+    public boolean strongerThanAsNumber(Card card2) {
 		return card2.getStrengthOfNumber() < getStrengthOfNumber();
 	}
 
 	private int getStrengthOfNumber() {
-		return isJorker ? 0 : getNumber() == 1 ? 14 : getNumber();
+		return isJoker ? 0 : getNumber() == 1 ? 14 : getNumber();
 	}
 
 	public boolean isUpperOrderByMarkAndStrength(Card c2) {
-		return isJorker ? false
-				: c2.isJorker ? true
+		return isJoker ? false
+				: c2.isJoker ? true
 				: (suit.strongerThan(c2.getSuit())
 					|| (suit == c2.getSuit()
 						&& strongerThanAsNumber(c2)));
@@ -124,8 +102,8 @@ public class Card {
 		}
 		@Override
 		public int compare(Card left, Card right) {
-			return left == Card.Jorker ? -1 
-					: right == Card.Jorker ? 1
+			return left == Card.Joker ? -1
+					: right == Card.Joker ? 1
 					: left.suit == leadSuit && right.suit != leadSuit ? 1
 					: left.suit != leadSuit && right.suit == leadSuit ? -1
 					: left.suit == leadSuit && right.suit == leadSuit ?
@@ -156,8 +134,8 @@ public class Card {
 		private static Card rightBower;
 		private static Card leftBower;
 		private static Suit trump;
-		private static Logger logger = LogManager.getLogger(Runner.class);
-		public static void setLeadSuit(Suit suit) {
+
+        public static void setLeadSuit(Suit suit) {
 			leadSuit = suit;
 		}
 		
@@ -176,7 +154,7 @@ public class Card {
 			return contains(Card.Mighty) && !contains(Card.Yoromeki) ? getOrderOfTargetCardWin(Card.Mighty, left, right)
 					: contains(Card.Mighty) && contains(Card.Yoromeki) ? getOrderOfTargetCardWin(Card.Yoromeki, left, right)
 					: contains(rightBower) ? getOrderOfTargetCardWin(rightBower, left, right)
-					: isJorkerFirst() ? (left == Card.Jorker ? 1 : -1)
+					: isJokerFirst() ? (left == Card.Joker ? 1 : -1)
 					: contains(leftBower) ? getOrderOfTargetCardWin(leftBower, left, right)
 					: isAllSameSuit() ? getOrderOfTargetCardWin(getSame2(leadSuit), left, right)
 					: left.suit == trump && right.suit != trump ? 1
@@ -186,8 +164,8 @@ public class Card {
 					: left.suit != leadSuit && right.suit == leadSuit ? -1
 					: left.suit == leadSuit && right.suit == leadSuit && left.strongerThanAsNumber(right) ? 1 : -1;
 			}
-		private boolean isJorkerFirst() {
-			return CollectionUtils.get(cards, 0) == Card.Jorker;
+		private boolean isJokerFirst() {
+			return CollectionUtils.get(cards, 0) == Card.Joker;
 		}
 
 		private static Card getSame2(Suit leadSuit) {
@@ -199,7 +177,7 @@ public class Card {
 				
 				@Override
 				public boolean evaluate(Card card) {
-					return !(card.isJorker || card.getSuit().equals(getLeadSuit()));
+					return !(card.isJoker || card.getSuit().equals(getLeadSuit()));
 				}
 			}).isEmpty();
 		}
