@@ -30,13 +30,13 @@ public class ManualNapoleon extends Napoleon {
 	
 	@Override
 	public void changeExtraCards(Declaration fixedDeclaration, Table table, Viewer viewer) {
-		viewer.printPlayerCards(this);
-		Collection<Card> unuseCards = viewer.inputCardsToChange(fixedDeclaration, table, cards);			
+		viewer.printPlayerHavingCards(this);
+		Collection<Card> unusedCards = viewer.inputCardsToChange(fixedDeclaration, table, cards);
 			List<Card> extraCards = table.getCards();
 			cards.addAll(extraCards);
-			cards.removeAll(unuseCards);
+			cards.removeAll(unusedCards);
 			table.removeCards(extraCards);
-			table.getNoUseCards().addAll(unuseCards);
+			table.getNoUseCards().addAll(unusedCards);
 	}
 
 	private boolean canConvertAllToCard(String[] cardsEntered) {

@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import napoleon.model.card.Card;
+import napoleon.model.player.ManualNapoleon;
 import napoleon.model.player.Napoleon;
 import napoleon.model.player.Player;
 import napoleon.model.rule.Declaration;
@@ -27,4 +28,6 @@ public interface Viewer {
 			List<Card> cards);
 	Card inputCardToAdjutant();
 	void printPlayerCards(Player player);
+    void printPlayerHavingCards(Player player);
+
 }

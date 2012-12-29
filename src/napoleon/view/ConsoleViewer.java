@@ -10,6 +10,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.Map.Entry;
 
+import napoleon.model.player.ManualNapoleon;
 import napoleon.model.resource.Messages;
 import org.apache.commons.collections15.Closure;
 import org.apache.commons.collections15.CollectionUtils;
@@ -51,7 +52,13 @@ public class ConsoleViewer implements Viewer {
         System.out.printf(RESOURCE.getString(CARDS_HAVING), sortCardsToView(player.cardsHaving()));
 	}
 
-	public List<Card> sortCardsToView(List<Card> cards) {
+    @Override
+    public void printPlayerHavingCards(Player player) {
+        System.out.print(player.getName());
+        System.out.printf(RESOURCE.getString(CARDS_HAVING), sortCardsToView(player.cardsHaving()));
+    }
+
+    public List<Card> sortCardsToView(List<Card> cards) {
 		List<Card> sorted = new ArrayList<Card>(cards);
 		Collections.sort(sorted, new Comparator<Card>(){
 			@Override
