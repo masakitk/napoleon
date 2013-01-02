@@ -66,7 +66,7 @@ public class ManualNapoleonTest {
 		final ManualNapoleon napoleon = ManualNapoleon.New(ManualPlayer.New("hoge"));
 		new Expectations() {
 			{
-				viewer.printPlayerCards(napoleon);
+				viewer.printPlayerHavingCards(napoleon);
 				viewer.inputCardsToChange(declaration, table, 手札); 
 				returns(new ArrayList<Card>(){{
 					add(Card.New(Suit.Club, 3));
