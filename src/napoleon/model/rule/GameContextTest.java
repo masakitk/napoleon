@@ -68,7 +68,7 @@ public class GameContextTest {
 		Table table = Table.New();
 		Player[] players = new Player[]{Player.New("1"), Player.New("2"), Player.New("3"), Player.New("4")};
 		GameContext context = GameContext.New(table, players);
-		context.setNapoleon(players[0], params.declaration);
+		context.setNapoleon(params.declaration);
 		assertThat(context.getRightBower(), equalTo(params.rightBower));
 		assertThat(context.getLeftBower(), equalTo(params.leftBower));
 	}

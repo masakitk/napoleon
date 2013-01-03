@@ -11,16 +11,10 @@ public class GameContext {
 
 	private final Table table;
 	private final Player[] players;
-	private Player napoleon;
-	private Declaration declaration;
-	private Card rightBower;
+    private Card rightBower;
 	private Card leftBower;
 
-	public Declaration getDeclaration() {
-		return declaration;
-	}
-
-	public GameContext(Table table, Player[] players) {
+    private GameContext(Table table, Player[] players) {
 		this.table = table;
 		this.players = players;
 	}
@@ -32,23 +26,13 @@ public class GameContext {
 	public Player[] getPlayers() {
 		return players;
 	}
-
 	public Table getTable() {
+
 		return table;
 	}
 
-	public Boolean isNapoleonDetermined() {
-		return  null != napoleon;
-	}
-
-	public Player getPlayer(int i) {
-		return players[i];
-	}
-
-	public void setNapoleon(Player player, Declaration declaration) {
-		napoleon = player;
-		this.declaration = declaration;
-		setSpecialCards(declaration);
+    public void setNapoleon(Declaration declaration) {
+        setSpecialCards(declaration);
 	}
 
 	private void setSpecialCards(Declaration declaration) {
@@ -79,11 +63,7 @@ public class GameContext {
 		}
 	}
 
-	public Player getNapoleon() {
-		return napoleon;
-	}
-
-	public void addExtraCardsOnTable(List<Card> cards) {
+    public void addExtraCardsOnTable(List<Card> cards) {
 		getTable().cards.addAll(cards);
 	}
 
@@ -94,5 +74,6 @@ public class GameContext {
 	public Card getLeftBower() {
 		return leftBower;
 	}
+
 
 }
