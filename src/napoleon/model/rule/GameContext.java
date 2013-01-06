@@ -1,46 +1,27 @@
 package napoleon.model.rule;
 
-import java.util.List;
-
 import napoleon.model.card.Card;
 import napoleon.model.card.Suit;
-import napoleon.model.player.Player;
 
 
 public class GameContext {
 
-	private final Table table;
-	private final Player[] players;
-    private Card rightBower;
-	private Card leftBower;
+    private Declaration declaration;
 
-    private GameContext(Table table, Player[] players) {
-		this.table = table;
-		this.players = players;
-	}
+    private GameContext() {
+    }
 
-	public static GameContext New(Table table, Player[] players) {
-		return new GameContext(table, players);
-	}
+    public static GameContext New(Declaration declaration) {
+        GameContext gameContext = new GameContext();
+        gameContext.setDeclaration(declaration);
+        return gameContext;
+    }
 
-	public Player[] getPlayers() {
-		return players;
-	}
-	public Table getTable() {
+    private void setDeclaration(Declaration declaration) {
+        this.declaration = declaration;
+    }
 
-		return table;
-	}
-
-    public void setNapoleon(Declaration declaration) {
-        setSpecialCards(declaration);
-	}
-
-	private void setSpecialCards(Declaration declaration) {
-		rightBower = getRightBower(declaration.getSuit());
-		leftBower = getLeftBower(declaration.getSuit());
-	}
-
-	public static Card getLeftBower(Suit leadSuit) {
+    public static Card getLeftBower(Suit leadSuit) {
 		return Card.New(getSameColorAnotherSuit(leadSuit), 11);
 	}
 
@@ -63,17 +44,11 @@ public class GameContext {
 		}
 	}
 
-    public void addExtraCardsOnTable(List<Card> cards) {
-		getTable().cards.addAll(cards);
-	}
-
-	public Card getRightBower() {
-		return rightBower;
+    public Card getRightBower() {
+		return GameContext.getRightBower(declaration.getSuit());
 	}
 
 	public Card getLeftBower() {
-		return leftBower;
+		return GameContext.getLeftBower(declaration.getSuit());
 	}
-
-
 }

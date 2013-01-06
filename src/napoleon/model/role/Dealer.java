@@ -17,12 +17,15 @@ public class Dealer {
     private final Player[] players;
     private final Table table;
 
-    public Dealer(GameContext gameContext) {
-		this.players = gameContext.getPlayers();
-        this.table = gameContext.getTable();
-		cards = CardSet.New().AllCards();
-	}
+    public Dealer(Table table, Player[] players) {
+        this.players = players;
+        this.table = table;
+        cards = CardSet.New().AllCards();
+    }
 
+    public static Dealer New(Table table, Player[] players) {
+        return new Dealer(table, players);
+    }
 	public void Serve() {
 		for (int i = 0; i < Rounds; i++) {
 			players[0].takeCard(getRandomCard());
@@ -43,11 +46,7 @@ public class Dealer {
 		return cards.size();
 	}
 
-	public static Dealer New(GameContext gameContext) {
-		return new Dealer(gameContext);
-	}
-
-	public boolean hasServed() {
+    public boolean hasServed() {
 		return cards.size() == RestOfCardsAfterServe;
 	}
 }

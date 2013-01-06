@@ -53,7 +53,7 @@ public class Director implements Serializable {
 	public static Director New(Table table, Player[] players, ConsoleViewer viewer) {
 		Director instance = new Director();
 		instance.table = table;
-		instance.dealer = Dealer.New(GameContext.New(table, players));
+		instance.dealer = Dealer.New(table, players);
 		instance.players = players;
 		instance.viewer = viewer;
 		return instance;
