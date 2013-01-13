@@ -83,6 +83,7 @@ public class Director implements Serializable {
 		for(Player player : players) {
 			if(lastDeclarationsOfPlayer.containsKey(player) && currentDeclaration == lastDeclarationsOfPlayer.get(player)) {
 				fixedDeclaration = currentDeclaration;
+                GameContext.Init(currentDeclaration.getSuit());
 				turns = TurnFactory.Get12Turns(fixedDeclaration.getSuit());
 				napoleon = Napoleon.New(player);
 				players[Arrays.asList(players).indexOf(player)] = napoleon;

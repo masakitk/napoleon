@@ -154,8 +154,8 @@ public class Card {
 			return contains(Card.Mighty) && !contains(Card.Yoromeki) ? getOrderOfTargetCardWin(Card.Mighty, left, right)
 					: contains(Card.Mighty) && contains(Card.Yoromeki) ? getOrderOfTargetCardWin(Card.Yoromeki, left, right)
 					: contains(rightBower) ? getOrderOfTargetCardWin(rightBower, left, right)
-                    : isAllSameSuit() ? getOrderOfTargetCardWin(getSame2(leadSuit), left, right)
-                    : isJokerFirst() ? (left == Card.Joker ? 1 : -1)
+                    : isAllSameSuit() && contains(getSame2(leadSuit)) ? getOrderOfTargetCardWin(getSame2(leadSuit), left, right)
+                    : isJokerFirst()  ? (left == Card.Joker ? 1 : -1)
 					: contains(leftBower) ? getOrderOfTargetCardWin(leftBower, left, right)
 					: left.suit == trump && right.suit != trump ? 1
 					: left.suit != trump && right.suit == trump ? -1
