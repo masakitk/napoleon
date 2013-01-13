@@ -2,6 +2,7 @@ package napoleon.model.rule;
 
 import napoleon.model.card.Card;
 import napoleon.model.card.Suit;
+import napoleon.model.player.NapoleonCall;
 
 
 public class GameContext {
@@ -9,7 +10,7 @@ public class GameContext {
     private Suit trump;
     private Options options;
     private static GameContext current = null;
-    private boolean _callsToGoMighty;
+    private NapoleonCall _napoleonCall = NapoleonCall.None;
 
     private GameContext() {
     }
@@ -69,6 +70,6 @@ public class GameContext {
     }
 
     public boolean callsToGoMighty() {
-        return _callsToGoMighty;
+        return _napoleonCall == NapoleonCall.MightyGo;
     }
 }
