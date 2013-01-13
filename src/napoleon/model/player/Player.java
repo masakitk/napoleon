@@ -64,7 +64,9 @@ public class Player {
 		}
 
         if(GameContext.getCurrent().canHideMighty()) {
-            if(cardsToOpen.isEmpty() == false && GameContext.getCurrent().callsToGoMighty() == false){
+            if(cardsToOpen.isEmpty() == false
+                    && (    GameContext.getCurrent().callsToGoAdjutant() == false
+                        ||  GameContext.getCurrent().getAdjutantCard().equals(Card.Mighty) == false)){
                 CollectionUtils.filter(cardsToOpen, new Predicate<Card>() {
                     @Override
                     public boolean evaluate(Card card) {
@@ -76,7 +78,9 @@ public class Player {
 
 		if(cardsToOpen.isEmpty()) {
             cardsToOpen.addAll(cards);
-            if(1 < cardsToOpen.size() && GameContext.getCurrent().callsToGoMighty() == false){
+            if(1 < cardsToOpen.size()
+                    && (    GameContext.getCurrent().callsToGoAdjutant() == false
+                        ||  GameContext.getCurrent().getAdjutantCard().equals(Card.Mighty) == false)){
                 CollectionUtils.filter(cardsToOpen, new Predicate<Card>() {
                     @Override
                     public boolean evaluate(Card card) {

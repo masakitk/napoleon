@@ -9,6 +9,6 @@ package napoleon.model.player;
  */
 public enum NapoleonCall {
     None,
-    MightyGo,
-    KeepMighty
+    Go,
+    Keep
 }

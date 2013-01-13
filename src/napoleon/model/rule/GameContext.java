@@ -11,6 +11,7 @@ public class GameContext {
     private Options options;
     private static GameContext current = null;
     private NapoleonCall _napoleonCall = NapoleonCall.None;
+    private Card adjutantCard;
 
     private GameContext() {
     }
@@ -69,7 +70,15 @@ public class GameContext {
         return options.canHideMighty;
     }
 
-    public boolean callsToGoMighty() {
-        return _napoleonCall == NapoleonCall.MightyGo;
+    public boolean callsToGoAdjutant() {
+        return _napoleonCall == NapoleonCall.Go;
+    }
+
+    public void setAdjutantCard(Card adjutantCard) {
+        this.adjutantCard = adjutantCard;
+    }
+
+    public Card getAdjutantCard() {
+        return adjutantCard;
     }
 }

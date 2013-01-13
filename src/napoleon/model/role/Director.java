@@ -153,10 +153,10 @@ public class Director implements Serializable {
 	}
 
 	public void askForAdjutant() {
-		cardOfAdjutant = getNapoleon().tellTheAdjutant(fixedDeclaration, viewer);
-		logger.info(String.format("adjutant card is %s", cardOfAdjutant));
-		viewer.showMessage(String.format(RESOURCE.getString(CARD_OF_ADJUTANT), cardOfAdjutant));
-		Player adjutant = findAdjutant(cardOfAdjutant);
+        GameContext.getCurrent().setAdjutantCard(getNapoleon().tellTheAdjutant(fixedDeclaration, viewer));
+		logger.info(String.format("adjutant card is %s", GameContext.getCurrent().getAdjutantCard()));
+		viewer.showMessage(String.format(RESOURCE.getString(CARD_OF_ADJUTANT), GameContext.getCurrent().getAdjutantCard()));
+		Player adjutant = findAdjutant(GameContext.getCurrent().getAdjutantCard());
 		if(null == adjutant) return;
 		adjutant.setIsAdjutant(true);
 	}
