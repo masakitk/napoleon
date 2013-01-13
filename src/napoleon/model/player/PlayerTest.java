@@ -7,6 +7,7 @@ import mockit.Mocked;
 import napoleon.model.card.Card;
 import napoleon.model.card.Suit;
 import napoleon.model.rule.Declaration;
+import napoleon.model.rule.GameContext;
 import napoleon.model.rule.Turn;
 import napoleon.view.Viewer;
 
@@ -25,7 +26,8 @@ public class PlayerTest {
 		final Player player = Player.New("hoge");
 		player.takeCard(Card.New(Suit.Heart, 12));
 		assertThat(player.cardCount(), IsEqual.equalTo(1));
-		
+
+        GameContext.Init(declaration.getSuit());
 		player.openCard(turn, viewer, declaration);
 		assertThat(player.cardCount(), IsEqual.equalTo(0));
 	}
@@ -46,8 +48,26 @@ public class PlayerTest {
 		player.takeCard(Card.New(Suit.Heart, 3));
 		assertThat(player.openCard(turn, viewer, declaration).getSuit(), IsEqual.equalTo(Suit.Spade));
 	}
-	
-	@Test
+
+    @Test
+    public void T02_台札がスペードでスペードがマイティしかなくてその他カードがあれば隠すこと() {
+        new Expectations() {
+            {
+                turn.isJokerOpenedFirst(); returns(false);
+                turn.isRequireJokerOpenedFirst(); returns(false);
+                turn.isLeadSuitDefined(); returns(true);
+                turn.getLeadSuit(); returns(Suit.Spade);
+            }
+        };
+
+        GameContext.Init(declaration.getSuit());
+        Player player = Player.New("hoge");
+        player.takeCard(Card.New(Suit.Spade, 1));
+        player.takeCard(Card.New(Suit.Heart, 3));
+        assertThat(player.openCard(turn, viewer, declaration), IsEqual.equalTo(Card.New(Suit.Heart, 3)));
+    }
+
+    @Test
 	public void T02_台札が設定されていて台札がないときでもなにか1枚だすこと() {
 		new Expectations() {
 			{
@@ -57,7 +77,8 @@ public class PlayerTest {
 				turn.getLeadSuit(); returns(Suit.Spade);
 			}
 		};
-		
+
+        GameContext.Init(declaration.getSuit());
 		Player player = Player.New("hoge");
 		player.takeCard(Card.New(Suit.Dia, 3));
 		player.takeCard(Card.New(Suit.Heart, 3));
@@ -127,6 +148,7 @@ public class PlayerTest {
 				turn.isRequireJokerOpenedFirst(); returns(true);
 			}
 		};
+        GameContext.Init(declaration.getSuit());
 		Player player1 = Player.New("fuga");
 		player1.takeCard(Card.New(Suit.Club, 3));
 		Card jorker = player1.openCard(turn, viewer, declaration);
@@ -157,6 +179,7 @@ public class PlayerTest {
 				turn.getLeadSuit(); returns(Suit.Club);
 			}
 		};
+        GameContext.Init(declaration.getSuit());
 		Player player2 = Player.New("fuga");
 		player2.takeCard(Card.RequireJoker);
 		Card jorker = player2.openCard(turn, viewer, declaration);
@@ -178,7 +201,8 @@ public class PlayerTest {
 				turn.isLeadSuitDefined(); returns(false);
 			}
 		};
-		
+
+        GameContext.Init(declaration.getSuit());
 		Player player = Player.New("hoge");
 		player.takeCard(Card.New(Suit.Spade, 3));
 		assertThat(player.cardCount(), IsEqual.equalTo(1));

@@ -67,7 +67,8 @@ public class GameContextTest {
 	private void GameContextに対して宣言をセットして特殊カードを確認する(Parameters params) {
 		Table table = Table.New();
 		Player[] players = new Player[]{Player.New("1"), Player.New("2"), Player.New("3"), Player.New("4")};
-		GameContext context = GameContext.New(params.declaration);
+        GameContext.Init(params.declaration.getSuit());
+        GameContext context = GameContext.getCurrent();
 		assertThat(context.getRightBower(), equalTo(params.rightBower));
 		assertThat(context.getLeftBower(), equalTo(params.leftBower));
 	}

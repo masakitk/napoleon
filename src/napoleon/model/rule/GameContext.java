@@ -6,19 +6,23 @@ import napoleon.model.card.Suit;
 
 public class GameContext {
 
-    private Declaration declaration;
+    private Suit trump;
+    private Options options;
+    private static GameContext current = null;
+    private boolean _callsToGoMighty;
 
     private GameContext() {
     }
 
-    public static GameContext New(Declaration declaration) {
+    public static void Init(Suit trump) {
         GameContext gameContext = new GameContext();
-        gameContext.setDeclaration(declaration);
-        return gameContext;
+        gameContext.setTrump(trump);
+        gameContext.options = (current == null) ? Options.DEFAULT : current.options;
+        current = gameContext;
     }
 
-    private void setDeclaration(Declaration declaration) {
-        this.declaration = declaration;
+    private void setTrump(Suit trump) {
+        this.trump = trump;
     }
 
     public static Card getLeftBower(Suit leadSuit) {
@@ -45,10 +49,26 @@ public class GameContext {
 	}
 
     public Card getRightBower() {
-		return GameContext.getRightBower(declaration.getSuit());
+		return GameContext.getRightBower(trump);
 	}
 
 	public Card getLeftBower() {
-		return GameContext.getLeftBower(declaration.getSuit());
+		return GameContext.getLeftBower(trump);
 	}
+
+    public static GameContext getCurrent() {
+        return current;
+    }
+
+    public Options getOptions() {
+        return options;
+    }
+
+    public boolean canHideMighty() {
+        return options.canHideMighty;
+    }
+
+    public boolean callsToGoMighty() {
+        return _callsToGoMighty;
+    }
 }

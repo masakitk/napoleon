@@ -10,6 +10,7 @@ import napoleon.Runner;
 import napoleon.model.card.Card;
 import napoleon.model.card.Suit;
 import napoleon.model.rule.Declaration;
+import napoleon.model.rule.GameContext;
 import napoleon.model.rule.Turn;
 import napoleon.view.Viewer;
 
@@ -50,7 +51,7 @@ public class Player {
 	protected Card chooseCardToOpen(Turn turn, Viewer viewer, Declaration declaration) {
 		List<Card> cardsToOpen = new ArrayList<Card>();
 
-		if(turn.isJokerOpenedFirst()){
+        if(turn.isJokerOpenedFirst()){
 			cardsToOpen.add(findTrumpOrMaxNumber(turn.getTrump()));
 		}
 		else if(turn.isRequireJokerOpenedFirst() && findJoker() != null){
@@ -61,9 +62,28 @@ public class Player {
 			cardsToOpen.addAll(
 					turn.isLeadSuitDefined() ? findSameMark(cards, turn.getLeadSuit()) : cards);
 		}
-		
+
+        if(GameContext.getCurrent().canHideMighty()) {
+            if(cardsToOpen.isEmpty() == false && GameContext.getCurrent().callsToGoMighty() == false){
+                CollectionUtils.filter(cardsToOpen, new Predicate<Card>() {
+                    @Override
+                    public boolean evaluate(Card card) {
+                        return !card.equals(Card.Mighty);
+                    }
+                });
+            }
+        }
+
 		if(cardsToOpen.isEmpty()) {
-			cardsToOpen.addAll(cards);
+            cardsToOpen.addAll(cards);
+            if(1 < cardsToOpen.size() && GameContext.getCurrent().callsToGoMighty() == false){
+                CollectionUtils.filter(cardsToOpen, new Predicate<Card>() {
+                    @Override
+                    public boolean evaluate(Card card) {
+                        return !card.equals(Card.Mighty);
+                    }
+                });
+            }
 		}		
 		
 		Card toOpen = cardsToOpen.get(0);
