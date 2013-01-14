@@ -51,18 +51,46 @@ public class Player {
 	protected Card chooseCardToOpen(Turn turn, Viewer viewer, Declaration declaration) {
 		List<Card> cardsToOpen = new ArrayList<Card>();
 
-        if(turn.isJokerOpenedFirst()){
-			cardsToOpen.add(findTrumpOrMaxNumber(turn.getTrump()));
-		}
-		else if(turn.isRequireJokerOpenedFirst() && findJoker() != null){
-			cardsToOpen.add(findJoker());
-		}
-		
-		if(cardsToOpen.isEmpty()) {
-			cardsToOpen.addAll(
-					turn.isLeadSuitDefined() ? findSameMark(cards, turn.getLeadSuit()) : cards);
-		}
+        selectCardsWhenJokerFirst(turn, cardsToOpen);
+        selectJokerWhenJokerRequired(turn, cardsToOpen);
+        selectLeadSuitCards(turn, cardsToOpen);
+        selectAllForFirstCardOfTheTurn(turn, cardsToOpen);
+        selectAllIfPlayerHaveNoLeadSuitCards(cardsToOpen);
 
+        if(GameContext.getCurrent().hasCalledToGoAdjutant()) {
+            if(GameContext.getCurrent().getAdjutantCard().equals(Card.Mighty)
+                    && CollectionUtils.exists(cards, new Predicate<Card>() {
+                @Override
+                public boolean evaluate(Card card) {
+                    return card.equals(Card.Mighty);
+                }
+            })) {
+               cardsToOpen.clear();
+               cardsToOpen.add(Card.Mighty);
+            }
+        }
+
+		Card toOpen = cardsToOpen.get(0);
+		return toOpen;
+	}
+
+    private void selectAllForFirstCardOfTheTurn(Turn turn, List<Card> cardsToOpen) {
+        if(cardsToOpen.isEmpty() && !turn.isLeadSuitDefined()){
+            cardsToOpen.addAll(cards);
+        }
+        hideMighty(cardsToOpen);
+    }
+
+    private void selectAllIfPlayerHaveNoLeadSuitCards(List<Card> cardsToOpen) {
+        if(cardsToOpen.isEmpty()) {
+            cardsToOpen.addAll(cards);
+            if(1 < cardsToOpen.size()) {
+                hideMighty(cardsToOpen);
+            }
+		}
+    }
+
+    private void hideMighty(List<Card> cardsToOpen) {
         if(GameContext.getCurrent().canHideMighty()) {
             if(cardsToOpen.isEmpty() == false
                     && (    GameContext.getCurrent().hasCalledToGoAdjutant() == false
@@ -75,37 +103,28 @@ public class Player {
                 });
             }
         }
+    }
 
-		if(cardsToOpen.isEmpty()) {
-            cardsToOpen.addAll(cards);
-            if(1 < cardsToOpen.size()
-                    && (    GameContext.getCurrent().hasCalledToGoAdjutant() == false
-                        ||  GameContext.getCurrent().getAdjutantCard().equals(Card.Mighty) == false)){
-                CollectionUtils.filter(cardsToOpen, new Predicate<Card>() {
-                    @Override
-                    public boolean evaluate(Card card) {
-                        return !card.equals(Card.Mighty);
-                    }
-                });
-            }
-		}		
+    private void selectLeadSuitCards(Turn turn, List<Card> cardsToOpen) {
+        if(cardsToOpen.isEmpty() && turn.isLeadSuitDefined()) {
+			cardsToOpen.addAll(findSameMark(cards, turn.getLeadSuit()));
+		}
+        hideMighty(cardsToOpen);
+    }
 
-        if(GameContext.getCurrent().hasCalledToGoAdjutant()
-                && GameContext.getCurrent().getAdjutantCard().equals(Card.Mighty)
-                && CollectionUtils.exists(cards, new Predicate<Card>() {
-            @Override
-            public boolean evaluate(Card card) {
-                return card.equals(Card.Mighty);
-            }
-        })) {
-            return Card.Mighty;
-        }
+    private void selectJokerWhenJokerRequired(Turn turn, List<Card> cardsToOpen) {
+        if(turn.isRequireJokerOpenedFirst() && findJoker() != null){
+			cardsToOpen.add(findJoker());
+		}
+    }
 
-		Card toOpen = cardsToOpen.get(0);
-		return toOpen;
-	}
+    private void selectCardsWhenJokerFirst(Turn turn, List<Card> cardsToOpen) {
+        if(turn.isJokerOpenedFirst()){
+			cardsToOpen.add(findTrumpOrMaxNumber(turn.getTrump()));
+		}
+    }
 
-	private Card findJoker() {
+    private Card findJoker() {
 		return CollectionUtils.find(cards, new Predicate<Card>() {
 
 			@Override
@@ -137,7 +156,7 @@ public class Player {
 
 			@Override
 			public boolean evaluate(Card card) {
-					return card.getSuit() == suit;
+					return card.getSuit() == suit || card.equals(Card.Joker);
 			}
 		} );
 	}

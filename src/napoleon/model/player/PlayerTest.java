@@ -57,6 +57,7 @@ public class PlayerTest {
                 turn.isRequireJokerOpenedFirst(); returns(false);
                 turn.isLeadSuitDefined(); returns(true);
                 turn.getLeadSuit(); returns(Suit.Spade);
+                turn.isLeadSuitDefined(); returns(false);
             }
         };
 
@@ -88,6 +89,29 @@ public class PlayerTest {
     }
 
     @Test
+    public void T02_副官正Jで副官GOがかかったら出せれば正Jをだすこと() {
+        new Expectations() {
+            {
+                turn.isJokerOpenedFirst(); returns(false);
+                turn.isRequireJokerOpenedFirst(); returns(false);
+                turn.isLeadSuitDefined(); returns(true);
+                turn.getLeadSuit(); returns(Suit.Club);
+            }
+        };
+
+        GameContext.Init(declaration.getSuit());
+        Card rightBower = GameContext.getCurrent().getRightBower();
+        GameContext.getCurrent().setAdjutantCard(rightBower);
+        GameContext.getCurrent().CallToGoAdjutant();
+        Player player = Player.New("hoge");
+        player.takeCard(Card.New(Suit.Spade, 1));
+        player.takeCard(Card.New(Suit.Club, 3));
+        player.takeCard(rightBower);
+        player.takeCard(Card.New(Suit.Club, 13));
+        assertThat(player.openCard(turn, viewer, declaration), IsEqual.equalTo(rightBower));
+    }
+
+    @Test
 	public void T02_台札が設定されていて台札がないときでもなにか1枚だすこと() {
 		new Expectations() {
 			{
@@ -95,7 +119,8 @@ public class PlayerTest {
 				turn.isRequireJokerOpenedFirst(); returns(false);
 				turn.isLeadSuitDefined(); returns(true);
 				turn.getLeadSuit(); returns(Suit.Spade);
-			}
+                turn.isLeadSuitDefined(); returns(true);
+            }
 		};
 
         GameContext.Init(declaration.getSuit());
@@ -112,15 +137,19 @@ public class PlayerTest {
 			{
 				turn.isJokerOpenedFirst(); returns(false);
 				turn.isRequireJokerOpenedFirst(); returns(false);
-				turn.isLeadSuitDefined(); returns(false);
-				turn.isJokerOpenedFirst(); returns(true);
-				turn.getTrump(); returns(Suit.Spade);
+                turn.isLeadSuitDefined(); returns(false);
+                turn.isLeadSuitDefined(); returns(false);
+                turn.isJokerOpenedFirst(); returns(true);
+                turn.getTrump(); returns(Suit.Spade);
+                turn.isRequireJokerOpenedFirst(); returns(false);
 			}
 		};
-		Player player2 = Player.New("fuga");
+
+        GameContext.Init(declaration.getSuit());
+        Player player2 = Player.New("fuga");
 		player2.takeCard(Card.Joker);
-		Card jorker = player2.openCard(turn, viewer, declaration);
-		assertThat(jorker, IsEqual.equalTo(Card.Joker));
+		Card joker = player2.openCard(turn, viewer, declaration);
+		assertThat(joker, IsEqual.equalTo(Card.Joker));
 
 		Player player = Player.New("hoge");
 		player.takeCard(Card.New(Suit.Club, 13));
@@ -136,14 +165,17 @@ public class PlayerTest {
 				turn.isJokerOpenedFirst(); returns(false);
 				turn.isRequireJokerOpenedFirst(); returns(false);
 				turn.isLeadSuitDefined(); returns(false);
-				turn.isJokerOpenedFirst(); returns(true);
+                turn.isLeadSuitDefined(); returns(false);
+                turn.isJokerOpenedFirst(); returns(true);
 				turn.getTrump(); returns(Suit.Dia);
+                turn.isRequireJokerOpenedFirst(); returns(false);
 			}
 		};
+        GameContext.Init(declaration.getSuit());
 		Player player2 = Player.New("fuga");
 		player2.takeCard(Card.Joker);
-		Card jorker = player2.openCard(turn, viewer, declaration);
-		assertThat(jorker, IsEqual.equalTo(Card.Joker));
+		Card joker = player2.openCard(turn, viewer, declaration);
+		assertThat(joker, IsEqual.equalTo(Card.Joker));
 
 		Player player = Player.New("hoge");
 		player.takeCard(Card.New(Suit.Club, 13));
@@ -158,13 +190,15 @@ public class PlayerTest {
 			{
 				turn.isJokerOpenedFirst(); returns(false);
 				turn.isRequireJokerOpenedFirst(); returns(false);
-				turn.isLeadSuitDefined(); returns(false);
-				turn.isJokerOpenedFirst(); returns(false);
+                turn.isLeadSuitDefined(); returns(false);
+                turn.isLeadSuitDefined(); returns(false);
+                turn.isJokerOpenedFirst(); returns(false);
 				turn.isRequireJokerOpenedFirst(); returns(true);
 
 				turn.isLeadSuitDefined(); returns(true);
 				turn.getLeadSuit(); returns(any);
-				turn.isJokerOpenedFirst(); returns(false);
+                turn.isLeadSuitDefined(); returns(false);
+                turn.isJokerOpenedFirst(); returns(false);
 				turn.isRequireJokerOpenedFirst(); returns(true);
 			}
 		};
@@ -193,11 +227,12 @@ public class PlayerTest {
 				turn.isJokerOpenedFirst(); returns(false);
 				turn.isRequireJokerOpenedFirst(); returns(false);
 				turn.isLeadSuitDefined(); returns(false);
-				turn.isJokerOpenedFirst(); returns(false);
+                turn.isLeadSuitDefined(); returns(false);
+                turn.isJokerOpenedFirst(); returns(false);
 				turn.isRequireJokerOpenedFirst(); returns(true);
 				turn.isLeadSuitDefined(); returns(true);
 				turn.getLeadSuit(); returns(Suit.Club);
-			}
+            }
 		};
         GameContext.Init(declaration.getSuit());
 		Player player2 = Player.New("fuga");
@@ -219,6 +254,7 @@ public class PlayerTest {
 				turn.isJokerOpenedFirst(); returns(false);
 				turn.isRequireJokerOpenedFirst(); returns(false);
 				turn.isLeadSuitDefined(); returns(false);
+                turn.isLeadSuitDefined(); returns(false);
 			}
 		};
 
