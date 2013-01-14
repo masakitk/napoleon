@@ -1,4 +1,4 @@
-package napoleon.model.player;
+    package napoleon.model.player;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -65,7 +65,7 @@ public class Player {
 
         if(GameContext.getCurrent().canHideMighty()) {
             if(cardsToOpen.isEmpty() == false
-                    && (    GameContext.getCurrent().callsToGoAdjutant() == false
+                    && (    GameContext.getCurrent().hasCalledToGoAdjutant() == false
                         ||  GameContext.getCurrent().getAdjutantCard().equals(Card.Mighty) == false)){
                 CollectionUtils.filter(cardsToOpen, new Predicate<Card>() {
                     @Override
@@ -79,7 +79,7 @@ public class Player {
 		if(cardsToOpen.isEmpty()) {
             cardsToOpen.addAll(cards);
             if(1 < cardsToOpen.size()
-                    && (    GameContext.getCurrent().callsToGoAdjutant() == false
+                    && (    GameContext.getCurrent().hasCalledToGoAdjutant() == false
                         ||  GameContext.getCurrent().getAdjutantCard().equals(Card.Mighty) == false)){
                 CollectionUtils.filter(cardsToOpen, new Predicate<Card>() {
                     @Override
@@ -89,7 +89,18 @@ public class Player {
                 });
             }
 		}		
-		
+
+        if(GameContext.getCurrent().hasCalledToGoAdjutant()
+                && GameContext.getCurrent().getAdjutantCard().equals(Card.Mighty)
+                && CollectionUtils.exists(cards, new Predicate<Card>() {
+            @Override
+            public boolean evaluate(Card card) {
+                return card.equals(Card.Mighty);
+            }
+        })) {
+            return Card.Mighty;
+        }
+
 		Card toOpen = cardsToOpen.get(0);
 		return toOpen;
 	}

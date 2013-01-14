@@ -70,7 +70,7 @@ public class GameContext {
         return options.canHideMighty;
     }
 
-    public boolean callsToGoAdjutant() {
+    public boolean hasCalledToGoAdjutant() {
         return _napoleonCall == NapoleonCall.Go;
     }
 
@@ -80,5 +80,9 @@ public class GameContext {
 
     public Card getAdjutantCard() {
         return adjutantCard;
+    }
+
+    public void CallToGoAdjutant() {
+        _napoleonCall = NapoleonCall.Go;
     }
 }

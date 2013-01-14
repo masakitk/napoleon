@@ -31,7 +31,7 @@ public class PlayerTest {
 		player.openCard(turn, viewer, declaration);
 		assertThat(player.cardCount(), IsEqual.equalTo(0));
 	}
-	
+
 	@Test
 	public void T02_台札が設定されていて台札があるときは台札を出すこと() {
 		new Expectations() {
@@ -42,7 +42,7 @@ public class PlayerTest {
 				turn.getLeadSuit(); returns(Suit.Spade);
 			}
 		};
-		
+
 		Player player = Player.New("hoge");
 		player.takeCard(Card.New(Suit.Spade, 3));
 		player.takeCard(Card.New(Suit.Heart, 3));
@@ -68,6 +68,26 @@ public class PlayerTest {
     }
 
     @Test
+    public void T02_副官マイティで副官GOがかかったらマイティをだすこと() {
+        new Expectations() {
+            {
+                turn.isJokerOpenedFirst(); returns(false);
+                turn.isRequireJokerOpenedFirst(); returns(false);
+                turn.isLeadSuitDefined(); returns(true);
+                turn.getLeadSuit(); returns(Suit.Heart);
+            }
+        };
+
+        GameContext.Init(declaration.getSuit());
+        GameContext.getCurrent().setAdjutantCard(Card.Mighty);
+        GameContext.getCurrent().CallToGoAdjutant();
+        Player player = Player.New("hoge");
+        player.takeCard(Card.New(Suit.Spade, 1));
+        player.takeCard(Card.New(Suit.Heart, 3));
+        assertThat(player.openCard(turn, viewer, declaration), IsEqual.equalTo(Card.Mighty));
+    }
+
+    @Test
 	public void T02_台札が設定されていて台札がないときでもなにか1枚だすこと() {
 		new Expectations() {
 			{
@@ -85,7 +105,7 @@ public class PlayerTest {
 		player.openCard(turn, viewer, declaration).getSuit();
 		assertThat(player.cardCount(), IsEqual.equalTo(1));
 	}
-	
+
 	@Test
 	public void T02_最初にジョーカー出されたら切り札を出すこと() {
 		new Expectations() {
@@ -101,7 +121,7 @@ public class PlayerTest {
 		player2.takeCard(Card.Joker);
 		Card jorker = player2.openCard(turn, viewer, declaration);
 		assertThat(jorker, IsEqual.equalTo(Card.Joker));
-		
+
 		Player player = Player.New("hoge");
 		player.takeCard(Card.New(Suit.Club, 13));
 		player.takeCard(Card.New(Suit.Spade, 12));
@@ -124,7 +144,7 @@ public class PlayerTest {
 		player2.takeCard(Card.Joker);
 		Card jorker = player2.openCard(turn, viewer, declaration);
 		assertThat(jorker, IsEqual.equalTo(Card.Joker));
-		
+
 		Player player = Player.New("hoge");
 		player.takeCard(Card.New(Suit.Club, 13));
 		player.takeCard(Card.New(Suit.Spade, 12));
@@ -153,7 +173,7 @@ public class PlayerTest {
 		player1.takeCard(Card.New(Suit.Club, 3));
 		Card jorker = player1.openCard(turn, viewer, declaration);
 		assertThat(jorker, IsEqual.equalTo(Card.New(Suit.Club, 3)));
-		
+
 		Player player2 = Player.New("hoge");
 		player2.takeCard(Card.New(Suit.Club, 1));
 		player2.openCard(turn, viewer, declaration);
@@ -162,7 +182,7 @@ public class PlayerTest {
 		player3.takeCard(Card.Joker);
 		player3.takeCard(Card.New(Suit.Spade, 2));
 		player3.takeCard(Card.New(Suit.Club, 2));
-		
+
 		assertThat(player3.openCard(turn, viewer, declaration), IsEqual.equalTo(Card.Joker));
 	}
 
@@ -184,7 +204,7 @@ public class PlayerTest {
 		player2.takeCard(Card.RequireJoker);
 		Card jorker = player2.openCard(turn, viewer, declaration);
 		assertThat(jorker, IsEqual.equalTo(Card.RequireJoker));
-		
+
 		Player player = Player.New("hoge");
 		player.takeCard(Card.New(Suit.Spade, 12));
 		player.takeCard(Card.New(Suit.Heart, 8));
@@ -209,7 +229,7 @@ public class PlayerTest {
 		player.openCard(turn, viewer, declaration);
 		assertThat(player.cardCount(), IsEqual.equalTo(0));
 	}
-	
+
 	@Test
 	public void T04_とりあえず誰も宣言してなかったらクラブの13で宣言する(){
 		Player player = Player.New("hoge");
