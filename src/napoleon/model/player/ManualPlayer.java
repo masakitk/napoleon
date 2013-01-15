@@ -24,7 +24,7 @@ public class ManualPlayer extends napoleon.model.player.Player {
 
 	@Override
 	protected Card chooseCardToOpen(Turn turn, Viewer viewer, Declaration declaration) {
-		return ManualPlayerUtil.chooseCardToOpenByManual(turn, viewer, declaration, cards);
+		return ManualPlayerUtil.chooseCardToOpenByManual(turn, viewer, declaration, cards, false);
 	}
 
 }

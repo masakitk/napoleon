@@ -119,16 +119,20 @@ public class ConsoleViewer implements Viewer {
 		showMessage(String.format(RESOURCE.getString(Messages.EXTRA_CARDS), extraCards));
 	}
 
+    private Card inputCard(String message) {
+        try{
+            return convertToCard(inputSuitAndNumber(message));
+        } catch (IllegalArgumentException e) {
+            showMessage(e.getMessage());
+            return null;
+        }
+    }
+
 	@Override
 	public Card inputCard() {
-		try{
-			return convertToCard(inputSuitAndNumber(RESOURCE.getString(Messages.INPUT_CARD)));
-		} catch (IllegalArgumentException e) {
-			showMessage(e.getMessage());
-			return null;
-		}
+		return inputCard(RESOURCE.getString(Messages.INPUT_CARD_OR_GO_ADJUTANT));
 	}
-	
+
 	protected String inputSuitAndNumber(String information) {
 		String input;
 		try{
@@ -142,10 +146,10 @@ public class ConsoleViewer implements Viewer {
 		}
 		return input;
 	}
-	
+
 	static Card convertToCard(String input) {
 		if("JOKER".equals(input.toUpperCase())) return Card.Joker;
-		
+
 		Suit suit = convertToSuit(getSuitPart(input));
 		int number = convertToNumber(getNumberPart(input));
 		return Card.New(suit, number);
@@ -190,7 +194,7 @@ public class ConsoleViewer implements Viewer {
 
 		if(input.toUpperCase().equals("PASS"))
 			return Declaration.Pass;
-		
+
 		String suitPart = input.substring(0, 1);
 		String numberPart = input.substring(1);
 		try{
@@ -213,7 +217,7 @@ public class ConsoleViewer implements Viewer {
 		}
 
 		Collection<Card> unusedCards = CollectionUtils.collect(
-				Arrays.asList(cardsEntered), 
+				Arrays.asList(cardsEntered),
 				new Transformer<String, Card>(){
 					@Override
 					public Card transform(final String s) {
@@ -271,6 +275,6 @@ public class ConsoleViewer implements Viewer {
 	@Override
 	public Card inputCardToAdjutant() {
 		showMessage(RESOURCE.getString(Messages.INPUT_ADJUTANT_CARD));
-		return inputCard();
+		return inputCard(RESOURCE.getString(Messages.INPUT_CARD));
 	}
 }

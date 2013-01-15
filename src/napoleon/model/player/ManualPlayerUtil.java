@@ -22,12 +22,12 @@ import static napoleon.model.resource.Messages.*;
 
 public class ManualPlayerUtil {
 	static Card chooseCardToOpenByManual(Turn turn, Viewer viewer,
-			Declaration declaration, List<Card> cards) {
+                                         Declaration declaration, List<Card> cards, boolean asNapoleon) {
 		Card toOpen = null;
 		while(toOpen == null) {
 			viewer.showMessage(String.format(RESOURCE.getString(CARDS_OF_THIS_TURN_AND_DECLARATION), convertNamesAndCards((Collection<Entry<Player, Card>>)turn.getCardHash().entrySet()), declaration.toShow()));
 			viewer.showMessage(String.format(RESOURCE.getString(YOUR_CARDS), viewer.sortCardsToView(cards)));
-			toOpen = rejectInvalidCard(viewer.inputCard(), turn, viewer, cards);
+			toOpen = rejectInvalidCard(inputCard(viewer, asNapoleon), turn, viewer, cards);
 		}
 		return toOpen;
 	}

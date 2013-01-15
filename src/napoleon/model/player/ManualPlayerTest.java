@@ -64,49 +64,49 @@ public class ManualPlayerTest {
 		assertThat(ManualPlayerUtil.inputCard(viewer, false), IsNull.nullValue());
 	}
 
-	@Test
-	public void T01a_Jokerは出せる(){
-		new Expectations() {
-			{
-				new Scanner((BufferedInputStream)any); returns(any);
-				scanner.nextLine(); returns("Joker");
-			}
-		};
-		final ManualPlayer player = ManualPlayer.New("hoge");
-		player.takeCard(Card.New(Suit.Heart, 12));
-		player.takeCard(Card.Joker);
-		
-		assertThat(ManualPlayerUtil.inputCard(viewer, false), equalTo(Card.Joker));
-	}
+    @Test
+    public void T01a_Jokerは出せる(){
+        new Expectations() {
+            {
+                new Scanner((BufferedInputStream)any); returns(any);
+                scanner.nextLine(); returns("Joker");
+            }
+        };
+        final ManualPlayer player = ManualPlayer.New("hoge");
+        player.takeCard(Card.New(Suit.Heart, 12));
+        player.takeCard(Card.Joker);
 
-	@Test
-	public void T01b_数値入力不備はおこられる(){
-		new Expectations() {
-			{
-				new Scanner((BufferedInputStream)any); returns(any);
-				viewer.showMessage("input card(Ex. S1:♠A、H13:♥13 etc..");
-				scanner.nextLine(); returns("H0"); 
-				viewer.showMessage("数字が1から13の範囲にありません。");
-				
-				new Scanner((BufferedInputStream)any); returns(any);
-				viewer.showMessage("input card(Ex. S1:♠A、H13:♥13 etc..");
-				scanner.nextLine(); returns("H14"); 
-				viewer.showMessage("数字が1から13の範囲にありません。");
-				
-				new Scanner((BufferedInputStream)any); returns(any);
-				viewer.showMessage("input card(Ex. S1:♠A、H13:♥13 etc..");
-				scanner.nextLine(); returns("Habc"); 
-				viewer.showMessage("2文字目以降は1～13の数字を入力して下さい。");
-			}
-		};
-		final ManualPlayer player = ManualPlayer.New("hoge");
-		player.takeCard(Card.New(Suit.Heart, 12));
-		player.takeCard(Card.New(Suit.Dia, 3));
-		
-		assertThat(ManualPlayerUtil.inputCard(viewer, false), IsNull.nullValue());
-		assertThat(ManualPlayerUtil.inputCard(viewer, false), IsNull.nullValue());
-		assertThat(ManualPlayerUtil.inputCard(viewer, false), IsNull.nullValue());
-	}
+        assertThat(ManualPlayerUtil.inputCard(viewer, false), equalTo(Card.Joker));
+    }
+
+    @Test
+    public void T01b_数値入力不備はおこられる(){
+        new Expectations() {
+            {
+                new Scanner((BufferedInputStream)any); returns(any);
+                viewer.showMessage("input card(Ex. S1:♠A、H13:♥13 etc..");
+                scanner.nextLine(); returns("H0");
+                viewer.showMessage("数字が1から13の範囲にありません。");
+
+                new Scanner((BufferedInputStream)any); returns(any);
+                viewer.showMessage("input card(Ex. S1:♠A、H13:♥13 etc..");
+                scanner.nextLine(); returns("H14");
+                viewer.showMessage("数字が1から13の範囲にありません。");
+
+                new Scanner((BufferedInputStream)any); returns(any);
+                viewer.showMessage("input card(Ex. S1:♠A、H13:♥13 etc..");
+                scanner.nextLine(); returns("Habc");
+                viewer.showMessage("2文字目以降は1～13の数字を入力して下さい。");
+            }
+        };
+        final ManualPlayer player = ManualPlayer.New("hoge");
+        player.takeCard(Card.New(Suit.Heart, 12));
+        player.takeCard(Card.New(Suit.Dia, 3));
+
+        assertThat(ManualPlayerUtil.inputCard(viewer, false), IsNull.nullValue());
+        assertThat(ManualPlayerUtil.inputCard(viewer, false), IsNull.nullValue());
+        assertThat(ManualPlayerUtil.inputCard(viewer, false), IsNull.nullValue());
+    }
 
 	@Test
 	public void T02_持ってないカードを指定したら再入力(){
@@ -117,21 +117,21 @@ public class ManualPlayerTest {
 				turn.getCardHash(); returns(new LinkedHashMap<Player, Card>());
 				viewer.showMessage("このターンのカード [], 宣言 Club:13");
 				viewer.sortCardsToView(anyCards); returns(anyCards);
-				viewer.showMessage("あなたの手札:[[♥:12], [◆:3]]");
-				viewer.inputCard();returns(Card.New(Suit.Spade, 3));
-//				new Scanner((BufferedInputStream)any); returns(any);
-//				viewer.showMessage("input card(Ex. S1:♠A、H13:♥13 etc..");
-//				scanner.nextLine(); returns("S3");
+                viewer.showMessage("あなたの手札:[[♥:12], [◆:3]]");
+//                viewer.inputCard();returns(Card.New(Suit.Spade, 3));
+                new Scanner((BufferedInputStream)any); returns(any);
+                viewer.showMessage("カードを入力して下さい(Ex. S1:♠A、H13:♥13 etc...) : ");
+				scanner.nextLine(); returns("S3");
 				viewer.showMessage("そのカードは持っていません。");
 
 				turn.getCardHash(); returns(new LinkedHashMap<Player, Card>());
 				viewer.showMessage("このターンのカード [], 宣言 Club:13");
 				viewer.sortCardsToView(anyCards); returns(anyCards);
 				viewer.showMessage("あなたの手札:[[♥:12], [◆:3]]");
-				viewer.inputCard();returns(Card.New(Suit.Dia, 3));
-//				new Scanner((BufferedInputStream)any); returns(any);
-//				viewer.showMessage("input card(Ex. S1:♠A、H13:♥13 etc..");
-//				scanner.nextLine(); returns("D3");
+//				viewer.inputCard();returns(Card.New(Suit.Dia, 3));
+                new Scanner((BufferedInputStream)any); returns(any);
+                viewer.showMessage("カードを入力して下さい(Ex. S1:♠A、H13:♥13 etc...) : ");
+                scanner.nextLine(); returns("D3");
 				turn.isJokerOpenedFirst(); returns(false);
 				turn.isRequireJokerOpenedFirst(); returns(false);
 				turn.isLeadSuitDefined(); returns(true);
@@ -139,11 +139,11 @@ public class ManualPlayerTest {
 				turn.getLeadSuit(); returns(Suit.Dia);
 			}
 		};
-		
+
 		final Player player = ManualPlayer.New("hoge");
 		player.takeCard(Card.New(Suit.Heart, 12));
 		player.takeCard(Card.New(Suit.Dia, 3));
-		
+
 		player.openCard(turn, viewer, declaration);
 		assertThat(player.cardCount(), IsEqual.equalTo(1));
 	}
@@ -160,11 +160,11 @@ public class ManualPlayerTest {
 				viewer.showMessage("台札がある場合は、台札をださなければなりません。");
 			}
 		};
-		
+
 		final ManualPlayer player = ManualPlayer.New("hoge");
 		player.takeCard(Card.New(Suit.Heart, 12));
 		player.takeCard(Card.New(Suit.Dia, 3));
-		
+
 		assertThat(ManualPlayerUtil.rejectInvalidCard(Card.New(Suit.Heart, 12), turn, viewer, player.cards), IsNull.nullValue());
 	}
 
@@ -178,15 +178,15 @@ public class ManualPlayerTest {
 				turn.getLeadSuit(); returns(Suit.Dia);
 			}
 		};
-		
+
 		final ManualPlayer player = ManualPlayer.New("hoge");
 		player.takeCard(Card.New(Suit.Heart, 12));
 		final Card club3 = Card.New(Suit.Club, 3);
 		player.takeCard(club3);
-		
+
 		assertThat(ManualPlayerUtil.rejectInvalidCard(club3, turn, viewer, player.cards), equalTo(club3));
 	}
-	
+
 	@Test
 	public void T03_切り札請求された場合切り札を出さなければならない(){
 		new Expectations() {
@@ -196,11 +196,11 @@ public class ManualPlayerTest {
 				viewer.showMessage("切り札請求された場合は、切り札をださなければなりません。");
 			}
 		};
-		
+
 		final ManualPlayer player = ManualPlayer.New("hoge");
 		player.takeCard(Card.New(Suit.Heart, 12));
 		player.takeCard(Card.New(Suit.Dia, 3));
-		
+
 		assertThat(ManualPlayerUtil.rejectInvalidCard(Card.New(Suit.Heart, 12), turn, viewer, player.cards), IsNull.nullValue());
 	}
 
