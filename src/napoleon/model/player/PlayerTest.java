@@ -112,6 +112,29 @@ public class PlayerTest {
     }
 
     @Test
+    public void T02_副官正Jで副官GOがかかっても出せなければ仕方ない() {
+        new Expectations() {
+            {
+                turn.isJokerOpenedFirst(); returns(false);
+                turn.isRequireJokerOpenedFirst(); returns(false);
+                turn.isLeadSuitDefined(); returns(true);
+                turn.getLeadSuit(); returns(Suit.Heart);
+            }
+        };
+
+        GameContext.Init(declaration.getSuit());
+        Card rightBower = GameContext.getCurrent().getRightBower();
+        GameContext.getCurrent().setAdjutantCard(rightBower);
+        GameContext.getCurrent().CallToGoAdjutant();
+        Player player = Player.New("hoge");
+        player.takeCard(Card.New(Suit.Spade, 1));
+        player.takeCard(Card.New(Suit.Heart, 3));
+        player.takeCard(rightBower);
+        player.takeCard(Card.New(Suit.Club, 13));
+        assertThat(player.openCard(turn, viewer, declaration), IsEqual.equalTo(Card.New(Suit.Heart, 3)));
+    }
+
+    @Test
 	public void T02_台札が設定されていて台札がないときでもなにか1枚だすこと() {
 		new Expectations() {
 			{

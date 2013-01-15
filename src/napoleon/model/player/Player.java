@@ -67,6 +67,14 @@ public class Player {
             })) {
                cardsToOpen.clear();
                cardsToOpen.add(Card.Mighty);
+            } else if(CollectionUtils.exists(cardsToOpen, new Predicate<Card>() {
+                @Override
+                public boolean evaluate(Card card) {
+                    return card.equals(GameContext.getCurrent().getAdjutantCard());
+                }
+            })) {
+                cardsToOpen.clear();
+                cardsToOpen.add(GameContext.getCurrent().getAdjutantCard());
             }
         }
 
