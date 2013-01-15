@@ -2,6 +2,7 @@ package napoleon.model.player;
 
 import static org.junit.Assert.*;
 
+import java.io.BufferedInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -11,6 +12,7 @@ import mockit.Mocked;
 import napoleon.model.card.Card;
 import napoleon.model.card.Suit;
 import napoleon.model.rule.Declaration;
+import napoleon.model.rule.GameContext;
 import napoleon.model.rule.Table;
 import napoleon.model.rule.Turn;
 import napoleon.view.Viewer;
@@ -94,4 +96,22 @@ public class ManualNapoleonTest {
 		}};
 		assertThat(napoleon.cards, Is.is(Matchers.containsInAnyOrder(手に残すカード.toArray(new Card[0]))));
 	}
+
+    @Test
+    public void T03_副官GOの指示ができること(){
+        new Expectations() {
+            {
+                new Scanner((BufferedInputStream)any); returns(any);
+                scanner.nextLine(); returns("GO");
+                new Scanner((BufferedInputStream)any); returns(any);
+                scanner.nextLine(); returns("S3");
+            }
+        };
+        GameContext.Init(Suit.Heart);
+
+        Card card = ManualPlayerUtil.inputCard(viewer, true);
+        assertThat(card, IsEqual.equalTo(Card.New(Suit.Spade, 3)));
+        assertTrue(GameContext.getCurrent().hasCalledToGoAdjutant());
+
+    }
 }

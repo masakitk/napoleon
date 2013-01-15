@@ -10,6 +10,7 @@ import napoleon.model.card.Card;
 import napoleon.model.card.Suit;
 import napoleon.model.resource.Messages;
 import napoleon.model.rule.Declaration;
+import napoleon.model.rule.GameContext;
 import napoleon.model.rule.Turn;
 import napoleon.view.Viewer;
 
@@ -86,9 +87,9 @@ public class ManualPlayerUtil {
 		});
 	}
 
-	static Card inputCard(Viewer viewer, Turn turn) {
-		try{
-			return convertToCard(inputSuitAndNumber(viewer, "input card(Ex. S1:♠A、H13:♥13 etc.."));
+	static Card inputCard(Viewer viewer, boolean asNapoleon) {
+		try {
+			return convertToCard(inputSuitAndNumber(viewer, RESOURCE.getString(Messages.INPUT_CARD), asNapoleon));
 		} catch (IllegalArgumentException e) {
 			viewer.showMessage(e.getMessage());
 			return null;
@@ -120,16 +121,21 @@ public class ManualPlayerUtil {
 		});
 	}
 
-	static protected String inputSuitAndNumber(Viewer viewer, String information) {
+	static protected String inputSuitAndNumber(Viewer viewer, String information, boolean asNapoleon) {
 		String input;
 		try{
 			input = getInputString(information, viewer);
+            if(asNapoleon && "GO".equals(input.toUpperCase())) {
+                GameContext.getCurrent().CallToGoAdjutant();
+                viewer.showMessage(RESOURCE.getString(Messages.CALLED_GO_ADJUTANT));
+                return inputSuitAndNumber(viewer, information, asNapoleon);
+            }
 		} catch (NoSuchElementException e) {
-			return inputSuitAndNumber(viewer, information);
+			return inputSuitAndNumber(viewer, information, asNapoleon);
 		}
 
 		if(input.length() < 2) {
-			return inputSuitAndNumber(viewer, information);
+			return inputSuitAndNumber(viewer, information, asNapoleon);
 		}
 		return input;
 	}
@@ -171,5 +177,4 @@ public class ManualPlayerUtil {
 			return false;
 		}
 	}
-
 }

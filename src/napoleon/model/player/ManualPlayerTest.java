@@ -44,7 +44,7 @@ public class ManualPlayerTest {
 		player.takeCard(Card.New(Suit.Heart, 12));
 		player.takeCard(Card.New(Suit.Dia, 3));
 		
-		assertThat(ManualPlayerUtil.inputCard(viewer, turn), IsEqual.equalTo(Card.New(Suit.Spade, 3)));
+		assertThat(ManualPlayerUtil.inputCard(viewer, false), IsEqual.equalTo(Card.New(Suit.Spade, 3)));
 	}
 
 	@Test
@@ -61,7 +61,7 @@ public class ManualPlayerTest {
 		player.takeCard(Card.New(Suit.Heart, 12));
 		player.takeCard(Card.New(Suit.Dia, 3));
 		
-		assertThat(ManualPlayerUtil.inputCard(viewer, turn), IsNull.nullValue());
+		assertThat(ManualPlayerUtil.inputCard(viewer, false), IsNull.nullValue());
 	}
 
 	@Test
@@ -76,7 +76,7 @@ public class ManualPlayerTest {
 		player.takeCard(Card.New(Suit.Heart, 12));
 		player.takeCard(Card.Joker);
 		
-		assertThat(ManualPlayerUtil.inputCard(viewer, turn), equalTo(Card.Joker));
+		assertThat(ManualPlayerUtil.inputCard(viewer, false), equalTo(Card.Joker));
 	}
 
 	@Test
@@ -103,9 +103,9 @@ public class ManualPlayerTest {
 		player.takeCard(Card.New(Suit.Heart, 12));
 		player.takeCard(Card.New(Suit.Dia, 3));
 		
-		assertThat(ManualPlayerUtil.inputCard(viewer, turn), IsNull.nullValue());
-		assertThat(ManualPlayerUtil.inputCard(viewer, turn), IsNull.nullValue());
-		assertThat(ManualPlayerUtil.inputCard(viewer, turn), IsNull.nullValue());
+		assertThat(ManualPlayerUtil.inputCard(viewer, false), IsNull.nullValue());
+		assertThat(ManualPlayerUtil.inputCard(viewer, false), IsNull.nullValue());
+		assertThat(ManualPlayerUtil.inputCard(viewer, false), IsNull.nullValue());
 	}
 
 	@Test

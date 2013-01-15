@@ -36,8 +36,9 @@ public class Messages extends ListResourceBundle {
     public static final String ADJUTANT_NAME_WHEN_NAPOLEON_ALONE = "AdjutantNameWhenNapoleonAlone";
     public static final String INPUT_DECLARATION = "inputDeclaration";
     public static final String INPUT_CARD = "inputCard";
-    public static final String EXTRA_CARDS = "extraCards";
+    public static final String CALLED_GO_ADJUTANT = "calledGoAdjutant";
 
+    public static final String EXTRA_CARDS = "extraCards";
     public static ResourceBundle RESOURCE = ResourceBundle.getBundle("napoleon.model.resource.Messages",
             Locale.JAPANESE,
             new ResourceBundle.Control() {
@@ -69,9 +70,10 @@ public class Messages extends ListResourceBundle {
             {ALLIED_FORCES_TEAM, "AlliedForcesTeam"},
             {NAPOLEON_TEAM, "NapoleonTeam"},
             {ADJUTANT_NAME_WHEN_NAPOLEON_ALONE, "nobody: only napoleon;"},
-            {INPUT_DECLARATION, "input declaration(Ex. S13:♠13、H15:♥15、Pass etc.."},
-            {INPUT_CARD, "input card(Ex. S1:♠A、H13:♥13 etc.."},
+            {INPUT_DECLARATION, "input declaration(Ex. S13:♠13、H15:♥15、Pass etc..)"},
+            {INPUT_CARD, "input card(Ex. S1:♠A、H13:♥13 etc..  Napoleon can tell to go adjutant card as input \"GO\".)"},
             {EXTRA_CARDS, "extra cards are %s"},
+            {CALLED_GO_ADJUTANT, "go Adjutant!!"},
     };
 
     @Override

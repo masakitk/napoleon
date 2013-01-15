@@ -36,9 +36,10 @@ public class Messages_ja extends ListResourceBundle {
             {ALLIED_FORCES_TEAM, "連合軍"},
             {NAPOLEON_TEAM, "ナポレオン軍"},
             {ADJUTANT_NAME_WHEN_NAPOLEON_ALONE, "いません。独り立ち"},
-            {INPUT_DECLARATION, "スートと枚数を宣言（またはパス）して下さい(Ex. S13:♠13、H15:♥15、Pass etc.."},
-            {INPUT_CARD, "カードを入力して下さい(Ex. S1:♠A、H13:♥13 etc.."},
+            {INPUT_DECLARATION, "スートと枚数を宣言（またはパス）して下さい(Ex. S13:♠13、H15:♥15、Pass etc..)"},
+            {INPUT_CARD, "カードを入力して下さい(Ex. S1:♠A、H13:♥13 etc.. ナポレンは\"GO\"で副官GO指示できます)"},
             {EXTRA_CARDS, "テーブルの残りカードは %s です"},
+            {CALLED_GO_ADJUTANT, "副官GO!!"},
     };
 
     @Override
