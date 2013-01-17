@@ -35,7 +35,7 @@ public class ConsoleViewer implements Viewer {
 		return CONSOLE_VIEWER;
 	}
 
-	public void show(Player[] players) {
+    public void show(Player[] players) {
 
 		CollectionUtils.forAllDo(Arrays.asList(players), new Closure<Player>(){
 

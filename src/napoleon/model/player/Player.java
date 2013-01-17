@@ -116,6 +116,7 @@ public class Player {
     private void selectLeadSuitCards(Turn turn, List<Card> cardsToOpen) {
         if(cardsToOpen.isEmpty() && turn.isLeadSuitDefined()) {
 			cardsToOpen.addAll(findSameMark(cards, turn.getLeadSuit()));
+            if(findJoker() != null) cardsToOpen.add(findJoker());
 		}
         hideMighty(cardsToOpen);
     }
@@ -144,6 +145,7 @@ public class Player {
 
 	private Card findTrumpOrMaxNumber(Suit trump) {
 		Collection<Card> found = findSameMark(cards, trump);
+        if(findJoker() != null) found.add(findJoker());
 		if (!found.isEmpty()) return (Card)found.toArray()[0];
 		
 		return findStrongNumber(cards);
@@ -164,7 +166,7 @@ public class Player {
 
 			@Override
 			public boolean evaluate(Card card) {
-					return card.getSuit() == suit || card.equals(Card.Joker);
+					return card.getSuit() == suit;
 			}
 		} );
 	}

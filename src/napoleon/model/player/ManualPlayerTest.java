@@ -33,11 +33,10 @@ public class ManualPlayerTest {
 	Declaration declaration = Declaration.New(Suit.Club, 13);
 
 	@Test
-	public void T01_標準入力からカード入力を受け付けること(){
+	public void T01_Viewerからカード入力を受け付けること(){
 		new Expectations() {
 			{
-				new Scanner((BufferedInputStream)any); returns(any);
-				scanner.nextLine(); returns("S3");
+				viewer.getInputString("カードを入力して下さい(Ex. S1:♠A、H13:♥13 etc...)"); returns("S3");
 			}
 		};
 		final ManualPlayer player = ManualPlayer.New("hoge");
@@ -51,9 +50,7 @@ public class ManualPlayerTest {
 	public void T01a_スート入力不備はおこられる(){
 		new Expectations() {
 			{
-				new Scanner((BufferedInputStream)any); returns(any);
-				viewer.showMessage("input card(Ex. S1:♠A、H13:♥13 etc..");
-				scanner.nextLine(); returns("A3"); 
+                viewer.getInputString("カードを入力して下さい(Ex. S1:♠A、H13:♥13 etc...)"); returns("A3");
 				viewer.showMessage("1文字目はS,H,D,Cのいずれかのスートにして下さい。（Jorkerの場合を除く）");
 			}
 		};
@@ -68,8 +65,7 @@ public class ManualPlayerTest {
     public void T01a_Jokerは出せる(){
         new Expectations() {
             {
-                new Scanner((BufferedInputStream)any); returns(any);
-                scanner.nextLine(); returns("Joker");
+                viewer.getInputString("カードを入力して下さい(Ex. S1:♠A、H13:♥13 etc...)"); returns("Joker");
             }
         };
         final ManualPlayer player = ManualPlayer.New("hoge");
@@ -80,22 +76,43 @@ public class ManualPlayerTest {
     }
 
     @Test
+    public void T01_Jokerもってて台札ないときは何出してもOK(){
+        new Expectations() {
+            {
+                turn.getCardHash(); returns(new LinkedHashMap<Player, Card>(){{put(Player.New("fuga"), Card.New(Suit.Dia, 3));}});
+                viewer.showMessage("このターンのカード [fuga:[◆:3]], 宣言 Club:13");
+                viewer.sortCardsToView(new ArrayList<Card>() {{
+                    add(Card.New(Suit.Club, 12));
+                    add(Card.Joker);
+                }});
+                viewer.showMessage("あなたの手札:[]");
+                viewer.getInputString("カードを入力して下さい(Ex. S1:♠A、H13:♥13 etc...)"); returns("C12");
+                turn.isJokerOpenedFirst(); returns(false);
+                turn.isRequireJokerOpenedFirst(); returns(false);
+                turn.isLeadSuitDefined(); returns(true);
+                turn.getLeadSuit(); returns(Suit.Heart);
+
+            }
+        };
+        final ManualPlayer player = ManualPlayer.New("hoge");
+        player.takeCard(Card.New(Suit.Club, 12));
+        player.takeCard(Card.Joker);
+
+        assertThat(player.chooseCardToOpen(turn, viewer, declaration), equalTo(Card.New(Suit.Club, 12)));
+    }
+
+
+    @Test
     public void T01b_数値入力不備はおこられる(){
         new Expectations() {
             {
-                new Scanner((BufferedInputStream)any); returns(any);
-                viewer.showMessage("input card(Ex. S1:♠A、H13:♥13 etc..");
-                scanner.nextLine(); returns("H0");
+                viewer.getInputString("カードを入力して下さい(Ex. S1:♠A、H13:♥13 etc...)"); returns("H0");
                 viewer.showMessage("数字が1から13の範囲にありません。");
 
-                new Scanner((BufferedInputStream)any); returns(any);
-                viewer.showMessage("input card(Ex. S1:♠A、H13:♥13 etc..");
-                scanner.nextLine(); returns("H14");
-                viewer.showMessage("数字が1から13の範囲にありません。");
+                viewer.getInputString("カードを入力して下さい(Ex. S1:♠A、H13:♥13 etc...)"); returns("H14");
+               viewer.showMessage("数字が1から13の範囲にありません。");
 
-                new Scanner((BufferedInputStream)any); returns(any);
-                viewer.showMessage("input card(Ex. S1:♠A、H13:♥13 etc..");
-                scanner.nextLine(); returns("Habc");
+                viewer.getInputString("カードを入力して下さい(Ex. S1:♠A、H13:♥13 etc...)"); returns("Habc");
                 viewer.showMessage("2文字目以降は1～13の数字を入力して下さい。");
             }
         };
@@ -119,19 +136,15 @@ public class ManualPlayerTest {
 				viewer.sortCardsToView(anyCards); returns(anyCards);
                 viewer.showMessage("あなたの手札:[[♥:12], [◆:3]]");
 //                viewer.inputCard();returns(Card.New(Suit.Spade, 3));
-                new Scanner((BufferedInputStream)any); returns(any);
-                viewer.showMessage("カードを入力して下さい(Ex. S1:♠A、H13:♥13 etc...) : ");
-				scanner.nextLine(); returns("S3");
-				viewer.showMessage("そのカードは持っていません。");
+                viewer.getInputString("カードを入力して下さい(Ex. S1:♠A、H13:♥13 etc...)"); returns("S3");
+                viewer.showMessage("そのカードは持っていません。");
 
 				turn.getCardHash(); returns(new LinkedHashMap<Player, Card>());
 				viewer.showMessage("このターンのカード [], 宣言 Club:13");
 				viewer.sortCardsToView(anyCards); returns(anyCards);
 				viewer.showMessage("あなたの手札:[[♥:12], [◆:3]]");
 //				viewer.inputCard();returns(Card.New(Suit.Dia, 3));
-                new Scanner((BufferedInputStream)any); returns(any);
-                viewer.showMessage("カードを入力して下さい(Ex. S1:♠A、H13:♥13 etc...) : ");
-                scanner.nextLine(); returns("D3");
+                viewer.getInputString("カードを入力して下さい(Ex. S1:♠A、H13:♥13 etc...)"); returns("D3");
 				turn.isJokerOpenedFirst(); returns(false);
 				turn.isRequireJokerOpenedFirst(); returns(false);
 				turn.isLeadSuitDefined(); returns(true);

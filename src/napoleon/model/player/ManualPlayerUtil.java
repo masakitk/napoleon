@@ -3,7 +3,6 @@ package napoleon.model.player;
 import java.util.Collection;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 import java.util.Map.Entry;
 
 import napoleon.model.card.Card;
@@ -124,7 +123,7 @@ public class ManualPlayerUtil {
 	static protected String inputSuitAndNumber(Viewer viewer, String information, boolean asNapoleon) {
 		String input;
 		try{
-			input = getInputString(information, viewer);
+			input = viewer.getInputString(information);
             if(asNapoleon && "GO".equals(input.toUpperCase())) {
                 GameContext.getCurrent().CallToGoAdjutant();
                 viewer.showMessage(RESOURCE.getString(Messages.CALLED_GO_ADJUTANT));
@@ -156,20 +155,7 @@ public class ManualPlayerUtil {
 		}
 	}
 
-	static public String getInputString(String information, Viewer viewer) {
-		Scanner stdReader = new Scanner(System.in);
-		viewer.showMessage(String.format("%s : ", information));
-		String line = stdReader.nextLine(); // ユーザの一行入力を待つ
-//		viewer.showMessage(String.format("line is [%s]", line));
-		return line;
-	}
-
-	public static Card[] inputUnuseCards(Viewer viewer) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public static boolean canConvertToCard(String inputString) {
+    public static boolean canConvertToCard(String inputString) {
 		try{
 			convertToCard(inputString);
 			return true;

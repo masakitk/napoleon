@@ -29,5 +29,5 @@ public interface Viewer {
 	Card inputCardToAdjutant();
 	void printPlayerCards(Player player);
     void printPlayerHavingCards(Player player);
-
+    String getInputString(String information);
 }
