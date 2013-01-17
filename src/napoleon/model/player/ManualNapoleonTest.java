@@ -1,12 +1,5 @@
 package napoleon.model.player;
 
-import static org.junit.Assert.*;
-
-import java.io.BufferedInputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
 import mockit.Expectations;
 import mockit.Mocked;
 import napoleon.model.card.Card;
@@ -14,21 +7,21 @@ import napoleon.model.card.Suit;
 import napoleon.model.rule.Declaration;
 import napoleon.model.rule.GameContext;
 import napoleon.model.rule.Table;
-import napoleon.model.rule.Turn;
 import napoleon.view.Viewer;
-
 import org.hamcrest.Matchers;
 import org.hamcrest.core.Is;
 import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
 public class ManualNapoleonTest {
 
-	@Mocked
-	Scanner scanner;
-	@Mocked
-	Turn turn;
-	@Mocked
+    @Mocked
 	Viewer viewer;
 	Declaration declaration = Declaration.New(Suit.Club, 13);
 	@Mocked
@@ -66,45 +59,41 @@ public class ManualNapoleonTest {
 	@Test
 	public void T02_テーブルに残ったカードをもらって不要な5枚を交換できること() {
 		final ManualNapoleon napoleon = ManualNapoleon.New(ManualPlayer.New("hoge"));
-		new Expectations() {
+        final List<Card> 不要カード = new ArrayList<Card>(){{
+            add(Card.New(Suit.Club, 3));
+            add(Card.New(Suit.Club, 4));
+            add(Card.New(Suit.Club, 5));
+        }};
+        new Expectations() {
 			{
 				viewer.printPlayerHavingCards(napoleon);
-				viewer.inputCardsToChange(declaration, table, 手札); 
-				returns(new ArrayList<Card>(){{
-					add(Card.New(Suit.Club, 3));
-					add(Card.New(Suit.Club, 4));
-					add(Card.New(Suit.Club, 5));}});
+				viewer.inputCardsToChange(declaration, table, 手札);
+				returns(不要カード);
 				table.getCards(); returns(テーブル残カード);
 				table.removeCards(テーブル残カード);
 				table.getNoUseCards();returns(new ArrayList<Card>());
 			}
 		};
-		
-		napoleon.takeCards(手札);
-		napoleon.changeExtraCards(declaration, table, viewer);
-		
-		List<Card> 不要カード = new ArrayList<Card>(){{
-			add(Card.New(Suit.Club, 3));
-			add(Card.New(Suit.Club, 4));
-			add(Card.New(Suit.Club, 5));
-		}};
+
+        napoleon.takeCards(手札);
+        napoleon.changeExtraCards(declaration, table, viewer);
+
 		List<Card> 手に残すカード = new ArrayList<Card>(){{
 			add(Card.New(Suit.Spade, 1));
 			add(Card.New(Suit.Club, 11));
 			add(Card.New(Suit.Spade, 11));
 			add(Card.Joker);
 		}};
-		assertThat(napoleon.cards, Is.is(Matchers.containsInAnyOrder(手に残すカード.toArray(new Card[0]))));
+		assertThat(napoleon.cards, Is.is(Matchers.containsInAnyOrder(手に残すカード.toArray(new Card[手に残すカード.size()]))));
 	}
 
     @Test
     public void T03_副官GOの指示ができること(){
         new Expectations() {
             {
-                new Scanner((BufferedInputStream)any); returns(any);
-                scanner.nextLine(); returns("GO");
-                new Scanner((BufferedInputStream)any); returns(any);
-                scanner.nextLine(); returns("S3");
+                viewer.getInputString("カードを入力して下さい(Ex. S1:♠A、H13:♥13 etc...)"); returns("GO");
+                viewer.showMessage("副官GO!!");
+                viewer.getInputString("カードを入力して下さい(Ex. S1:♠A、H13:♥13 etc...)"); returns("S3");
             }
         };
         GameContext.Init(Suit.Heart);
