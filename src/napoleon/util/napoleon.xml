@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>XML形式のプロパティファイル</comment>
+
+    <entry key="canHideMighty">true</entry>
+    <entry key="usesJokerAsRequiringTrump">true</entry>
+    <entry key="isClub3RequiringJoker">true</entry>
+    <entry key="areFirstAndLastTurnIgnoredSpecialCards">true</entry>
+    <entry key="isLeftBowerStrongerThanSame2">false</entry>
+</properties>

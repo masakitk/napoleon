@@ -93,6 +93,8 @@ public class ManualNapoleonTest {
             {
                 viewer.getInputString("カードを入力して下さい(Ex. S1:♠A、H13:♥13 etc...)"); returns("GO");
                 viewer.showMessage("副官GO!!");
+                viewer.getInputString("カードを入力して下さい(Ex. S1:♠A、H13:♥13 etc...)"); returns("GO");
+                viewer.showMessage("副官GO!!");
                 viewer.getInputString("カードを入力して下さい(Ex. S1:♠A、H13:♥13 etc...)"); returns("S3");
             }
         };

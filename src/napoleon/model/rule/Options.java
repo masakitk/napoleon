@@ -8,11 +8,11 @@ package napoleon.model.rule;
  * To change this template use File | Settings | File Templates.
  */
 public class Options {
-    final boolean canHideMighty;
-    final boolean areFirstAndLastTurnIgnoredSpecialCards;
-    final boolean isLeftBowerStrongerThanSame2;
-    final boolean isClub3RequiringJoker;
-    final boolean usesJokerAsRequiringTrump;
+    public final boolean canHideMighty;
+    public final boolean areFirstAndLastTurnIgnoredSpecialCards;
+    public final boolean isLeftBowerStrongerThanSame2;
+    public final boolean isClub3RequiringJoker;
+    public final boolean usesJokerAsRequiringTrump;
 
     public static Options DEFAULT = Options.Build(new Builder(){{
         canHideMighty = true;
@@ -25,7 +25,7 @@ public class Options {
         return new Options(builder);
     }
 
-    private Options(Builder builder) {
+    public Options(Builder builder) {
         this.canHideMighty = builder.canHideMighty;
         this.areFirstAndLastTurnIgnoredSpecialCards = builder.areFirstAndLastTurnIgnoredSpecialCards;
         isLeftBowerStrongerThanSame2 = builder.isLeftBowerStrongerThanSame2;
@@ -33,11 +33,11 @@ public class Options {
         this.usesJokerAsRequiringTrump = builder.usesJokerAsRequiringTrump;
     }
 
-    private static class Builder {
-        boolean canHideMighty;
-        boolean areFirstAndLastTurnIgnoredSpecialCards;
-        boolean isLeftBowerStrongerThanSame2;
-        boolean isClub3RequiringJoker;
-        boolean usesJokerAsRequiringTrump;
+    public static class Builder {
+        public boolean canHideMighty;
+        public boolean areFirstAndLastTurnIgnoredSpecialCards;
+        public boolean isLeftBowerStrongerThanSame2;
+        public boolean isClub3RequiringJoker;
+        public boolean usesJokerAsRequiringTrump;
     }
 }

@@ -16,11 +16,15 @@ public class GameContext {
     private GameContext() {
     }
 
-    public static void Init(Suit trump) {
+    public static void Init() {
         GameContext gameContext = new GameContext();
-        gameContext.setTrump(trump);
         gameContext.options = (current == null) ? Options.DEFAULT : current.options;
         current = gameContext;
+    }
+
+    public static void Init(Suit trump) {
+        Init();
+        current.setTrump(trump);
     }
 
     private void setTrump(Suit trump) {
@@ -84,5 +88,9 @@ public class GameContext {
 
     public void CallToGoAdjutant() {
         _napoleonCall = NapoleonCall.Go;
+    }
+
+    public void initOptions(Options options) {
+        this.options = options;
     }
 }
