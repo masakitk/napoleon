@@ -10,7 +10,6 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.Map.Entry;
 
-import napoleon.model.player.ManualNapoleon;
 import napoleon.model.resource.Messages;
 import org.apache.commons.collections15.Closure;
 import org.apache.commons.collections15.CollectionUtils;
@@ -63,7 +62,7 @@ public class ConsoleViewer implements Viewer {
 		Collections.sort(sorted, new Comparator<Card>(){
 			@Override
 			public int compare(Card c1, Card c2) {
-				return c1.isUpperOrderByMarkAndStrength(c2) ? 1 : -1;
+				return c1.isUpperOrderBySuitAndStrength(c2) ? 1 : -1;
 			}
 		});
 		return sorted;
@@ -182,8 +181,7 @@ public class ConsoleViewer implements Viewer {
 	public String getInputString(String information) {
 		Scanner stdReader = new Scanner(System.in);
 		showMessage(String.format("%s : ", information));
-		String line = stdReader.nextLine(); // ユーザの一行入力を待つ
-		return line;
+        return stdReader.nextLine();
 	}
 
 	@Override
@@ -239,16 +237,7 @@ public class ConsoleViewer implements Viewer {
 		return unusedCards;
 	}
 
-	public boolean canConvertToCard(String inputString) {
-		try{
-			convertToCard(inputString);
-			return true;
-		} catch (IllegalArgumentException e) {
-			return false;
-		}
-	}
-
-	private boolean canConvertAllToCard(String[] cardsEntered) {
+    private boolean canConvertAllToCard(String[] cardsEntered) {
 		return !CollectionUtils.exists(Arrays.asList(cardsEntered), new Predicate<String>() {
 
 			@Override

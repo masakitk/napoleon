@@ -87,12 +87,12 @@ public class Card {
 		return isJoker ? 0 : getNumber() == 1 ? 14 : getNumber();
 	}
 
-	public boolean isUpperOrderByMarkAndStrength(Card c2) {
-		return isJoker ? false
-				: c2.isJoker ? true
-				: (suit.strongerThan(c2.getSuit())
-					|| (suit == c2.getSuit()
-						&& strongerThanAsNumber(c2)));
+	public boolean isUpperOrderBySuitAndStrength(Card c2) {
+		return !isJoker
+                && (c2.isJoker
+                    || (suit.strongerThan(c2.getSuit())
+                    || (suit == c2.getSuit()
+                        && strongerThanAsNumber(c2))));
 	}
 	
 	private static class CardIgnoreSpecialStrengthComparator implements Comparator<Card>{

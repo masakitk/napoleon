@@ -43,8 +43,7 @@ public class Director implements Serializable {
 	protected Turn[] turns;
 	private Integer currentTurnNo = 1;
 	private Logger logger;
-	private Card cardOfAdjutant;
-	protected Viewer viewer;
+    protected Viewer viewer;
 
 	protected Director(){
 		logger = LogManager.getLogger(Director.class.getName());
@@ -131,9 +130,9 @@ public class Director implements Serializable {
 			
 			@Override
 			public boolean evaluate(Declaration lastDeclaration) {
-				return ((Declaration)lastDeclaration).isDeclared();
-			};
-		});
+				return lastDeclaration.isDeclared();
+			}
+        });
 	}
 
 	public Declaration getDeclaration() {
@@ -236,11 +235,11 @@ public class Director implements Serializable {
 	}
 
 	protected Team getWinnerTeam() {
-		int napleonTeamGained = getCardCountNapoleonTeamGained();
-		if(napleonTeamGained == Card.PictureCardCount)
+		int napoleonTeamGained = getCardCountNapoleonTeamGained();
+		if(napoleonTeamGained == Card.PictureCardCount)
 			return Team.AlliedForcesTeam;
 		
-		if(fixedDeclaration.getCardsToCollect() <= napleonTeamGained){
+		if(fixedDeclaration.getCardsToCollect() <= napoleonTeamGained){
 			return Team.NapoleonTeam;
 		} else {
 			return Team.AlliedForcesTeam;

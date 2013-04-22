@@ -42,7 +42,7 @@ public class CardSortTest {
 	
 	@Test
 	public void マークと数字で並び替え確認() {
-		assertThat(card1.isUpperOrderByMarkAndStrength(card2), Is.is(result));
+		assertThat(card1.isUpperOrderBySuitAndStrength(card2), Is.is(result));
 	}
 
 }
