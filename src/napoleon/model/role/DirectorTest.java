@@ -1,30 +1,23 @@
 package napoleon.model.role;
 
-import static org.hamcrest.core.IsEqual.*;
-import static org.junit.Assert.assertThat;
-
-import java.util.ArrayList;
-import java.util.Collection;
-
 import mockit.Expectations;
 import mockit.Mocked;
 import napoleon.model.card.Card;
 import napoleon.model.card.Suit;
-import napoleon.model.player.Adjutant;
 import napoleon.model.player.Napoleon;
 import napoleon.model.player.Player;
-import napoleon.model.rule.Declaration;
-import napoleon.model.rule.Status;
-import napoleon.model.rule.Table;
-import napoleon.model.rule.Turn;
-import napoleon.model.rule.TurnFactory;
-import napoleon.model.rule.TurnStatus;
+import napoleon.model.rule.*;
 import napoleon.view.Viewer;
-
 import org.apache.commons.collections15.CollectionUtils;
 import org.hamcrest.core.IsEqual;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assert.assertThat;
 
 public class DirectorTest {
 	
@@ -35,17 +28,16 @@ public class DirectorTest {
 	@Mocked Player player3;
 	@Mocked Player player4;
 	@Mocked Napoleon napoleon;
-	@Mocked Adjutant adjutant;
-	@Mocked Viewer viewer;
-	private DirectorEx director;
+    @Mocked Viewer viewer;
+	private DirectorTestable director;
 	private Declaration declarationOfClub13 = Declaration.New(Suit.Club, 13);
 	private Declaration declarationOfSpade13 = Declaration.New(Suit.Spade, 13);
 	private Declaration declarationOfHeart14 = Declaration.New(Suit.Heart, 14);
 	
 	@Before
 	public void setUp() {
-		director = (DirectorEx)DirectorEx.NewEx(
-				table, dealer, new Player[]{player1, player2, player3, player4}, viewer);
+		director = DirectorTestable.NewEx(
+                table, dealer, new Player[]{player1, player2, player3, player4}, viewer);
 	}
 	
 	@Test

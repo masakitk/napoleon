@@ -6,7 +6,7 @@ import napoleon.model.rule.Table;
 import napoleon.model.rule.Turn;
 import napoleon.view.Viewer;
 
-public class DirectorEx extends Director {
+public class DirectorTestable extends Director {
 
 	public void setNapoleon(Napoleon napoleon) {
 		this.napoleon = napoleon;
@@ -16,8 +16,8 @@ public class DirectorEx extends Director {
 		this.isNobodyDeclared = isNobodyDeclared;
 	}
 
-	public static DirectorEx NewEx(Table table, Dealer dealer, Player[] players, Viewer viewer) {
-		DirectorEx instance = new DirectorEx();
+	public static DirectorTestable NewEx(Table table, Dealer dealer, Player[] players, Viewer viewer) {
+		DirectorTestable instance = new DirectorTestable();
 		instance.table = table;
 		instance.dealer = dealer;
 		instance.players = players;
