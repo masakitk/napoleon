@@ -1,45 +1,28 @@
 package napoleon.model.rule;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import napoleon.Runner;
 import napoleon.model.card.Card;
 import napoleon.model.card.Suit;
 import napoleon.model.player.Player;
 import napoleon.view.Viewer;
-
 import org.apache.commons.collections15.CollectionUtils;
 import org.apache.commons.collections15.Predicate;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
+import java.util.*;
 
 public class Turn {
 	private HashMap<Player, Card> cardHash = new LinkedHashMap<Player, Card>();
-	private int no;
-	private boolean ignoreSpecial;
+    private boolean ignoreSpecial;
 	public final Suit trump;
-	private Logger _logger = LogManager.getLogger(Runner.class);
-	
-	private Turn(int no, Suit trump) {
+
+    private Turn(int no, Suit trump) {
 		super();
 		this.trump = trump;
 		if(no == 1 || no == 12) {
 			ignoreSpecial = true;
 		}
-		this.no = no;
-	}
-	
-	public int getNo() {
-		return no;
-	}
+    }
 
-	public static Turn New(int no, Suit trump) {
+    public static Turn New(int no, Suit trump) {
 		if(no < 1 || 12 < no) throw new IllegalArgumentException("ターン番号は1以上12以下である必要があります");
 		
 		return new Turn(no, trump);
@@ -94,7 +77,6 @@ public class Turn {
 		}else {
 			Collections.sort(list, Card.getCardNormalComparator(getTrump(), getLeadSuit(), cardHash.values()));
 		}
-//		System.out.println(list.get(getMaxCardIndex()));
 		return list.get(getMaxCardIndex());
 	}
 
@@ -127,10 +109,7 @@ public class Turn {
 	}
 
 	protected boolean isPictureCard(Card card) {
-		return card == null ? false
-				: card.getNumber() == 1 ? true
-				: 10 <= card.getNumber() ? true
-				: false;
+		return card != null && (card.getNumber() == 1 || 10 <= card.getNumber());
 	}
 
 	public boolean isJokerOpenedFirst() {
@@ -149,11 +128,7 @@ public class Turn {
 		return ignoreSpecial;
 	}
 
-	public Collection<Card> getCards() {
-		return cardHash.values();
-	}
-
-	public HashMap<Player, Card> getCardHash() {
+    public HashMap<Player, Card> getCardHash() {
 		return cardHash;
 	}
 
